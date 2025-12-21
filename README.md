@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Alrahma Frontend (Next.js App Router)
 
-## Getting Started
+Production-ready frontend scaffold for Alrahma built with modern Next.js best practices and a scalable, typed architecture.
 
-First, run the development server:
+## Stack
+
+- **Next.js** `15.5.7` (App Router)
+- **TypeScript**
+- **React 18+**
+- **Tailwind CSS** + plugins: `@tailwindcss/forms`, `@tailwindcss/typography`
+- **Dark mode**: Tailwind `class` strategy via `next-themes`
+- **Redux Toolkit**: app state (auth/dashboard/notifications)
+- **TanStack Query**: server state / caching
+- **Axios**: HTTP client
+- **React Hook Form + Zod**: forms + validation
+- **Headless UI**: Dialog/Menu/Tabs primitives
+- **Framer Motion**: animations
+- **TanStack Table**: tables (dashboard demo)
+- **Husky + lint-staged**: pre-commit checks
+- **ESLint + Prettier**: code quality/formatting
+
+## Requirements
+
+- Node **20+**
+- npm (recommended)
+
+## Setup
+
+1. Install dependencies:
+
+```bash
+cd alrahma-front
+npm install
+```
+
+2. Create env file:
+
+- Copy `env.example` → `.env.local`
+- Set a secure `NEXTAUTH_SECRET`
+
+```bash
+copy env.example .env.local
+```
+
+3. Add brand assets (required for the auth screens):
+
+- `public/brand/logo.png`
+- `public/brand/auth-bg.jpg`
+
+4. Run dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev`: start dev server (Turbopack)
+- `npm run build`: production build
+- `npm run start`: start production server
+- `npm run lint`: run ESLint
+- `npm run lint:fix`: fix ESLint issues where possible
+- `npm run format`: format with Prettier
+- `npm run format:check`: check formatting
 
-## Learn More
+## Routes
 
-To learn more about Next.js, take a look at the following resources:
+- `/` Home (marketing)
+- `/login` Login (RTL + Arabic)
+- `/signup` Sign up (RTL + Arabic)
+- `/dashboard` Dashboard (protected by NextAuth middleware)
+- `/profile` Profile (protected)
+- `/settings` Settings (protected, includes dark mode toggle)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Folder structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app/`: Next.js App Router routes/layouts
+  - `src/app/(marketing)/`: public pages
+  - `src/app/(auth)/`: auth pages and shared auth UI
+  - `src/app/(app)/`: protected app pages
+  - `src/app/api/`: route handlers (NextAuth)
+- `src/components/`: reusable UI + layout components
+  - `src/components/ui/`: Tailwind primitives (Button/Input/Card/Modal/Dropdown/Tabs, etc.)
+  - `src/components/layout/`: app shell/top nav/theme toggle
+- `src/store/`: Redux store + slices
+- `src/services/`: Axios + API client patterns + query keys
+- `src/schemas/`: Zod schemas (forms)
+- `src/types/`: TypeScript module augmentations/types (e.g. NextAuth)
+- `styles/`: global styles and Tailwind entry (`styles/globals.css`)
 
-## Deploy on Vercel
+## Auth notes (placeholder)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- NextAuth is configured with a **Credentials** provider that accepts any non-empty email/password (demo behavior).
+- Replace the `authorize()` body in `auth.ts` to call your backend (e.g. `/auth/login`) and return a real user.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Backend integration
+
+Set `NEXT_PUBLIC_API_BASE_URL` in `.env.local` to point the frontend to your backend.

@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/* App theme tokens */
+:root {
+  --background: 255 255 255;
+  --foreground: 23 23 23;
+  --muted: 113 113 122;
+  --card: 255 255 255;
+  --border: 228 228 231;
+
+  /* Alrahma brand colors */
+  --color-primary: #007f5e;
+  --color-secondary: #b4bb5f;
+  --color-dark: #0d0d0d;
+  --color-white: #ffffff;
+  --color-accent: #dfd383;
+  --color-paragraph: rgba(13, 13, 13, 0.7);
+}
+
+/* Tailwind class strategy for dark mode (next-themes sets .dark on <html>) */
+.dark {
+  --background: 10 10 10;
+  --foreground: 237 237 237;
+  --muted: 161 161 170;
+  --card: 17 17 17;
+  --border: 39 39 42;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: rgb(var(--background));
+  color: rgb(var(--foreground));
+}
