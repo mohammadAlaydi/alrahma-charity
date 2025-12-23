@@ -25,7 +25,7 @@ const molle = Molle({
 
 const playpenSans = Playpen_Sans({
   variable: "--font-playpen-sans",
-  subsets: ["arabic", "latin"],
+  subsets: ["latin"],
   weight: ["400"],
 });
 
