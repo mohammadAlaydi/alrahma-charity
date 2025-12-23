@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthCard } from "../_components/AuthCard";
 import { Button } from "@/components/ui/Button";
 import { TextInput } from "@/components/ui/TextInput";
-import { PasswordInput } from "@/components/ui/PasswordInput";
 import { addToast } from "@/store/slices/notificationsSlice";
 import { useAppDispatch } from "@/store/hooks";
 import { signupSchema, type SignupValues } from "@/schemas/auth";

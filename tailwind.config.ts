@@ -16,6 +16,18 @@ export default {
       fontFamily: {
         cairo: ["var(--font-cairo)", "sans-serif"],
         alexandria: ["var(--font-alexandria)", "sans-serif"],
+        molle: ["var(--font-molle)", "cursive"],
+        "playpen-sans": ["var(--font-playpen-sans)", "sans-serif"],
+      },
+      keyframes: {
+        "fav-burst": {
+          "0%": { transform: "translateY(0px) scale(0.5)", opacity: "0.4" },
+          "30%": { transform: "translateY(-12px) scale(1.1)", opacity: "0.6" },
+          "100%": { transform: "translateY(-32px) scale(0.7)", opacity: "0" },
+        },
+      },
+      animation: {
+        "fav-burst": "fav-burst 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
       },
       colors: {
         brand: {

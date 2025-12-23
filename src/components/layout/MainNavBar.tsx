@@ -16,7 +16,7 @@ const navItems: NavItem[] = [
   { label: "الصدقات", href: "#" },
   { label: "الكفالات", href: "#" },
   { label: "زكاه", href: "#" },
-  { label: "المشاريع", href: "#" },
+  { label: "المشاريع", href: "/projects" },
   { label: "من نحن", href: "/about" },
   { label: "الرئيسية", href: "/" },
 ];

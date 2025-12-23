@@ -2,15 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Globe,
-  Facebook,
-  Youtube,
-  Twitter,
-  Linkedin,
-  HandHeart,
-  HeartHandshake,
-} from "lucide-react";
+import { Globe, HandHeart, HeartHandshake } from "lucide-react";
 
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/cn";

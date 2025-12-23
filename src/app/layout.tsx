@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cairo, Alexandria } from "next/font/google";
+import { Cairo, Alexandria, Molle, Playpen_Sans } from "next/font/google";
 
 import "../../styles/globals.css";
 import { Providers } from "./providers";
@@ -17,6 +17,18 @@ const alexandria = Alexandria({
   weight: ["400", "500", "600", "700"],
 });
 
+const molle = Molle({
+  variable: "--font-molle",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+const playpenSans = Playpen_Sans({
+  variable: "--font-playpen-sans",
+  subsets: ["arabic", "latin"],
+  weight: ["400"],
+});
+
 export const metadata: Metadata = {
   title: "Alrahma",
   description: "Alrahma web application",
@@ -29,7 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="ltr">
-      <body className={`${cairo.variable} ${alexandria.variable} antialiased`}>
+      <body
+        className={`${cairo.variable} ${alexandria.variable} ${molle.variable} ${playpenSans.variable} font-alexandria antialiased`}
+      >
         <Providers>
           <ConditionalSiteHeader />
           {children}

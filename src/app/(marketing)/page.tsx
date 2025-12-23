@@ -3,10 +3,13 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { CampaignHeader } from "@/components/ui/CampaignHeader";
 
 export default function MarketingHomePage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
+      <CampaignHeader />
+
       <Container className="py-10">
         <Card className="p-8">
           <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
