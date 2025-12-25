@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import { Container } from "@/components/ui/Container";
-import { Card } from "@/components/ui/Card";
 import { CampaignCategoryId, CampaignHeader } from "@/components/ui/CampaignHeader";
 import { CampaignHeadline } from "@/components/ui/CampaignHeadline";
+import { getCampaigns, type Campaign } from "@/services/api/campaigns";
+import { queryKeys } from "@/services/queryKeys";
 
 type Project = {
   id: string;
@@ -36,57 +38,39 @@ function HeartIcon({ isFav }: { isFav: boolean }) {
   );
 }
 
-const PROJECTS: Project[] = [
-  {
-    id: "p1",
-    title: "حفر 5 آبار مياه في شمال غزة",
+/**
+ * Transform backend Campaign to frontend Project format
+ */
+function transformCampaignToProject(campaign: Campaign): Project {
+  // Map project target_category to frontend category
+  // If project_id is populated, use its target_category, otherwise default
+  const projectCategory =
+    typeof campaign.project_id === "object" && campaign.project_id
+      ? (campaign.project_id as { target_category?: string }).target_category
+      : undefined;
+
+  // Map backend category to frontend category
+  const categoryMap: Record<string, CampaignCategoryId> = {
+    emergency: "emergency",
+    education: "education",
+    humanitarian: "humanitarian",
+    orphans: "orphans",
+    medical: "medical",
+  };
+
+  const category: CampaignCategoryId =
+    (projectCategory && categoryMap[projectCategory]) || "humanitarian";
+
+  return {
+    id: campaign._id,
+    title: campaign.title_ar || campaign.title_en || campaign.title_tr || "",
     description:
-      "أدت الحرب المستمرة في غزة إلى تدمير واسع لشبكات المياه وانقطاعها عن آلاف العائلات، خصوصاً في شمال القطاع الذي يعاني من النزوح...",
-    category: "emergency",
-    goal: 100_000,
-    collected: 3_261,
-  },
-  {
-    id: "p2",
-    title: "برنامج كفالة الطلاب المتضرّرين",
-    description: "دعم تعليم الأطفال في غزة لضمان استمرارهم في الدراسة رغم الظروف الإنسانية الصعبة.",
-    category: "education",
-    goal: 80_000,
-    collected: 12_500,
-  },
-  {
-    id: "p3",
-    title: "سلال غذائية عاجلة للعائلات النازحة",
-    description: "تأمين سلال غذائية ومستلزمات معيشية للعائلات التي فقدت منازلها ومصدر رزقها.",
-    category: "humanitarian",
-    goal: 60_000,
-    collected: 25_300,
-  },
-  {
-    id: "p4",
-    title: "حملة كسوة الأيتام",
-    description: "تأمين الملابس والاحتياجات الأساسية للأيتام في قطاع غزة.",
-    category: "orphans",
-    goal: 50_000,
-    collected: 9_750,
-  },
-  {
-    id: "p5",
-    title: "تجهيز عيادة ميدانية متنقلة",
-    description: "عيادة طبية متنقلة لتقديم الرعاية الطبية العاجلة في المناطق الأكثر تضررًا.",
-    category: "medical",
-    goal: 120_000,
-    collected: 18_900,
-  },
-  {
-    id: "p6",
-    title: "صندوق دعم الحالات الأشد احتياجًا",
-    description: "صندوق مرن يستجيب لأشد الحالات إلحاحًا في مختلف مجالات الدعم والإغاثة.",
-    category: "humanitarian",
-    goal: 150_000,
-    collected: 33_400,
-  },
-];
+      campaign.description_ar || campaign.description_en || campaign.description_tr || "",
+    category,
+    goal: campaign.financial_goal || 0,
+    collected: campaign.current_amount || 0,
+  };
+}
 
 function formatCurrency(value: number) {
   return value.toLocaleString("en-US", {
@@ -101,10 +85,33 @@ export function CampaignsSection() {
   const [favoriteBursts, setFavoriteBursts] = useState<Record<string, boolean>>({});
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  // Fetch campaigns from API (with fallback to mock data)
+  const {
+    data: campaignsData,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: queryKeys.campaigns.list({ page: currentPage, limit: 20 }),
+    queryFn: () => getCampaigns({ page: currentPage, limit: 20 }),
+    retry: 1, // Only retry once
+    retryDelay: 1000,
+    staleTime: 0, // Always consider data stale in development
+    gcTime: 0, // Don't cache in development
+  });
+
+  // Transform campaigns to projects format
+  const projects = useMemo(() => {
+    if (!campaignsData?.data) return [];
+    // Ensure data is an array
+    const dataArray = Array.isArray(campaignsData.data) ? campaignsData.data : [];
+    return dataArray.map(transformCampaignToProject);
+  }, [campaignsData]);
+
   const filteredProjects = useMemo(() => {
-    if (activeCategory === "all") return PROJECTS;
-    return PROJECTS.filter((p) => p.category === activeCategory);
-  }, [activeCategory]);
+    if (activeCategory === "all") return projects;
+    return projects.filter((p) => p.category === activeCategory);
+  }, [activeCategory, projects]);
 
   const toggleFavorite = (id: string) => {
     setFavorites((prev) => {
@@ -130,129 +137,155 @@ export function CampaignsSection() {
       {/* الكروت أسفل الفلاتر مباشرة */}
       <div className="mt-10">
         <Container>
-          <div className="grid justify-center gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredProjects.map((project) => {
-              const progress = Math.min((project.collected / project.goal) * 100, 100);
-              const isFav = !!favorites[project.id];
-              const isBursting = !!favoriteBursts[project.id];
+          {/* Loading state */}
+          {isLoading && (
+            <div className="flex items-center justify-center py-20">
+              <div className="text-lg text-gray-600">جاري تحميل الحملات...</div>
+            </div>
+          )}
 
-              return (
-                <div
-                  key={project.id}
-                  className="flex h-full w-full max-w-[410px] flex-col overflow-hidden rounded-[20px] border border-zinc-200 bg-white shadow-none transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.16)] md:min-h-[640px] md:w-[410px]"
-                >
-                  {/* صورة Placeholder أعلى الكرت مع الطبقة العلوية (Heart + تصنيف المشروع) */}
-                  <div className="relative h-[329px] w-full overflow-hidden rounded-t-[20px] bg-zinc-200">
-                    {/* نص Donate image كـ placeholder (Molle 36 white) */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="font-molle text-center text-[36px] font-normal text-white">
-                        Donate image
-                      </span>
-                    </div>
+          {/* Error state */}
+          {isError && (
+            <div className="flex items-center justify-center py-20">
+              <div className="text-lg text-red-600">
+                حدث خطأ في تحميل الحملات: {error instanceof Error ? error.message : "خطأ غير معروف"}
+              </div>
+            </div>
+          )}
 
-                    <div className="absolute inset-x-5 top-4 z-10 flex items-center justify-between">
-                      {/* تصنيف المشروع */}
-                      <div className="inline-flex items-center gap-2 rounded-full border border-white bg-[#007F5E] px-4 py-2">
-                        <span className="card-badge">تصنيف المشروع</span>
+          {/* Empty state */}
+          {!isLoading && !isError && filteredProjects.length === 0 && (
+            <div className="flex items-center justify-center py-20">
+              <div className="text-lg text-gray-600">لا توجد حملات متاحة</div>
+            </div>
+          )}
+
+          {/* Campaigns grid */}
+          {!isLoading && !isError && filteredProjects.length > 0 && (
+            <div className="grid justify-center gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {filteredProjects.map((project) => {
+                const progress = Math.min((project.collected / project.goal) * 100, 100);
+                const isFav = !!favorites[project.id];
+                const isBursting = !!favoriteBursts[project.id];
+
+                return (
+                  <div
+                    key={project.id}
+                    className="flex h-full w-full max-w-[410px] flex-col overflow-hidden rounded-[20px] border border-zinc-200 bg-white shadow-none transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.16)] md:min-h-[640px] md:w-[410px]"
+                  >
+                    {/* صورة Placeholder أعلى الكرت مع الطبقة العلوية (Heart + تصنيف المشروع) */}
+                    <div className="relative h-[329px] w-full overflow-hidden rounded-t-[20px] bg-zinc-200">
+                      {/* نص Donate image كـ placeholder (Molle 36 white) */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="font-molle text-center text-[36px] font-normal text-white">
+                          Donate image
+                        </span>
                       </div>
 
-                      {/* Heart button - مفضّلة */}
-                      <button
-                        type="button"
-                        onClick={() => toggleFavorite(project.id)}
-                        aria-label={isFav ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
-                        aria-pressed={isFav}
-                        className={`flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-[#E9E9F2] transition ${
-                          isFav ? "scale-105" : ""
-                        }`}
-                      >
-                        <span className="relative inline-flex h-5 w-5 items-center justify-center">
-                          {isBursting && (
-                            <>
-                              <span className="animate-fav-burst pointer-events-none absolute -top-3 -right-2 h-3 w-3 opacity-40 will-change-transform">
-                                <HeartIcon isFav />
-                              </span>
-                              <span
-                                className="animate-fav-burst pointer-events-none absolute -top-2 -left-2 h-3 w-3 opacity-40 will-change-transform"
-                                style={{ animationDelay: "80ms" }}
-                              >
-                                <HeartIcon isFav />
-                              </span>
-                              <span
-                                className="animate-fav-burst pointer-events-none absolute -right-3 -bottom-1 h-3 w-3 opacity-40 will-change-transform"
-                                style={{ animationDelay: "140ms" }}
-                              >
-                                <HeartIcon isFav />
-                              </span>
-                            </>
-                          )}
-                          <HeartIcon isFav={isFav} />
-                        </span>
-                      </button>
-                    </div>
-                  </div>
+                      <div className="absolute inset-x-5 top-4 z-10 flex items-center justify-between">
+                        {/* تصنيف المشروع */}
+                        <div className="inline-flex items-center gap-2 rounded-full border border-white bg-[#007F5E] px-4 py-2">
+                          <span className="card-badge">تصنيف المشروع</span>
+                        </div>
 
-                  <div className="flex flex-1 flex-col gap-4 bg-white p-5">
-                    {/* العنوان والوصف المختصر مع أيقونة الوصف */}
-                    <div className="space-y-3">
-                      <h3 className="card-title">{project.title}</h3>
-                      <div className="flex items-start gap-2">
-                        <span className="mt-[2px] inline-flex h-5 w-5 shrink-0 items-center justify-center">
+                        {/* Heart button - مفضّلة */}
+                        <button
+                          type="button"
+                          onClick={() => toggleFavorite(project.id)}
+                          aria-label={isFav ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
+                          aria-pressed={isFav}
+                          className={`flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-[#E9E9F2] transition ${
+                            isFav ? "scale-105" : ""
+                          }`}
+                        >
+                          <span className="relative inline-flex h-5 w-5 items-center justify-center">
+                            {isBursting && (
+                              <>
+                                <span className="animate-fav-burst pointer-events-none absolute -top-3 -right-2 h-3 w-3 opacity-40 will-change-transform">
+                                  <HeartIcon isFav />
+                                </span>
+                                <span
+                                  className="animate-fav-burst pointer-events-none absolute -top-2 -left-2 h-3 w-3 opacity-40 will-change-transform"
+                                  style={{ animationDelay: "80ms" }}
+                                >
+                                  <HeartIcon isFav />
+                                </span>
+                                <span
+                                  className="animate-fav-burst pointer-events-none absolute -right-3 -bottom-1 h-3 w-3 opacity-40 will-change-transform"
+                                  style={{ animationDelay: "140ms" }}
+                                >
+                                  <HeartIcon isFav />
+                                </span>
+                              </>
+                            )}
+                            <HeartIcon isFav={isFav} />
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-1 flex-col gap-4 bg-white p-5">
+                      {/* العنوان والوصف المختصر مع أيقونة الوصف */}
+                      <div className="space-y-3">
+                        <h3 className="card-title">{project.title}</h3>
+                        <div className="flex items-start gap-2">
+                          <span className="mt-[2px] inline-flex h-5 w-5 shrink-0 items-center justify-center">
+                            <Image
+                              src="/mage_goals-fill.svg"
+                              alt="وصف الحملة"
+                              width={20}
+                              height={20}
+                              className="h-5 w-5"
+                            />
+                          </span>
+                          <p className="card-description">{project.description}</p>
+                        </div>
+                      </div>
+
+                      {/* شريط التقدم والنِسب */}
+                      <div className="space-y-2">
+                        <div className="card-stats flex items-center justify-between font-bold">
+                          <span>التبرعات</span>
+                          <span>{progress.toFixed(2)}%</span>
+                        </div>
+                        <div className="relative h-2 w-full overflow-hidden rounded-full bg-[#D9D9D9]/40">
+                          <div
+                            className="absolute top-0 right-0 h-full rounded-full bg-[#007F5E]"
+                            style={{ width: `${progress}%` }}
+                          />
+                        </div>
+                        <div className="card-stats mt-1 flex items-center justify-between">
+                          <span className="font-medium">
+                            المبلغ المُجمَّع : {formatCurrency(project.collected)}
+                          </span>
+                          <span className="font-bold text-[#B4BB5F]">
+                            الهدف : ${formatCurrency(project.goal)}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* زر التبرع - مثبت في أسفل الكرت وبمحاذاة الزاوية اليمنى */}
+                      <div className="mt-auto -mb-5 -ml-6 flex items-end justify-end">
+                        <button
+                          type="button"
+                          className="card-button inline-flex items-center gap-2 rounded-tr-xl rounded-bl-lg bg-[#007F5E] px-5 py-2 text-white transition-colors hover:bg-[#056A4F] focus-visible:ring-2 focus-visible:ring-[#007F5E]/40 focus-visible:outline-none"
+                        >
+                          <span>تبرع الآن</span>
                           <Image
-                            src="/mage_goals-fill.svg"
-                            alt="وصف الحملة"
+                            src="/double hearts.svg"
+                            alt="تبرع"
                             width={20}
-                            height={20}
+                            height={21}
                             className="h-5 w-5"
                           />
-                        </span>
-                        <p className="card-description">{project.description}</p>
+                        </button>
                       </div>
-                    </div>
-
-                    {/* شريط التقدم والنِسب */}
-                    <div className="space-y-2">
-                      <div className="card-stats flex items-center justify-between font-bold">
-                        <span>التبرعات</span>
-                        <span>{progress.toFixed(2)}%</span>
-                      </div>
-                      <div className="relative h-2 w-full overflow-hidden rounded-full bg-[#D9D9D9]/40">
-                        <div
-                          className="absolute top-0 right-0 h-full rounded-full bg-[#007F5E]"
-                          style={{ width: `${progress}%` }}
-                        />
-                      </div>
-                      <div className="card-stats mt-1 flex items-center justify-between">
-                        <span className="font-medium">
-                          المبلغ المُجمَّع : {formatCurrency(project.collected)}
-                        </span>
-                        <span className="font-bold text-[#B4BB5F]">
-                          الهدف : ${formatCurrency(project.goal)}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* زر التبرع - مثبت في أسفل الكرت وبمحاذاة الزاوية اليمنى */}
-                    <div className="mt-auto -mb-5 -ml-6 flex items-end justify-end">
-                      <button
-                        type="button"
-                        className="card-button inline-flex items-center gap-2 rounded-tr-xl rounded-bl-lg bg-[#007F5E] px-5 py-2 text-white transition-colors hover:bg-[#056A4F] focus-visible:ring-2 focus-visible:ring-[#007F5E]/40 focus-visible:outline-none"
-                      >
-                        <span>تبرع الآن</span>
-                        <Image
-                          src="/double hearts.svg"
-                          alt="تبرع"
-                          width={20}
-                          height={21}
-                          className="h-5 w-5"
-                        />
-                      </button>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
 
           {/* Pagination */}
           <div className="mt-10 flex items-center justify-center gap-2" dir="rtl">
@@ -280,26 +313,27 @@ export function CampaignsSection() {
             </button>
 
             {/* Page numbers */}
-            {[1, 2, 3, 4].map((page) => (
-              <button
-                key={page}
-                type="button"
-                onClick={() => setCurrentPage(page)}
-                className={`flex h-[35px] w-[35px] items-center justify-center rounded-full border text-sm font-medium transition ${
-                  page === currentPage
-                    ? "border-[#B4BB5F] bg-[#B4BB5F] text-white"
-                    : "border-[#D4D4D4] bg-white text-[#474747]"
-                }`}
-              >
-                {page}
-              </button>
-            ))}
+            {campaignsData &&
+              Array.from({ length: campaignsData.totalPages || 1 }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  type="button"
+                  onClick={() => setCurrentPage(page)}
+                  className={`flex h-[35px] w-[35px] items-center justify-center rounded-full border text-sm font-medium transition ${
+                    page === currentPage
+                      ? "border-[#B4BB5F] bg-[#B4BB5F] text-white"
+                      : "border-[#D4D4D4] bg-white text-[#474747]"
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
 
             {/* Next */}
             <button
               type="button"
-              onClick={() => setCurrentPage((p) => Math.min(4, p + 1))}
-              disabled={currentPage === 4}
+              onClick={() => setCurrentPage((p) => Math.min(campaignsData?.totalPages || 1, p + 1))}
+              disabled={currentPage >= (campaignsData?.totalPages || 1)}
               aria-label="الصفحة التالية"
               className={`flex h-[35px] w-[35px] items-center justify-center rounded-full border text-white transition ${
                 currentPage === 4

@@ -53,7 +53,7 @@ copy env.example .env.local
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:3001` (frontend runs on port 3001, backend on port 3000).
 
 ## Scripts
 
@@ -97,7 +97,13 @@ Open `http://localhost:3000`.
 
 ## Backend integration
 
-Set `NEXT_PUBLIC_API_BASE_URL` in `.env.local` to point the frontend to your backend.
+Set `NEXT_PUBLIC_API_BASE_URL` in `.env.local` to point the frontend to your backend (default: `http://localhost:3000`).
+
+**Port Configuration:**
+
+- Frontend: `http://localhost:3001`
+- Backend: `http://localhost:3000`
+- The frontend automatically connects to the backend on port 3000 via `NEXT_PUBLIC_API_BASE_URL`.
 
 ## Figma Design Implementation
 

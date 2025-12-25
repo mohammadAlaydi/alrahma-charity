@@ -1,13 +1,19 @@
-import { http } from "@/services/http";
+import { get } from "./http";
 
 export type HealthResponse = {
   ok: boolean;
   timestamp: string;
 };
 
+/**
+ * Health check endpoint
+ * GET /api/v1/health
+ */
 export async function getHealth(): Promise<HealthResponse> {
-  // If your backend exposes /health or /api/health, update this path later.
-  // For now this endpoint may 404; it's just here to demonstrate React Query patterns.
-  const { data } = await http.get<HealthResponse>("/health");
-  return data;
+  return get<HealthResponse>("/health");
 }
+
+// Re-export API modules for convenience
+export * from "./api/auth";
+export * from "./api/campaigns";
+export * from "./api/donations";
