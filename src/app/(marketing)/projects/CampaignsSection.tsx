@@ -137,9 +137,9 @@ export function CampaignsSection() {
               const isBursting = !!favoriteBursts[project.id];
 
               return (
-                <Card
+                <div
                   key={project.id}
-                  className="flex h-full w-full max-w-[410px] flex-col overflow-hidden rounded-[20px] !border !border-zinc-200 bg-white shadow-none transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.16)] md:min-h-[640px] md:w-[410px]"
+                  className="flex h-full w-full max-w-[410px] flex-col overflow-hidden rounded-[20px] border border-zinc-200 bg-white shadow-none transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.16)] md:min-h-[640px] md:w-[410px]"
                 >
                   {/* صورة Placeholder أعلى الكرت مع الطبقة العلوية (Heart + تصنيف المشروع) */}
                   <div className="relative h-[329px] w-full overflow-hidden rounded-t-[20px] bg-zinc-200">
@@ -152,8 +152,8 @@ export function CampaignsSection() {
 
                     <div className="absolute inset-x-5 top-4 z-10 flex items-center justify-between">
                       {/* تصنيف المشروع */}
-                      <div className="inline-flex items-center gap-2 rounded-full border border-white bg-[#007F5E] px-4 py-2 text-xs text-white">
-                        <span>تصنيف المشروع</span>
+                      <div className="inline-flex items-center gap-2 rounded-full border border-white bg-[#007F5E] px-4 py-2">
+                        <span className="card-badge">تصنيف المشروع</span>
                       </div>
 
                       {/* Heart button - مفضّلة */}
@@ -192,11 +192,11 @@ export function CampaignsSection() {
                     </div>
                   </div>
 
-                  <div className="font-alexandria flex flex-1 flex-col gap-4 bg-white p-5">
+                  <div className="flex flex-1 flex-col gap-4 bg-white p-5">
                     {/* العنوان والوصف المختصر مع أيقونة الوصف */}
                     <div className="space-y-3">
-                      <h3 className="text-[20px] font-medium text-[#122F2A]">{project.title}</h3>
-                      <div className="flex items-start gap-2 text-[16px] leading-6 font-light text-[#122F2A]">
+                      <h3 className="card-title">{project.title}</h3>
+                      <div className="flex items-start gap-2">
                         <span className="mt-[2px] inline-flex h-5 w-5 shrink-0 items-center justify-center">
                           <Image
                             src="/mage_goals-fill.svg"
@@ -206,13 +206,13 @@ export function CampaignsSection() {
                             className="h-5 w-5"
                           />
                         </span>
-                        <p>{project.description}</p>
+                        <p className="card-description">{project.description}</p>
                       </div>
                     </div>
 
                     {/* شريط التقدم والنِسب */}
                     <div className="space-y-2">
-                      <div className="flex items-center justify-between text-[16px] font-bold text-[#122F2A]">
+                      <div className="card-stats flex items-center justify-between font-bold">
                         <span>التبرعات</span>
                         <span>{progress.toFixed(2)}%</span>
                       </div>
@@ -222,7 +222,7 @@ export function CampaignsSection() {
                           style={{ width: `${progress}%` }}
                         />
                       </div>
-                      <div className="mt-1 flex items-center justify-between text-[16px] text-[#122F2A]">
+                      <div className="card-stats mt-1 flex items-center justify-between">
                         <span className="font-medium">
                           المبلغ المُجمَّع : {formatCurrency(project.collected)}
                         </span>
@@ -236,7 +236,7 @@ export function CampaignsSection() {
                     <div className="mt-auto -mb-5 -ml-6 flex items-end justify-end">
                       <button
                         type="button"
-                        className="inline-flex items-center gap-2 rounded-tr-xl rounded-bl-lg bg-[#007F5E] px-5 py-2 text-[16px] font-semibold text-white transition-colors hover:bg-[#056A4F] focus-visible:ring-2 focus-visible:ring-[#007F5E]/40 focus-visible:outline-none"
+                        className="card-button inline-flex items-center gap-2 rounded-tr-xl rounded-bl-lg bg-[#007F5E] px-5 py-2 text-white transition-colors hover:bg-[#056A4F] focus-visible:ring-2 focus-visible:ring-[#007F5E]/40 focus-visible:outline-none"
                       >
                         <span>تبرع الآن</span>
                         <Image
@@ -249,7 +249,7 @@ export function CampaignsSection() {
                       </button>
                     </div>
                   </div>
-                </Card>
+                </div>
               );
             })}
           </div>
@@ -320,11 +320,9 @@ export function CampaignsSection() {
           </div>
 
           {/* About-style headline section after pagination */}
-          <div className="mt-40 flex flex-col items-center gap-2" dir="rtl">
+          <div className="mt-40 flex flex-col items-center gap-0" dir="rtl">
             <CampaignHeadline />
-            <h2 className="font-alexandria text-center text-[32px] leading-[45px] font-semibold text-[#122F2A]">
-              كن سببا في ابتسامة شخص ما
-            </h2>
+            <h2 className="section-title-large h-12">كن سببا في ابتسامة شخص ما</h2>
           </div>
         </Container>
       </div>

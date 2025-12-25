@@ -15,29 +15,25 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageHeaderProps) {
   return (
-    <div className="flex w-full max-w-[341px] flex-col gap-2 text-right" dir="rtl">
-      {/* Frame 15 - Heading with icon (icon before text in RTL) */}
+    <div className="flex w-[341px] flex-col" dir="rtl">
+      {/* Frame 15 - Subtitle with icon (271x30) - positioned at x=35 */}
       {subtitle && (
-        <div className="flex w-[271px] items-center gap-[5px]">
-          {subtitleIcon && (
-            <div className="flex h-7 w-7 shrink-0 items-center justify-center">
-              <Image src={subtitleIcon} alt="" width={28} height={28} className="h-7 w-7" />
-            </div>
-          )}
-          <h2 className="text-right text-[20px] leading-[30px] font-normal text-[#B4BB5F]">
-            {subtitle}
-          </h2>
+        <div className="mx-auto mr-[35px] mb-4 flex h-[30px] items-center gap-[5px] whitespace-nowrap">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center">
+            <Image src={subtitleIcon || ""} alt="" width={28} height={28} className="h-7 w-7" />
+          </div>
+          <h2 className="hero-subtitle text-right whitespace-nowrap">{subtitle}</h2>
         </div>
       )}
 
-      {/* Main text - larger heading */}
-      <h1 className="font-alexandria w-full text-center text-[58px] leading-[58px] font-semibold text-[#0D0D0D]">
+      {/* Main title - 341x93 - full width */}
+      <h1 className="hero-title flex h-[93px] w-full items-center justify-center text-center">
         {title}
       </h1>
 
-      {/* Frame 16 - Breadcrumb navigation (centered) */}
+      {/* Frame 17 - Breadcrumbs (235x30) - positioned at x=53 */}
       {breadcrumbs && breadcrumbs.length > 0 && (
-        <div className="mx-auto flex w-[214px] items-center gap-[10px]">
+        <div className="mx-auto mt-2 mr-[53px] flex h-[30px] w-[235px] items-center gap-[10px]">
           <div className="flex items-center gap-[5px]">
             <div className="flex h-6 w-6 shrink-0 items-center justify-center">
               <Image
@@ -50,13 +46,10 @@ export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageH
             </div>
             {breadcrumbs.map((crumb, index) => (
               <div key={index} className="flex items-center gap-[5px]">
-                <Link
-                  href={crumb.href}
-                  className="text-right text-[16px] leading-[30px] font-normal text-[#B4BB5F] hover:underline"
-                >
+                <Link href={crumb.href} className="breadcrumb-text text-right hover:underline">
                   {crumb.label}
                 </Link>
-                {index < breadcrumbs.length - 1 && (
+                {index === 0 && breadcrumbs.length > 1 && (
                   <div className="flex h-6 w-6 shrink-0 items-center justify-center">
                     <Image
                       src="/emojis/left arrow.svg"

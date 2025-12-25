@@ -21,8 +21,7 @@ export function Dropdown({
       </MenuButton>
       <MenuItems
         className={cn(
-          "absolute z-50 mt-2 w-56 rounded-2xl border border-zinc-200 bg-white p-1 shadow-lg",
-          "dark:border-zinc-700 dark:bg-zinc-900",
+          "absolute z-50 mt-2 w-56 rounded-lg border border-[#007F5E]/20 bg-white p-1 shadow-lg",
           align === "start" ? "left-0" : "right-0",
         )}
       >
@@ -48,9 +47,9 @@ export function DropdownItem({
           type="button"
           onClick={onClick}
           className={cn(
-            "flex w-full items-center rounded-xl px-3 py-2 text-sm",
-            active ? "bg-zinc-950/5 dark:bg-white/10" : "",
-            destructive ? "text-rose-600 dark:text-rose-400" : "text-zinc-900 dark:text-zinc-50",
+            "dropdown-item flex w-full items-center rounded-lg px-3 py-2 transition-colors",
+            active ? "bg-[#007F5E]/10 text-[#007F5E]" : "text-[#0D0D0D]",
+            destructive ? "text-rose-600" : "",
           )}
         >
           {children}

@@ -98,3 +98,21 @@ Open `http://localhost:3000`.
 ## Backend integration
 
 Set `NEXT_PUBLIC_API_BASE_URL` in `.env.local` to point the frontend to your backend.
+
+## Figma Design Implementation
+
+**📋 IMPORTANT:** When implementing designs from Figma, refer to the comprehensive design system guide:
+
+- **Full Guide:** [`docs/FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md`](./docs/FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md)
+- **Quick Reference:** [`docs/FIGMA_QUICK_REFERENCE.md`](./docs/FIGMA_QUICK_REFERENCE.md)
+
+### Key Points:
+
+- Use Alexandria font with weights [400, 500, 600, 700]
+- Navbar items use `font-weight: 500` (NOT 400)
+- Line-heights must match Figma exactly (e.g., 26px for navbar, not 24px)
+- Container max-width: 1280px with 320px horizontal padding
+- RTL layout: Add `dir="rtl"` to HTML tag
+- Use exact color hex values from the design system
+
+**For Cursor AI:** When importing Figma designs, always reference the guide first to ensure pixel-perfect implementation.

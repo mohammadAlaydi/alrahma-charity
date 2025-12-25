@@ -19,6 +19,13 @@ export default {
         molle: ["var(--font-molle)", "cursive"],
         "playpen-sans": ["var(--font-playpen-sans)", "sans-serif"],
       },
+      fontSize: {
+        // Typography tokens matching Figma exactly
+        navbar: ["16px", { lineHeight: "26px", fontWeight: "500" }],
+        subtitle: ["20px", { lineHeight: "30px", fontWeight: "400" }],
+        "main-title": ["58px", { lineHeight: "58px", fontWeight: "600" }],
+        breadcrumb: ["16px", { lineHeight: "30px", fontWeight: "400" }],
+      },
       keyframes: {
         "fav-burst": {
           "0%": { transform: "translateY(0px) scale(0.5)", opacity: "0.4" },

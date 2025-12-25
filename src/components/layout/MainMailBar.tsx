@@ -2,17 +2,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Globe, HandHeart, HeartHandshake } from "lucide-react";
+import { Globe, HandHeart } from "lucide-react";
 
 import { Container } from "@/components/ui/Container";
+import { Dropdown, DropdownItem } from "@/components/ui/dropdown/Dropdown";
 import { cn } from "@/lib/cn";
 
 function TopPillButton({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <button
-      type="button"
-      className={cn("flex items-center gap-[5px] text-[16px] leading-[20px] text-white", className)}
-    >
+    <button type="button" className={cn("topbar-text flex items-center gap-[5px]", className)}>
       {children}
     </button>
   );
@@ -22,53 +20,79 @@ export function MainMailBar() {
   return (
     <div className="w-full bg-[#007F5E]">
       <Container className="flex h-[50px] items-center justify-between">
-        {/* Left: currency, language, social */}
-        <div className="flex items-center gap-12">
-          <div className="flex items-center gap-[10px]">
-            <TopPillButton>
-              <Image
-                src="/emojis/weui_arrow-outlined.svg"
-                alt=""
-                width={18}
-                height={9}
-                className="h-[9px] w-[18px] rotate-90"
-              />
-              <span>دولار أمريكي (USD)</span>
-            </TopPillButton>
-            <TopPillButton>
-              <Image
-                src="/emojis/weui_arrow-outlined.svg"
-                alt=""
-                width={18}
-                height={9}
-                className="h-[9px] w-[18px] rotate-90"
-              />
-              <span>الانجليزيه</span>
-              <Globe className="h-6 w-6 text-white" strokeWidth={1.5} />
-            </TopPillButton>
-          </div>
+        {/* Right: support links */}
+        <div className="flex items-center gap-10">
+          <Link href="#" className="topbar-text flex items-center gap-[5px]">
+            <span>كيف تتبرع؟</span>
+            <HandHeart className="h-6 w-6 text-white" strokeWidth={1.5} />
+          </Link>
+          <Link href="#" className="topbar-text">
+            السياسة والخصوصية
+          </Link>
         </div>
 
         {/* Middle: promoter */}
         <div className="flex items-center gap-[10px]">
-          <span className="text-[16px] leading-[20px] text-white">
-            هل أنت مستعد لمساعدتهم؟ لنصبح متطوعين
-          </span>
-          <HeartHandshake className="h-6 w-6 text-white" strokeWidth={1.5} />
+          <Image src="/emojis/give hart 1.png" alt="" width={24} height={24} className="h-6 w-6" />
+          <span className="topbar-promo">هل أنت مستعد لمساعدتهم؟ لنصبح متطوعين</span>
         </div>
 
-        {/* Right: support links */}
-        <div className="flex items-center gap-10">
-          <Link href="#" className="text-[16px] leading-[24px] text-white">
-            السياسة والخصوصية
-          </Link>
-          <Link
-            href="#"
-            className="flex items-center gap-[5px] text-[16px] leading-[24px] text-white"
-          >
-            <span>كيف تتبرع؟</span>
-            <HandHeart className="h-6 w-6 text-white" strokeWidth={1.5} />
-          </Link>
+        {/* Left: currency, language, social */}
+        <div className="flex items-center gap-12">
+          <div className="flex items-center gap-[10px]">
+            {/* Language Dropdown */}
+            <Dropdown
+              button={
+                <TopPillButton>
+                  <Globe className="h-6 w-6 text-white" strokeWidth={1.5} />
+                  <span>الانجليزيه</span>
+                  <Image
+                    src="/emojis/weui_arrow-outlined.svg"
+                    alt=""
+                    width={18}
+                    height={9}
+                    className="h-[9px] w-[18px]"
+                  />
+                </TopPillButton>
+              }
+              align="start"
+            >
+              <DropdownItem onClick={() => console.log("English selected")}>
+                الانجليزيه
+              </DropdownItem>
+              <DropdownItem onClick={() => console.log("Arabic selected")}>العربية</DropdownItem>
+              <DropdownItem onClick={() => console.log("Turkish selected")}>التركية</DropdownItem>
+            </Dropdown>
+
+            {/* Currency Dropdown */}
+            <Dropdown
+              button={
+                <TopPillButton>
+                  <span>(USD)</span>
+                  <span>دولار أمريكي</span>
+                  <Image
+                    src="/emojis/weui_arrow-outlined.svg"
+                    alt=""
+                    width={18}
+                    height={9}
+                    className="h-[9px] w-[18px]"
+                  />
+                </TopPillButton>
+              }
+              align="start"
+            >
+              <DropdownItem onClick={() => console.log("USD selected")}>
+                دولار أمريكي (USD)
+              </DropdownItem>
+              <DropdownItem onClick={() => console.log("EUR selected")}>يورو (EUR)</DropdownItem>
+              <DropdownItem onClick={() => console.log("GBP selected")}>
+                جنيه إسترليني (GBP)
+              </DropdownItem>
+              <DropdownItem onClick={() => console.log("TRY selected")}>
+                ليرة تركية (TRY)
+              </DropdownItem>
+            </Dropdown>
+          </div>
         </div>
       </Container>
     </div>

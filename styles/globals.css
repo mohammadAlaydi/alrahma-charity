@@ -12,9 +12,19 @@
   --color-primary: #007f5e;
   --color-secondary: #b4bb5f;
   --color-dark: #0d0d0d;
+  /* Used for large section headings (matches existing headings across the site) */
+  --color-dark-alt: #122f2a;
   --color-white: #ffffff;
   --color-accent: #dfd383;
   --color-paragraph: rgba(13, 13, 13, 0.7);
+  --bg-gradient-start: rgba(180, 187, 95, 0.12);
+  --bg-gradient-end: rgba(255, 255, 255, 1);
+
+  /* Typography Tokens (matching Figma exactly) */
+  --font-navbar: 500 16px/26px var(--font-alexandria);
+  --font-subtitle: 400 20px/30px var(--font-alexandria);
+  --font-main-title: 600 58px/58px var(--font-alexandria);
+  --font-breadcrumb: 400 16px/30px var(--font-alexandria);
 }
 
 /* Tailwind class strategy for dark mode (next-themes sets .dark on <html>) */
@@ -34,4 +44,218 @@ body {
 body {
   background: rgb(var(--background));
   color: rgb(var(--foreground));
+  /* Ensure consistent font rendering across browsers */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Typography Classes (matching Figma design tokens) */
+@layer components {
+  /* Top Bar - currency / language text */
+  .topbar-text {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 30px !important;
+    color: var(--color-white) !important;
+  }
+
+  /* Top Bar promo text */
+  .topbar-promo {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 30px !important;
+    color: var(--color-white) !important;
+  }
+
+  .navbar-item {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 16px !important;
+    line-height: 26px !important;
+    color: var(--color-dark) !important;
+  }
+
+  .navbar-item-active {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 16px !important;
+    line-height: 26px !important;
+    color: var(--color-primary) !important;
+  }
+
+  /* Donate button text */
+  .btn-donate-text {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    line-height: 26px !important;
+    color: var(--color-white) !important;
+  }
+
+  /* Hero subtitle */
+  .hero-subtitle,
+  .subtitle {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    line-height: 30px !important;
+    color: var(--color-secondary) !important;
+  }
+
+  /* Hero title */
+  .hero-title,
+  .main-title {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 58px !important;
+    line-height: 58px !important;
+    color: var(--color-dark) !important;
+    text-align: center !important;
+  }
+
+  /* Breadcrumb text */
+  .breadcrumb-text,
+  .breadcrumb {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 30px !important;
+    color: var(--color-secondary) !important;
+  }
+
+  /* Section title - primary small */
+  .section-title-primary {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 24px !important;
+    color: var(--color-primary) !important;
+  }
+
+  /* Section title - large */
+  .section-title-large {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 32px !important;
+    font-weight: 600 !important;
+    line-height: 48px !important;
+    color: var(--color-dark-alt) !important;
+    text-align: center !important;
+  }
+
+  .footer-section-title {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    line-height: 31.36px !important;
+    color: var(--color-white) !important;
+  }
+
+  .footer-body-text {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 30px !important;
+    color: var(--color-white) !important;
+  }
+
+  .footer-link {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 30px !important;
+    color: var(--color-white) !important;
+  }
+
+  .footer-mission {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 30px !important;
+    color: var(--color-white) !important;
+    text-align: right !important;
+  }
+
+  .copyright-text {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 30px !important;
+    color: var(--color-white) !important;
+    text-align: center !important;
+  }
+
+  .newsletter-heading {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 600 !important;
+    line-height: 48px !important;
+    color: var(--color-white) !important;
+    text-align: right !important;
+  }
+
+  .newsletter-input::placeholder {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 30px !important;
+    color: var(--color-white) !important;
+  }
+
+  .dropdown-item {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 30px !important;
+  }
+
+  /* Category tab text */
+  .category-tab-text {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 24px !important;
+  }
+
+  /* Card text elements */
+  .card-title {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    line-height: 30px !important;
+    color: var(--color-dark-alt) !important;
+  }
+
+  .card-description {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 200 !important;
+    line-height: 24px !important;
+    color: var(--color-dark-alt) !important;
+  }
+
+  .card-stats {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 24px !important;
+    color: var(--color-dark-alt) !important;
+  }
+
+  .card-badge {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 21px !important;
+    color: #ffffff !important;
+  }
+
+  .card-button {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 24px !important;
+  }
 }

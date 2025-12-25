@@ -32,17 +32,15 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
   return (
     <section
       dir="rtl"
-      className="font-cairo w-full border-b border-black/10 bg-white py-6"
+      className="w-full border-b border-black/10 bg-white py-6"
       aria-label="رأس حملات التبرع"
     >
-      <Container className="flex flex-col items-center gap-4">
+      <Container className="flex flex-col items-center gap-0">
         {/* Frame 1000009415 - Top small headline */}
         <CampaignHeadline />
 
         {/* النص الرئيسي */}
-        <h1 className="font-alexandria text-center text-[32px] leading-[45px] font-semibold text-[#122F2A] md:text-[40px]">
-          كن سببا في ابتسامة شخص ما
-        </h1>
+        <h1 className="section-title-large h-12">كن سببا في ابتسامة شخص ما</h1>
       </Container>
 
       {/* Frame 1000009434 - Categories bar */}
@@ -54,8 +52,8 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
             <button
               type="button"
               onClick={() => onCategoryChange?.("all")}
-              className={`flex items-center gap-[5px] px-2 py-2 ${
-                activeCategory === "all" ? "text-[#007F5E]" : "text-[#0D0D0D]"
+              className={`category-tab-text flex items-center gap-[5px] px-2 py-2 ${
+                activeCategory === "all" ? "text-[#007F5E]" : "text-[#122F2A]"
               }`}
             >
               <span aria-hidden="true" className="inline-flex h-6 w-6 items-center justify-center">
@@ -86,7 +84,7 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
             <button
               type="button"
               onClick={() => onCategoryChange?.("medical")}
-              className={`flex items-center gap-[5px] px-2 py-2 ${
+              className={`category-tab-text flex items-center gap-[5px] px-2 py-2 ${
                 activeCategory === "medical" ? "text-[#007F5E]" : "text-[#122F2A]"
               }`}
             >
@@ -111,7 +109,7 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
             <button
               type="button"
               onClick={() => onCategoryChange?.("orphans")}
-              className={`flex items-center gap-[5px] px-2 py-2 ${
+              className={`category-tab-text flex items-center gap-[5px] px-2 py-2 ${
                 activeCategory === "orphans" ? "text-[#007F5E]" : "text-[#122F2A]"
               }`}
             >
@@ -144,7 +142,7 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
             <button
               type="button"
               onClick={() => onCategoryChange?.("humanitarian")}
-              className={`flex items-center gap-[5px] px-2 py-2 ${
+              className={`category-tab-text flex items-center gap-[5px] px-2 py-2 ${
                 activeCategory === "humanitarian" ? "text-[#007F5E]" : "text-[#122F2A]"
               }`}
             >
@@ -167,7 +165,7 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
             <button
               type="button"
               onClick={() => onCategoryChange?.("education")}
-              className={`flex items-center gap-[5px] px-2 py-2 ${
+              className={`category-tab-text flex items-center gap-[5px] px-2 py-2 ${
                 activeCategory === "education" ? "text-[#007F5E]" : "text-[#122F2A]"
               }`}
             >
@@ -195,7 +193,7 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
             <button
               type="button"
               onClick={() => onCategoryChange?.("emergency")}
-              className={`flex items-center gap-[5px] px-3 py-2 ${
+              className={`category-tab-text flex items-center gap-[5px] px-3 py-2 ${
                 activeCategory === "emergency" ? "text-[#007F5E]" : "text-[#122F2A]"
               }`}
             >

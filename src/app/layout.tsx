@@ -15,6 +15,7 @@ const alexandria = Alexandria({
   variable: "--font-alexandria",
   subsets: ["arabic", "latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap", // Prevents flash of unstyled text
 });
 
 const molle = Molle({
@@ -40,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="ltr">
+    <html lang="ar" dir="rtl">
       <body
         className={`${cairo.variable} ${alexandria.variable} ${molle.variable} ${playpenSans.variable} font-alexandria antialiased`}
       >
