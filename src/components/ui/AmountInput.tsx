@@ -10,11 +10,11 @@ export const AmountInput = React.forwardRef<HTMLInputElement, AmountInputProps>(
     return (
       <div
         className={cn(
-          "flex h-[60px] w-full items-center justify-start gap-[10px] rounded-[20px] border transition-colors",
+          "flex w-full items-center justify-start gap-[10px] rounded-[20px] border transition-colors",
           error
             ? "border-[#EE1D52]"
             : "border-[rgba(13,13,13,0.2)] focus-within:border-[#007F5E]",
-          className,
+          className || "h-[60px]",
         )}
       >
         {/* $ symbol frame - fixed width 47px, align-self: stretch - positioned before placeholder in RTL */}
