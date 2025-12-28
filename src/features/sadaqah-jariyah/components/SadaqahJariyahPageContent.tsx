@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { AmountInput } from "@/components/ui/AmountInput";
 
 type DonationChipId =
   | "water"
@@ -122,12 +123,15 @@ export function SadaqahJariyahPageContent() {
                   className={[
                     "flex items-center justify-center rounded-[20px] border p-[10px] transition-all cursor-pointer",
                     isActive
-                      ? "border-[#007F5E] bg-[#007F5E] text-white hover:bg-[#056A4F] hover:border-[#056A4F]"
+                      ? "border-[#007F5E] bg-[#007F5E] hover:bg-[#056A4F] hover:border-[#056A4F]"
                       : "border-black bg-white text-[#122F2A] hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
                   ].join(" ")}
                   style={{ gridArea: chip.gridArea }}
                 >
-                  <p className="text-center text-[16px] font-medium leading-[1.5] text-nowrap font-alexandria">
+                  <p className={[
+                    "text-center text-[16px] leading-[1.5] text-nowrap font-alexandria",
+                    isActive ? "text-white font-medium" : "text-[#122F2A] font-medium"
+                  ].join(" ")}>
                     {chip.label}
                   </p>
                 </button>
@@ -157,19 +161,16 @@ export function SadaqahJariyahPageContent() {
                         setSelectedAmount(amount);
                         setCustomAmount("");
                       }}
-                      className="flex h-[60px] w-[115px] items-center justify-center rounded-[20px] border border-[rgba(13,13,13,0.2)] px-4 transition-all cursor-pointer hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]"
+                      className={[
+                        "flex items-center justify-center gap-[10px] rounded-[20px] transition-all cursor-pointer flex-shrink-0",
+                        isActive
+                          ? "h-[57px] w-[110px] border border-[#007F5E] bg-[rgba(0,127,94,0.10)]"
+                          : "h-[60px] w-[115px] border border-[rgba(13,13,13,0.2)] px-4 hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
+                      ].join(" ")}
                     >
-                      {isActive ? (
-                        <div className="flex h-[57px] w-[110px] items-center justify-center rounded-[20px] border border-[#007F5E] bg-[rgba(0,127,94,0.1)]">
-                          <p className="text-[16px] font-normal leading-[normal] text-[rgba(13,13,13,0.7)] text-nowrap font-alexandria">
-                            $ {amount}
-                          </p>
-                        </div>
-                      ) : (
-                        <p className="text-[16px] font-normal leading-[normal] text-[rgba(13,13,13,0.7)] text-nowrap font-alexandria">
-                          $ {amount}
-                        </p>
-                      )}
+                      <p className="text-[16px] font-normal leading-[normal] text-[rgba(13,13,13,0.7)] text-nowrap font-alexandria">
+                        $ {amount}
+                      </p>
                     </button>
                   );
                 })}
@@ -183,48 +184,36 @@ export function SadaqahJariyahPageContent() {
               </div>
 
               {/* Custom amount input */}
-              <div className="flex h-[60px] w-full items-center justify-end rounded-[20px]">
-                <div className="flex h-full w-full items-center justify-end gap-[10px] rounded-[20px] border border-[rgba(13,13,13,0.2)] focus-within:border-[#007F5E] transition-colors">
-                  <input
-                    type="number"
-                    inputMode="decimal"
-                    placeholder="أدخل القيمة"
-                    value={customAmount}
-                    onChange={(e) => {
-                      setCustomAmount(e.target.value);
-                      if (e.target.value) setSelectedAmount(0);
-                    }}
-                    className="flex h-full flex-1 items-center justify-end bg-transparent px-4 text-right text-[16px] font-light leading-[normal] text-[rgba(13,13,13,0.7)] placeholder:opacity-[0.67] outline-none font-alexandria"
-                    dir="rtl"
-                  />
-                  <div className="flex h-full items-center justify-center px-4">
-                    <span className="text-[24px] font-light leading-[normal] text-[rgba(13,13,13,0.7)] font-alexandria">
-                      $
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <AmountInput
+                placeholder="أدخل القيمة"
+                value={customAmount}
+                onChange={(e) => {
+                  setCustomAmount(e.target.value);
+                  if (e.target.value) setSelectedAmount(0);
+                }}
+              />
             </div>
 
-            {/* CTA button - right-aligned */}
+            {/* CTA button - original style, positioned under input on the left */}
             <button
               type="button"
               onClick={handleDonate}
-              className="flex items-center justify-center gap-[10px] rounded-[35px] bg-[#007F5E] px-8 py-4 transition-colors hover:bg-[#056A4F] focus-visible:ring-2 focus-visible:ring-[#007F5E]/40 focus-visible:outline-none cursor-pointer self-end"
+              className="flex items-center justify-center gap-[10px] rounded-[35px] bg-[#007F5E] px-8 py-4 transition-colors hover:bg-[#056A4F] focus-visible:ring-2 focus-visible:ring-[#007F5E]/40 focus-visible:outline-none cursor-pointer self-start"
             >
-              <span aria-hidden="true" className="relative h-6 w-6 overflow-hidden">
-                <Image src="/figma/mingcute-love-fill.svg" alt="" width={24} height={24} />
-              </span>
+
               <span className="text-[16px] font-bold leading-[1.5] text-white text-nowrap font-alexandria">
                 تبرع الأن
+              </span>
+              <span aria-hidden="true" className="relative h-6 w-6 overflow-hidden">
+                <Image src="/figma/mingcute-love-fill.svg" alt="" width={24} height={24} />
               </span>
             </button>
           </div>
         </div>
 
         {/* Left image - appears on the LEFT in RTL layout (second child) */}
-        <div className="relative h-[1070.72px] w-[696.51px] shrink-0 overflow-hidden rounded-[352.749px] bg-transparent">
-          <div className="absolute inset-0 overflow-hidden rounded-[352.749px]" style={{ mixBlendMode: "hard-light" }}>
+        <div className="relative h-[1070.72px] w-[696.51px] shrink-0 bg-transparent">
+          <div className="absolute inset-0" style={{ mixBlendMode: "hard-light" }}>
             <img
               src="/sadaqah-jarya1.png"
               alt=""

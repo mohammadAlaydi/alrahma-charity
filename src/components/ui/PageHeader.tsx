@@ -15,10 +15,10 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageHeaderProps) {
   return (
-    <div className="flex w-[341px] flex-col" dir="rtl">
-      {/* Frame 15 - Subtitle with icon (271x30) - positioned at x=35 */}
+    <div className="flex w-[341px] flex-col items-end" dir="rtl">
+      {/* Frame 15 - Subtitle with icon (271x30) - aligned to right */}
       {subtitle && (
-        <div className="mx-auto mr-[35px] mb-4 flex h-[30px] items-center gap-[5px] whitespace-nowrap">
+        <div className="mb-4 flex h-[30px] items-center gap-[5px] whitespace-nowrap">
           <div className="flex h-7 w-7 shrink-0 items-center justify-center">
             <Image src={subtitleIcon || ""} alt="" width={28} height={28} className="h-7 w-7" />
           </div>
@@ -28,14 +28,14 @@ export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageH
         </div>
       )}
 
-      {/* Main title - 341x93 - full width, 58px, line-height 160% */}
-      <h1 className="font-['Alexandria',var(--font-alexandria),sans-serif] text-[58px] font-semibold leading-[1.6] text-[#0D0D0D] flex h-[93px] w-full items-center justify-center text-center">
+      {/* Main title - 341x93 - full width, 58px, line-height 160% - aligned to right */}
+      <h1 className="font-['Alexandria',var(--font-alexandria),sans-serif] text-[58px] font-semibold leading-[1.6] text-[#0D0D0D] flex h-[93px] w-full items-center justify-end text-right">
         {title}
       </h1>
 
-      {/* Frame 17 - Breadcrumbs (235x30) - positioned at x=53 */}
+      {/* Frame 17 - Breadcrumbs (235x30) - aligned to right */}
       {breadcrumbs && breadcrumbs.length > 0 && (
-        <div className="mx-auto mt-2 mr-[53px] flex h-[30px] w-[235px] items-center gap-[10px]">
+        <div className="mt-2 flex h-[30px] items-center gap-[10px]">
           <div className="flex items-center gap-[5px]">
             <div className="flex h-6 w-6 shrink-0 items-center justify-center">
               <Image
