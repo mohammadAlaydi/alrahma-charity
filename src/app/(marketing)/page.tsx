@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { CampaignHeader } from "@/components/ui/CampaignHeader";
+import { CampaignHeader } from "@/features/projects/components/CampaignHeader";
 
 export default function MarketingHomePage() {
   return (

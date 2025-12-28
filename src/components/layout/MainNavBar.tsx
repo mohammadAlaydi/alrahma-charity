@@ -14,9 +14,9 @@ const navItems: NavItem[] = [
   { label: "الرئيسية", href: "/" },
   { label: "من نحن", href: "/about" },
   { label: "المشاريع", href: "/projects" },
-  { label: "زكاه", href: "#" },
+  { label: "زكاه", href: "/zakat" },
   { label: "الكفالات", href: "#" },
-  { label: "الصدقات", href: "#" },
+  { label: "الصدقات", href: "/sadaqah" },
   { label: "معرض الاعمال", href: "#" },
   { label: "المدونة", href: "#" },
 ];
@@ -49,7 +49,12 @@ export function MainNavBar() {
         {/* Center: Menu */}
         <nav className="hidden h-[50px] items-center gap-[30px] lg:flex">
           {navItems.map((item) => {
-            const isActive = item.href !== "#" && pathname === item.href;
+            // For sadaqah, check if pathname starts with /sadaqah (includes /sadaqah/sadaqah-jariyah)
+            const isActive =
+              item.href !== "#" &&
+              (item.href === "/sadaqah"
+                ? pathname?.startsWith("/sadaqah")
+                : pathname === item.href);
             return (
               <Link
                 key={item.label}

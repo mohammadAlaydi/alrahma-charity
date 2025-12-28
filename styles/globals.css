@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Playpen+Sans+Arabic:wght@400&display=swap");
 @import "tailwindcss";
 
 /* App theme tokens */
@@ -257,5 +258,14 @@ body {
     font-size: 16px !important;
     font-weight: 600 !important;
     line-height: 24px !important;
+  }
+
+  /* Category title - for category headers like "صدقات" */
+  .category-title {
+    font-family: var(--font-alexandria), sans-serif !important;
+    font-size: 40px !important;
+    font-weight: 600 !important;
+    line-height: 48px !important;
+    color: var(--color-dark) !important;
   }
 }

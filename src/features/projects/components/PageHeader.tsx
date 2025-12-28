@@ -22,14 +22,12 @@ export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageH
           <div className="flex h-7 w-7 shrink-0 items-center justify-center">
             <Image src={subtitleIcon || ""} alt="" width={28} height={28} className="h-7 w-7" />
           </div>
-          <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-[20px] font-normal leading-[1.5] text-[#B4BB5F] text-right whitespace-nowrap">
-            {subtitle}
-          </p>
+          <h2 className="hero-subtitle text-right whitespace-nowrap">{subtitle}</h2>
         </div>
       )}
 
-      {/* Main title - 341x93 - full width, 58px, line-height 160% */}
-      <h1 className="font-['Alexandria',var(--font-alexandria),sans-serif] text-[58px] font-semibold leading-[1.6] text-[#0D0D0D] flex h-[93px] w-full items-center justify-center text-center">
+      {/* Main title - 341x93 - full width */}
+      <h1 className="hero-title flex h-[93px] w-full items-center justify-center text-center">
         {title}
       </h1>
 
@@ -48,14 +46,10 @@ export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageH
             </div>
             {breadcrumbs.map((crumb, index) => (
               <div key={index} className="flex items-center gap-[5px]">
-                <Link
-                  href={crumb.href}
-                  className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-[20px] font-normal leading-[1.5] text-[#B4BB5F] text-right whitespace-nowrap hover:underline"
-                >
+                <Link href={crumb.href} className="breadcrumb-text text-right hover:underline">
                   {crumb.label}
                 </Link>
-                {/* Add arrow between items (except after the last one) */}
-                {index < breadcrumbs.length - 1 && (
+                {index === 0 && breadcrumbs.length > 1 && (
                   <div className="flex h-6 w-6 shrink-0 items-center justify-center">
                     <Image
                       src="/emojis/left arrow.svg"
@@ -74,3 +68,4 @@ export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageH
     </div>
   );
 }
+

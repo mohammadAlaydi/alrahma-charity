@@ -5,8 +5,8 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { Container } from "@/components/ui/Container";
-import { CampaignCategoryId, CampaignHeader } from "@/components/ui/CampaignHeader";
-import { CampaignHeadline } from "@/components/ui/CampaignHeadline";
+import { CampaignCategoryId, CampaignHeader } from "@/features/projects/components/CampaignHeader";
+import { CampaignHeadline } from "@/features/projects/components/CampaignHeadline";
 import { getCampaigns, type Campaign } from "@/services/api/campaigns";
 import { queryKeys } from "@/services/queryKeys";
 
