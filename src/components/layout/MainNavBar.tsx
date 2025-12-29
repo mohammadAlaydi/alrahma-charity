@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { UserCircle2 } from "lucide-react";
+import { UserCircle2, Menu } from "lucide-react";
 
 import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
@@ -21,16 +21,16 @@ const navItems: NavItem[] = [
   { label: "المدونة", href: "#" },
 ];
 
-function DonateButton() {
+function DonateButton({ className }: { className?: string }) {
   return (
     <button
       type="button"
-      className="flex h-[58px] w-[159px] items-center justify-center gap-[10px] rounded-[35px] bg-[#007F5E]"
+      className={cn("flex h-[48px] md:h-[58px] w-[120px] md:w-[159px] items-center justify-center gap-[10px] rounded-[35px] bg-[#007F5E]", className)}
     >
-      <span className="btn-donate-text flex h-[26px] w-[65px] items-center justify-center">
+      <span className="btn-donate-text text-sm md:text-base flex items-center justify-center text-white">
         تبرع الان
       </span>
-      <Image src="/emojis/line-md_arrow-up.svg" alt="" width={20} height={20} className="h-5 w-5" />
+      <Image src="/emojis/line-md_arrow-up.svg" alt="" width={20} height={20} className="h-4 w-4 md:h-5 md:w-5" />
     </button>
   );
 }
@@ -39,14 +39,22 @@ export function MainNavBar() {
   const pathname = usePathname();
 
   return (
-    <div className="w-full bg-white">
-      <Container className="flex h-[111px] items-center justify-between">
+    <div className="w-full bg-white border-b border-gray-100 md:border-none">
+      <Container className="flex h-[70px] md:h-[111px] items-center justify-between">
+        {/* Mobile: Menu Icon (Left in design, but we are RTL so it's on the right in visual, but design says left) */}
+        {/* Let's follow Figma: Left (Menu), Right (Logo) for mobile */}
+        <div className="flex md:hidden items-center">
+          <button type="button" className="p-2">
+            <Menu className="h-6 w-6 text-black" />
+          </button>
+        </div>
+
         {/* right : Logo */}
-        <div className="relative h-[95px] w-[85px]">
+        <div className="relative h-[50px] w-[45px] md:h-[95px] md:w-[85px]">
           <Image src="/Logo.png" alt="Alrahma" fill className="object-contain" priority />
         </div>
 
-        {/* Center: Menu */}
+        {/* Center: Menu - hidden on mobile */}
         <nav className="hidden h-[50px] items-center gap-[30px] lg:flex">
           {navItems.map((item) => {
             // For sadaqah, check if pathname starts with /sadaqah (includes /sadaqah/sadaqah-jariyah)
@@ -73,8 +81,9 @@ export function MainNavBar() {
           })}
         </nav>
 
-        {/* left: Donate + Profile */}
-        <div className="flex items-center gap-[22px]">
+        {/* left: Donate + Profile - Donate hidden on mobile, Profile shown or both hidden? */}
+        {/* Figma shows only Menu and Logo on mobile. Let's hide these for now or keep them small */}
+        <div className="hidden md:flex items-center gap-[22px]">
           <button type="button" className="flex h-8 w-8 items-center justify-center">
             <UserCircle2 className="h-8 w-8 text-black" strokeWidth={1.5} />
           </button>

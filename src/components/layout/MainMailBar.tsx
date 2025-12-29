@@ -19,9 +19,9 @@ function TopPillButton({ children, className }: { children: React.ReactNode; cla
 export function MainMailBar() {
   return (
     <div className="w-full bg-[#007F5E]">
-      <Container className="flex h-[50px] items-center justify-between">
-        {/* Right: support links */}
-        <div className="flex items-center gap-10">
+      <Container className="flex h-auto min-h-[40px] md:h-[50px] items-center justify-between py-2 md:py-0">
+        {/* Right: support links - hidden on mobile */}
+        <div className="hidden md:flex items-center gap-10">
           <Link href="#" className="topbar-text flex items-center gap-[5px]">
             <span>كيف تتبرع؟</span>
             <HandHeart className="h-6 w-6 text-white" strokeWidth={1.5} />
@@ -31,14 +31,14 @@ export function MainMailBar() {
           </Link>
         </div>
 
-        {/* Middle: promoter */}
-        <div className="flex items-center gap-[10px]">
+        {/* Middle: promoter - centered on mobile */}
+        <div className="flex w-full md:w-auto items-center justify-center gap-[10px]">
           <Image src="/emojis/give hart 1.png" alt="" width={24} height={24} className="h-6 w-6" />
-          <span className="topbar-promo">هل أنت مستعد لمساعدتهم؟ لنصبح متطوعين</span>
+          <span className="topbar-promo text-sm md:text-base">هل أنت مستعد لمساعدتهم؟ لنصبح متطوعين</span>
         </div>
 
-        {/* Left: currency, language, social */}
-        <div className="flex items-center gap-12">
+        {/* Left: currency, language, social - hidden on mobile */}
+        <div className="hidden md:flex items-center gap-12">
           <div className="flex items-center gap-[10px]">
             {/* Language Dropdown */}
             <Dropdown
