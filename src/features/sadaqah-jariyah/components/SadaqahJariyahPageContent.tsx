@@ -51,68 +51,68 @@ export function SadaqahJariyahPageContent() {
   };
 
   return (
-    <section className="w-full bg-white px-[320px] py-[100px]" dir="rtl">
-      <div className="flex w-full items-start justify-between gap-8">
+    <section className="w-full bg-white px-4 md:px-8 lg:px-16 xl:px-[50px] 2xl:px-[320px] py-10 md:py-[100px]" dir="rtl">
+      <div className="flex flex-col xl:flex-row w-full items-start justify-between gap-8">
         {/* Right content column - appears on the RIGHT in RTL layout (first child) */}
-        <div className="flex min-h-[1070.72px] w-full max-w-[736px] flex-col items-end gap-6">
-          <div className="flex w-[575px] flex-col items-end gap-2">
+        <div className="flex w-full xl:max-w-[736px] flex-col items-end gap-6">
+          <div className="flex w-full xl:w-[575px] flex-col items-end gap-2">
             {/* Subtitle + icon - RTL: right-aligned, icon first so it appears on the right */}
-            <div className="flex w-full items-center justify-start gap-[5px] self-end">
-              <span aria-hidden="true" className="relative h-6 w-6 shrink-0 overflow-hidden">
-                <Image src="/figma/hugeicons-healthcare.svg" alt="" width={24} height={24} />
-              </span>
-              <p className="text-[16px] leading-[1.5] text-[#007F5E] text-nowrap text-right [font-family:'Playpen_Sans_Arabic',var(--font-cairo),sans-serif] font-normal">
-                صدقة اليوم… أمان لغدهم
-              </p>
-            </div>
-
-            {/* Title - RTL: right-aligned */}
-            <p className="w-full text-right text-[30px] font-bold leading-[1.6] text-[#0D0D0D] text-nowrap font-alexandria">
-              <span>{`الصدقة الجارية `}</span>
-              <span className="text-[#007F5E]">هي</span>
-            </p>
-
-            {/* Paragraph - right-aligned */}
-            <p className="w-full text-right text-[16px] font-normal leading-[1.6] text-[rgba(13,13,13,0.7)] font-alexandria">
-              الصدقة التي يستمر ثوابها حتى عند الموت وهو ما يسعى له الكثير من المسلمين بإقامة مشروع
-              صدقة جارية حتى تكون شفيعة له عند الله وتكون في ميزان حسناته ويستمر ثوابها حتى بعد
-              الموت. وقد أكد الرسول صلى الله عليه وسلم على فضل الصدقة الجارية في السنة النبوية
-              الشريفة فهناك حديث عن أبي هريرة رضي الله عنه قال رسول الله صلى الله عليه وسلم
-              <br />
-              (إذا مات الإنسان أنقطع عمله إلا من ثلاث، صدقة جارية، أو علم ينتفع به أو ولد صالح يدعو
-              له).
+          <div className="flex w-full items-center justify-start gap-[5px] self-end">
+            <span aria-hidden="true" className="relative h-6 w-6 shrink-0 overflow-hidden">
+              <Image src="/figma/hugeicons-healthcare.svg" alt="" width={24} height={24} />
+            </span>
+            <p className="text-[16px] leading-normal text-[#007F5E] text-nowrap text-right [font-family:'Playpen_Sans_Arabic',var(--font-cairo),sans-serif] font-normal">
+              صدقة اليوم… أمان لغدهم
             </p>
           </div>
 
-          {/* Hadith image */}
-          <div className="relative w-full overflow-hidden" style={{ height: "338.318px", aspectRatio: "583.49/338.32" }}>
-            <Image src="/hadeeth.png" alt="" fill className="object-contain" priority />
-          </div>
-
-          {/* Quote section */}
-          <div className="flex w-[575px] flex-col items-end gap-2 leading-[1.6]">
-            {/* RTL: right-aligned */}
-            <p className="w-full text-right text-[20px] font-medium leading-[1.6] text-[#0D0D0D] text-nowrap font-alexandria">
-              ازرع خيرًا اليوم… يحصد أجره غدًا
-            </p>
-            {/* right-aligned */}
-            <p className="w-full text-right text-[16px] font-normal leading-[1.6] text-[rgba(13,13,13,0.7)] font-alexandria">
-              في حديث رواه أنس بن مالك رضي الله عنه- عن رسول الله صلى الله عليه وسلم أنه قال:
-              <br />
-              (سبع يجري للعبد أجرهن وهو في قبره بعد موته: من علم علما؛ أو كرى نهرا، أو حفر بئرا، أو
-              غرس نخلا، أو بنى مسجدا، أو ورث مصحفا، أو ترك ولدا يستغفر له بعد موته). وكل منا في أمس
-              الحاجة إلى هذا ثواب هذه الأعمال والتي نسأل الله العظيم أن يجعلها في ميزان حسنات من
-              فقدناهم ويتقبل منا.
-            </p>
-          </div>
-
-          {/* RTL: right-aligned */}
-          <p className="w-full text-right text-[20px] font-medium leading-[1.6] text-[#0D0D0D] text-nowrap font-alexandria">
-            كم تريد التبرع اليوم
+          {/* Title - RTL: right-aligned */}
+          <p className="w-full text-right text-[30px] font-bold leading-normal text-[#0D0D0D] text-nowrap font-alexandria">
+            <span>{`الصدقة الجارية `}</span>
+            <span className="text-[#007F5E]">هي</span>
           </p>
 
-          {/* Chips grid - RTL: fill from right to left */}
-          <div className="inline-grid h-[148px] grid-cols-4 gap-2" style={{ rowGap: "8px", columnGap: "8px", direction: "rtl" }}>
+          {/* Paragraph - right-aligned */}
+          <p className="w-full text-right text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] font-alexandria">
+            الصدقة التي يستمر ثوابها حتى عند الموت وهو ما يسعى له الكثير من المسلمين بإقامة مشروع
+            صدقة جارية حتى تكون شفيعة له عند الله وتكون في ميزان حسناته ويستمر ثوابها حتى بعد
+            الموت. وقد أكد الرسول صلى الله عليه وسلم على فضل الصدقة الجارية في السنة النبوية
+            الشريفة فهناك حديث عن أبي هريرة رضي الله عنه قال رسول الله صلى الله عليه وسلم
+            <br />
+            (إذا مات الإنسان أنقطع عمله إلا من ثلاث، صدقة جارية، أو علم ينتفع به أو ولد صالح يدعو
+            له).
+          </p>
+        </div>
+
+        {/* Hadith image */}
+        <div className="relative w-full overflow-hidden" style={{ height: "auto", aspectRatio: "583.49/338.32" }}>
+          <Image src="/hadeeth.png" alt="" fill className="object-contain" priority />
+        </div>
+
+        {/* Quote section */}
+        <div className="flex w-full xl:w-[575px] flex-col items-end gap-2 leading-normal">
+          {/* RTL: right-aligned */}
+          <p className="w-full text-right text-[20px] font-medium leading-normal text-[#0D0D0D] text-nowrap font-alexandria">
+            ازرع خيرًا اليوم… يحصد أجره غدًا
+          </p>
+          {/* right-aligned */}
+          <p className="w-full text-right text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] font-alexandria">
+            في حديث رواه أنس بن مالك رضي الله عنه- عن رسول الله صلى الله عليه وسلم أنه قال:
+            <br />
+            (سبع يجري للعبد أجرهن وهو في قبره بعد موته: من علم علما؛ أو كرى نهرا، أو حفر بئرا، أو
+            غرس نخلا، أو بنى مسجدا، أو ورث مصحفا، أو ترك ولدا يستغفر له بعد موته). وكل منا في أمس
+            الحاجة إلى هذا ثواب هذه الأعمال والتي نسأل الله العظيم أن يجعلها في ميزان حسنات من
+            فقدناهم ويتقبل منا.
+          </p>
+        </div>
+
+        {/* RTL: right-aligned */}
+        <p className="w-full text-right text-[20px] font-medium leading-normal text-[#0D0D0D] text-nowrap font-alexandria">
+          كم تريد التبرع اليوم
+        </p>
+
+        {/* Chips grid - RTL: fill from right to left */}
+        <div className="inline-grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 auto-rows-auto" style={{ rowGap: "8px", columnGap: "8px", direction: "rtl" }}>
             {CHIPS.map((chip) => {
               const isActive = selectedChip === chip.id;
               return (
@@ -121,7 +121,7 @@ export function SadaqahJariyahPageContent() {
                   type="button"
                   onClick={() => setSelectedChip(chip.id)}
                   className={[
-                    "flex items-center justify-center rounded-[20px] border p-[10px] transition-all cursor-pointer",
+                    "flex items-center justify-center rounded-[20px] border transition-all cursor-pointer min-h-[44px] px-3 py-2",
                     isActive
                       ? "border-[#007F5E] bg-[#007F5E] hover:bg-[#056A4F] hover:border-[#056A4F]"
                       : "border-black bg-white text-[#122F2A] hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
@@ -129,7 +129,7 @@ export function SadaqahJariyahPageContent() {
                   style={{ gridArea: chip.gridArea }}
                 >
                   <p className={[
-                    "text-center text-[16px] leading-[1.5] text-nowrap font-alexandria",
+                    "text-center text-[14px] sm:text-[16px] leading-normal font-alexandria break-words",
                     isActive ? "text-white font-medium" : "text-[#122F2A] font-medium"
                   ].join(" ")}>
                     {chip.label}
@@ -150,7 +150,7 @@ export function SadaqahJariyahPageContent() {
               </div>
 
               {/* Presets row - RTL: 10, 50, 100, 200 from right to left (normal flex in RTL) */}
-              <div className="flex w-full items-center justify-between">
+              <div className="flex flex-wrap gap-3 w-full" dir="rtl">
                 {PRESET_AMOUNTS.map((amount) => {
                   const isActive = selectedAmount === amount && !customAmount;
                   return (
@@ -162,13 +162,14 @@ export function SadaqahJariyahPageContent() {
                         setCustomAmount("");
                       }}
                       className={[
-                        "flex items-center justify-center gap-[10px] rounded-[20px] transition-all cursor-pointer flex-shrink-0",
+                        "flex items-center justify-center rounded-[20px] transition-all cursor-pointer px-6 whitespace-nowrap",
                         isActive
-                          ? "h-[57px] w-[110px] border border-[#007F5E] bg-[rgba(0,127,94,0.10)]"
-                          : "h-[60px] w-[115px] border border-[rgba(13,13,13,0.2)] px-4 hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
+                          ? "h-[57px] border border-[#007F5E] bg-[rgba(0,127,94,0.10)]"
+                          : "h-[60px] border border-[rgba(13,13,13,0.2)] hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
+                        "flex-[1_1_calc(50%-6px)] sm:flex-[1_1_calc(33.333%-8px)] md:flex-[0_1_auto] md:min-w-[110px]",
                       ].join(" ")}
                     >
-                      <p className="text-[16px] font-normal leading-[normal] text-[rgba(13,13,13,0.7)] text-nowrap font-alexandria">
+                      <p className="text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-nowrap font-alexandria">
                         $ {amount}
                       </p>
                     </button>
@@ -201,7 +202,7 @@ export function SadaqahJariyahPageContent() {
               className="flex items-center justify-center gap-[10px] rounded-[35px] bg-[#007F5E] px-8 py-4 transition-colors hover:bg-[#056A4F] focus-visible:ring-2 focus-visible:ring-[#007F5E]/40 focus-visible:outline-none cursor-pointer self-start"
             >
 
-              <span className="text-[16px] font-bold leading-[1.5] text-white text-nowrap font-alexandria">
+              <span className="text-[16px] font-bold leading-normal text-white text-nowrap font-alexandria">
                 تبرع الأن
               </span>
               <span aria-hidden="true" className="relative h-6 w-6 overflow-hidden">
@@ -212,18 +213,13 @@ export function SadaqahJariyahPageContent() {
         </div>
 
         {/* Left image - appears on the LEFT in RTL layout (second child) */}
-        <div className="relative h-[1070.72px] w-[696.51px] shrink-0 bg-transparent">
+        <div className="relative h-auto w-full xl:w-[696.51px] shrink-0 bg-transparent">
           <div className="absolute inset-0" style={{ mixBlendMode: "hard-light" }}>
             <img
               src="/sadaqah-jarya1.png"
               alt=""
-              className="absolute max-w-none object-cover"
-              style={{
-                height: "106.68%",
-                width: "111.26%",
-                left: "-5.42%",
-                top: "-2.92%",
-              }}
+              className="absolute max-w-none object-cover w-full h-full"
+              style={{}}
             />
           </div>
         </div>

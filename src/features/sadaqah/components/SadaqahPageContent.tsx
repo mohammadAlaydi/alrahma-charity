@@ -16,17 +16,17 @@ type DonationType = {
 };
 
 const DONATION_TYPES: DonationType[] = [
-  { id: "water", title: "سقيا الماء", iconSrc: "/globe.svg", isHighlighted: true },
-  { id: "purification", title: "تطهير مال وأسهم", iconSrc: "/all-campanes.svg" },
-  { id: "nadhr", title: "النذر", iconSrc: "/heart.svg" },
-  { id: "aqiqah", title: "عقائق", iconSrc: "/orphan.svg" },
-  { id: "relieve", title: "تفريج كربة", iconSrc: "/heart.svg" },
-  { id: "pay-harm", title: "دفع بلاء", iconSrc: "/medical.svg" },
-  { id: "clothe", title: "كسوة مسكين", iconSrc: "/human 1.svg" },
-  { id: "sadaqah-jariyah", title: "صدقة جارية", iconSrc: "/heart.svg" },
-  { id: "expiation", title: "كفارة يمين", iconSrc: "/heart.svg" },
-  { id: "feed", title: "إطعام مسكين", iconSrc: "/education.svg" },
-  { id: "debtors", title: "الغارمين", iconSrc: "/file.svg" },
+  { id: "water", title: "سقيا الماء", iconSrc: "/water.png", isHighlighted: true },
+  { id: "purification", title: "تطهير مال وأسهم", iconSrc: "/step.png" },
+  { id: "nadhr", title: "النذر", iconSrc: "/hands.png" },
+  { id: "aqiqah", title: "عقائق", iconSrc: "/goat.png" },
+  { id: "relieve", title: "تفريج كربة", iconSrc: "/sad.png" },
+  { id: "pay-harm", title: "دفع بلاء", iconSrc: "/money-frow.png" },
+  { id: "clothe", title: "كسوة مسكين", iconSrc: "/clothes.png" },
+  { id: "sadaqah-jariyah", title: "صدقة جارية", iconSrc: "/sadaqah-jaryah.png" },
+  { id: "expiation", title: "كفارة يمين", iconSrc: "/judge.png" },
+  { id: "feed", title: "إطعام مسكين", iconSrc: "/food.png" },
+  { id: "debtors", title: "الغارمين", iconSrc: "/alms-svgrepo-com 3.png" },
 ];
 
 export function SadaqahPageContent() {
@@ -57,7 +57,7 @@ export function SadaqahPageContent() {
         </div>
       </div>
 
-      <div className="relative px-4 py-10 md:px-[320px] md:py-[100px]">
+      <div className="relative px-4 py-10 md:px-8 lg:px-16 xl:px-[50px] 2xl:px-[320px] md:py-[100px]">
         {/* Intro section */}
         <section className="mb-[40px] md:mb-[79px]">
           <div className="mx-auto flex w-full max-w-[971px] flex-col items-center md:items-center gap-[8px] text-center">
@@ -86,10 +86,10 @@ export function SadaqahPageContent() {
         </section>
 
         {/* Main content: Two-column layout on desktop, single column on mobile */}
-        <section className="flex flex-col lg:grid lg:grid-cols-[1fr_555px] gap-6 lg:gap-[10px] items-start justify-center w-full max-w-[1280px] mx-auto">
+        <section className="flex flex-col xl:grid xl:grid-cols-[minmax(0,1.3fr)_555px] gap-10 xl:gap-10 items-start justify-center w-full max-w-[1400px] mx-auto">
           
           {/* Left Side: Grid of donation type cards - Visible only on Desktop */}
-          <div className="hidden lg:grid lg:grid-cols-2 gap-4 items-start w-full order-2 lg:order-1">
+          <div className="hidden xl:grid xl:grid-cols-2 gap-4 items-start w-full order-2 xl:order-1">
             {DONATION_TYPES.map((type) => {
               const isActive = selectedType.id === type.id;
               return (
@@ -97,29 +97,24 @@ export function SadaqahPageContent() {
                   key={type.id}
                   onClick={() => handleTypeSelect(type)}
                   className={[
-                    "group bg-white flex items-center justify-end px-6 md:px-8 py-4 rounded-[20px] shadow-[0px_5px_12px_0px_rgba(0,127,94,0.07)] w-full md:w-[348px] transition-all duration-300 cursor-pointer",
+                    "group bg-white flex items-center justify-start px-6 md:px-8 py-4 rounded-[20px] shadow-[0px_5px_12px_0px_rgba(0,127,94,0.07)] w-full h-[112px] transition-all duration-300 cursor-pointer",
                     isActive 
                       ? "shadow-[0px_19px_29px_0px_rgba(0,127,94,0.14)] ring-2 ring-[#007F5E]" 
                       : "hover:shadow-[0px_8px_24px_0px_rgba(0,127,94,0.15)] hover:scale-[1.02] hover:-translate-y-1",
-                    "ml-auto",
                   ].join(" ")}
                 >
-                  <div className="flex gap-4 items-center justify-end w-full">
-                    <div className="flex flex-col items-start mr-auto md:mr-0">
-                      <p className="font-alexandria text-lg md:text-[20px] font-bold leading-[1.5] text-[#122F2A] text-nowrap text-right">
+                  <div className="flex gap-4 items-center justify-start w-full min-w-0">
+                    <Image
+                      src={type.iconSrc}
+                      alt=""
+                      width={40}
+                      height={40}
+                      className="shrink-0"
+                    />
+                    <div className="flex flex-col items-start min-w-0 flex-1">
+                      <p className="font-alexandria text-lg md:text-[20px] font-bold leading-normal text-[#122F2A] text-right wrap-break-word">
                         {type.title}
                       </p>
-                    </div>
-                    <div className="bg-[rgba(223,211,131,0.2)] flex flex-col items-center justify-center overflow-hidden px-0 py-[9px] rounded-[53px] w-16 h-16 md:w-20 md:h-20 transition-all duration-300 group-hover:bg-[rgba(223,211,131,0.3)]">
-                      <div className="relative w-8 h-8 md:w-10 md:h-10">
-                        <Image
-                          src={type.iconSrc}
-                          alt=""
-                          width={40}
-                          height={40}
-                          className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
-                        />
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -128,10 +123,10 @@ export function SadaqahPageContent() {
           </div>
 
           {/* Right Side: Donation form card - Dropdown ONLY on Mobile */}
-          <div className="flex flex-col items-center gap-6 w-full lg:w-[555px] order-1 lg:order-2">
+          <div className="flex flex-col items-center gap-6 w-full xl:w-[555px] order-1 xl:order-2">
             
             {/* Type Selector Dropdown - Visible ONLY on Mobile */}
-            <div className="relative w-full z-20 lg:hidden">
+            <div className="relative w-full z-20 xl:hidden">
               <button 
                 onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}
                 className="flex bg-white items-center justify-between w-full p-4 rounded-[20px] shadow-[0px_2px_29px_0px_rgba(0,127,94,0.14)] mb-2 group transition-all"
@@ -147,9 +142,7 @@ export function SadaqahPageContent() {
                 </div>
                 <div className="flex items-center gap-4">
                   <p className="font-alexandria text-[18px] font-bold text-[#122F2A]">{selectedType.title}</p>
-                  <div className="bg-[rgba(223,211,131,0.2)] flex items-center justify-center rounded-full w-[65px] h-[65px]">
-                    <Image src={selectedType.iconSrc} alt="" width={40} height={40} />
-                  </div>
+                  <Image src={selectedType.iconSrc} alt="" width={40} height={40} />
                 </div>
               </button>
 
@@ -171,9 +164,7 @@ export function SadaqahPageContent() {
                          </div>
                          <div className="flex items-center gap-4">
                            <p className="font-alexandria text-base font-medium text-[#122F2A]">{type.title}</p>
-                           <div className="bg-[rgba(223,211,131,0.1)] flex items-center justify-center rounded-full w-10 h-10">
-                             <Image src={type.iconSrc} alt="" width={24} height={24} />
-                           </div>
+                           <Image src={type.iconSrc} alt="" width={24} height={24} />
                          </div>
                       </button>
                     ))}
@@ -183,19 +174,19 @@ export function SadaqahPageContent() {
             </div>
 
             {/* "How much?" Title - Visible ONLY on Mobile/iPhone */}
-            <div className="flex lg:hidden items-center justify-center gap-2.5 w-full mb-2">
+            <div className="flex xl:hidden items-center justify-center gap-2.5 w-full mb-2">
                <p className="font-alexandria text-lg md:text-[18px] font-bold text-[#232325]">كم تريد التبرع اليوم</p>
                <Image src="/figma/hugeicons-healthcare.svg" alt="" width={32} height={32} />
             </div>
             
-            <p className="lg:hidden font-alexandria text-sm text-[#4f4f52] text-center leading-[2] mb-2 px-4 max-w-[400px]">
+            <p className="xl:hidden font-alexandria text-sm text-[#4f4f52] text-center leading-[2] mb-2 px-4 max-w-[400px]">
               جميع التبرعات تؤثر بشكل مباشر على منظمتنا وتساعدنا على مواصلة مهمتنا
             </p>
 
             <div className="bg-white border border-[rgba(0,0,0,0.1)] rounded-[20px] shadow-[0px_5px_12px_0px_rgba(0,127,94,0.07)] px-6 md:px-8 py-6 md:py-4 w-full relative z-10">
               <div className="flex flex-col gap-6 items-center w-full">
                 {/* Desktop Title - Visible only on Desktop */}
-                <p className="hidden lg:block font-alexandria text-[24px] font-bold leading-[1.5] text-[#007F5E] text-center text-nowrap">
+                <p className="hidden xl:block font-alexandria text-[24px] font-bold leading-[1.5] text-[#007F5E] text-center text-nowrap">
                   {selectedType.title}
                 </p>
 
