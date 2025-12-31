@@ -7,7 +7,7 @@ export default function SadaqahJariyahPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero - matches Sadaqah page hero height with wavy edges */}
-      <section className="relative h-[502px] overflow-hidden border-b border-black/5 bg-white">
+      <section className="relative h-[300px] md:h-[391px] overflow-hidden border-b border-black/5 bg-white">
         <WaveBackground />
         <Container className="relative z-10 flex h-full items-center justify-center">
           <PageHeader

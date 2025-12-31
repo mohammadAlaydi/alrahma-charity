@@ -59,14 +59,14 @@ export function SiteFooter() {
                 </div>
               </div>
 
-              {/* Mission statement - 450px width, 60px height - text takes full width */}
-              <p className="footer-mission h-[60px] w-full">
+              {/* Mission statement - flexible height, text takes full width */}
+              <p className="footer-mission w-full min-h-[60px]">
                 رسالتنا في جمعية الرحمة والإحسان هي أن نكون سندا لأهل غزة، نمنحهم الإغاثة العاجلة
                 والدعم المستدام ليبقى الأمل حيا
               </p>
 
               {/* Social media icons - right aligned: 215px width, 35px height, 10px spacing */}
-              <div className="flex justify-start">
+              <div className="flex justify-start mt-4">
                 <div className="flex items-center gap-[10px]">
                   {/* Facebook */}
                   <a
@@ -289,10 +289,10 @@ export function SiteFooter() {
 
         {/* Copyright */}
         <Container className="border-t border-white">
-          <div className="flex h-[79px] items-center justify-center">
-            <p className="copyright-text">
-              جمعية الرحمة والإحسان مرخصة وتعمل وفقاً لأحكام القانون في تركيا برقم تأسيس
-              0733100144600001
+          <div className="flex min-h-[79px] items-center justify-center py-4">
+            <p className="copyright-text text-sm md:text-base px-4 text-center break-words max-w-full">
+              جمعية الرحمة والإحسان مرخصة وتعمل وفقاً لأحكام القانون في تركيا برقم تأسيس{" "}
+              <span className="whitespace-nowrap">0733100144600001</span>
             </p>
           </div>
         </Container>

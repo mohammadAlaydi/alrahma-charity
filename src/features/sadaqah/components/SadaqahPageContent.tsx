@@ -58,6 +58,8 @@ export function SadaqahPageContent() {
       </div>
 
       <div className="relative px-4 py-10 md:px-8 lg:px-16 xl:px-[50px] 2xl:px-[320px] md:py-[100px]">
+
+
         {/* Intro section */}
         <section className="mb-[40px] md:mb-[79px]">
           <div className="mx-auto flex w-full max-w-[971px] flex-col items-center md:items-center gap-[8px] text-center">
@@ -130,19 +132,22 @@ export function SadaqahPageContent() {
               <button 
                 onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}
                 className="flex bg-white items-center justify-between w-full p-4 rounded-[20px] shadow-[0px_2px_29px_0px_rgba(0,127,94,0.14)] mb-2 group transition-all"
+                dir="rtl"
               >
-                <div className="p-2">
-                  <Image 
-                    src="/emojis/weui_arrow-outlined.svg" 
-                    alt="" 
-                    width={24} 
-                    height={12} 
-                    className={["transition-transform duration-300", isTypeDropdownOpen ? "rotate-[270deg]" : "rotate-90"].join(" ")} 
-                  />
-                </div>
                 <div className="flex items-center gap-4">
-                  <p className="font-alexandria text-[18px] font-bold text-[#122F2A]">{selectedType.title}</p>
                   <Image src={selectedType.iconSrc} alt="" width={40} height={40} />
+                  <p className="font-alexandria text-[18px] font-bold text-[#122F2A]">{selectedType.title}</p>
+                </div>
+                <div className="p-2 flex items-center justify-center">
+                  <div className={["transition-transform duration-300", isTypeDropdownOpen ? "rotate-180" : "rotate-0"].join(" ")}>
+                    <Image 
+                      src="/emojis/weui_arrow-outlined.svg" 
+                      alt="" 
+                      width={18} 
+                      height={9} 
+                      style={{ filter: 'brightness(0)' }}
+                    />
+                  </div>
                 </div>
               </button>
 
@@ -158,13 +163,11 @@ export function SadaqahPageContent() {
                           "flex items-center justify-between w-full p-4 transition-colors border-b border-gray-50 last:border-none",
                           selectedType.id === type.id ? "bg-[rgba(0,127,94,0.05)]" : "hover:bg-gray-50"
                         ].join(" ")}
+                        dir="rtl"
                       >
-                         <div className="flex items-center gap-4 mr-auto">
-                           
-                         </div>
                          <div className="flex items-center gap-4">
-                           <p className="font-alexandria text-base font-medium text-[#122F2A]">{type.title}</p>
                            <Image src={type.iconSrc} alt="" width={24} height={24} />
+                           <p className="font-alexandria text-base font-medium text-[#122F2A]">{type.title}</p>
                          </div>
                       </button>
                     ))}
@@ -347,6 +350,26 @@ export function SadaqahPageContent() {
           </div>
         </section>
       </div>
+
+      {/* Gaza Children Section - Centered - Separate Container */}
+      <section className="relative py-[60px] md:py-[100px] bg-white">
+        <div className="px-4 md:px-8 lg:px-16 xl:px-[50px] 2xl:px-[320px]">
+          <div className="flex flex-col items-center justify-center gap-[5px]">
+            <div className="flex items-center justify-center gap-[5px]">
+              <span aria-hidden="true" className="relative h-6 w-6 shrink-0 overflow-hidden">
+                <Image src="/figma/hugeicons-healthcare.svg" alt="" width={24} height={24} />
+              </span>
+              <p className="text-sm md:text-[16px] leading-[1.5] text-[#007F5E] text-nowrap font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif]">
+                أطفال غزة ينتظرون يد العون… كن أنت سبب الأمل
+              </p>
+            </div>
+            <p className="font-['Cairo',var(--font-cairo),sans-serif] text-[24px] md:text-[32px] font-bold leading-[1.5] text-[#122F2A] text-center max-w-[496px]">
+              كن سببا في ابتسامة شخص ما
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
+    
   );
 }

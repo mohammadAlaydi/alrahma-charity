@@ -7,7 +7,7 @@ export default function SadaqahJariyahPage() {
     <div className="min-h-screen bg-white">
       {/* Hero - matches Sadaqah page hero height with wavy edges */}
       <section 
-        className="relative h-[502px] overflow-hidden"
+        className="relative h-[300px] md:h-[391px] overflow-hidden"
         style={{
           background: 'linear-gradient(180deg, rgba(180, 187, 95, 0.12) 0%, rgba(255, 255, 255, 0.12) 78.5%, rgba(255, 255, 255, 1) 100%)'
         }}
