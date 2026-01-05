@@ -5,7 +5,7 @@
 Copy and paste this prompt when implementing any Figma design:
 
 ```
-Read the Figma Design Implementation Guide at docs/FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md
+Read the Figma Design Implementation Guide at docs/FIGMA_IMPLEMENTATION_GUIDE.md
 and implement ALL the changes according to the specifications.
 
 Priority fixes:
@@ -39,7 +39,7 @@ Verify the Figma implementation by:
 ### For Navbar Implementation:
 
 ```
-Implement the navigation bar according to FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md:
+Implement the navigation bar according to FIGMA_IMPLEMENTATION_GUIDE.md:
 - Use .navbar-item class (font-weight: 500, line-height: 26px)
 - Active items use .navbar-item-active class
 - Gap between items: 30px
@@ -50,7 +50,7 @@ Implement the navigation bar according to FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md:
 ### For Hero Section:
 
 ```
-Implement the hero section according to FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md:
+Implement the hero section according to FIGMA_IMPLEMENTATION_GUIDE.md:
 - Height: 502px
 - Background: Linear gradient from rgba(180, 187, 95, 0.12) to white
 - Use .hero-subtitle class (20px, 400 weight, 30px line-height)
@@ -61,7 +61,7 @@ Implement the hero section according to FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md:
 ### For Footer Implementation:
 
 ```
-Implement the footer according to FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md:
+Implement the footer according to FIGMA_IMPLEMENTATION_GUIDE.md:
 - Height: 692.99px
 - Background: #007F5E
 - Use .footer-section-title for headers (20px, 600 weight)
@@ -76,7 +76,7 @@ Implement the footer according to FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md:
 ### Fix Typography:
 
 ```
-Update all typography to use classes from FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md.
+Update all typography to use classes from FIGMA_IMPLEMENTATION_GUIDE.md.
 Replace Tailwind utility classes (text-base, font-medium, leading-6) with
 the exact typography token classes defined in the guide.
 ```
@@ -85,20 +85,20 @@ the exact typography token classes defined in the guide.
 
 ```
 Update all navbar items to use font-weight: 500 (not 400).
-Check FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md for the correct font-weight mapping.
+Check FIGMA_IMPLEMENTATION_GUIDE.md for the correct font-weight mapping.
 ```
 
 ### Fix Spacing:
 
 ```
 Update container padding to 320px horizontal and max-width to 1280px.
-Match all spacing values exactly as specified in FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md.
+Match all spacing values exactly as specified in FIGMA_IMPLEMENTATION_GUIDE.md.
 ```
 
 ### Fix Colors:
 
 ```
-Update all colors to use exact hex values from FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md:
+Update all colors to use exact hex values from FIGMA_IMPLEMENTATION_GUIDE.md:
 - Primary: #007F5E
 - Secondary: #B4BB5F
 - Accent: #DFD383
@@ -108,7 +108,6 @@ Update all colors to use exact hex values from FIGMA_DESIGN_IMPLEMENTATION_GUIDE
 
 ---
 
-**Reference Files:**
+**Reference File:**
 
-- Full Guide: `docs/FIGMA_DESIGN_IMPLEMENTATION_GUIDE.md`
-- Quick Reference: `docs/FIGMA_QUICK_REFERENCE.md`
+- Complete Guide: `docs/FIGMA_IMPLEMENTATION_GUIDE.md`
