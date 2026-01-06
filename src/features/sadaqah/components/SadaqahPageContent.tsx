@@ -62,12 +62,13 @@ export function SadaqahPageContent() {
         <section className="mb-[40px] md:mb-[79px]">
           <div className="mx-auto flex w-full max-w-[971px] flex-col items-center gap-[8px] text-center">
             <div className="flex items-center justify-center gap-[5px]">
-              <p className="text-sm md:text-[16px] leading-normal text-[#007F5E] text-nowrap font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif]">
-                زكاتك حياة… تصل لمستحقيها
-              </p>
-              <span aria-hidden="true" className="relative h-5 w-5 md:h-6 md:w-6 overflow-hidden">
+            <span aria-hidden="true" className="relative h-5 w-5 md:h-6 md:w-6 overflow-hidden">
                 <Image src="/figma/hugeicons-healthcare.svg" alt="" width={24} height={24} />
               </span>
+              <p className="text-sm md:text-[16px] leading-normal text-[#007F5E] text-nowrap font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif]">
+              صدقة اليوم… أمان لغدهم
+              </p>
+
             </div>
 
             <p className="font-alexandria text-xl md:text-[30px] font-bold md:leading-[1.6] text-[#0D0D0D]">
