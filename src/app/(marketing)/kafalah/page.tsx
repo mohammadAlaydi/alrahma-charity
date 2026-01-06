@@ -1,11 +1,11 @@
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { AboutPageContent } from "@/features/about/components/AboutPageContent";
+import { OrphanSponsorshipPageContent } from "@/features/orphan-sponsorship/components/OrphanSponsorshipPageContent";
 
-export default function AboutPage() {
+export default function OrphanSponsorshipPage() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero - responsive height */}
+      {/* Hero - matches Sadaqah page hero height with wavy edges */}
       <section 
         className="relative h-[300px] md:h-[391px] overflow-hidden"
         style={{
@@ -14,18 +14,19 @@ export default function AboutPage() {
       >
         <Container className="relative z-10 flex h-full items-center justify-center">
           <PageHeader
-            title="تعرف علينا"
+            title="كفالة الايتام"
             subtitle="تبرعك اليوم يصنع أثرًا لا يُنسى"
             subtitleIcon="/figma/hugeicons-healthcare.svg"
             breadcrumbs={[
               { label: "الرئيسية", href: "/" },
-              { label: "تعرف علينا", href: "/about" },
+              { label: "كفالة الايتام", href: "/kafalah" },
             ]}
           />
         </Container>
       </section>
 
-      <AboutPageContent />
+      <OrphanSponsorshipPageContent />
     </div>
   );
 }
+

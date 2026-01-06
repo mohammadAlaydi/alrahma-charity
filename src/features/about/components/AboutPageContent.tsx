@@ -1,0 +1,675 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import { Container } from "@/components/ui/Container";
+import { AmountInput } from "@/components/ui/AmountInput";
+
+const PRESET_AMOUNTS = [200, 100, 50, 10];
+
+type TabType = "vision" | "mission" | "values";
+
+const VISION_ITEMS = [
+  "توسيع التدخلات الإنسانية للوصول إلى الأسر الأكثر تضررًا",
+  "تنفيذ مشاريع تنموية مستدامة تعيد للأسر القدرة على الاعتماد على نفسها",
+  "تمكين الشباب عبر التدريب والتعليم وبناء القدرات",
+];
+
+const MISSION_ITEMS = [
+  "تقديم الإغاثة العاجلة والدعم المستدام للأسر المتضررة في غزة",
+  "تعزيز التكافل الاجتماعي ونشر قيم العطاء",
+  "تمكين الأفراد وتحسين جودة حياتهم عبر مبادرات مبتكرة",
+];
+
+const VALUES_ITEMS = [
+  "الشفافية في جميع أعمالنا ومشاريعنا",
+  "الإنسانية في التعامل مع جميع الفئات المحتاجة",
+  "الاستدامة في الأثر الإيجابي لمشاريعنا",
+];
+
+export function AboutPageContent() {
+  const [selectedAmount, setSelectedAmount] = useState<number>(200);
+  const [customAmount, setCustomAmount] = useState<string>("");
+  const [activeTab, setActiveTab] = useState<TabType>("vision");
+
+  const getTabItems = () => {
+    switch (activeTab) {
+      case "vision": return VISION_ITEMS;
+      case "mission": return MISSION_ITEMS;
+      case "values": return VALUES_ITEMS;
+      default: return VISION_ITEMS;
+    }
+  };
+
+  return (
+    <div className="w-full bg-white" dir="rtl">
+      {/* About Section with Image Gallery */}
+      <section className="w-full bg-white py-10 md:py-[100px]">
+        <Container>
+          <div className="flex flex-col gap-10 lg:gap-[91px] lg:flex-row-reverse lg:items-start">
+            {/* Image Gallery - appears on left visually in RTL */}
+            <div className="relative w-full lg:w-auto lg:flex-1">
+              <div className="relative">
+                {/* Main image container */}
+                <div className="relative h-[400px] md:h-[695px] w-full max-w-[569px] mx-auto">
+                  {/* Large main image with gradient overlay */}
+                  <div className="absolute top-0 right-0 h-[400px] md:h-[548px] w-full max-w-full md:max-w-[446px] overflow-hidden rounded-[20px] border-4 md:border-8 border-[#FFECEC]">
+                    <div className="relative h-full w-full">
+                      <Image
+                        src="/sadaqah-jarya.jpg"
+                        alt=""
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#2E7C5E]/80 via-[#2E7C5E]/60 to-[#2E7C5E]/10" />
+                      {/* Play button overlay */}
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <button
+                          type="button"
+                          className="flex h-14 w-14 md:h-[70px] md:w-[70px] items-center justify-center rounded-full bg-white shadow-lg transition-opacity hover:opacity-90"
+                        >
+                          <div className="h-full w-full rounded-full bg-white flex items-center justify-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="ml-1 md:w-8 md:h-8">
+                              <path d="M8 5v14l11-7z" fill="#007F5E" />
+                            </svg>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Smaller image on the left (visually) - HIDDEN ON MOBILE */}
+                  <div className="hidden md:block absolute bottom-0 left-0 h-[195px] w-[212px] overflow-hidden rounded-[20px] border-8 border-[#FEFDFD] bg-[#D9D9D9]">
+                    <Image
+                      src="/sadaqah-jarya.jpg"
+                      alt=""
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
+                  {/* Top right small image (visually) - HIDDEN ON MOBILE */}
+                  <div className="hidden md:block absolute top-0 right-0 h-[208px] w-[229px] overflow-hidden rounded-[20px] border-8 border-[#FEFDFD] bg-[#D9D9D9]">
+                    <Image
+                      src="/sadaqah-jarya.jpg"
+                      alt=""
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
+                  {/* Vertical bar with rotated text - HIDDEN ON MOBILE */}
+                  <div className="hidden md:flex absolute top-[69.87px] right-[53.06px] h-[477px] w-[106px] flex-col items-center justify-center">
+                    <div className="absolute h-[476.858px] w-full rounded-[15px] bg-[#B4BB5F]" />
+                    <div className="absolute bottom-[8.88px] h-[459px] w-full rounded-[15px] bg-[#007F5E]" />
+                    <div className="absolute flex h-[337px] items-center justify-center -rotate-90">
+                      <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-[24px] font-semibold leading-[1.5] text-center text-white whitespace-nowrap">
+                        نمنح <span className="text-[#DFD383]">الأمل</span> للأسر المتضررة في غزة.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Decorative line - HIDDEN ON MOBILE */}
+                  <div className="hidden md:block absolute top-[5px] right-[264px] h-[37px] w-[262px]">
+                    <svg width="262" height="37" viewBox="0 0 262 37" fill="none">
+                      <path
+                        d="M0 18.5L262 18.5"
+                        stroke="#007F5E"
+                        strokeWidth="5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Content - appears on right visually in RTL */}
+            <div className="w-full space-y-6 md:space-y-8 lg:w-[628px] lg:flex-shrink-0">
+              {/* Heading with icon */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-[5px]">
+                  <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-sm md:text-[16px] leading-[1.5] text-[#007F5E]">
+                    مساعدة بعضنا البعض يمكن أن تجعل العالم أفضل
+                  </p>
+                  <Image
+                    src="/figma/hugeicons-healthcare.svg"
+                    alt=""
+                    width={24}
+                    height={24}
+                    className="h-5 w-5 md:h-6 md:w-6"
+                  />
+                </div>
+                <h2 className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5] text-right">
+                  <span className="text-[#0D0D0D]">جمعية </span>
+                  <span className="text-[#007F5E]">الرحمة</span> <span className="text-[#007F5E]">والإحسان</span>
+                </h2>
+              </div>
+
+              {/* Paragraph */}
+              <p className="font-alexandria text-sm md:text-[16px] font-normal leading-[1.6] text-right text-[rgba(13,13,13,0.7)]">
+                جمعية الرحمة والإحسان، مؤسسة خيرية مرخصة في تركيا تحت الرقم 0733100144600001. تأسست
+                الجمعية في 07 أكتوبر 2021 استجابة لحالة الطوارئ الإنسانية التي يشهدها قطاع غزة نتيجة
+                الأزمات المتكررة والحصار المستمر. ومنذ انطلاقتها، أخذت الجمعية على عاتقها مهمة تقديم
+                الإغاثة العاجلة والدعم المستدام للأسر المتضررة، عبر برامج نوعية تلبي الاحتياجات
+                الأساسية في مجالات الغذاء، الصحة، التعليم، والإيواء. تسعى الجمعية إلى خدمة أهلنا
+                الكرام في قطاع غزة من خلال مشاريع إنسانية وتنموية متكاملة، تهدف إلى تعزيز التكافل
+                الاجتماعي، ونشر قيم العطاء، وبث الأمل في النفوس. كما تعمل على تمكين الأفراد وتحسين
+                جودة حياتهم، مع التركيز على الفئات الأكثر احتياجا، وذلك عبر مبادرات مبتكرة وشراكات
+                استراتيجية تضمن استدامة الأثر الإيجابي. وإيمانا منها بحق الإنسان في حياة كريمة، تركز
+                جمعية الرحمة والإحسان على تعزيز فرص التنمية المستدامة، وتوفير بيئة أكثر استقرارا للأسر
+                والأطفال، بما يسهم في بناء مستقبل أفضل للأجيال القادمة ويعزز من صمود المجتمع الفلسطيني
+                أمام التحديات المتواصلة.
+              </p>
+
+              {/* CTA Cards */}
+              <div className="flex flex-col gap-6 lg:flex-row lg:gap-[71px]">
+                {/* Card 1 */}
+                <div className="flex flex-row gap-4">
+                  <div className="relative h-10 w-10 md:h-[57px] md:w-[57px] shrink-0">
+                    <Image
+                      src="/heart.svg"
+                      alt=""
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <div className="flex-1 space-y-1 md:space-y-2">
+                    <h4 className="font-alexandria text-lg md:text-[20px] font-semibold leading-[1.5] text-right text-[#122F2A]">
+                      ابدأ بمساعدتهم
+                    </h4>
+                    <p className="font-alexandria text-sm md:text-[16px] font-normal leading-[1.5] text-right text-[rgba(13,13,13,0.7)]">
+                      ساعدهم على تجاوز الأزمات… دعمك يمنحهم فرصة لحياة أكثر كرامة واستقرارًا
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card 2 */}
+                <div className="flex flex-row gap-4">
+                  <div className="relative h-10 w-10 md:h-[57px] md:w-[57px] shrink-0">
+                    <Image
+                      src="/double hearts.svg"
+                      alt=""
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <div className="flex-1 space-y-1 md:space-y-2">
+                    <h4 className="font-alexandria text-lg md:text-[20px] font-semibold leading-[1.5] text-right text-[#122F2A]">
+                      قم بالتبرع
+                    </h4>
+                    <p className="font-alexandria text-sm md:text-[16px] font-normal leading-[1.5] text-right text-[rgba(13,13,13,0.7)]">
+                      بمساهمة بسيطة، تمنح أسرة أملًا جديدًا… اجعل عطاؤك يصل لمن يحتاجه الآن.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Donate Button */}
+              <div className="flex justify-center lg:justify-end pt-4">
+                <button
+                  type="button"
+                  className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full md:w-auto"
+                >
+                  <Image
+                    src="/emojis/line-md_arrow-up.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="h-5 w-5 rotate-90"
+                  />
+                  <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.6] text-white">
+                    تبرع الان
+                  </p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Statistics Section */}
+      <section className="w-full bg-white py-10 md:py-[100px]">
+        <Container>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 px-4">
+            {/* Stat Card 1 */}
+            <div className="bg-white flex flex-col gap-4 items-center justify-center p-6 rounded-[16px] border border-gray-100 shadow-[0px_5px_12px_0px_rgba(0,127,94,0.07)] min-h-[180px] md:min-h-[219px] w-full max-w-[300px]">
+              <div className="h-12 w-10 md:h-[67px] md:w-[50px] flex items-center justify-center relative">
+                <Image
+                  src="/heart.svg"
+                  alt=""
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div className="flex flex-col gap-1 md:gap-[5px] items-center text-[#122F2A]">
+                <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
+                  2,8 M
+                </p>
+                <p className="font-alexandria text-sm md:text-[16px] font-medium leading-[1.5] text-center">
+                  إجمالي المساعدات النقدية
+                </p>
+              </div>
+            </div>
+
+            {/* Stat Card 2 */}
+            <div className="bg-white flex flex-col gap-4 items-center justify-center p-6 rounded-[16px] border border-gray-100 shadow-[0px_5px_12px_0px_rgba(0,127,94,0.07)] min-h-[180px] md:min-h-[219px] w-full max-w-[300px]">
+              <div className="h-12 w-10 md:h-[67px] md:w-[50px] flex items-center justify-center relative">
+                <Image
+                  src="/double hearts.svg"
+                  alt=""
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div className="flex flex-col gap-1 md:gap-[5px] items-center text-[#122F2A]">
+                <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
+                  303,950
+                </p>
+                <p className="font-alexandria text-sm md:text-[16px] font-medium leading-[1.5] text-center">
+                  المستفيدين من مشاريع الطرود الغذائية والوجبات
+                </p>
+              </div>
+            </div>
+
+            {/* Stat Card 3 */}
+            <div className="bg-white flex flex-col gap-4 items-center justify-center p-6 rounded-[16px] border border-gray-100 shadow-[0px_5px_12px_0px_rgba(0,127,94,0.07)] min-h-[180px] md:min-h-[219px] w-full max-w-[300px]">
+              <div className="h-12 w-10 md:h-[67px] md:w-[50px] flex items-center justify-center relative">
+                <Image
+                  src="/water.png"
+                  alt=""
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div className="flex flex-col gap-1 md:gap-[5px] items-center text-[#122F2A]">
+                <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
+                  76,500
+                </p>
+                <p className="font-alexandria text-sm md:text-[16px] font-medium leading-[1.5] text-center">
+                  عدد الأكواب ضمن مشاريع سقيا المياه
+                </p>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* CTA Section with Background */}
+      <section className="relative w-full h-[564px] md:h-[808px] overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/sadaqah-jarya.jpg"
+            alt=""
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-l from-[#0E201D]/95 via-[#0E201D]/60 to-[#0E201D]/10" />
+          <div className="absolute inset-0 bg-gradient-to-l from-[#2E7C5E]/95 via-[#2E7C5E]/60 to-[#2E7C5E]/10 opacity-60" />
+        </div>
+        <div className="absolute inset-0 flex flex-col gap-6 items-center justify-center px-4 md:px-0">
+          <div className="flex flex-col gap-2 items-center text-center">
+            <div className="flex gap-[5px] items-center">
+              <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-[16px] md:text-[20px] leading-[1.5] text-[#DFD383]">
+                تبرعك اليوم يصنع أثرًا لا يُنسى
+              </p>
+              <Image
+                src="/figma/hugeicons-healthcare.svg"
+                alt=""
+                width={20}
+                height={20}
+                className="h-5 w-5 md:h-8 md:w-8"
+              />
+            </div>
+            <p className="font-alexandria text-[24px] md:text-[40px] font-bold leading-[1.5] md:leading-[1.6] text-white max-w-[797px]">
+              بمساهمة بسيطة تصنع حماية وأمانًا لأطفال يواجهون الظروف الأصعب
+            </p>
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-[22px] items-center w-full md:w-auto px-4 md:px-0">
+            <button
+              type="button"
+              className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full md:w-auto"
+            >
+              <Image
+                src="/emojis/line-md_arrow-up.svg"
+                alt=""
+                width={20}
+                height={20}
+                className="h-5 w-5 rotate-90"
+              />
+              <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.5] text-white">
+                اهم المشاريع
+              </p>
+            </button>
+            <button
+              type="button"
+              className="border border-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] bg-transparent w-full md:w-auto"
+            >
+              <Image
+                src="/emojis/line-md_arrow-up.svg"
+                alt=""
+                width={20}
+                height={20}
+                className="h-5 w-5 rotate-90"
+              />
+              <p className="font-alexandria text-base md:text-[16px] font-semibold leading-[1.5] text-white">
+                تبرع الان
+              </p>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Vision/Mission/Values Section */}
+      <section className="w-full bg-white py-10 md:py-[100px]">
+        <Container>
+          <div className="flex flex-col gap-10 lg:gap-[91px] lg:flex-row-reverse lg:items-start">
+            {/* Image Gallery */}
+            <div className="relative w-full lg:w-auto lg:flex-1">
+              <div className="relative h-[300px] md:h-[529px] w-full max-w-[448px] mx-auto">
+                <div className="absolute top-0 right-0 h-full w-full overflow-hidden rounded-[20px] border-4 md:border-8 border-[#FFECEC]">
+                  <div className="relative h-full w-full">
+                    <Image
+                      src="/sadaqah-jarya.jpg"
+                      alt=""
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#2E7C5E]/80 via-[#2E7C5E]/60 to-[#2E7C5E]/10" />
+                    {/* Play button overlay */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                      <button
+                        type="button"
+                        className="flex h-14 w-14 md:h-[70px] md:w-[70px] items-center justify-center rounded-full bg-white shadow-lg transition-opacity hover:opacity-90"
+                      >
+                        <div className="h-full w-full rounded-full bg-white flex items-center justify-center">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="ml-1 md:w-8 md:h-8">
+                            <path d="M8 5v14l11-7z" fill="#007F5E" />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                {/* Secondary image - HIDDEN ON MOBILE or positioned differently */}
+                <div className="hidden md:block absolute bottom-0 left-[236px] h-[290px] w-[291px] overflow-hidden rounded-[20px] border-[15px] border-[#FEFDFD]">
+                  <Image
+                    src="/sadaqah-jarya.jpg"
+                    alt=""
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="w-full space-y-6 md:space-y-8 lg:w-[628px] lg:flex-shrink-0">
+              {/* Heading */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-[5px]">
+                  <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-sm md:text-[16px] leading-[1.5] text-[#007F5E]">
+                    أطفال غزة ينتظرون يد العون… كن أنت سبب الأمل
+                  </p>
+                  <Image
+                    src="/figma/hugeicons-healthcare.svg"
+                    alt=""
+                    width={24}
+                    height={24}
+                    className="h-5 w-5 md:h-6 md:w-6"
+                  />
+                </div>
+                <h2 className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5] text-right">
+                  <span>نحو أثر إنساني مستدام </span>
+                  <span className="text-[#007F5E]">يغيّر حياة أهل غزة</span>
+                </h2>
+              </div>
+
+              {/* Paragraph */}
+              <p className="font-alexandria text-sm md:text-[16px] font-normal leading-[1.6] text-right text-[rgba(13,13,13,0.7)]">
+                في جمعية الرحمة والإحسان، نعمل على تحسين جودة حياة الأسر المتضررة في غزة من خلال تدخلات إنسانية عاجلة ومشاريع تنموية مستدامة. نؤمن بأن الكرامة الإنسانية تبدأ من دعم الاحتياجات الأساسية، وتمتد بتمكين الشباب والأسَر لبناء مستقبل أفضل. برؤية واضحة وقيم قائمة على الشفافية والإنسانية، نواصل جهودنا لصناعة أثر حقيقي يعزز صمود المجتمع ويزرع الأمل في نفوس المحتاجين.
+              </p>
+
+              {/* Tabs */}
+              <div className="flex flex-col gap-6 md:gap-8">
+                <div className="border-b border-[rgba(0,0,0,0.2)] flex gap-4 md:gap-6 items-center pb-4 overflow-x-auto no-scrollbar">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("values")}
+                    className={`px-6 md:px-8 py-[10px] rounded-[30px] transition-colors whitespace-nowrap ${
+                      activeTab === "values" ? "bg-[#007F5E]" : ""
+                    }`}
+                  >
+                    <p className={`font-alexandria text-lg md:text-[20px] font-medium leading-[1.5] ${
+                      activeTab === "values" ? "text-white" : "text-[#0D0D0D]"
+                    }`}>
+                      أهدافنا
+                    </p>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("mission")}
+                    className={`px-6 md:px-8 py-[10px] rounded-[30px] transition-colors whitespace-nowrap ${
+                      activeTab === "mission" ? "bg-[#007F5E]" : ""
+                    }`}
+                  >
+                    <p className={`font-alexandria text-lg md:text-[20px] font-medium leading-[1.5] ${
+                      activeTab === "mission" ? "text-white" : "text-[#0D0D0D]"
+                    }`}>
+                      قيمنا
+                    </p>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("vision")}
+                    className={`px-6 md:px-8 py-[10px] rounded-[30px] transition-colors whitespace-nowrap ${
+                      activeTab === "vision" ? "bg-[#007F5E]" : ""
+                    }`}
+                  >
+                    <p className={`font-alexandria text-lg md:text-[20px] font-medium leading-[1.5] ${
+                      activeTab === "vision" ? "text-white" : "text-[#0D0D0D]"
+                    }`}>
+                      رؤيتنا
+                    </p>
+                  </button>
+                </div>
+
+                {/* Tab Content */}
+                <div className="flex flex-col gap-4">
+                  {getTabItems().map((item, index) => (
+                    <div key={index} className="flex gap-4 items-center justify-end">
+                      <p className="font-alexandria text-sm md:text-[16px] font-medium leading-[1.5] text-right text-[rgba(13,13,13,0.7)]">
+                        {item}
+                      </p>
+                      <Image
+                        src="/emojis/check.svg"
+                        alt=""
+                        width={32}
+                        height={32}
+                        className="h-6 w-6 md:h-8 md:w-8 shrink-0"
+                      />
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] self-end mt-4 w-full md:w-auto"
+                  >
+                    <Image
+                      src="/emojis/line-md_arrow-up.svg"
+                      alt=""
+                      width={20}
+                      height={20}
+                      className="h-5 w-5 rotate-90"
+                    />
+                    <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.5] text-white">
+                      إقراء المزيد
+                    </p>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Donation Card Section */}
+      <section className="relative w-full bg-[#007F5E] py-10 md:py-[100px] overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/sadaqah-bg.png"
+            alt=""
+            fill
+            className="object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-l from-[#007F5E] via-[#007F5E]/95 to-[#007F5E]/60" />
+        </div>
+        <Container>
+          <div className="relative flex flex-col lg:flex-row gap-10 items-center justify-between">
+            {/* Text */}
+            <div className="flex flex-col gap-2 items-center lg:items-end text-white w-full lg:w-auto text-center lg:text-right">
+              <div className="flex gap-[5px] items-center">
+                <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-sm md:text-[16px] leading-[1.5] text-white">
+                  مساعدة بعضنا البعض يمكن أن تجعل العالم أفضل
+                </p>
+                <Image
+                  src="/figma/hugeicons-healthcare.svg"
+                  alt=""
+                  width={24}
+                  height={24}
+                  className="h-5 w-5 md:h-6 md:w-6"
+                />
+              </div>
+              <p className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5]">
+                <span className="text-[#DFD383]">جمعية </span>
+                <span className="text-white">الرحمة</span> <span className="text-white">والإحسان</span>
+              </p>
+            </div>
+
+            {/* Donation Card */}
+            <div className="bg-white rounded-[20px] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.15)] w-full max-w-[552px] overflow-hidden order-first lg:order-last">
+              <div className="bg-[#F0F0F0] flex items-center justify-end px-4 py-4 md:py-4 rounded-t-[20px]">
+                <p className="font-alexandria text-lg md:text-[20px] font-medium leading-[1.5] text-[#0D0D0D]">
+                  تبرع سريع
+                </p>
+              </div>
+              <div className="flex flex-col gap-6 items-end p-4 md:p-6">
+                {/* Amount selection */}
+                <div className="flex flex-col gap-4 items-start w-full">
+                  <p className="font-alexandria text-base md:text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full">
+                    حدد المبلغ
+                  </p>
+                  <div className="flex flex-wrap items-center justify-between gap-3 w-full" dir="rtl">
+                    {[...PRESET_AMOUNTS].reverse().map((amount) => {
+                      const isActive = selectedAmount === amount && !customAmount;
+                      return (
+                        <button
+                          key={amount}
+                          type="button"
+                          onClick={() => {
+                            setSelectedAmount(amount);
+                            setCustomAmount("");
+                          }}
+                          className={[
+                            "flex items-center justify-center rounded-[20px] transition-all flex-1 min-w-[calc(50%-6px)] sm:min-w-[110px]",
+                            isActive
+                              ? "h-12 md:h-[57px] border border-[#007F5E] bg-[rgba(0,127,94,0.1)]"
+                              : "h-12 md:h-[60px] border border-[rgba(13,13,13,0.2)] px-4 hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
+                          ].join(" ")}
+                        >
+                          <p className="font-alexandria text-sm md:text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)]">
+                            $ {amount}
+                          </p>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Custom amount */}
+                <div className="flex flex-col gap-4 items-start w-full">
+                  <p className="font-alexandria text-base md:text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full">
+                    مبلغ مخصص
+                  </p>
+                  <AmountInput
+                    placeholder="أدخل القيمة"
+                    value={customAmount}
+                    onChange={(e) => {
+                      setCustomAmount(e.target.value);
+                      if (e.target.value) setSelectedAmount(0);
+                    }}
+                    className="h-12 md:h-[60px] w-full"
+                  />
+                </div>
+
+                {/* Donate button */}
+                <button
+                  type="button"
+                  className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full"
+                >
+                  <Image
+                    src="/figma/mingcute-love-fill.svg"
+                    alt=""
+                    width={24}
+                    height={24}
+                    className="h-6 w-6"
+                  />
+                  <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.5] text-white">
+                    تبرع الأن
+                  </p>
+                </button>
+
+                {/* Security text */}
+                <p className="font-alexandria text-xs md:text-[16px] font-normal leading-[1.6] text-center text-[rgba(13,13,13,0.7)] w-full">
+                  معاملة مشفرة آمنة بتقنية SSL
+                </p>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Partners Section */}
+      <section className="w-full bg-white py-10 md:py-[100px] relative overflow-hidden">
+        <Container>
+          <div className="flex flex-col gap-8 md:gap-10 items-center relative z-10">
+            <div className="flex flex-col gap-2 items-center text-center">
+              <div className="flex gap-[5px] items-center">
+                <p className="font-['Playpen_Sans_Arabic',sans-serif] text-sm md:text-[16px] leading-[1.5] text-[#007F5E]">
+                  رحمة تصنع القوة
+                </p>
+                <Image
+                  src="/figma/hugeicons-healthcare.svg"
+                  alt=""
+                  width={24}
+                  height={24}
+                  className="h-5 w-5 md:h-6 md:w-6"
+                />
+              </div>
+              <p className="font-alexandria text-2xl md:text-[40px] font-bold leading-[1.6]">
+                <span>شركاؤنا من جميع </span>
+                <span className="text-[#007F5E]">أنحاء العالم</span>
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-4 md:gap-10 items-center justify-center w-full px-4">
+              {/* Partner logos placeholders with distinct styling */}
+              {Array.from({ length: 13 }).map((_, i) => (
+                <div key={i} className="h-14 md:h-[86px] w-[120px] md:w-[189px] bg-white border border-gray-100 shadow-[0px_5px_12px_0px_rgba(0,127,94,0.05)] rounded-lg flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer">
+                  <div className="w-[80%] h-[60%] bg-gray-50 rounded flex items-center justify-center border border-dashed border-gray-200">
+                    <p className="text-gray-300 text-[8px] md:text-[10px] font-medium">PARTNER LOGO</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Decorative background element matching Figma imgVector */}
+          <div className="absolute top-[50px] left-1/2 -translate-x-1/2 w-full max-w-[1667px] h-[542px] pointer-events-none opacity-5">
+            <svg width="100%" height="100%" viewBox="0 0 1667 542" fill="none">
+              <path d="M0 271C0 121.325 121.325 0 271 0H1396C1545.68 0 1667 121.325 1667 271V271C1667 420.675 1545.68 542 1396 542H271C121.325 542 0 420.675 0 271V271Z" fill="#007F5E" />
+            </svg>
+          </div>
+        </Container>
+      </section>
+    </div>
+  );
+}

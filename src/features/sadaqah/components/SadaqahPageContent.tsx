@@ -57,12 +57,10 @@ export function SadaqahPageContent() {
         </div>
       </div>
 
-      <div className="relative px-4 py-10 md:px-8 lg:px-16 xl:px-[50px] 2xl:px-[320px] md:py-[100px]">
-
-
+      <Container className="relative py-10 md:py-[100px]">
         {/* Intro section */}
         <section className="mb-[40px] md:mb-[79px]">
-          <div className="mx-auto flex w-full max-w-[971px] flex-col items-center md:items-center gap-[8px] text-center">
+          <div className="mx-auto flex w-full max-w-[971px] flex-col items-center gap-[8px] text-center">
             <div className="flex items-center justify-center gap-[5px]">
               <p className="text-sm md:text-[16px] leading-normal text-[#007F5E] text-nowrap font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif]">
                 زكاتك حياة… تصل لمستحقيها
@@ -88,7 +86,7 @@ export function SadaqahPageContent() {
         </section>
 
         {/* Main content: Two-column layout on desktop, single column on mobile */}
-        <section className="flex flex-col xl:grid xl:grid-cols-[minmax(0,1.3fr)_555px] gap-10 xl:gap-10 items-start justify-center w-full max-w-[1400px] mx-auto">
+        <section className="flex flex-col xl:grid xl:grid-cols-[minmax(0,1.3fr)_555px] gap-10 items-start justify-center w-full">
           
           {/* Left Side: Grid of donation type cards - Visible only on Desktop */}
           <div className="hidden xl:grid xl:grid-cols-2 gap-4 items-start w-full order-2 xl:order-1">
@@ -200,7 +198,7 @@ export function SadaqahPageContent() {
                       حدد المبلغ
                     </p>
                   </div>
-                  <div className="grid grid-cols-2 md:flex md:items-center md:justify-between gap-3 w-full" dir="rtl">
+                  <div className="grid grid-cols-2 sm:flex sm:items-center sm:justify-between gap-3 w-full" dir="rtl">
                     {[...PRESET_AMOUNTS].reverse().map((amount) => {
                       const isActive = selectedAmount === amount && !customAmount;
                       return (
@@ -212,10 +210,10 @@ export function SadaqahPageContent() {
                             setCustomAmount("");
                           }}
                           className={[
-                            "flex items-center justify-center rounded-[20px] transition-all w-full",
+                            "flex items-center justify-center rounded-[20px] transition-all w-full sm:flex-1",
                             isActive
-                              ? "h-[57px] md:w-[106px] border border-[#007F5E] bg-[rgba(0,127,94,0.1)]"
-                              : "h-[60px] md:w-[110px] border border-[rgba(13,13,13,0.2)] px-4 hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
+                              ? "h-12 sm:h-[57px] border border-[#007F5E] bg-[rgba(0,127,94,0.1)]"
+                              : "h-12 sm:h-[60px] border border-[rgba(13,13,13,0.2)] px-4 hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
                           ].join(" ")}
                         >
                           <p className="font-alexandria text-sm md:text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-nowrap">
@@ -241,7 +239,7 @@ export function SadaqahPageContent() {
                       setCustomAmount(e.target.value);
                       if (e.target.value) setSelectedAmount(0);
                     }}
-                    className="h-[60px] w-full"
+                    className="h-12 sm:h-[60px] w-full"
                   />
                 </div>
 
@@ -309,7 +307,7 @@ export function SadaqahPageContent() {
                 </div>
 
                 {/* Country selector - Single row on Mobile per Figma 1390:41080 */}
-                <div className="flex gap-4 h-auto md:h-[81px] items-center justify-end w-full" dir="rtl">
+                <div className="flex gap-4 h-auto sm:h-[81px] items-center justify-end w-full" dir="rtl">
                 <p className="font-alexandria text-base md:text-[18px] font-medium leading-normal text-[#122F2A] text-right md:text-center text-nowrap">
                     الدولة
                   </p>
@@ -329,7 +327,7 @@ export function SadaqahPageContent() {
                   type="button"
                   className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full"
                 >
-                  <p className="font-alexandria text-sm md:text-[16px] font-normal leading-normal text-white text-nowrap">
+                  <p className="font-alexandria text-sm md:text-[16px] font-bold leading-normal text-white text-nowrap">
                     تبرع الان
                   </p>
                   <Image
@@ -342,32 +340,32 @@ export function SadaqahPageContent() {
                 </button>
 
                 {/* Security text */}
-                <p className="font-alexandria text-sm md:text-[16px] font-normal leading-[1.6] text-[rgba(13,13,13,0.7)] text-center">
+                <p className="font-alexandria text-xs sm:text-[16px] font-normal leading-[1.6] text-[rgba(13,13,13,0.7)] text-center">
                   معاملة مشفرة آمنة بتقنية SSL
                 </p>
               </div>
             </div>
           </div>
         </section>
-      </div>
+      </Container>
 
       {/* Gaza Children Section - Centered - Separate Container */}
-      <section className="relative py-[60px] md:py-[100px] bg-white">
-        <div className="px-4 md:px-8 lg:px-16 xl:px-[50px] 2xl:px-[320px]">
-          <div className="flex flex-col items-center justify-center gap-[5px]">
+      <section className="relative py-10 md:py-[100px] bg-white">
+        <Container>
+          <div className="flex flex-col items-center justify-center gap-2">
             <div className="flex items-center justify-center gap-[5px]">
-              <span aria-hidden="true" className="relative h-6 w-6 shrink-0 overflow-hidden">
+              <span aria-hidden="true" className="relative h-5 w-5 shrink-0 overflow-hidden">
                 <Image src="/figma/hugeicons-healthcare.svg" alt="" width={24} height={24} />
               </span>
-              <p className="text-sm md:text-[16px] leading-[1.5] text-[#007F5E] text-nowrap font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif]">
+              <p className="text-xs sm:text-[16px] leading-[1.5] text-[#007F5E] text-nowrap font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif]">
                 أطفال غزة ينتظرون يد العون… كن أنت سبب الأمل
               </p>
             </div>
-            <p className="font-['Cairo',var(--font-cairo),sans-serif] text-[24px] md:text-[32px] font-bold leading-[1.5] text-[#122F2A] text-center max-w-[496px]">
+            <p className="font-['Cairo',var(--font-cairo),sans-serif] text-xl md:text-[32px] font-bold leading-[1.5] text-[#122F2A] text-center max-w-[496px]">
               كن سببا في ابتسامة شخص ما
             </p>
           </div>
-        </div>
+        </Container>
       </section>
     </main>
     
