@@ -408,16 +408,17 @@ export function AboutPageContent() {
               {/* Heading */}
               <div className="space-y-2">
                 <div className="flex items-center gap-[5px]">
-                  <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-sm md:text-[16px] leading-[1.5] text-[#007F5E]">
-                    أطفال غزة ينتظرون يد العون… كن أنت سبب الأمل
-                  </p>
-                  <Image
+                <Image
                     src="/figma/hugeicons-healthcare.svg"
                     alt=""
                     width={24}
                     height={24}
                     className="h-5 w-5 md:h-6 md:w-6"
                   />
+                  <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-sm md:text-[16px] leading-[1.5] text-[#007F5E]">
+                    أطفال غزة ينتظرون يد العون… كن أنت سبب الأمل
+                  </p>
+                 
                 </div>
                 <h2 className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5] text-right">
                   <span>نحو أثر إنساني مستدام </span>

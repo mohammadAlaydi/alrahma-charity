@@ -32,7 +32,7 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
   return (
     <section
       dir="rtl"
-      className="w-full border-b border-black/10 bg-white py-6"
+      className="w-full border-b border-black/10 bg-white py-4"
       aria-label="رأس حملات التبرع"
     >
       <Container className="flex flex-col items-center gap-0">
@@ -40,31 +40,31 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
         <CampaignHeadline />
 
         {/* النص الرئيسي */}
-        <h1 className="section-title-large h-12">كن سببا في ابتسامة شخص ما</h1>
+        <h1 className="section-title-large h-10">كن سببا في ابتسامة شخص ما</h1>
       </Container>
 
       {/* Frame 1000009434 - Categories bar */}
-      <div className="mt-6 border-t border-black/10">
-        <Container className="flex items-center justify-center gap-3 py-2">
+      <div className="mt-4 border-t border-black/10">
+        <Container className="flex items-center justify-center gap-2 py-1.5">
           {/* شريط الفئات - RTL مع الأيقونة قبل النص */}
-          <nav className="flex items-center gap-3 text-sm md:text-base">
+          <nav className="flex items-center gap-2 text-xs md:text-sm">
             {/* جميع الحملات */}
             <button
               type="button"
               onClick={() => onCategoryChange?.("all")}
-              className={`category-tab-text flex items-center gap-[5px] px-2 py-2 ${
+              className={`category-tab-text flex items-center gap-[4px] px-2 py-1.5 ${
                 activeCategory === "all" ? "text-[#007F5E]" : "text-[#122F2A]"
               }`}
             >
-              <span aria-hidden="true" className="inline-flex h-6 w-6 items-center justify-center">
+              <span aria-hidden="true" className="inline-flex h-5 w-5 items-center justify-center">
                 {/* all-campanes.svg مع currentColor */}
                 <svg
-                  width={20}
-                  height={20}
+                  width={18}
+                  height={18}
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
-                  className="h-5 w-5"
+                  className="h-4.5 w-4.5"
                 >
                   <path
                     fillRule="evenodd"
@@ -84,19 +84,19 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
             <button
               type="button"
               onClick={() => onCategoryChange?.("medical")}
-              className={`category-tab-text flex items-center gap-[5px] px-2 py-2 ${
+              className={`category-tab-text flex items-center gap-[4px] px-2 py-1.5 ${
                 activeCategory === "medical" ? "text-[#007F5E]" : "text-[#122F2A]"
               }`}
             >
-              <span aria-hidden="true" className="inline-flex h-6 w-6 items-center justify-center">
+              <span aria-hidden="true" className="inline-flex h-5 w-5 items-center justify-center">
                 {/* medical.svg مع currentColor */}
                 <svg
-                  width={20}
-                  height={20}
+                  width={18}
+                  height={18}
                   viewBox="0 0 33 24"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
-                  className="h-5 w-5"
+                  className="h-4.5 w-4.5"
                 >
                   <path d="M8.65695 24C5.36786 24 3.2974 23.7578 2.50327 23.2813C-0.449312 21.5096 -0.412758 6.59132 0.689318 2.61264C0.854429 2.01733 1.13839 1.22605 1.70057 1.22605C1.76512 1.21577 11.7215 0 18.6785 0C22.2961 0 24.4619 0.317073 25.3001 0.968949C27.218 2.46067 27.2408 7.52485 27.2597 11.5932C27.27 13.7751 27.2791 15.837 27.6036 16.5923C28.0293 17.5858 29.365 18.1891 30.5436 18.721C31.8542 19.3129 33.0929 19.8722 32.6712 20.9257C32.0719 22.4203 16.624 24 8.65695 24ZM18.6779 0.571878C11.7563 0.571878 1.83481 1.78309 1.7354 1.79566C1.69826 1.79852 1.3212 1.93448 0.98584 3.96609C0.0534459 9.61016 0.62077 21.4862 2.79636 22.7917C3.19285 23.0293 4.48175 23.4287 8.65695 23.4287C17.7689 23.4287 31.4606 21.6896 32.1451 20.7029C32.3433 20.2047 31.5829 19.8179 30.3065 19.242C29.0331 18.6667 27.5899 18.0154 27.0769 16.8179C26.7078 15.9552 26.6987 14.0316 26.6872 11.5961C26.6695 7.65111 26.6472 2.74176 24.9487 1.41972C24.4517 1.03351 22.9588 0.571878 18.6779 0.571878Z" />
                   <path d="M17.2471 4.31326C18.02 4.12571 18.9845 4.20249 20.1807 4.83376C20.7045 5.11023 21.0199 5.51187 21.1855 6.01833C21.3562 6.54017 21.3745 7.19648 21.2451 7.96462C20.9855 9.50482 20.159 11.3532 19.1084 13.1365C18.0624 14.9119 16.8186 16.5806 15.7637 17.7556C15.2343 18.3453 14.7661 18.7969 14.4033 19.074C14.2196 19.2143 14.0834 19.2931 13.9961 19.3289C13.9909 19.331 13.9858 19.3321 13.9814 19.3338C13.9643 19.3269 13.9418 19.3183 13.915 19.3074C13.8414 19.2773 13.732 19.2311 13.5928 19.1707C13.314 19.0496 12.9149 18.8685 12.4385 18.6306C11.4836 18.1539 10.2245 17.453 8.99902 16.5515C6.50939 14.7201 4.33735 12.2011 4.76953 9.17556C5.00906 7.49915 5.56535 6.39732 6.23535 5.72732C6.8988 5.06398 7.70736 4.78922 8.54102 4.82009C10.2381 4.88301 12.0754 6.2256 12.8018 8.27224L13.3037 9.68826L13.75 8.25466L13.751 8.25271C13.7516 8.25072 13.7523 8.24688 13.7539 8.24197C13.7571 8.23216 13.7624 8.21676 13.7695 8.19607C13.7838 8.15444 13.8057 8.09124 13.8359 8.0115C13.8966 7.85189 13.9893 7.62456 14.1162 7.35915C14.3718 6.82449 14.7589 6.15116 15.2871 5.56521C15.815 4.9797 16.4644 4.50319 17.2471 4.31326Z" />
@@ -109,19 +109,19 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
             <button
               type="button"
               onClick={() => onCategoryChange?.("orphans")}
-              className={`category-tab-text flex items-center gap-[5px] px-2 py-2 ${
+              className={`category-tab-text flex items-center gap-[4px] px-2 py-1.5 ${
                 activeCategory === "orphans" ? "text-[#007F5E]" : "text-[#122F2A]"
               }`}
             >
-              <span aria-hidden="true" className="inline-flex h-6 w-6 items-center justify-center">
+              <span aria-hidden="true" className="inline-flex h-5 w-5 items-center justify-center">
                 {/* orphan.svg مع currentColor */}
                 <svg
-                  width={20}
-                  height={20}
+                  width={18}
+                  height={18}
                   viewBox="0 0 21 24"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
-                  className="h-5 w-5"
+                  className="h-4.5 w-4.5"
                 >
                   <path
                     fillRule="evenodd"
@@ -142,20 +142,20 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
             <button
               type="button"
               onClick={() => onCategoryChange?.("humanitarian")}
-              className={`category-tab-text flex items-center gap-[5px] px-2 py-2 ${
+              className={`category-tab-text flex items-center gap-[4px] px-2 py-1.5 ${
                 activeCategory === "humanitarian" ? "text-[#007F5E]" : "text-[#122F2A]"
               }`}
             >
               <span
                 aria-hidden="true"
-                className="inline-flex h-6 w-6 items-center justify-center overflow-hidden"
+                className="inline-flex h-5 w-5 items-center justify-center overflow-hidden"
               >
                 <Image
                   src="/human 1.svg"
                   alt="الحملات الانسانية"
-                  width={24}
-                  height={24}
-                  className="h-6 w-6"
+                  width={20}
+                  height={20}
+                  className="h-5 w-5"
                 />
               </span>
               <span>الحملات الانسانية</span>
@@ -165,19 +165,19 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
             <button
               type="button"
               onClick={() => onCategoryChange?.("education")}
-              className={`category-tab-text flex items-center gap-[5px] px-2 py-2 ${
+              className={`category-tab-text flex items-center gap-[4px] px-2 py-1.5 ${
                 activeCategory === "education" ? "text-[#007F5E]" : "text-[#122F2A]"
               }`}
             >
-              <span aria-hidden="true" className="inline-flex h-6 w-6 items-center justify-center">
+              <span aria-hidden="true" className="inline-flex h-5 w-5 items-center justify-center">
                 {/* education.svg مع currentColor */}
                 <svg
-                  width={20}
-                  height={20}
+                  width={18}
+                  height={18}
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
-                  className="h-5 w-5"
+                  className="h-4.5 w-4.5"
                 >
                   <path
                     fillRule="evenodd"
@@ -193,21 +193,21 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
             <button
               type="button"
               onClick={() => onCategoryChange?.("emergency")}
-              className={`category-tab-text flex items-center gap-[5px] px-3 py-2 ${
+              className={`category-tab-text flex items-center gap-[4px] px-2 py-1.5 ${
                 activeCategory === "emergency" ? "text-[#007F5E]" : "text-[#122F2A]"
               }`}
             >
-              <span aria-hidden="true" className="inline-flex h-6 w-6 items-center justify-center">
+              <span aria-hidden="true" className="inline-flex h-5 w-5 items-center justify-center">
                 {/* نفس شكل الأيقونة لكن بلون currentColor ليتطابق مع لون النص */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  width={20}
-                  height={20}
+                  width={18}
+                  height={18}
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="0.5"
-                  className="h-5 w-5"
+                  className="h-4.5 w-4.5"
                 >
                   <path d="M5.25024 19.0004H18.7502C19.5032 19.0005 20.1515 19.5319 20.2991 20.27L20.5754 21.6518C20.637 21.9616 20.4005 22.2503 20.0852 22.2504H3.91528C3.59948 22.2504 3.36213 21.961 3.42407 21.6518L3.70142 20.27C3.84905 19.5318 4.49719 19.0004 5.25024 19.0004Z" />
                   <path d="M6.00024 17.5004H18.0002C18.1848 17.5005 18.3443 17.6014 18.4309 17.7504H5.5686C5.65517 17.6012 5.81551 17.5004 6.00024 17.5004Z" />

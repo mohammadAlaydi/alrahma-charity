@@ -19,12 +19,12 @@ function TopPillButton({ children, className }: { children: React.ReactNode; cla
 export function MainMailBar() {
   return (
     <div className="w-full bg-[#007F5E]">
-      <Container className="flex h-auto min-h-[40px] md:h-[50px] items-center justify-between py-2 md:py-0">
+      <Container className="flex h-auto min-h-[36px] md:h-[42px] items-center justify-between py-1.5 md:py-0">
         {/* Right: support links - hidden on mobile */}
-        <div className="hidden md:flex items-center gap-10">
+        <div className="hidden md:flex items-center gap-8">
           <Link href="#" className="topbar-text flex items-center gap-[5px]">
             <span>كيف تتبرع؟</span>
-            <HandHeart className="h-6 w-6 text-white" strokeWidth={1.5} />
+            <HandHeart className="h-5 w-5 text-white" strokeWidth={1.5} />
           </Link>
           <Link href="#" className="topbar-text">
             السياسة والخصوصية
@@ -33,25 +33,25 @@ export function MainMailBar() {
 
         {/* Middle: promoter - centered on mobile */}
         <div className="flex w-full md:w-auto items-center justify-center gap-[10px]">
-          <Image src="/emojis/give hart 1.png" alt="" width={24} height={24} className="h-6 w-6" />
-          <span className="topbar-promo text-sm md:text-base">هل أنت مستعد لمساعدتهم؟ لنصبح متطوعين</span>
+          <Image src="/emojis/give hart 1.png" alt="" width={20} height={20} className="h-5 w-5" />
+          <span className="topbar-promo text-xs md:text-sm">هل أنت مستعد لمساعدتهم؟ لنصبح متطوعين</span>
         </div>
 
         {/* Left: currency, language, social - hidden on mobile */}
-        <div className="hidden md:flex items-center gap-12">
+        <div className="hidden md:flex items-center gap-10">
           <div className="flex items-center gap-[10px]">
             {/* Language Dropdown */}
             <Dropdown
               button={
                 <TopPillButton>
-                  <Globe className="h-6 w-6 text-white" strokeWidth={1.5} />
+                  <Globe className="h-5 w-5 text-white" strokeWidth={1.5} />
                   <span>الانجليزيه</span>
                   <Image
                     src="/emojis/weui_arrow-outlined.svg"
                     alt=""
-                    width={18}
-                    height={9}
-                    className="h-[9px] w-[18px]"
+                    width={16}
+                    height={8}
+                    className="h-[8px] w-[16px]"
                   />
                 </TopPillButton>
               }
@@ -73,9 +73,9 @@ export function MainMailBar() {
                   <Image
                     src="/emojis/weui_arrow-outlined.svg"
                     alt=""
-                    width={18}
-                    height={9}
-                    className="h-[9px] w-[18px]"
+                    width={16}
+                    height={8}
+                    className="h-[8px] w-[16px]"
                   />
                 </TopPillButton>
               }

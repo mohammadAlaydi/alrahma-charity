@@ -7,7 +7,7 @@ export default function ProjectsPage() {
     <div className="min-h-screen bg-white">
       {/* Hero - matches About page hero height with wavy edges */}
       <section 
-        className="relative h-[502px] overflow-hidden"
+        className="relative h-[440px] overflow-hidden"
         style={{
           background: 'linear-gradient(180deg, rgba(180, 187, 95, 0.12) 0%, rgba(255, 255, 255, 0.12) 78.5%, rgba(255, 255, 255, 1) 100%)'
         }}

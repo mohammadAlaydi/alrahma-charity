@@ -462,10 +462,10 @@ export function OrphanSponsorshipPageContent() {
         <Container>
           <div className="flex flex-col items-center justify-center gap-2">
             <div className="flex items-center justify-center gap-[5px]">
+              <p className="text-xs sm:text-[16px] leading-[1.5] text-[#007F5E] text-nowrap font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif]">
               <span aria-hidden="true" className="relative h-5 w-5 shrink-0 overflow-hidden">
                 <Image src="/figma/hugeicons-healthcare.svg" alt="" width={24} height={24} />
               </span>
-              <p className="text-xs sm:text-[16px] leading-[1.5] text-[#007F5E] text-nowrap font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif]">
                 أطفال غزة ينتظرون يد العون… كن أنت سبب الأمل
               </p>
             </div>

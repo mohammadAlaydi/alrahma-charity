@@ -162,7 +162,7 @@ export function CampaignsSection() {
 
           {/* Campaigns grid */}
           {!isLoading && !isError && filteredProjects.length > 0 && (
-            <div className="grid justify-center gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid justify-center gap-4 md:grid-cols-2 lg:grid-cols-3">
               {filteredProjects.map((project) => {
                 const progress = Math.min((project.collected / project.goal) * 100, 100);
                 const isFav = !!favorites[project.id];
@@ -171,20 +171,20 @@ export function CampaignsSection() {
                 return (
                   <div
                     key={project.id}
-                    className="flex h-full w-full max-w-[410px] flex-col overflow-hidden rounded-[20px] border border-zinc-200 bg-white shadow-none transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.16)] md:min-h-[640px] md:w-[410px]"
+                    className="flex h-full w-full max-w-[395px] flex-col overflow-hidden rounded-[20px] border border-zinc-200 bg-white shadow-none transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.16)] md:min-h-[600px] md:w-[395px]"
                   >
                     {/* صورة Placeholder أعلى الكرت مع الطبقة العلوية (Heart + تصنيف المشروع) */}
-                    <div className="relative h-[329px] w-full overflow-hidden rounded-t-[20px] bg-zinc-200">
+                    <div className="relative h-[300px] w-full overflow-hidden rounded-t-[20px] bg-zinc-200">
                       {/* نص Donate image كـ placeholder (Molle 36 white) */}
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="font-molle text-center text-[36px] font-normal text-white">
+                        <span className="font-molle text-center text-[32px] font-normal text-white">
                           Donate image
                         </span>
                       </div>
 
-                      <div className="absolute inset-x-5 top-4 z-10 flex items-center justify-between">
+                      <div className="absolute inset-x-4 top-3 z-10 flex items-center justify-between">
                         {/* تصنيف المشروع */}
-                        <div className="inline-flex items-center gap-2 rounded-full border border-white bg-[#007F5E] px-4 py-2">
+                        <div className="inline-flex items-center gap-1.5 rounded-full border border-white bg-[#007F5E] px-3.5 py-1.5">
                           <span className="card-badge">تصنيف المشروع</span>
                         </div>
 
@@ -224,9 +224,9 @@ export function CampaignsSection() {
                       </div>
                     </div>
 
-                    <div className="flex flex-1 flex-col gap-4 bg-white p-5">
+                    <div className="flex flex-1 flex-col gap-3.5 bg-white p-4">
                       {/* العنوان والوصف المختصر مع أيقونة الوصف */}
-                      <div className="space-y-3">
+                      <div className="space-y-2.5">
                         <h3 className="card-title">{project.title}</h3>
                         <div className="flex items-start gap-2">
                           <span className="mt-[2px] inline-flex h-5 w-5 shrink-0 items-center justify-center">
@@ -243,40 +243,40 @@ export function CampaignsSection() {
                       </div>
 
                       {/* شريط التقدم والنِسب */}
-                      <div className="space-y-2">
+                      <div className="space-y-1.5">
                         <div className="card-stats flex items-center justify-between font-bold">
                           <span>التبرعات</span>
                           <span>{progress.toFixed(2)}%</span>
                         </div>
-                        <div className="relative h-2 w-full overflow-hidden rounded-full bg-[#D9D9D9]/40">
+                        <div className="relative h-1.5 w-full overflow-hidden rounded-full bg-[#D9D9D9]/40">
                           <div
                             className="absolute top-0 right-0 h-full rounded-full bg-[#007F5E]"
                             style={{ width: `${progress}%` }}
                           />
                         </div>
                         <div className="card-stats mt-1 flex items-center justify-between">
-                          <span className="font-medium">
+                          <span className="font-medium whitespace-nowrap">
                             المبلغ المُجمَّع : {formatCurrency(project.collected)}
                           </span>
-                          <span className="font-bold text-[#B4BB5F]">
+                          <span className="font-bold text-[#B4BB5F] whitespace-nowrap">
                             الهدف : ${formatCurrency(project.goal)}
                           </span>
                         </div>
                       </div>
 
                       {/* زر التبرع - مثبت في أسفل الكرت وبمحاذاة الزاوية اليمنى */}
-                      <div className="mt-auto -mb-5 -ml-6 flex items-end justify-end">
+                      <div className="mt-auto -mb-4 -ml-5 flex items-end justify-end">
                         <button
                           type="button"
-                          className="card-button inline-flex items-center gap-2 rounded-tr-xl rounded-bl-lg bg-[#007F5E] px-5 py-2 text-white transition-colors hover:bg-[#056A4F] focus-visible:ring-2 focus-visible:ring-[#007F5E]/40 focus-visible:outline-none"
+                          className="card-button inline-flex items-center gap-3 rounded-tr-2xl rounded-bl-2xl bg-[#007F5E] px-6 py-2.5 text-white transition-colors hover:bg-[#056A4F] focus-visible:ring-2 focus-visible:ring-[#007F5E]/40 focus-visible:outline-none"
                         >
                           <span>تبرع الآن</span>
                           <Image
                             src="/double hearts.svg"
                             alt="تبرع"
-                            width={20}
-                            height={21}
-                            className="h-5 w-5"
+                            width={22}
+                            height={23}
+                            className="h-6 w-6"
                           />
                         </button>
                       </div>
@@ -288,14 +288,14 @@ export function CampaignsSection() {
           )}
 
           {/* Pagination */}
-          <div className="mt-10 flex items-center justify-center gap-2" dir="rtl">
+          <div className="mt-8 flex items-center justify-center gap-2" dir="rtl">
             {/* Previous */}
             <button
               type="button"
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
               aria-label="الصفحة السابقة"
-              className={`flex h-[35px] w-[35px] items-center justify-center rounded-full border text-white transition ${
+              className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-white transition ${
                 currentPage === 1
                   ? "border-[#B4BB5F]/40 bg-[#B4BB5F]/60 opacity-60"
                   : "border-[#007F5E] bg-[#007F5E]"
@@ -305,9 +305,9 @@ export function CampaignsSection() {
                 <Image
                   src="/iconamoon_arrow-up-2.svg"
                   alt="السابق"
-                  width={21}
-                  height={21}
-                  className="h-[18px] w-[18px]"
+                  width={18}
+                  height={18}
+                  className="h-[16px] w-[16px]"
                 />
               </span>
             </button>
@@ -319,7 +319,7 @@ export function CampaignsSection() {
                   key={page}
                   type="button"
                   onClick={() => setCurrentPage(page)}
-                  className={`flex h-[35px] w-[35px] items-center justify-center rounded-full border text-sm font-medium transition ${
+                  className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-xs font-medium transition ${
                     page === currentPage
                       ? "border-[#B4BB5F] bg-[#B4BB5F] text-white"
                       : "border-[#D4D4D4] bg-white text-[#474747]"
@@ -335,7 +335,7 @@ export function CampaignsSection() {
               onClick={() => setCurrentPage((p) => Math.min(campaignsData?.totalPages || 1, p + 1))}
               disabled={currentPage >= (campaignsData?.totalPages || 1)}
               aria-label="الصفحة التالية"
-              className={`flex h-[35px] w-[35px] items-center justify-center rounded-full border text-white transition ${
+              className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-white transition ${
                 currentPage === 4
                   ? "border-[#B4BB5F]/40 bg-[#B4BB5F]/60 opacity-60"
                   : "border-[#007F5E] bg-[#007F5E]"
@@ -345,18 +345,18 @@ export function CampaignsSection() {
                 <Image
                   src="/iconamoon_arrow-up-2.svg"
                   alt="التالي"
-                  width={21}
-                  height={21}
-                  className="h-[18px] w-[18px]"
+                  width={18}
+                  height={18}
+                  className="h-[16px] w-[16px]"
                 />
               </span>
             </button>
           </div>
 
           {/* About-style headline section after pagination */}
-          <div className="mt-40 flex flex-col items-center gap-0" dir="rtl">
+          <div className="mt-32 flex flex-col items-center gap-0" dir="rtl">
             <CampaignHeadline />
-            <h2 className="section-title-large h-12">كن سببا في ابتسامة شخص ما</h2>
+            <h2 className="section-title-large h-10">كن سببا في ابتسامة شخص ما</h2>
           </div>
         </Container>
       </div>

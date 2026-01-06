@@ -11,8 +11,8 @@ export function SiteFooter() {
       {/* Main content */}
       <div className="relative">
         {/* Top section with newsletter */}
-        <Container className="border-b border-white py-8">
-          <div className="flex flex-col items-center justify-between gap-8 lg:flex-row lg:gap-[420px]">
+        <Container className="border-b border-white py-6">
+          <div className="flex flex-col items-center justify-between gap-6 lg:flex-row lg:gap-[320px]">
             {/* Newsletter text */}
             <div className="flex-1 text-right" dir="rtl">
               <p className="newsletter-heading">
@@ -28,19 +28,19 @@ export function SiteFooter() {
               <input
                 type="email"
                 placeholder="أدخل البريد الالكتروني"
-                className="newsletter-input border-alrahma-accent text-alrahma-white placeholder:text-alrahma-white focus:ring-alrahma-accent h-[64px] w-[412px] rounded-full border bg-transparent pr-6 pl-[72px] text-[18px] leading-[30px] focus:ring-2 focus:outline-none"
+                className="newsletter-input border-alrahma-accent text-alrahma-white placeholder:text-alrahma-white focus:ring-alrahma-accent h-[50px] w-[350px] rounded-full border bg-transparent pr-5 pl-[60px] text-[16px] leading-[26px] focus:ring-2 focus:outline-none"
                 dir="rtl"
               />
               <button
                 type="button"
-                className="bg-alrahma-accent hover:bg-alrahma-accent/90 absolute left-[2px] flex h-[60px] w-[60px] items-center justify-center rounded-full transition-colors"
+                className="bg-alrahma-accent hover:bg-alrahma-accent/90 absolute left-[2px] flex h-[46px] w-[46px] items-center justify-center rounded-full transition-colors"
               >
                 <Image
                   src="/emojis/send email button.png"
                   alt="Send"
-                  width={60}
-                  height={60.26}
-                  className="h-[60.26px] w-[60px]"
+                  width={46}
+                  height={46}
+                  className="h-[46px] w-[46px]"
                 />
               </button>
             </div>
