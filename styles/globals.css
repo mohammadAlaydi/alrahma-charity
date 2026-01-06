@@ -54,19 +54,23 @@ body {
 /* Typography Classes (matching Figma design tokens) */
 @layer components {
   /* Top Bar - currency / language text */
-  .topbar-text {
+  .topbar-text,
+  .topbar-text *,
+  .topbar-text button,
+  .topbar-text span {
     font-family: var(--font-alexandria), sans-serif !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
+    font-size: 12px !important;
+    font-weight: 200 !important;
     line-height: 26px !important;
     color: var(--color-white) !important;
   }
 
   /* Top Bar promo text */
-  .topbar-promo {
+  .topbar-promo,
+  .topbar-promo * {
     font-family: var(--font-alexandria), sans-serif !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
+    font-size: 12px !important;
+    font-weight: 200 !important;
     line-height: 26px !important;
     color: var(--color-white) !important;
   }
@@ -149,7 +153,7 @@ body {
   .footer-section-title {
     font-family: var(--font-alexandria), sans-serif !important;
     font-size: 18px !important;
-    font-weight: 600 !important;
+    font-weight: 400 !important;
     line-height: 28px !important;
     color: var(--color-white) !important;
   }
@@ -173,7 +177,7 @@ body {
   .footer-mission {
     font-family: var(--font-alexandria), sans-serif !important;
     font-size: 14px !important;
-    font-weight: 400 !important;
+    font-weight: 300 !important;
     line-height: 26px !important;
     color: var(--color-white) !important;
     text-align: right !important;
@@ -182,7 +186,7 @@ body {
   .copyright-text {
     font-family: var(--font-alexandria), sans-serif !important;
     font-size: 14px !important;
-    font-weight: 400 !important;
+    font-weight: 300 !important;
     line-height: 26px !important;
     color: var(--color-white) !important;
     text-align: center !important;

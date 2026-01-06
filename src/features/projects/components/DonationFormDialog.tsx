@@ -8,7 +8,7 @@ import { Modal } from "@/components/ui/modal/Modal";
 import { AmountInput } from "@/components/ui/AmountInput";
 import { cn } from "@/lib/cn";
 
-const PRESET_AMOUNTS = [200, 100, 50, 10];
+const PRESET_AMOUNTS = [10, 50, 100, 200];
 
 interface DonationFormDialogProps {
   open: boolean;
@@ -17,7 +17,7 @@ interface DonationFormDialogProps {
 }
 
 export function DonationFormDialog({ open, onClose, projectTitle }: DonationFormDialogProps) {
-  const [selectedAmount, setSelectedAmount] = useState<number>(200);
+  const [selectedAmount, setSelectedAmount] = useState<number>(10);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -46,16 +46,16 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
         </button>
 
         {/* Header */}
-        <div className="mb-5 flex flex-col items-center gap-3">
+        <div className="mb-3 flex flex-col items-center gap-2">
           <div className="flex items-center justify-center gap-2">
-            <p className="font-alexandria text-base font-normal leading-normal text-[#232325]">
+            <p className="font-alexandria text-lg md:text-xl font-bold leading-normal text-[#232325]">
               كم تريد التبرع اليوم
             </p>
-            <div className="relative h-5 w-5 shrink-0">
+            <div className="relative h-5 w-5 md:h-6 md:w-6 shrink-0">
               <Image src="/emojis/hand_healtcare.svg" alt="" fill className="object-contain" />
             </div>
           </div>
-          <p className="font-alexandria text-center text-sm font-normal leading-relaxed text-[#4F4F52]">
+          <p className="font-alexandria text-center text-xs font-normal leading-relaxed text-[#4F4F52]">
             جميع التبرعات تؤثر بشكل مباشر على منظمتنا وتساعدنا على مواصلة مهمتنا
           </p>
         </div>
@@ -63,13 +63,6 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
         {/* Form Card */}
         <div className="rounded-[16px] border border-black/10 bg-white p-5 shadow-[0px_5px_12px_rgba(0,127,94,0.07)] md:p-6 font-alexandria">
           <div className="flex flex-col gap-[18px]">
-            {/* Project Title if provided */}
-            {projectTitle && (
-              <p className="font-alexandria text-center text-lg font-bold leading-normal text-[#007F5E]">
-                {projectTitle}
-              </p>
-            )}
-
             {/* Amount Selection */}
             <div className="flex flex-col gap-[16px]">
               <p className="font-alexandria text-right text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.70)] tracking-[-0.18px]">
@@ -91,7 +84,7 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
                       )}
                     >
                       <p className="font-alexandria text-sm font-normal leading-normal text-[#0D0D0D]/70">
-                        $ {amount}
+                        {amount} $
                       </p>
                     </button>
                   );
@@ -124,7 +117,7 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   dir="rtl"
-                  className="h-full w-full bg-transparent px-4 text-right font-alexandria text-sm font-light text-[#0D0D0D]/70 outline-none placeholder:opacity-[0.67]"
+                  className="h-full w-full bg-transparent px-4 text-right font-alexandria text-sm font-light text-[#0D0D0D]/70 outline-none placeholder:opacity-[0.85] placeholder:font-normal"
                 />
               </div>
             </div>
@@ -141,7 +134,7 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   dir="rtl"
-                  className="h-full w-full bg-transparent px-4 text-right font-alexandria text-sm font-light text-[#0D0D0D]/70 outline-none placeholder:opacity-[0.67]"
+                  className="h-full w-full bg-transparent px-4 text-right font-alexandria text-sm font-light text-[#0D0D0D]/70 outline-none placeholder:opacity-[0.85] placeholder:font-normal"
                 />
               </div>
             </div>

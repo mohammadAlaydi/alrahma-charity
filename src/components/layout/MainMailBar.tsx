@@ -33,8 +33,8 @@ export function MainMailBar() {
 
         {/* Middle: promoter - centered on mobile */}
         <div className="flex w-full md:w-auto items-center justify-center gap-[10px]">
-          <Image src="/emojis/give hart 1.png" alt="" width={20} height={20} className="h-5 w-5" />
-          <span className="topbar-promo text-xs md:text-sm">هل أنت مستعد لمساعدتهم؟ لنصبح متطوعين</span>
+          <Image src="/emojis/give hart 1.png" alt="" width={18} height={18} className="h-[18px] w-[18px]" />
+          <span className="topbar-promo">هل أنت مستعد لمساعدتهم؟ لنصبح متطوعين</span>
         </div>
 
         {/* Left: currency, language, social - hidden on mobile */}

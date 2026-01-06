@@ -138,12 +138,12 @@ export function CampaignsSection() {
   };
 
   return (
-    <section dir="rtl" className="bg-white pb-20">
+    <section dir="rtl" className="bg-white pb-20  ">
       {/* رأس الحملات مع الفلاتر */}
       <CampaignHeader activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
 
       {/* الكروت أسفل الفلاتر مباشرة */}
-      <div className="mt-10">
+      <div className="mt-12">
         <Container>
           {/* Loading state */}
           {isLoading && (

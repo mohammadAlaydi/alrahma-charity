@@ -42,7 +42,7 @@ export const AmountInput = React.forwardRef<HTMLInputElement, AmountInputProps>(
             type="text"
             inputMode="decimal"
             dir="rtl"
-            className="h-full w-full bg-transparent text-right text-sm font-light leading-normal text-[rgba(13,13,13,0.7)] placeholder:opacity-[0.67] placeholder:text-[rgba(13,13,13,0.7)] placeholder:font-light outline-none font-alexandria"
+            className="h-full w-full bg-transparent text-right text-sm font-light leading-normal text-[rgba(13,13,13,0.7)] placeholder:opacity-[0.85] placeholder:text-[rgba(13,13,13,0.7)] placeholder:font-normal outline-none font-alexandria"
             {...props}
           />
         </div>

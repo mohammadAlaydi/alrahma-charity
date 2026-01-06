@@ -25,12 +25,12 @@ function DonateButton({ className }: { className?: string }) {
   return (
     <button
       type="button"
-      className={cn("flex h-[40px] md:h-[48px] w-[110px] md:w-[140px] items-center justify-center gap-[10px] rounded-[35px] bg-[#007F5E]", className)}
+      className={cn("flex h-[35px] md:h-[48px] w-[100px] md:w-[130px] items-center justify-center gap-[10px] rounded-[35px] bg-[#007F5E]", className)}
     >
       <span className="btn-donate-text text-xs md:text-sm flex items-center justify-center text-white">
         تبرع الان
       </span>
-      <Image src="/emojis/line-md_arrow-up.svg" alt="" width={18} height={18} className="h-4 w-4 md:h-[18px] md:w-[18px]" />
+      <Image src="/emojis/line-md_arrow-up.svg" alt="" width={20} height={18} className="h-4 w-4 md:h-[20px] md:w-[18px]" />
     </button>
   );
 }
@@ -50,7 +50,7 @@ export function MainNavBar() {
         </div>
 
         {/* right : Logo */}
-        <div className="relative h-[40px] w-[35px] md:h-[75px] md:w-[67px]">
+        <div className="relative h-[40px] w-[35px] md:h-[85px] md:w-[85px]">
           <Image src="/Logo.png" alt="Alrahma" fill className="object-contain" priority />
         </div>
 

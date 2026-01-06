@@ -28,9 +28,9 @@ export function SiteFooter() {
             <div className="flex-1 text-right" dir="rtl">
               <p className="newsletter-heading">
                 <span className="font-bold text-[#FFFFFF]">
-                  اشترك في رسالتنا الإخبارية للبقاء على{" "}
+                  اشترك في رسالتنا الإخبارية للبقاء{" "}
                 </span>
-                <span className="font-bold text-[#DFD383]">اطلاع بأحدث أعمالنا</span>
+                <span className="font-bold text-[#DFD383] lg:block">على اطلاع بأحدث أعمالنا</span>
               </p>
             </div>
 

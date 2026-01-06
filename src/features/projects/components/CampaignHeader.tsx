@@ -32,7 +32,7 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
   return (
     <section
       dir="rtl"
-      className="w-full border-b border-black/10 bg-white py-4"
+      className="w-full bg-white py-4"
       aria-label="رأس حملات التبرع"
     >
       <Container className="flex flex-col items-center gap-0">
@@ -44,7 +44,7 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
       </Container>
 
       {/* Frame 1000009434 - Categories bar */}
-      <div className="mt-4 border-t border-black/10">
+      <div className="mt-4">
         <Container className="flex items-center justify-center gap-2 py-1.5">
           {/* شريط الفئات - RTL مع الأيقونة قبل النص */}
           <nav className="flex items-center gap-2 text-xs md:text-sm">
