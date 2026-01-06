@@ -17,15 +17,15 @@ export const AmountInput = React.forwardRef<HTMLInputElement, AmountInputProps>(
           className || "h-[60px]",
         )}
       >
-        {/* $ symbol frame - fixed width 47px, align-self: stretch - positioned before placeholder in RTL */}
-        <div className="flex h-full w-[47px] flex-col items-center justify-center px-4 shrink-0 self-stretch">
+        {/* $ symbol frame - fixed width, align-self: stretch - positioned before placeholder in RTL */}
+        <div className="flex h-full w-[36px] flex-col items-center justify-center px-2 shrink-0 self-stretch">
           <span
             className="font-alexandria w-full text-center"
             style={{
               alignSelf: "stretch",
               color: "rgba(13, 13, 13, 0.70)",
               fontFamily: "Alexandria",
-              fontSize: "24px",
+              fontSize: "18px",
               fontStyle: "normal",
               fontWeight: 300,
               lineHeight: "normal",
@@ -36,13 +36,13 @@ export const AmountInput = React.forwardRef<HTMLInputElement, AmountInputProps>(
         </div>
 
         {/* Input field frame - flexible width */}
-        <div className="flex h-full flex-1 flex-col items-center justify-center px-4 shrink-0">
+        <div className="flex h-full flex-1 flex-col items-center justify-center px-3 shrink-0">
           <input
             ref={ref}
             type="text"
             inputMode="decimal"
             dir="rtl"
-            className="h-full w-full bg-transparent text-right text-[16px] font-light leading-[normal] text-[rgba(13,13,13,0.7)] placeholder:opacity-[0.67] placeholder:text-[rgba(13,13,13,0.7)] placeholder:font-light outline-none font-alexandria"
+            className="h-full w-full bg-transparent text-right text-sm font-light leading-normal text-[rgba(13,13,13,0.7)] placeholder:opacity-[0.67] placeholder:text-[rgba(13,13,13,0.7)] placeholder:font-light outline-none font-alexandria"
             {...props}
           />
         </div>

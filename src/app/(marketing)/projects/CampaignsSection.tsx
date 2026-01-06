@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Container } from "@/components/ui/Container";
 import { CampaignCategoryId, CampaignHeader } from "@/features/projects/components/CampaignHeader";
 import { CampaignHeadline } from "@/features/projects/components/CampaignHeadline";
+import { DonationFormDialog } from "@/features/projects/components/DonationFormDialog";
 import { getCampaigns, type Campaign } from "@/services/api/campaigns";
 import { queryKeys } from "@/services/queryKeys";
 
@@ -84,6 +85,13 @@ export function CampaignsSection() {
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
   const [favoriteBursts, setFavoriteBursts] = useState<Record<string, boolean>>({});
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedProjectForDonation, setSelectedProjectForDonation] = useState<Project | null>(null);
+  const [isDonationDialogOpen, setIsDonationDialogOpen] = useState(false);
+
+  const openDonationDialog = (project: Project) => {
+    setSelectedProjectForDonation(project);
+    setIsDonationDialogOpen(true);
+  };
 
   // Fetch campaigns from API (with fallback to mock data)
   const {
@@ -268,6 +276,7 @@ export function CampaignsSection() {
                       <div className="mt-auto -mb-4 -ml-5 flex items-end justify-end">
                         <button
                           type="button"
+                          onClick={() => openDonationDialog(project)}
                           className="card-button inline-flex items-center gap-3 rounded-tr-2xl rounded-bl-2xl bg-[#007F5E] px-6 py-2.5 text-white transition-colors hover:bg-[#056A4F] focus-visible:ring-2 focus-visible:ring-[#007F5E]/40 focus-visible:outline-none"
                         >
                           <span>تبرع الآن</span>
@@ -360,6 +369,12 @@ export function CampaignsSection() {
           </div>
         </Container>
       </div>
+
+      <DonationFormDialog
+        open={isDonationDialogOpen}
+        onClose={() => setIsDonationDialogOpen(false)}
+        projectTitle={selectedProjectForDonation?.title}
+      />
     </section>
   );
 }

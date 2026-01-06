@@ -7,9 +7,20 @@ import { Container } from "@/components/ui/Container";
 
 export function SiteFooter() {
   return (
-    <footer className="relative w-full bg-[#007F5E] text-white" dir="rtl">
-      {/* Main content */}
-      <div className="relative">
+    <footer className="relative w-full bg-[#007F5E] text-white overflow-hidden" dir="rtl">
+      {/* Background Image Layer */}
+      <div 
+        className="absolute inset-0 z-0 pointer-events-none opacity-80"
+        style={{
+          backgroundImage: 'url("/images/footer-Bg.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+
+      {/* Main content wrapper */}
+      <div className="relative z-10">
         {/* Top section with newsletter */}
         <Container className="border-b border-white py-6">
           <div className="flex flex-col items-center justify-between gap-6 lg:flex-row lg:gap-[320px]">
@@ -52,10 +63,10 @@ export function SiteFooter() {
           <div className="flex flex-col gap-8 lg:flex-row lg:justify-between lg:gap-8 xl:gap-12 2xl:gap-16">
             {/* Logo and Social - flexible width with max constraint, grows to fill space */}
             <div className="w-full space-y-4 lg:w-auto lg:max-w-[450px] lg:flex-1">
-              {/* Logo - right aligned: 180px width, 105.337px height */}
+              {/* Logo - right aligned: Updated to new footer icon */}
               <div className="flex justify-start">
-                <div className="relative h-[105.337px] w-[180px]">
-                  <Image src="/footer-logo.png" alt="Alrahma" fill className="object-contain" />
+                <div className="relative h-[105px] w-[180px]">
+                  <Image src="/images/footer-icon.png" alt="Alrahma" fill className="object-contain" />
                 </div>
               </div>
 
