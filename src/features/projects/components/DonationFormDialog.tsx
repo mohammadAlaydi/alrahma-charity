@@ -45,6 +45,15 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
           <X className="h-4 w-4" />
         </button>
 
+        {/* Project Title */}
+        {projectTitle && (
+          <div className="mb-3 flex items-center justify-center">
+            <p className="font-alexandria text-base md:text-lg font-semibold leading-normal text-black text-center">
+              {projectTitle}
+            </p>
+          </div>
+        )}
+
         {/* Header */}
         <div className="mb-3 flex flex-col items-center gap-2">
           <div className="flex items-center justify-center gap-2">
@@ -59,6 +68,7 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
             جميع التبرعات تؤثر بشكل مباشر على منظمتنا وتساعدنا على مواصلة مهمتنا
           </p>
         </div>
+
 
         {/* Form Card */}
         <div className="rounded-[16px] border border-black/10 bg-white p-5 shadow-[0px_5px_12px_rgba(0,127,94,0.07)] md:p-6 font-alexandria">

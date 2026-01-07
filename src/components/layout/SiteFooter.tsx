@@ -22,7 +22,7 @@ export function SiteFooter() {
       {/* Main content wrapper */}
       <div className="relative z-10">
         {/* Top section with newsletter */}
-        <Container className="border-b border-white py-6">
+          <Container className="border-b border-white py-4 lg:py-3">
           <div className="flex flex-col items-center justify-between gap-6 lg:flex-row lg:gap-[320px]">
             {/* Newsletter text */}
             <div className="flex-1 text-right" dir="rtl">
@@ -59,8 +59,8 @@ export function SiteFooter() {
         </Container>
 
         {/* Main footer content */}
-        <Container className="py-16">
-          <div className="flex flex-col gap-8 lg:flex-row lg:justify-between lg:gap-8 xl:gap-12 2xl:gap-16">
+        <Container className="py-8 lg:py-6">
+          <div className="flex flex-col gap-8 lg:flex-row lg:justify-between lg:gap-6 xl:gap-8 2xl:gap-10">
             {/* Logo and Social - flexible width with max constraint, grows to fill space */}
             <div className="w-full space-y-4 lg:w-auto lg:max-w-[450px] lg:flex-1">
               {/* Logo - right aligned: Updated to new footer icon */}
@@ -71,7 +71,7 @@ export function SiteFooter() {
               </div>
 
               {/* Mission statement - flexible height, text takes full width */}
-              <p className="footer-mission w-full min-h-[60px]">
+              <p className="footer-mission w-full">
                 رسالتنا في جمعية الرحمة والإحسان هي أن نكون سندا لأهل غزة، نمنحهم الإغاثة العاجلة
                 والدعم المستدام ليبقى الأمل حيا
               </p>
@@ -139,7 +139,7 @@ export function SiteFooter() {
             </div>
 
             {/* Quick Links - flexible width with max constraint */}
-            <div className="w-full space-y-6 lg:w-auto lg:max-w-[171px] lg:flex-shrink-0">
+            <div className="w-full space-y-6 lg:space-y-4 lg:w-auto lg:max-w-[171px] lg:flex-shrink-0">
               <h3 className="footer-section-title text-right">روابط سريعة</h3>
               <div className="space-y-4" dir="rtl">
                 <Link href="#" className="footer-link flex items-center gap-[15px] hover:underline">
@@ -186,7 +186,7 @@ export function SiteFooter() {
             </div>
 
             {/* Important Links - flexible width with max constraint */}
-            <div className="w-full space-y-6 lg:w-auto lg:max-w-[171px] lg:flex-shrink-0">
+            <div className="w-full space-y-6 lg:space-y-4 lg:w-auto lg:max-w-[171px] lg:flex-shrink-0">
               <h3 className="footer-section-title text-right">روابط مهمة</h3>
               <div className="space-y-4" dir="rtl">
                 <Link href="#" className="footer-link flex items-center gap-[15px] hover:underline">
@@ -233,7 +233,7 @@ export function SiteFooter() {
             </div>
 
             {/* Contact Info - flexible width with max constraint */}
-            <div className="w-full space-y-6 lg:w-auto lg:max-w-[319px] lg:flex-shrink-0">
+            <div className="w-full space-y-6 lg:space-y-4 lg:w-auto lg:max-w-[319px] lg:flex-shrink-0">
               <h3 className="footer-section-title text-right">المكتب الرئيسي</h3>
               <div className="space-y-4">
                 {/* Address */}
@@ -300,7 +300,7 @@ export function SiteFooter() {
 
         {/* Copyright */}
         <Container className="border-t border-white">
-          <div className="flex min-h-[79px] items-center justify-center py-4">
+          <div className="flex min-h-[60px] lg:min-h-[50px] items-center justify-center py-3 lg:py-2">
             <p className="copyright-text text-sm md:text-base px-4 text-center break-words max-w-full">
               جمعية الرحمة والإحسان مرخصة وتعمل وفقاً لأحكام القانون في تركيا برقم تأسيس{" "}
               <span className="whitespace-nowrap">0733100144600001</span>
