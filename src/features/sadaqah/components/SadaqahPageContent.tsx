@@ -48,7 +48,7 @@ export function SadaqahPageContent() {
   };
 
   return (
-    <main dir="rtl" className="relative bg-white">
+    <section dir="rtl" className="">
       {/* Background image with opacity */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 opacity-[0.07]">
@@ -57,7 +57,7 @@ export function SadaqahPageContent() {
         </div>
       </div>
 
-      <Container className="relative py-10 md:py-[100px]">
+      <Container className="relative pt-8 pb-10 md:pb-[100px]">
         {/* Intro section */}
         <section className="mb-[40px] md:mb-[79px]">
           <div className="mx-auto flex w-full max-w-[971px] flex-col items-center gap-[8px] text-center">
@@ -374,7 +374,7 @@ export function SadaqahPageContent() {
           </div>
         </Container>
       </section>
-    </main>
+    </section>
     
   );
 }

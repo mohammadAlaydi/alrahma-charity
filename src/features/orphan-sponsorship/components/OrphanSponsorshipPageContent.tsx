@@ -118,7 +118,7 @@ export function OrphanSponsorshipPageContent() {
   );
 
   return (
-    <main dir="rtl" className="relative bg-white">
+    <section dir="rtl" className="">
       {/* Background image with opacity */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 opacity-[0.07]">
@@ -127,7 +127,7 @@ export function OrphanSponsorshipPageContent() {
         </div>
       </div>
 
-      <Container className="relative py-10 md:py-[100px]">
+      <Container className="relative pt-8 pb-10 md:pb-[100px]">
         {/* Donation Card and Image Section */}
         <section className="mb-[60px] md:mb-[100px]">
           <div className="flex flex-col xl:flex-row gap-8 xl:gap-[30px] items-start justify-center w-full">
@@ -475,7 +475,7 @@ export function OrphanSponsorshipPageContent() {
           </div>
         </Container>
       </section>
-    </main>
+    </section>
   );
 }
 

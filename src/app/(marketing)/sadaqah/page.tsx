@@ -5,7 +5,7 @@ import { SadaqahPageContent } from "@/features/sadaqah/components/SadaqahPageCon
 
 export default function SadaqahPage() {
   return (
-    <div className="relative min-h-screen bg-white overflow-hidden">
+    <div className="relative min-h-screen bg-white">
       {/* Background Banners from Figma - Adjusted more towards center for visibility */}
       <div 
         className="absolute left-[-60px] top-[210.01px] z-0 pointer-events-none"
@@ -45,8 +45,8 @@ export default function SadaqahPage() {
         </div>
       </div>
 
-      {/* Hero - matches About page hero height with wavy edges */}
-      <section className="relative h-[390px] overflow-hidden">
+      {/* Hero - matches projects page */}
+      <section className="relative h-[280px] overflow-hidden">
         <Container className="relative z-10 flex h-full items-center justify-center">
           <PageHeader
             title="صدقات"

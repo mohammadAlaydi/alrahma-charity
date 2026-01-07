@@ -42,9 +42,9 @@ export function AboutPageContent() {
   };
 
   return (
-    <div className="w-full bg-white" dir="rtl">
+    <div className="w-full" dir="rtl">
       {/* About Section with Image Gallery */}
-      <section className="w-full bg-white py-10 md:py-[100px]">
+      <section className="w-full pt-8 pb-10 md:pb-[100px]">
         <Container>
           <div className="flex flex-col gap-10 lg:gap-[91px] lg:flex-row-reverse lg:items-start">
             {/* Image Gallery - appears on left visually in RTL */}

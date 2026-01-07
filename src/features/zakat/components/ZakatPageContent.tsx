@@ -34,9 +34,9 @@ export function ZakatPageContent() {
   };
 
   return (
-    <div className="w-full bg-white" dir="rtl">
+    <div className="w-full" dir="rtl">
       {/* Intro Section - Similar to AboutSection layout */}
-      <section className="relative w-full bg-white py-24">
+      <section className="w-full pt-8 pb-24">
         <Container>
           <div className="relative flex flex-col gap-[91px] lg:flex-row-reverse lg:items-start">
             {/* Image - appears on left visually in RTL, can expand beyond container */}

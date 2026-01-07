@@ -51,7 +51,7 @@ export function SadaqahJariyahPageContent() {
   };
 
   return (
-    <section className="w-full bg-white px-4 md:px-8 lg:px-16 xl:px-[50px] 2xl:px-[320px] py-10 md:py-[100px]" dir="rtl">
+    <section className="w-full px-4 md:px-8 lg:px-16 xl:px-[50px] 2xl:px-[320px] pt-8 pb-10 md:pb-[100px]" dir="rtl">
       <div className="flex flex-col xl:flex-row w-full items-start justify-between gap-8">
         {/* Right content column - appears on the RIGHT in RTL layout (first child) */}
         <div className="flex w-full xl:max-w-[736px] flex-col items-end gap-6">
