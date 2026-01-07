@@ -136,7 +136,7 @@ export function OrphanSponsorshipPageContent() {
             <div className="flex flex-col items-center gap-6 w-full xl:w-1/2 order-1">
               <div className="flex flex-col items-end gap-2 w-full max-w-[350px] self-end lg:self-center xl:self-end">
                 <div className="flex items-center justify-center gap-[5px]">
-                  <p className="text-sm md:text-[16px] leading-normal text-[#007F5E] text-nowrap font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif]">
+                  <p className="font-alexandria text-sm md:text-[16px] leading-normal text-[#007F5E] text-nowrap">
                     كفالة تُحيي الأمل
                   </p>
                   <span aria-hidden="true" className="relative h-5 w-5 md:h-6 md:w-6 overflow-hidden">
@@ -462,14 +462,14 @@ export function OrphanSponsorshipPageContent() {
         <Container>
           <div className="flex flex-col items-center justify-center gap-2">
             <div className="flex items-center justify-center gap-[5px]">
-              <p className="text-xs sm:text-[16px] leading-[1.5] text-[#007F5E] text-nowrap font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif]">
+              <p className="font-alexandria text-xs sm:text-[16px] leading-[1.5] text-[#007F5E] text-nowrap">
               <span aria-hidden="true" className="relative h-5 w-5 shrink-0 overflow-hidden">
                 <Image src="/figma/hugeicons-healthcare.svg" alt="" width={24} height={24} />
               </span>
                 أطفال غزة ينتظرون يد العون… كن أنت سبب الأمل
               </p>
             </div>
-            <p className="font-['Cairo',var(--font-cairo),sans-serif] text-xl md:text-[32px] font-bold leading-[1.5] text-[#122F2A] text-center max-w-[496px]">
+            <p className="font-alexandria text-xl md:text-[32px] font-bold leading-[1.5] text-[#122F2A] text-center max-w-[496px]">
               كن سببا في ابتسامة شخص ما
             </p>
           </div>

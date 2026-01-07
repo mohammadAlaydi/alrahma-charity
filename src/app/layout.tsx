@@ -41,10 +41,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" suppressHydrationWarning>
-      <body
-        className={`${cairo.variable} ${alexandria.variable} ${molle.variable} ${playpenSans.variable} font-alexandria antialiased`}
-      >
+    <html
+      lang="ar"
+      dir="rtl"
+      suppressHydrationWarning
+      className={`${cairo.variable} ${alexandria.variable} ${molle.variable} ${playpenSans.variable}`}
+    >
+      <body className="font-sans antialiased">
         <Providers>
           <ConditionalSiteHeader />
           {children}

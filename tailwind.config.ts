@@ -13,6 +13,15 @@ export default {
     "./src/services/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      // Ensure Tailwind defaults (and any future `font-sans`) use Alexandria first
+      sans: [
+        "var(--font-alexandria)",
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif",
+      ],
+    },
     extend: {
       fontFamily: {
         cairo: ["var(--font-cairo)", "sans-serif"],

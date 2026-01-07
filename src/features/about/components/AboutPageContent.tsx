@@ -103,7 +103,7 @@ export function AboutPageContent() {
                     <div className="absolute h-[476.858px] w-full rounded-[15px] bg-[#B4BB5F]" />
                     <div className="absolute bottom-[8.88px] h-[459px] w-full rounded-[15px] bg-[#007F5E]" />
                     <div className="absolute flex h-[337px] items-center justify-center -rotate-90">
-                      <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-[24px] font-semibold leading-[1.5] text-center text-white whitespace-nowrap">
+                      <p className="font-alexandria text-[24px] font-semibold leading-[1.5] text-center text-white whitespace-nowrap">
                         نمنح <span className="text-[#DFD383]">الأمل</span> للأسر المتضررة في غزة.
                       </p>
                     </div>
@@ -129,7 +129,7 @@ export function AboutPageContent() {
               {/* Heading with icon */}
               <div className="space-y-2">
                 <div className="flex items-center gap-[5px]">
-                  <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-sm md:text-[16px] leading-[1.5] text-[#007F5E]">
+                  <p className="font-alexandria text-sm md:text-[16px] leading-[1.5] text-[#007F5E]">
                     مساعدة بعضنا البعض يمكن أن تجعل العالم أفضل
                   </p>
                   <Image
@@ -243,7 +243,7 @@ export function AboutPageContent() {
                 />
               </div>
               <div className="flex flex-col gap-1 md:gap-[5px] items-center text-[#122F2A]">
-                <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
+                <p className="font-alexandria text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
                   2,8 M
                 </p>
                 <p className="font-alexandria text-sm md:text-[16px] font-medium leading-[1.5] text-center">
@@ -263,7 +263,7 @@ export function AboutPageContent() {
                 />
               </div>
               <div className="flex flex-col gap-1 md:gap-[5px] items-center text-[#122F2A]">
-                <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
+                <p className="font-alexandria text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
                   303,950
                 </p>
                 <p className="font-alexandria text-sm md:text-[16px] font-medium leading-[1.5] text-center">
@@ -283,7 +283,7 @@ export function AboutPageContent() {
                 />
               </div>
               <div className="flex flex-col gap-1 md:gap-[5px] items-center text-[#122F2A]">
-                <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
+                <p className="font-alexandria text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
                   76,500
                 </p>
                 <p className="font-alexandria text-sm md:text-[16px] font-medium leading-[1.5] text-center">
@@ -310,7 +310,7 @@ export function AboutPageContent() {
         <div className="absolute inset-0 flex flex-col gap-6 items-center justify-center px-4 md:px-0">
           <div className="flex flex-col gap-2 items-center text-center">
             <div className="flex gap-[5px] items-center">
-              <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-[16px] md:text-[20px] leading-[1.5] text-[#DFD383]">
+              <p className="font-alexandria text-[16px] md:text-[20px] leading-[1.5] text-[#DFD383]">
                 تبرعك اليوم يصنع أثرًا لا يُنسى
               </p>
               <Image
@@ -415,7 +415,7 @@ export function AboutPageContent() {
                     height={24}
                     className="h-5 w-5 md:h-6 md:w-6"
                   />
-                  <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-sm md:text-[16px] leading-[1.5] text-[#007F5E]">
+                  <p className="font-alexandria text-sm md:text-[16px] leading-[1.5] text-[#007F5E]">
                     أطفال غزة ينتظرون يد العون… كن أنت سبب الأمل
                   </p>
                  
@@ -529,7 +529,7 @@ export function AboutPageContent() {
             {/* Text */}
             <div className="flex flex-col gap-2 items-center lg:items-end text-white w-full lg:w-auto text-center lg:text-right">
               <div className="flex gap-[5px] items-center">
-                <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-sm md:text-[16px] leading-[1.5] text-white">
+                <p className="font-alexandria text-sm md:text-[16px] leading-[1.5] text-white">
                   مساعدة بعضنا البعض يمكن أن تجعل العالم أفضل
                 </p>
                 <Image
@@ -635,7 +635,7 @@ export function AboutPageContent() {
           <div className="flex flex-col gap-8 md:gap-10 items-center relative z-10">
             <div className="flex flex-col gap-2 items-center text-center">
               <div className="flex gap-[5px] items-center">
-                <p className="font-['Playpen_Sans_Arabic',sans-serif] text-sm md:text-[16px] leading-[1.5] text-[#007F5E]">
+                <p className="font-alexandria text-sm md:text-[16px] leading-[1.5] text-[#007F5E]">
                   رحمة تصنع القوة
                 </p>
                 <Image

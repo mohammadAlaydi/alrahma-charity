@@ -64,7 +64,7 @@ export function SadaqahJariyahPageContent() {
                 <path d="M15.1666 19.25L20.5251 17.6039C20.9916 17.4607 21.4914 17.4686 21.9532 17.6264C22.4149 17.7841 22.8151 18.0837 23.0965 18.4824C23.527 19.0774 23.352 19.9314 22.7243 20.293L13.9568 25.3529C13.6826 25.5115 13.3791 25.6126 13.0646 25.6501C12.7501 25.6876 12.4312 25.6607 12.1275 25.571L4.66663 23.3567" stroke="#007F5E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </span>
-            <p className="text-[16px] leading-normal text-[#007F5E] text-nowrap text-right [font-family:'Playpen_Sans_Arabic',var(--font-cairo),sans-serif] font-normal">
+            <p className="font-alexandria text-[16px] leading-normal text-[#007F5E] text-nowrap text-right font-normal">
               صدقة اليوم… أمان لغدهم
             </p>
           </div>

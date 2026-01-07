@@ -15,7 +15,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageHeaderProps) {
   return (
-    <div className="flex w-full md:w-[320px] flex-col items-center" dir="rtl">
+    <div className="flex w-full md:w-[340px] flex-col items-center" dir="rtl">
       {/* Frame 15 - Subtitle with icon (271x30) - centered */}
       {subtitle && (
         <div className="mb-2 md:mb-3 flex h-[28px] items-center gap-[5px] whitespace-nowrap justify-center">
@@ -30,14 +30,14 @@ export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageH
               />
             )}
           </div>
-          <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-sm md:text-[18px] font-normal leading-[1.5] text-[#B4BB5F] text-center whitespace-nowrap">
+          <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-[20px] font-normal leading-[1.5] text-[#B4BB5F] text-center whitespace-nowrap">
             {subtitle}
           </p>
         </div>
       )}
 
       {/* Main title - centered */}
-      <h1 className="font-['Alexandria',var(--font-alexandria),sans-serif] text-[28px] md:text-[48px] font-semibold leading-tight md:leading-[1.4] text-[#0D0D0D] flex h-auto md:h-[70px] w-full items-center justify-center text-center">
+      <h1 className="font-alexandria text-[50px] font-semibold leading-[1.6] text-[#0D0D0D] flex h-auto w-full items-center justify-center text-center">
         {title}
       </h1>
 
@@ -58,7 +58,7 @@ export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageH
               <div key={index} className="flex items-center gap-[5px]">
                 <Link
                   href={crumb.href}
-                  className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-sm md:text-[18px] font-normal leading-[1.5] text-[#B4BB5F] text-center whitespace-nowrap hover:underline"
+                  className="font-alexandria text-sm md:text-[18px] font-normal leading-[1.5] text-[#B4BB5F] text-center whitespace-nowrap hover:underline"
                 >
                   {crumb.label}
                 </Link>

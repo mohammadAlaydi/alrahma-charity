@@ -4,9 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { AmountInput } from "@/components/ui/AmountInput";
-import { CountryDropdown, type Country } from "@/components/ui/country-dropdown";
+import { cn } from "@/lib/cn";
 
-const PRESET_AMOUNTS = [200, 100, 50, 10];
+const PRESET_AMOUNTS = [10, 50, 100, 200];
 
 type DonationType = {
   id: string;
@@ -32,15 +32,10 @@ const DONATION_TYPES: DonationType[] = [
 export function SadaqahPageContent() {
   const [selectedType, setSelectedType] = useState<DonationType>(DONATION_TYPES[0]);
   const [isTypeDropdownOpen, setIsTypeDropdownOpen] = useState(false);
-  const [selectedAmount, setSelectedAmount] = useState<number>(200);
+  const [selectedAmount, setSelectedAmount] = useState<number>(10);
   const [customAmount, setCustomAmount] = useState<string>("");
-  const [paymentMethod, setPaymentMethod] = useState<"paypal" | "credit">("credit");
-  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
-
-  const handleCountryChange = (country: Country) => {
-    setSelectedCountry(country);
-    console.log("Selected country:", country);
-  };
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleTypeSelect = (type: DonationType) => {
     setSelectedType(type);
@@ -68,18 +63,18 @@ export function SadaqahPageContent() {
                   <path d="M15.1666 19.25L20.5251 17.6039C20.9916 17.4607 21.4914 17.4686 21.9532 17.6264C22.4149 17.7841 22.8151 18.0837 23.0965 18.4824C23.527 19.0774 23.352 19.9314 22.7243 20.293L13.9568 25.3529C13.6826 25.5115 13.3791 25.6126 13.0646 25.6501C12.7501 25.6876 12.4312 25.6607 12.1275 25.571L4.66663 23.3567" stroke="#007F5E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </span>
-              <p className="text-sm md:text-[16px] leading-normal text-[#007F5E] text-nowrap font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif]">
+              <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-[16px] leading-normal text-[#007F5E] text-nowrap">
               صدقة اليوم… أمان لغدهم
               </p>
 
             </div>
 
-            <p className="font-alexandria text-xl md:text-[30px] font-bold md:leading-[1.6] text-[#0D0D0D]">
+            <p className="font-alexandria text-[30px] font-bold leading-[1.6] text-[#0D0D0D]">
               <span>{`الصدقات… `}</span>
               <span className="text-[#007F5E]">أجر يمتد ولا ينقطع</span>
             </p>
 
-            <p className="w-full text-center text-sm md:text-[16px] font-normal leading-[1.6] text-[rgba(13,13,13,0.7)] font-alexandria">
+            <p className="w-full text-center text-[16px] font-normal leading-[1.6] text-[rgba(13,13,13,0.7)] font-alexandria">
               الصدقات هي كل عمل خير ينتفع به صاحبه في حياته ويمتدُ نفعهُ إلى ما بعد الموت. وقد دلت
               الكثير من نصوص القرآن الكريم والسنة النبوية على مشروعيتها والحث على القيام بها. وتدرج
               مؤسسة الخير العديد من المشاريع الخيرية ضمن مشاريع الصدقة الجارية تسهيلاً على المحسنين
@@ -111,12 +106,12 @@ export function SadaqahPageContent() {
                     <Image
                       src={type.iconSrc}
                       alt=""
-                      width={40}
-                      height={40}
+                      width={80}
+                      height={80}
                       className="shrink-0"
                     />
                     <div className="flex flex-col items-start min-w-0 flex-1">
-                      <p className="font-alexandria text-lg md:text-[20px] font-bold leading-normal text-[#122F2A] text-right wrap-break-word">
+                      <p className="font-alexandria text-[20px] font-semibold leading-[1.5] text-[#122F2A] text-right wrap-break-word">
                         {type.title}
                       </p>
                     </div>
@@ -137,8 +132,8 @@ export function SadaqahPageContent() {
                 dir="rtl"
               >
                 <div className="flex items-center gap-4">
-                  <Image src={selectedType.iconSrc} alt="" width={40} height={40} />
-                  <p className="font-alexandria text-[18px] font-bold text-[#122F2A]">{selectedType.title}</p>
+                  <Image src={selectedType.iconSrc} alt="" width={80} height={80} />
+                  <p className="font-alexandria text-[20px] font-semibold leading-[1.5] text-[#122F2A] text-right">{selectedType.title}</p>
                 </div>
                 <div className="p-2 flex items-center justify-center">
                   <div className={["transition-transform duration-300", isTypeDropdownOpen ? "rotate-180" : "rotate-0"].join(" ")}>
@@ -168,8 +163,8 @@ export function SadaqahPageContent() {
                         dir="rtl"
                       >
                          <div className="flex items-center gap-4">
-                           <Image src={type.iconSrc} alt="" width={24} height={24} />
-                           <p className="font-alexandria text-base font-medium text-[#122F2A]">{type.title}</p>
+                           <Image src={type.iconSrc} alt="" width={60} height={60} />
+                           <p className="font-alexandria text-[20px] font-semibold leading-[1.5] text-[#122F2A] text-right">{type.title}</p>
                          </div>
                       </button>
                     ))}
@@ -188,22 +183,22 @@ export function SadaqahPageContent() {
               جميع التبرعات تؤثر بشكل مباشر على منظمتنا وتساعدنا على مواصلة مهمتنا
             </p>
 
-            <div className="bg-white border border-[rgba(0,0,0,0.1)] rounded-[20px] shadow-[0px_5px_12px_0px_rgba(0,127,94,0.07)] px-6 md:px-8 py-6 md:py-4 w-full relative z-10">
-              <div className="flex flex-col gap-6 items-center w-full">
-                {/* Desktop Title - Visible only on Desktop */}
-                <p className="hidden xl:block font-alexandria text-[24px] font-bold leading-[1.5] text-[#007F5E] text-center text-nowrap">
-                  {selectedType.title}
-                </p>
+            {/* Card Title - From Figma */}
+            <div className="flex flex-col gap-[24px] items-center w-full">
+              <p className="font-alexandria text-[24px] font-bold leading-[1.5] text-[#007F5E] text-center text-nowrap">
+                {selectedType.title}
+              </p>
 
-                {/* Amount selection */}
-                <div className="flex flex-col gap-4 items-start w-full">
-                  <div className="flex flex-col items-end w-full">
-                    <p className="font-alexandria text-base md:text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right tracking-[-0.18px] w-full">
-                      حدد المبلغ
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-2 sm:flex sm:items-center sm:justify-between gap-3 w-full" dir="rtl">
-                    {[...PRESET_AMOUNTS].reverse().map((amount) => {
+              {/* Form Card - Exact copy from Figma */}
+              <div className="rounded-[20px] border border-[rgba(0,0,0,0.1)] bg-white pl-[32px] pr-0 py-[16px] shadow-[0px_5px_12px_rgba(0,127,94,0.07)] font-alexandria w-full relative z-10">
+              <div className="flex flex-col gap-[24px] px-[16px]">
+                {/* Amount Selection */}
+                <div className="flex flex-col gap-[16px]">
+                  <p className="font-alexandria text-right text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.70)] tracking-[-0.18px]">
+                    حدد المبلغ
+                  </p>
+                  <div className="flex items-center justify-between w-full">
+                    {PRESET_AMOUNTS.map((amount) => {
                       const isActive = selectedAmount === amount && !customAmount;
                       return (
                         <button
@@ -213,15 +208,15 @@ export function SadaqahPageContent() {
                             setSelectedAmount(amount);
                             setCustomAmount("");
                           }}
-                          className={[
-                            "flex items-center justify-center rounded-[20px] transition-all w-full sm:flex-1",
+                          className={cn(
+                            "flex h-[60px] items-center justify-center px-[16px] rounded-[20px] w-[100px] border transition-all",
                             isActive
-                              ? "h-12 sm:h-[57px] border border-[#007F5E] bg-[rgba(0,127,94,0.1)]"
-                              : "h-12 sm:h-[60px] border border-[rgba(13,13,13,0.2)] px-4 hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
-                          ].join(" ")}
+                              ? "border-[#007F5E] bg-[#007F5E]/10"
+                              : "border-[rgba(13,13,13,0.2)] hover:border-[#007F5E] hover:bg-[#007F5E]/5"
+                          )}
                         >
-                          <p className="font-alexandria text-sm md:text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-nowrap">
-                            $ {amount}
+                          <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-nowrap">
+                            {amount} $
                           </p>
                         </button>
                       );
@@ -229,125 +224,79 @@ export function SadaqahPageContent() {
                   </div>
                 </div>
 
-                {/* Custom amount */}
-                <div className="flex flex-col gap-4 items-start w-full">
-                  <div className="flex flex-col items-end w-full">
-                    <p className="font-alexandria text-base md:text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right tracking-[-0.18px] w-full">
-                      مبلغ مخصص
-                    </p>
-                  </div>
+                {/* Custom Amount */}
+                <div className="flex flex-col gap-[16px]">
+                  <p className="font-alexandria text-right text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.70)] tracking-[-0.18px]">
+                    مبلغ مخصص
+                  </p>
                   <AmountInput
                     placeholder="أدخل القيمة"
                     value={customAmount}
                     onChange={(e) => {
                       setCustomAmount(e.target.value);
-                      if (e.target.value) setSelectedAmount(0);
+                      if (e.target.value) {
+                        setSelectedAmount(0);
+                      }
                     }}
-                    className="h-12 sm:h-[60px] w-full"
+                    className="h-[60px] w-full rounded-[20px]"
                   />
                 </div>
 
-                {/* Payment method - Hidden on Mobile per Figma 1390:40674 */}
-                <div className="hidden lg:flex flex-col gap-4 items-start w-full">
-                  <div className="flex flex-col items-end w-full">
-                    <p className="font-alexandria text-base md:text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right tracking-[-0.18px] w-full">
-                      أخنر طريقة الدفع
-                    </p>
-                  </div>
-                  <div className="flex flex-col md:flex-row gap-4 md:h-[60px] items-center justify-start rounded-[20px] w-full" dir="rtl">
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod("credit")}
-                      className={[
-                        "flex gap-[10px] h-full items-center justify-center px-4 transition-all w-full md:w-auto",
-                        paymentMethod === "credit"
-                          ? "text-[#007F5E]"
-                          : "text-[rgba(13,13,13,0.7)] opacity-[0.67]",
-                      ].join(" ")}
-                    >
-                      <p className="font-alexandria text-sm md:text-[16px] font-medium leading-normal text-nowrap">
-                        بطاقة إئتمان
-                      </p>
-                      <div className="h-[17px] w-[17px] shrink-0 relative flex items-center justify-center">
-                        <Image
-                          src="/circle-option.svg"
-                          alt=""
-                          width={17}
-                          height={17}
-                          className="h-[17px] w-[17px]"
-                        />
-                        {paymentMethod === "credit" && (
-                          <div className="absolute h-[9px] w-[9px] rounded-full bg-[#007F5E]" />
-                        )}
-                      </div>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod("paypal")}
-                      className={[
-                        "flex gap-[10px] h-full items-center justify-center px-4 transition-all w-full md:w-auto",
-                        paymentMethod === "paypal"
-                          ? "text-[#007F5E]"
-                          : "text-[rgba(13,13,13,0.7)] opacity-[0.67]",
-                      ].join(" ")}
-                    >
-                      <p className="font-alexandria text-sm md:text-[16px] font-medium leading-normal text-nowrap">
-                        PayPal
-                      </p>
-                      <div className="h-[17px] w-[17px] shrink-0 relative flex items-center justify-center">
-                        <Image
-                          src="/circle-option.svg"
-                          alt=""
-                          width={17}
-                          height={17}
-                          className="h-[17px] w-[17px]"
-                        />
-                        {paymentMethod === "paypal" && (
-                          <div className="absolute h-[9px] w-[9px] rounded-full bg-[#007F5E]" />
-                        )}
-                      </div>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Country selector - Single row on Mobile per Figma 1390:41080 */}
-                <div className="flex gap-4 h-auto sm:h-[81px] items-center justify-end w-full" dir="rtl">
-                <p className="font-alexandria text-base md:text-[18px] font-medium leading-normal text-[#122F2A] text-right md:text-center text-nowrap">
-                    الدولة
+                {/* Name Input */}
+                <div className="flex flex-col gap-[16px]">
+                  <p className="font-alexandria text-right text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.70)] tracking-[-0.18px]">
+                    الاسم
                   </p>
-                  <div className="flex-1">
-                    <CountryDropdown
-                      onChange={handleCountryChange}
-                      defaultValue={selectedCountry?.name || "Palestine"}
-                      placeholder="اختر الدولة"
+                  <div className="h-[60px] w-full rounded-[20px] border border-[#0D0D0D]/20 focus-within:border-[#007F5E] transition-colors overflow-hidden">
+                    <input
+                      type="text"
+                      placeholder="اسم المستخدم"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       dir="rtl"
+                      className="h-full w-full bg-transparent px-4 text-right font-alexandria text-sm font-light text-[#0D0D0D]/70 outline-none placeholder:opacity-[0.85] placeholder:font-normal"
                     />
                   </div>
-
                 </div>
 
-                {/* Donate button */}
-                <button
-                  type="button"
-                  className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full"
-                >
-                  <p className="font-alexandria text-sm md:text-[16px] font-bold leading-normal text-white text-nowrap">
-                    تبرع الان
+                {/* Email Input */}
+                <div className="flex flex-col gap-[16px]">
+                  <p className="font-alexandria text-right text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.70)] tracking-[-0.18px]">
+                    البريد الإلكتروني
                   </p>
-                  <Image
-                    src="/figma/mingcute_love-fill.svg"
-                    alt=""
-                    width={24}
-                    height={24}
-                    className="h-6 w-6"
-                  />
-                </button>
+                  <div className="h-[60px] w-full rounded-[20px] border border-[#0D0D0D]/20 focus-within:border-[#007F5E] transition-colors overflow-hidden">
+                    <input
+                      type="email"
+                      placeholder="ادخل البريد الإلكتروني"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      dir="rtl"
+                      className="h-full w-full bg-transparent px-4 text-right font-alexandria text-sm font-light text-[#0D0D0D]/70 outline-none placeholder:opacity-[0.85] placeholder:font-normal"
+                    />
+                  </div>
+                </div>
 
-                {/* Security text */}
-                <p className="font-alexandria text-xs sm:text-[16px] font-normal leading-[1.6] text-[rgba(13,13,13,0.7)] text-center">
-                  معاملة مشفرة آمنة بتقنية SSL
-                </p>
+                {/* Action Buttons */}
+                <div className="flex flex-col gap-0">
+                  <button
+                    type="button"
+                    className="flex gap-[10px] w-full items-center justify-center px-[32px] py-[16px] rounded-[35px] bg-[#007F5E] text-white transition-colors hover:bg-[#007F5E]/90"
+                  >
+                    <div className="relative h-6 w-6 shrink-0">
+                      <Image src="/figma/mingcute_love-fill.svg" alt="" fill className="object-contain" />
+                    </div>
+                    <span className="font-alexandria text-[16px] font-semibold leading-[1.5] text-nowrap text-white">
+                      متابعة
+                    </span>
+                  </button>
+
+                  <p className="font-alexandria text-center text-[16px] font-normal leading-[1.6] text-[#6155F5] w-full mt-0">
+                    <span>ت</span>
+                    <span className="underline decoration-solid [text-underline-position:from-font]">سجيل الدخول</span>
+                  </p>
+                </div>
               </div>
+            </div>
             </div>
           </div>
         </section>
@@ -364,11 +313,11 @@ export function SadaqahPageContent() {
                   <path d="M15.1666 19.25L20.5251 17.6039C20.9916 17.4607 21.4914 17.4686 21.9532 17.6264C22.4149 17.7841 22.8151 18.0837 23.0965 18.4824C23.527 19.0774 23.352 19.9314 22.7243 20.293L13.9568 25.3529C13.6826 25.5115 13.3791 25.6126 13.0646 25.6501C12.7501 25.6876 12.4312 25.6607 12.1275 25.571L4.66663 23.3567" stroke="#007F5E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </span>
-              <p className="text-xs sm:text-[16px] leading-[1.5] text-[#007F5E] text-nowrap font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif]">
+              <p className="font-alexandria text-xs sm:text-[16px] leading-[1.5] text-[#007F5E] text-nowrap">
                 أطفال غزة ينتظرون يد العون… كن أنت سبب الأمل
               </p>
             </div>
-            <p className="font-['Cairo',var(--font-cairo),sans-serif] text-xl md:text-[32px] font-bold leading-[1.5] text-[#122F2A] text-center max-w-[496px]">
+            <p className="font-alexandria text-xl md:text-[32px] font-bold leading-[1.5] text-[#122F2A] text-center max-w-[496px]">
               كن سببا في ابتسامة شخص ما
             </p>
           </div>

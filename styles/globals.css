@@ -9,6 +9,14 @@
   --card: 255 255 255;
   --border: 228 228 231;
 
+  /*
+    Tailwind v4 preflight uses CSS theme variables for the default font:
+    `font-family: --theme(--default-font-family, ui-sans-serif, ...)`
+    Make sure the site-wide default resolves to Alexandria.
+  */
+  --font-sans: var(--font-alexandria), ui-sans-serif, system-ui, sans-serif;
+  --default-font-family: var(--font-sans);
+
   /* Alrahma brand colors */
   --color-primary: #007f5e;
   --color-secondary: #b4bb5f;
@@ -40,6 +48,16 @@
 html,
 body {
   height: 100%;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-alexandria), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  body {
+    font-family: inherit;
+  }
 }
 
 body {
