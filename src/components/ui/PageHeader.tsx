@@ -20,7 +20,15 @@ export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageH
       {subtitle && (
         <div className="mb-2 md:mb-3 flex h-[28px] items-center gap-[5px] whitespace-nowrap justify-center">
           <div className="flex h-5 w-5 md:h-6 md:w-6 shrink-0 items-center justify-center">
-            <Image src={subtitleIcon || ""} alt="" width={24} height={24} className="h-5 w-5 md:h-6 md:w-6" />
+            {subtitleIcon && (
+              <Image 
+                src={subtitleIcon} 
+                alt="" 
+                width={24} 
+                height={24} 
+                className="h-5 w-5 md:h-6 md:w-6" 
+              />
+            )}
           </div>
           <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-sm md:text-[18px] font-normal leading-[1.5] text-[#B4BB5F] text-center whitespace-nowrap">
             {subtitle}
