@@ -18,15 +18,15 @@ export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageH
     <div className="flex w-full md:w-[340px] flex-col items-center" dir="rtl">
       {/* Frame 15 - Subtitle with icon (271x30) - centered */}
       {subtitle && (
-        <div className="mb-2 md:mb-3 flex h-[28px] items-center gap-[5px] whitespace-nowrap justify-center">
-          <div className="flex h-5 w-5 md:h-6 md:w-6 shrink-0 items-center justify-center">
+        <div className="mb-2 md:mb-3 flex h-[30px] items-center gap-[5px] whitespace-nowrap justify-center">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center">
             {subtitleIcon && (
               <Image 
                 src={subtitleIcon} 
                 alt="" 
-                width={24} 
-                height={24} 
-                className="h-5 w-5 md:h-6 md:w-6" 
+                width={28} 
+                height={28} 
+                className="h-7 w-7" 
               />
             )}
           </div>
@@ -37,28 +37,28 @@ export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageH
       )}
 
       {/* Main title - centered */}
-      <h1 className="font-alexandria text-[50px] font-semibold leading-[1.6] text-[#0D0D0D] flex h-auto w-full items-center justify-center text-center">
+      <h1 className="font-alexandria text-[58px] font-semibold leading-[1.6] text-[#0D0D0D] flex h-auto w-full items-center justify-center text-center">
         {title}
       </h1>
 
       {/* Frame 17 - Breadcrumbs - centered */}
       {breadcrumbs && breadcrumbs.length > 0 && (
-        <div className="mt-2 flex h-[28px] items-center gap-[8px] justify-center">
+        <div className="mt-2 flex h-[30px] items-center gap-[10px] justify-center">
           <div className="flex items-center gap-[5px]">
-            <div className="flex h-4 w-4 md:h-5 md:w-5 shrink-0 items-center justify-center">
+            <div className="flex h-6 w-6 shrink-0 items-center justify-center">
               <Image
                 src="/emojis/color_home-to-cloud-sync.svg"
                 alt=""
-                width={20}
-                height={20}
-                className="h-4 w-4 md:h-5 md:w-5"
+                width={24}
+                height={24}
+                className="h-6 w-6"
               />
             </div>
             {breadcrumbs.map((crumb, index) => (
               <div key={index} className="flex items-center gap-[5px]">
                 <Link
                   href={crumb.href}
-                  className="font-alexandria text-sm md:text-[18px] font-normal leading-[1.5] text-[#B4BB5F] text-center whitespace-nowrap hover:underline"
+                  className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-[20px] font-normal leading-[1.5] text-[#B4BB5F] text-center whitespace-nowrap hover:underline"
                 >
                   {crumb.label}
                 </Link>
