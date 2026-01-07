@@ -10,6 +10,8 @@ import { CampaignHeadline } from "@/features/projects/components/CampaignHeadlin
 import { DonationFormDialog } from "@/features/projects/components/DonationFormDialog";
 import { getCampaigns, type Campaign } from "@/services/api/campaigns";
 import { queryKeys } from "@/services/queryKeys";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { toggleFavorite } from "@/store/slices/favoritesSlice";
 
 type Project = {
   id: string;
@@ -82,7 +84,8 @@ function formatCurrency(value: number) {
 
 export function CampaignsSection() {
   const [activeCategory, setActiveCategory] = useState<CampaignCategoryId>("all");
-  const [favorites, setFavorites] = useState<Record<string, boolean>>({});
+  const favorites = useAppSelector((state) => state.favorites.favorites);
+  const dispatch = useAppDispatch();
   const [favoriteBursts, setFavoriteBursts] = useState<Record<string, boolean>>({});
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedProjectForDonation, setSelectedProjectForDonation] = useState<Project | null>(null);
@@ -121,20 +124,17 @@ export function CampaignsSection() {
     return projects.filter((p) => p.category === activeCategory);
   }, [activeCategory, projects]);
 
-  const toggleFavorite = (id: string) => {
-    setFavorites((prev) => {
-      const next = { ...prev, [id]: !prev[id] };
-
-      // Trigger burst effect only when adding to favourites (false -> true)
-      if (!prev[id] && next[id]) {
-        setFavoriteBursts((prevBursts) => ({ ...prevBursts, [id]: true }));
-        setTimeout(() => {
-          setFavoriteBursts((prevBursts) => ({ ...prevBursts, [id]: false }));
-        }, 500);
-      }
-
-      return next;
-    });
+  const handleToggleFavorite = (id: string) => {
+    const wasFavorite = favorites[id];
+    dispatch(toggleFavorite(id));
+    
+    // Trigger burst effect only when adding to favourites (false -> true)
+    if (!wasFavorite) {
+      setFavoriteBursts((prevBursts) => ({ ...prevBursts, [id]: true }));
+      setTimeout(() => {
+        setFavoriteBursts((prevBursts) => ({ ...prevBursts, [id]: false }));
+      }, 500);
+    }
   };
 
   return (
@@ -199,7 +199,7 @@ export function CampaignsSection() {
                         {/* Heart button - مفضّلة */}
                         <button
                           type="button"
-                          onClick={() => toggleFavorite(project.id)}
+                          onClick={() => handleToggleFavorite(project.id)}
                           aria-label={isFav ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
                           aria-pressed={isFav}
                           className={`flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-[#E9E9F2] transition ${

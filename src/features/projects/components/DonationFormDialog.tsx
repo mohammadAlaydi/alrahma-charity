@@ -48,7 +48,7 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
         {/* Project Title */}
         {projectTitle && (
           <div className="mb-3 flex items-center justify-center">
-            <p className="font-alexandria text-base md:text-lg font-semibold leading-normal text-black text-center">
+            <p className="font-alexandria text-lg md:text-xl font-semibold leading-normal text-black text-center">
               {projectTitle}
             </p>
           </div>
@@ -57,14 +57,14 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
         {/* Header */}
         <div className="mb-3 flex flex-col items-center gap-2">
           <div className="flex items-center justify-center gap-2">
-            <p className="font-alexandria text-lg md:text-xl font-bold leading-normal text-[#232325]">
+            <div className="relative h-5 w-5 md:h-6 md:w-6 shrink-0">
+              <Image src="/figma/donation-svgrepo-com (1) 1.svg" alt="" fill className="object-contain" />
+            </div>
+            <p className="font-alexandria text-lg md:text-xl font-normal leading-normal text-[#232325]">
               كم تريد التبرع اليوم
             </p>
-            <div className="relative h-5 w-5 md:h-6 md:w-6 shrink-0">
-              <Image src="/emojis/hand_healtcare.svg" alt="" fill className="object-contain" />
-            </div>
           </div>
-          <p className="font-alexandria text-center text-xs font-normal leading-relaxed text-[#4F4F52]">
+          <p className="font-alexandria text-center text-s font-normal leading-relaxed text-[#4F4F52]">
             جميع التبرعات تؤثر بشكل مباشر على منظمتنا وتساعدنا على مواصلة مهمتنا
           </p>
         </div>
@@ -87,13 +87,13 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
                       type="button"
                       onClick={() => handleAmountSelect(amount)}
                       className={cn(
-                        "flex h-[44px] w-full items-center justify-center rounded-[16px] border transition-all sm:w-[110px]",
+                        "flex h-[50px] w-full items-center justify-center rounded-[16px] border transition-all sm:w-[110px]",
                         isActive
                           ? "border-[#007F5E] bg-[#007F5E]/10"
                           : "border-[#0D0D0D]/20 hover:border-[#007F5E] hover:bg-[#007F5E]/5"
                       )}
                     >
-                      <p className="font-alexandria text-sm font-normal leading-normal text-[#0D0D0D]/70">
+                      <p className="font-alexandria text-base font-normal leading-normal text-[#0D0D0D]/70">
                         {amount} $
                       </p>
                     </button>
@@ -111,7 +111,7 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
                 placeholder="أدخل القيمة"
                 value={customAmount}
                 onChange={handleCustomAmountChange}
-                className="h-[44px] w-full rounded-[16px]"
+                className="h-[50px] w-full rounded-[16px]"
               />
             </div>
 
@@ -120,7 +120,7 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
               <p className="font-alexandria text-right text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.70)] tracking-[-0.18px]">
                 الاسم
               </p>
-              <div className="h-[44px] w-full rounded-[16px] border border-[#0D0D0D]/20 focus-within:border-[#007F5E] transition-colors overflow-hidden">
+              <div className="h-[50px] w-full rounded-[16px] border border-[#0D0D0D]/20 focus-within:border-[#007F5E] transition-colors overflow-hidden">
                 <input
                   type="text"
                   placeholder="اسم المستخدم"
@@ -137,7 +137,7 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
               <p className="font-alexandria text-right text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.70)] tracking-[-0.18px]">
                 البريد الإلكتروني
               </p>
-              <div className="h-[44px] w-full rounded-[16px] border border-[#0D0D0D]/20 focus-within:border-[#007F5E] transition-colors overflow-hidden">
+              <div className="h-[50px] w-full rounded-[16px] border border-[#0D0D0D]/20 focus-within:border-[#007F5E] transition-colors overflow-hidden">
                 <input
                   type="email"
                   placeholder="ادخل البريد الإلكتروني"
@@ -155,11 +155,11 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
                 type="button"
                 className="flex h-[44px] w-full items-center justify-center gap-2 rounded-[28px] bg-[#007F5E] text-white transition-colors hover:bg-[#007F5E]/90"
               >
-                <span className="font-alexandria text-sm font-semibold leading-normal">
+                <span className="font-alexandria text-[16px] font-semibold leading-normal">
                   متابعة
                 </span>
-                <div className="relative h-5 w-5">
-                  <Image src="/figma/mingcute-love-fill.svg" alt="" fill className="object-contain" />
+                <div className="relative h-7 w-7">
+                  <Image src="/figma/mingcute_love-fill.svg" alt="" fill className="object-contain" />
                 </div>
               </button>
 

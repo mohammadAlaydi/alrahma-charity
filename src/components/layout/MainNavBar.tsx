@@ -3,10 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { UserCircle2, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
+import { useState } from "react";
 
 import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
+import { useAppSelector } from "@/store/hooks";
+import { LoginModal } from "@/features/auth/components/LoginModal";
 
 type NavItem = { label: string; href: string };
 
@@ -37,6 +40,9 @@ function DonateButton({ className }: { className?: string }) {
 
 export function MainNavBar() {
   const pathname = usePathname();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const favorites = useAppSelector((state) => state.favorites.favorites);
+  const favoritesCount = Object.keys(favorites).filter((id) => favorites[id]).length;
 
   return (
     <div className="w-full bg-white border-b border-gray-100 md:border-none">
@@ -84,12 +90,43 @@ export function MainNavBar() {
         {/* left: Donate + Profile - Donate hidden on mobile, Profile shown or both hidden? */}
         {/* Figma shows only Menu and Logo on mobile. Let's hide these for now or keep them small */}
         <div className="hidden md:flex items-center gap-[20px]">
-          <button type="button" className="flex h-7 w-7 items-center justify-center">
-            <UserCircle2 className="h-7 w-7 text-black" strokeWidth={1.5} />
+          {/* Favorites Button with Counter */}
+          <button type="button" className="relative flex items-center justify-center transition-opacity hover:opacity-80" style={{ height: '44px', width: '44px' }}>
+            <div className="relative" style={{ width: '42px', height: '42px' }}>
+              <Image src="/emojis/Heart Button.svg" alt="المفضلة" fill className="object-contain" />
+            </div>
+            {favoritesCount > 0 && (
+              <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#007F5E] text-xs font-semibold text-white">
+                {favoritesCount > 99 ? "99+" : favoritesCount}
+              </span>
+            )}
+          </button>
+          {/* Profile Button */}
+          <button
+            type="button"
+            onClick={() => setIsLoginModalOpen(true)}
+            className="relative flex items-center justify-center transition-opacity hover:opacity-80"
+            style={{ height: '44px', width: '44px' }}
+          >
+            <div 
+              className="relative flex items-center justify-center"
+              style={{
+                width: '44px',
+                height: '44px',
+                borderRadius: '37px',
+                border: '1px solid #E9E9F2',
+                background: '#FFF'
+              }}
+            >
+              <div className="relative" style={{ width: '28px', height: '28px' }}>
+                <Image src="/figma/profile icon.svg" alt="الملف الشخصي" fill className="object-contain" />
+              </div>
+            </div>
           </button>
           <DonateButton />
         </div>
       </Container>
+      <LoginModal open={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
     </div>
   );
 }
