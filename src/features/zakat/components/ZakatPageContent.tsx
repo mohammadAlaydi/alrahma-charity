@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ZakatCard } from "./ZakatCard";
 import { type Country } from "@/components/ui/country-dropdown";
 import { Container } from "@/components/ui/Container";
+import { DonationFormDialog } from "@/features/projects/components/DonationFormDialog";
 
 const ZAKAT_TYPES = [
   { id: "fitr", title: "زكاة الفطر", icon: "/figma/food-donation-svgrepo-com 1.svg" },
@@ -20,10 +21,12 @@ const ZAKAT_TYPES = [
 export function ZakatPageContent() {
   const [amounts, setAmounts] = useState<Record<string, string>>({});
   const [countries, setCountries] = useState<Record<string, Country | null>>({});
+  const [selectedZakatType, setSelectedZakatType] = useState<{ id: string; title: string } | null>(null);
+  const [isDonationDialogOpen, setIsDonationDialogOpen] = useState(false);
 
   const handlePay = (typeId: string, title: string) => {
-    // TODO: Implement payment logic
-    console.log("Pay Zakat:", { typeId, title, amount: amounts[typeId], country: countries[typeId] });
+    setSelectedZakatType({ id: typeId, title });
+    setIsDonationDialogOpen(true);
   };
 
   const handleAmountChange = (id: string, value: string) => {
@@ -36,73 +39,76 @@ export function ZakatPageContent() {
 
   return (
     <div className="w-full" dir="rtl">
-      {/* Intro Section - Similar to AboutSection layout */}
-      <section className="w-full pt-8 pb-24">
-        <Container>
-          <div className="relative flex flex-col gap-[91px] lg:flex-row-reverse lg:items-start">
-            {/* Image - appears on left visually in RTL, can expand beyond container */}
-            <div className="relative w-full lg:absolute lg:left-0 lg:top-0 lg:h-[432px] lg:w-[603px] lg:max-w-none">
-              <div className="relative h-[432px] w-full overflow-hidden rounded-[20px]">
-                <Image 
-                  src="/zakah-image.jpg" 
-                  alt="Zakat" 
-                  fill 
-                  className="object-cover"
-                />
-              </div>
+      {/* Hero Section - Figma: x=320, y=100, width=1280 */}
+      <section className="w-full pt-[100px] pb-[91px]">
+        <div className="mx-auto max-w-[1280px] px-4 lg:px-0">
+          <div className="relative flex flex-col gap-6 lg:flex-row-reverse lg:items-start lg:gap-0">
+            {/* Image - Left side in RTL (603px wide in Figma) - Aligned to top right */}
+            <div className="relative h-[432.47px] w-full lg:w-[603px] lg:shrink-0">
+              <Image 
+                src="/figma/zakah-pic.png" 
+                alt="Zakat" 
+                fill 
+                className="object-contain"
+                style={{ objectPosition: 'top right' }}
+              />
             </div>
 
-            {/* Content - appears on right visually in RTL */}
-            <div className="relative w-full space-y-8 lg:ml-auto lg:w-[733px] lg:shrink-0 lg:z-10">
-              {/* Heading with icon */}
-              <div className="space-y-2">
+            {/* Content - Right side in RTL (733px wide in Figma at x=547) - Pulled closer with negative margin */}
+            <div className="relative w-full lg:w-[677px] lg:shrink-0 lg:-ml-12 flex flex-col gap-[24px]">
+              {/* Text Content (866px wide container in Figma) */}
+              <div className="flex flex-col gap-[8px] items-start">
+                {/* Heading with icon */}
                 <div className="flex items-center gap-[5px]">
-                  <Image
-                    src="/figma/hugeicons-healthcare.svg"
-                    alt=""
-                    width={24}
-                    height={24}
-                    className="h-6 w-6"
-                  />
-                  <h3 className="text-right text-[16px] leading-[24px] font-normal text-[#007F5E] font-alexandria">
+                  <div className="relative h-6 w-6">
+                    <Image
+                      src="/figma/hugeicons-healthcare.svg"
+                      alt=""
+                      width={24}
+                      height={24}
+                      className="h-6 w-6"
+                    />
+                  </div>
+                  <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-[16px] leading-[1.5] text-[#007F5E] text-nowrap">
                     زكاتك حياة… تصل لمستحقيها
-                  </h3>
+                  </p>
                 </div>
-                <h2 className="text-right text-[32px] leading-[48px] font-bold text-[#122F2A] font-alexandria">
-                  الزكاة هي البركة والطهارة والنماء والصلاح
+                <h2 className="text-right text-[30px] leading-[1.6] font-bold text-[#0D0D0D] font-alexandria w-full">
+                  <span>الزكاة هي البركة </span>
+                  <span className="text-[#007F5E]">والطهارة والنماء والصلاح</span>
                 </h2>
+                {/* Paragraph - 742.323px wide in Figma */}
+                <p className="text-right text-[16px] leading-[1.6] font-normal text-[rgba(13,13,13,0.7)] font-alexandria w-full max-w-[742px]">
+                  واصطلاحاً هو مقدار معلوم في مالٍ معلوم لطائفة معلومة. وقد حددت الشريعة السمحاء القدر المعتبر لوجوب الزكاة، فلا تجب في أقل منه، وهو يختلف باختلاف أنواع الأموال التي تجب فيها الزكاة. وحكم الزكاة أنها الركن الثالث من أركان الإسلام الخمسة، فهي واجبة على كل مسلم بلغ ماله النصاب. وقد فُرضت الزكاة لأنها أنها تُصلح أحوال المجتمع ماديًا ومعنويًا، وتطهر النفوس من الشح والبخل. ومن أنكر وجوبها خرج عن الإسلام ويستتاب
+                </p>
               </div>
 
-              {/* Paragraph */}
-              <p className="text-right text-[16px] leading-[30px] font-normal text-[#0D0D0D]/70 font-alexandria">
-                واصطلاحاً هو مقدار معلوم في مالٍ معلوم لطائفة معلومة. وقد حددت الشريعة السمحاء القدر المعتبر لوجوب الزكاة، فلا تجب في أقل منه، وهو يختلف باختلاف أنواع الأموال التي تجب فيها الزكاة. وحكم الزكاة أنها الركن الثالث من أركان الإسلام الخمسة، فهي واجبة على كل مسلم بلغ ماله النصاب. وقد فُرضت الزكاة لأنها أنها تُصلح أحوال المجتمع ماديًا ومعنويًا، وتطهر النفوس من الشح والبخل. ومن أنكر وجوبها خرج عن الإسلام ويستتاب.
-              </p>
-
-              {/* Calculator Promo Section */}
-              <div className="space-y-4 pt-4  border-gray-100">
-                <h3 className="font-alexandria text-[24px] font-semibold text-[#122F2A]">حاسبة الزكاة</h3>
-                <p className="font-alexandria text-[16px] leading-[26px] text-[rgba(13,13,13,0.7)]">
+              {/* Calculator Promo Section (866px wide container) */}
+              <div className="flex flex-col gap-[16px] items-start">
+                <h3 className="font-alexandria text-[24px] font-bold leading-[1.6] text-[#0D0D0D]">حاسبة الزكاة</h3>
+                <p className="font-alexandria text-[16px] leading-[1.6] text-[rgba(13,13,13,0.7)] w-full max-w-[742px] text-right">
                   قم باضافة أصولك النقدية وغير النقدية لحساب زكاة المال المترتب عليك دفعها
                 </p>
-                <div className="flex flex-wrap gap-4">
-                <button className="flex items-center gap-2 rounded-[14px] bg-[#007F5E] px-6 py-3 text-white transition-colors hover:bg-[#00664b]">
-                    <span className="font-alexandria">إضافة أصل</span>
+                <div className="flex flex-wrap gap-[16px]">
+                  <button className="flex h-[56px] w-[186px] items-center justify-center gap-[10px] rounded-[20px] bg-[#007F5E] px-[32px] py-[16px] text-white transition-colors hover:bg-[#00664b]">
+                    <span className="font-alexandria text-[16px] font-semibold">إضافة أصل</span>
+                    <Image src="/figma/mingcute_love-fill.svg" alt="" width={24} height={24} className="h-6 w-6" />
                   </button>
-                  <button className="flex items-center gap-2 rounded-[14px] border border-[#007F5E] px-6 py-3 transition-colors hover:bg-[#007F5E]/5">
-                    <span className="font-alexandria text-[#007F5E]">إدخال مبلغ الزكاة يدوياً</span>
+                  <button className="flex h-[56px] w-[275px] items-center justify-center gap-[10px] rounded-[20px] border border-[#007F5E] bg-white px-[32px] py-[16px] transition-colors hover:bg-[#007F5E]/5">
+                    <span className="font-alexandria text-[16px] font-semibold text-[#007F5E]">إدخال مبلغ الزكاة يدوياً</span>
+                    <Image src="/figma/mingcute_love-fill-green.svg" alt="" width={24} height={24} className="h-6 w-6" />
                   </button>
-
                 </div>
               </div>
             </div>
           </div>
-        </Container>
+        </div>
       </section>
 
-      {/* Cards Section */}
+      {/* Cards Section - Figma: x=320, y=623.47, width=1280 */}
       <section className="w-full bg-white pb-20">
-        <Container>
-          {/* Cards Grid */}
+        <div className="mx-auto max-w-[1280px] px-4 lg:px-0">
+          {/* Cards Stack - 30px gap between cards */}
           <div className="flex flex-col gap-[30px]">
             {ZAKAT_TYPES.map((type) => (
               <ZakatCard
@@ -116,9 +122,16 @@ export function ZakatPageContent() {
               />
             ))}
           </div>
-        </Container>
+        </div>
       </section>
 
+      {/* Donation Dialog */}
+      <DonationFormDialog
+        open={isDonationDialogOpen}
+        onClose={() => setIsDonationDialogOpen(false)}
+        projectTitle={selectedZakatType?.title}
+        hideHeader={true}
+      />
     </div>
   );
 }

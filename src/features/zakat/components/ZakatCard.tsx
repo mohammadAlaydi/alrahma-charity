@@ -19,7 +19,7 @@ export function ZakatCard({
   onPay,
 }: ZakatCardProps) {
   return (
-    <div className="bg-white flex h-[130px] items-center justify-between px-[31px] py-[25px] relative rounded-[20px] shadow-[0px_19px_29px_0px_rgba(0,127,94,0.14)] w-full mb-8">
+    <div className="bg-white flex h-[130px] items-center justify-between px-[31px] py-[25px] relative rounded-[20px] shadow-[0px_19px_29px_0px_rgba(0,127,94,0.14)] w-full">
       {/* Title & Icon (First) */}
       <div className="flex gap-[16px] items-center justify-start w-[284px]">
         <div className="bg-[rgba(223,211,131,0.2)] flex items-center justify-center rounded-[53px] size-[80px]">

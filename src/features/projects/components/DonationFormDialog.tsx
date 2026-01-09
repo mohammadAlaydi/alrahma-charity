@@ -14,9 +14,10 @@ interface DonationFormDialogProps {
   open: boolean;
   onClose: () => void;
   projectTitle?: string;
+  hideHeader?: boolean;
 }
 
-export function DonationFormDialog({ open, onClose, projectTitle }: DonationFormDialogProps) {
+export function DonationFormDialog({ open, onClose, projectTitle, hideHeader = false }: DonationFormDialogProps) {
   const [selectedAmount, setSelectedAmount] = useState<number>(10);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [name, setName] = useState("");
@@ -54,20 +55,31 @@ export function DonationFormDialog({ open, onClose, projectTitle }: DonationForm
           </div>
         )}
 
-        {/* Header */}
-        <div className="mb-3 flex flex-col items-center gap-2">
-          <div className="flex items-center justify-center gap-2">
-            <div className="relative h-5 w-5 md:h-6 md:w-6 shrink-0">
-              <Image src="/figma/donation-svgrepo-com (1) 1.svg" alt="" fill className="object-contain" />
-            </div>
-            <p className="font-alexandria text-lg md:text-xl font-normal leading-normal text-[#232325]">
-              كم تريد التبرع اليوم
+        {/* Description paragraph when header is hidden */}
+        {hideHeader && (
+          <div className="mb-3 flex items-center justify-center">
+            <p className="font-alexandria text-center text-[16px] font-normal leading-[200%] text-[#4F4F52] capitalize">
+              جميع التبرعات تؤثر بشكل مباشر على منظمتنا وتساعدنا على مواصلة مهمتنا
             </p>
           </div>
-          <p className="font-alexandria text-center text-s font-normal leading-relaxed text-[#4F4F52]">
-            جميع التبرعات تؤثر بشكل مباشر على منظمتنا وتساعدنا على مواصلة مهمتنا
-          </p>
-        </div>
+        )}
+
+        {/* Header */}
+        {!hideHeader && (
+          <div className="mb-3 flex flex-col items-center gap-2">
+            <div className="flex items-center justify-center gap-2">
+              <div className="relative h-5 w-5 md:h-6 md:w-6 shrink-0">
+                <Image src="/figma/donation-svgrepo-com (1) 1.svg" alt="" fill className="object-contain" />
+              </div>
+              <p className="font-alexandria text-lg md:text-xl font-normal leading-normal text-[#232325]">
+                كم تريد التبرع اليوم
+              </p>
+            </div>
+            <p className="font-alexandria text-center text-s font-normal leading-relaxed text-[#4F4F52]">
+              جميع التبرعات تؤثر بشكل مباشر على منظمتنا وتساعدنا على مواصلة مهمتنا
+            </p>
+          </div>
+        )}
 
 
         {/* Form Card */}
