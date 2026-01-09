@@ -72,7 +72,7 @@ export function ZakatCard({
           className="bg-[#007f5e] flex gap-[10px] items-center justify-center px-[32px] py-[16px] rounded-[20px] hover:bg-[#00664b] transition-colors"
         >
           <div className="relative size-[24px]">
-            <Image src="/figma/mingcute-love-fill.svg" alt="" width={24} height={24} />
+            <Image src="/figma/mingcute_love-fill.svg" alt="" width={24} height={24} />
           </div>
           <span className="font-alexandria font-semibold text-[16px] text-white whitespace-nowrap">
             ادفع زكاتك

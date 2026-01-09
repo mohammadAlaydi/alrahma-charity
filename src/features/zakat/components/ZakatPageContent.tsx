@@ -7,13 +7,14 @@ import { type Country } from "@/components/ui/country-dropdown";
 import { Container } from "@/components/ui/Container";
 
 const ZAKAT_TYPES = [
-  { id: "fitr", title: "زكاة الفطر", icon: "/food.png" },
-  { id: "mal", title: "زكاة المال", icon: "/money-frow.png" },
-  { id: "property", title: "زكاة العقارات", icon: "/alms-svgrepo-com 3.png" },
-  { id: "animals", title: "زكاة الأنعام", icon: "/goat.png" },
-  { id: "gold", title: "زكاة الذهب والفضة", icon: "/alms-svgrepo-com 3.png" },
-  { id: "stocks", title: "زكاة الأسهم", icon: "/money-frow.png" },
-  { id: "crops", title: "زكاة الزرع", icon: "/alms-svgrepo-com 3.png" },
+  { id: "fitr", title: "زكاة الفطر", icon: "/figma/food-donation-svgrepo-com 1.svg" },
+  { id: "mal", title: "زكاة المال", icon: "/figma/money-zakah.svg" },
+  { id: "trade", title: "زكاة التجارة", icon: "/figma/business-graphic-svgrepo-com 1.svg" },
+  { id: "property", title: "زكاة العقارات", icon: "/figma/shelter-svgrepo-com 1.svg" },
+  { id: "crops", title: "زكاة الزرع", icon: "/figma/sprout-svgrepo-com 1.svg" },
+  { id: "animals", title: "زكاة الأنعام", icon: "/figma/camel-shape-svgrepo-com 1.svg" },
+  { id: "stocks", title: "زكاة الأسهم", icon: "/figma/stock-earnings-svgrepo-com 1.svg" },
+  { id: "gold", title: "زكاة الذهب والفضة", icon: "/figma/gold-bar-svgrepo-com 1.svg" },
 ];
 
 export function ZakatPageContent() {
