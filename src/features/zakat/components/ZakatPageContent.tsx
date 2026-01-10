@@ -69,7 +69,7 @@ export function ZakatPageContent() {
   return (
     <div className="w-full" dir="rtl">
       {/* Hero Section - Figma: x=320, y=100, width=1280 */}
-      <section className="w-full pt-[100px] pb-[91px]">
+      <section className="w-full pt-[32px] md:pt-[100px] pb-[91px]">
         <div className="mx-auto max-w-[1280px] px-4 lg:px-0">
           <div className="relative flex flex-col gap-6 lg:flex-row-reverse lg:items-start lg:gap-0">
             {/* Image - Left side in RTL (603px wide in Figma) - Aligned to top right */}
@@ -96,6 +96,7 @@ export function ZakatPageContent() {
                       width={24}
                       height={24}
                       className="h-6 w-6"
+                      style={{ filter: 'brightness(0) saturate(100%) invert(34%) sepia(75%) saturate(1032%) hue-rotate(128deg) brightness(91%) contrast(101%)' }}
                     />
                   </div>
                   <p className="font-['Playpen_Sans_Arabic',var(--font-cairo),sans-serif] text-[16px] leading-[1.5] text-[#007F5E] text-nowrap">
@@ -119,11 +120,11 @@ export function ZakatPageContent() {
                   قم باضافة أصولك النقدية وغير النقدية لحساب زكاة المال المترتب عليك دفعها
                 </p>
                 <div className="flex flex-wrap gap-[16px]">
-                  <button className="flex h-[56px] w-[186px] items-center justify-center gap-[10px] rounded-[20px] bg-[#007F5E] px-[32px] py-[16px] text-white transition-colors hover:bg-[#00664b]">
-                    <span className="font-alexandria text-[16px] font-semibold">إضافة أصل</span>
+                  <button className="flex h-[56px] w-[190px] items-center justify-center gap-[10px] rounded-[20px] bg-[#007F5E] px-[32px] py-[16px] text-white transition-colors hover:bg-[#00664b]">
+                    <span className="font-alexandria text-[16px] font-semibold">احسب الزكاه</span>
                     <Image src="/figma/mingcute_love-fill.svg" alt="" width={24} height={24} className="h-6 w-6" />
                   </button>
-                  <button className="flex h-[56px] w-[275px] items-center justify-center gap-[10px] rounded-[20px] border border-[#007F5E] bg-white px-[32px] py-[16px] transition-colors hover:bg-[#007F5E]/5">
+                  <button className="flex h-[56px] w-[270px] items-center justify-center gap-[10px] rounded-[20px] border border-[#007F5E] bg-white px-[32px] py-[16px] transition-colors hover:bg-[#007F5E]/5">
                     <span className="font-alexandria text-[16px] font-semibold text-[#007F5E]">إدخال مبلغ الزكاة يدوياً</span>
                     <Image src="/figma/mingcute_love-fill-green.svg" alt="" width={24} height={24} className="h-6 w-6" />
                   </button>
@@ -212,7 +213,15 @@ export function ZakatPageContent() {
               <div className="w-full flex flex-col gap-6">
                 <div className="flex items-center justify-center gap-2.5 w-full mb-2">
                   <p className="font-alexandria text-lg md:text-[18px] font-bold text-[#232325]">كم تريد التبرع اليوم</p>
-                  <Image src="/figma/hugeicons-healthcare.svg" alt="" width={32} height={32} />
+                  <div className="relative h-8 w-8">
+                    <Image 
+                      src="/emojis/hand_healtcare.svg" 
+                      alt="" 
+                      fill 
+                      className="object-contain" 
+                      style={{ filter: 'brightness(0) saturate(100%) invert(13%) sepia(8%) saturate(1000%) hue-rotate(180deg) brightness(95%) contrast(90%)' }}
+                    />
+                  </div>
                 </div>
                 
                 <p className="font-alexandria text-sm text-[#4f4f52] text-center leading-[2] mb-2 px-4">
@@ -230,7 +239,7 @@ export function ZakatPageContent() {
                       <p className="font-alexandria text-right text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.70)] tracking-[-0.18px]">
                         حدد المبلغ
                       </p>
-                      <div className="flex items-center justify-between w-full">
+                      <div className="grid grid-cols-2 md:flex md:items-center md:justify-between gap-3 md:gap-0 w-full">
                         {PRESET_AMOUNTS.map((amount) => {
                           const isActive = selectedAmount === amount && !customAmount;
                           return (
@@ -239,7 +248,7 @@ export function ZakatPageContent() {
                               type="button"
                               onClick={() => handleAmountSelect(amount)}
                               className={cn(
-                                "flex h-[60px] items-center justify-center px-[16px] rounded-[20px] w-[100px] border transition-all",
+                                "flex h-[60px] items-center justify-center px-[16px] rounded-[20px] w-full md:w-[100px] border transition-all",
                                 isActive
                                   ? "border-[#007F5E] bg-[#007F5E]/10"
                                   : "border-[rgba(13,13,13,0.2)] hover:border-[#007F5E] hover:bg-[#007F5E]/5"

@@ -44,16 +44,16 @@ export function AboutPageContent() {
   return (
     <div className="w-full" dir="rtl">
       {/* About Section with Image Gallery */}
-      <section className="w-full pt-8 pb-10 md:pb-[100px]">
+      <section className="w-full pt-8 pb-10 md:pb-[100px] px-4 md:px-0">
         <Container>
-          <div className="flex flex-col gap-10 lg:gap-[91px] lg:flex-row-reverse lg:items-start">
+          <div className="flex flex-col gap-6 md:gap-10 lg:gap-[91px] lg:flex-row-reverse lg:items-start">
             {/* Image Gallery - appears on left visually in RTL */}
             <div className="relative w-full lg:w-auto lg:flex-1">
               <div className="relative">
                 {/* Main image container */}
-                <div className="relative h-[400px] md:h-[695px] w-full max-w-[569px] mx-auto">
+                <div className="relative h-[486.915px] md:h-[695px] w-full max-w-[396px] md:max-w-[569px] mx-auto">
                   {/* Large main image with gradient overlay */}
-                  <div className="absolute top-0 right-0 h-[400px] md:h-[548px] w-full max-w-full md:max-w-[446px] overflow-hidden rounded-[20px] border-4 md:border-8 border-[#FFECEC]">
+                  <div className="absolute top-0 right-0 h-[486.915px] md:h-[548px] w-full max-w-[396px] md:max-w-[446px] overflow-hidden rounded-[20px] border-8 border-[#FFECEC]">
                     <div className="relative h-full w-full">
                       <Image
                         src="/sadaqah-jarya.jpg"
@@ -66,7 +66,7 @@ export function AboutPageContent() {
                       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                         <button
                           type="button"
-                          className="flex h-14 w-14 md:h-[70px] md:w-[70px] items-center justify-center rounded-full bg-white shadow-lg transition-opacity hover:opacity-90"
+                          className="flex h-[89.599px] w-[118.015px] md:h-[70px] md:w-[70px] items-center justify-center rounded-full bg-white shadow-lg transition-opacity hover:opacity-90"
                         >
                           <div className="h-full w-full rounded-full bg-white flex items-center justify-center">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="ml-1 md:w-8 md:h-8">
@@ -128,8 +128,8 @@ export function AboutPageContent() {
             <div className="w-full space-y-6 md:space-y-8 lg:w-[628px] lg:flex-shrink-0">
               {/* Heading with icon */}
               <div className="space-y-2">
-                <div className="flex items-center gap-[5px]">
-                  <p className="font-alexandria text-sm md:text-[16px] leading-[1.5] text-[#007F5E]">
+                <div className="flex items-center gap-[5px] justify-center md:justify-start">
+                  <p className="font-['Playpen_Sans_Arabic'] text-[16px] leading-[1.5] text-[#007F5E]">
                     مساعدة بعضنا البعض يمكن أن تجعل العالم أفضل
                   </p>
                   <Image
@@ -137,17 +137,17 @@ export function AboutPageContent() {
                     alt=""
                     width={24}
                     height={24}
-                    className="h-5 w-5 md:h-6 md:w-6"
+                    className="h-6 w-6"
                   />
                 </div>
                 <h2 className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5] text-right">
-                  <span className="text-[#0D0D0D]">جمعية </span>
+                  <span className="text-[#122F2A]">جمعية </span>
                   <span className="text-[#007F5E]">الرحمة</span> <span className="text-[#007F5E]">والإحسان</span>
                 </h2>
               </div>
 
               {/* Paragraph */}
-              <p className="font-alexandria text-sm md:text-[16px] font-normal leading-[1.6] text-right text-[rgba(13,13,13,0.7)]">
+              <p className="font-alexandria text-[16px] font-normal leading-[1.6] text-right text-[rgba(13,13,13,0.7)] text-justify">
                 جمعية الرحمة والإحسان، مؤسسة خيرية مرخصة في تركيا تحت الرقم 0733100144600001. تأسست
                 الجمعية في 07 أكتوبر 2021 استجابة لحالة الطوارئ الإنسانية التي يشهدها قطاع غزة نتيجة
                 الأزمات المتكررة والحصار المستمر. ومنذ انطلاقتها، أخذت الجمعية على عاتقها مهمة تقديم
@@ -163,10 +163,18 @@ export function AboutPageContent() {
               </p>
 
               {/* CTA Cards */}
-              <div className="flex flex-col gap-6 lg:flex-row lg:gap-[71px]">
+              <div className="flex flex-col gap-6 md:gap-6 lg:flex-row lg:gap-[71px]">
                 {/* Card 1 */}
-                <div className="flex flex-row gap-4">
-                  <div className="relative h-10 w-10 md:h-[57px] md:w-[57px] shrink-0">
+                <div className="flex flex-row gap-4 items-start justify-end w-full md:w-[276px]">
+                  <div className="flex-1 space-y-2 flex flex-col items-end">
+                    <h4 className="font-alexandria text-[20px] font-bold leading-normal text-right text-[#122F2A] w-full">
+                      ابدأ بمساعدتهم
+                    </h4>
+                    <p className="font-alexandria text-[16px] font-normal leading-[1.5] text-right text-[rgba(13,13,13,0.7)] text-justify w-full">
+                      ساعدهم على تجاوز الأزمات… دعمك يمنحهم فرصة لحياة أكثر كرامة واستقرارًا
+                    </p>
+                  </div>
+                  <div className="relative h-[39px] w-[39px] shrink-0">
                     <Image
                       src="/heart.svg"
                       alt=""
@@ -174,33 +182,25 @@ export function AboutPageContent() {
                       className="object-contain"
                     />
                   </div>
-                  <div className="flex-1 space-y-1 md:space-y-2">
-                    <h4 className="font-alexandria text-lg md:text-[20px] font-semibold leading-[1.5] text-right text-[#122F2A]">
-                      ابدأ بمساعدتهم
-                    </h4>
-                    <p className="font-alexandria text-sm md:text-[16px] font-normal leading-[1.5] text-right text-[rgba(13,13,13,0.7)]">
-                      ساعدهم على تجاوز الأزمات… دعمك يمنحهم فرصة لحياة أكثر كرامة واستقرارًا
-                    </p>
-                  </div>
                 </div>
 
                 {/* Card 2 */}
-                <div className="flex flex-row gap-4">
-                  <div className="relative h-10 w-10 md:h-[57px] md:w-[57px] shrink-0">
+                <div className="flex flex-row gap-4 items-start justify-end w-full md:w-[276px]">
+                  <div className="flex-1 space-y-2 flex flex-col items-end">
+                    <h4 className="font-alexandria text-[20px] font-bold leading-normal text-right text-[#122F2A] w-full">
+                      قم بالتبرع
+                    </h4>
+                    <p className="font-alexandria text-[16px] font-normal leading-[1.5] text-right text-[rgba(13,13,13,0.7)] text-justify w-full">
+                      بمساهمة بسيطة، تمنح أسرة أملًا جديدًا… اجعل عطاؤك يصل لمن يحتاجه الآن.
+                    </p>
+                  </div>
+                  <div className="relative h-[39px] w-[39px] shrink-0">
                     <Image
                       src="/double hearts.svg"
                       alt=""
                       fill
                       className="object-contain"
                     />
-                  </div>
-                  <div className="flex-1 space-y-1 md:space-y-2">
-                    <h4 className="font-alexandria text-lg md:text-[20px] font-semibold leading-[1.5] text-right text-[#122F2A]">
-                      قم بالتبرع
-                    </h4>
-                    <p className="font-alexandria text-sm md:text-[16px] font-normal leading-[1.5] text-right text-[rgba(13,13,13,0.7)]">
-                      بمساهمة بسيطة، تمنح أسرة أملًا جديدًا… اجعل عطاؤك يصل لمن يحتاجه الآن.
-                    </p>
                   </div>
                 </div>
               </div>
@@ -514,7 +514,7 @@ export function AboutPageContent() {
       </section>
 
       {/* Donation Card Section */}
-      <section className="relative w-full bg-[#007F5E] py-10 md:py-[100px] overflow-hidden">
+      <section className="relative w-full bg-[#007F5E] py-8 md:py-[100px] overflow-hidden px-4 md:px-0">
         <div className="absolute inset-0">
           <Image
             src="/sadaqah-bg.png"
@@ -525,11 +525,11 @@ export function AboutPageContent() {
           <div className="absolute inset-0 bg-gradient-to-l from-[#007F5E] via-[#007F5E]/95 to-[#007F5E]/60" />
         </div>
         <Container>
-          <div className="relative flex flex-col lg:flex-row gap-10 items-center justify-between">
+          <div className="relative flex flex-col gap-[19px] md:gap-10 lg:flex-row lg:gap-10 items-end justify-between">
             {/* Text */}
-            <div className="flex flex-col gap-2 items-center lg:items-end text-white w-full lg:w-auto text-center lg:text-right">
+            <div className="flex flex-col gap-[8px] items-end text-white w-full lg:w-auto text-right">
               <div className="flex gap-[5px] items-center">
-                <p className="font-alexandria text-sm md:text-[16px] leading-[1.5] text-white">
+                <p className="font-['Playpen_Sans_Arabic'] text-[16px] leading-[1.5] text-white">
                   مساعدة بعضنا البعض يمكن أن تجعل العالم أفضل
                 </p>
                 <Image
@@ -537,7 +537,7 @@ export function AboutPageContent() {
                   alt=""
                   width={24}
                   height={24}
-                  className="h-5 w-5 md:h-6 md:w-6"
+                  className="h-6 w-6"
                 />
               </div>
               <p className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5]">
@@ -547,19 +547,19 @@ export function AboutPageContent() {
             </div>
 
             {/* Donation Card */}
-            <div className="bg-white rounded-[20px] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.15)] w-full max-w-[552px] overflow-hidden order-first lg:order-last">
-              <div className="bg-[#F0F0F0] flex items-center justify-end px-4 py-4 md:py-4 rounded-t-[20px]">
-                <p className="font-alexandria text-lg md:text-[20px] font-medium leading-[1.5] text-[#0D0D0D]">
+            <div className="bg-white rounded-[20px] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.15)] w-full max-w-[380px] md:max-w-[552px] overflow-hidden">
+              <div className="bg-[#F0F0F0] flex items-center justify-end px-4 py-4 rounded-t-[20px]">
+                <p className="font-alexandria text-[20px] font-bold leading-normal text-[#0D0D0D]">
                   تبرع سريع
                 </p>
               </div>
-              <div className="flex flex-col gap-6 items-end p-4 md:p-6">
+              <div className="flex flex-col gap-6 items-end px-4 py-0 pb-8">
                 {/* Amount selection */}
                 <div className="flex flex-col gap-4 items-start w-full">
-                  <p className="font-alexandria text-base md:text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full">
+                  <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full">
                     حدد المبلغ
                   </p>
-                  <div className="flex flex-wrap items-center justify-between gap-3 w-full" dir="rtl">
+                  <div className="flex flex-wrap items-center justify-center gap-4 w-full" dir="rtl">
                     {[...PRESET_AMOUNTS].reverse().map((amount) => {
                       const isActive = selectedAmount === amount && !customAmount;
                       return (
@@ -571,13 +571,13 @@ export function AboutPageContent() {
                             setCustomAmount("");
                           }}
                           className={[
-                            "flex items-center justify-center rounded-[20px] transition-all flex-1 min-w-[calc(50%-6px)] sm:min-w-[110px]",
+                            "flex items-center justify-center rounded-[20px] transition-all w-[115px]",
                             isActive
-                              ? "h-12 md:h-[57px] border border-[#007F5E] bg-[rgba(0,127,94,0.1)]"
-                              : "h-12 md:h-[60px] border border-[rgba(13,13,13,0.2)] px-4 hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
+                              ? "h-[60px] border border-[#007F5E] bg-[rgba(0,127,94,0.1)]"
+                              : "h-[60px] border border-[rgba(13,13,13,0.2)] px-4 hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
                           ].join(" ")}
                         >
-                          <p className="font-alexandria text-sm md:text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)]">
+                          <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)]">
                             $ {amount}
                           </p>
                         </button>
@@ -588,7 +588,7 @@ export function AboutPageContent() {
 
                 {/* Custom amount */}
                 <div className="flex flex-col gap-4 items-start w-full">
-                  <p className="font-alexandria text-base md:text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full">
+                  <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full tracking-[-0.16px]">
                     مبلغ مخصص
                   </p>
                   <AmountInput
@@ -598,7 +598,7 @@ export function AboutPageContent() {
                       setCustomAmount(e.target.value);
                       if (e.target.value) setSelectedAmount(0);
                     }}
-                    className="h-12 md:h-[60px] w-full"
+                    className="h-[60px] w-full"
                   />
                 </div>
 

@@ -50,24 +50,8 @@ export function MainNavBar() {
   return (
     <div className="w-full bg-white border-0 !border-b-0 shadow-none border-t-0">
       <Container className="flex h-[60px] md:h-[95px] items-center justify-between">
-        {/* Mobile Header: Back (Right) / Logo (Center) / Menu (Left) - In RTL this matches Figma */}
+        {/* Mobile Header: Menu (Right) / Logo (Center) / Share (Left) - In RTL this matches Figma */}
         <div className="flex md:hidden items-center justify-between w-full">
-          {/* Back Button */}
-          <button 
-            type="button" 
-            onClick={() => router.back()}
-            className="p-2 transition-opacity active:opacity-50"
-          >
-            <div className="w-6 h-6 flex items-center justify-center">
-              <ChevronRight className="h-6 w-6 text-black" />
-            </div>
-          </button>
-
-          {/* Logo */}
-          <div className="relative h-[40px] w-[35px]">
-            <Image src="/Logo.png" alt="Alrahma" fill className="object-cover" priority />
-          </div>
-
           {/* Menu Button */}
           <button 
             type="button" 
@@ -76,6 +60,31 @@ export function MainNavBar() {
           >
             <div className="w-6 h-6 relative">
               <Image src="/figma/jam_menu.svg" alt="القائمة" fill className="object-contain" />
+            </div>
+          </button>
+
+          {/* Logo - Bigger */}
+          <div className="relative h-[50px] w-[45px]">
+            <Image src="/Logo.png" alt="Alrahma" fill className="object-cover" priority />
+          </div>
+
+          {/* Share Button (using back icon SVG) */}
+          <button 
+            type="button" 
+            onClick={() => {
+              // Share functionality
+              if (navigator.share) {
+                navigator.share({
+                  title: 'جمعية الرحمة والإحسان',
+                  text: 'تبرعك اليوم يصنع أثرًا لا يُنسى',
+                  url: window.location.href,
+                }).catch(() => {});
+              }
+            }}
+            className="p-2 transition-opacity active:opacity-50"
+          >
+            <div className="w-6 h-6 relative">
+              <Image src="/figma/icon-park-outline_back.svg" alt="مشاركة" fill className="object-contain" />
             </div>
           </button>
         </div>

@@ -46,7 +46,7 @@ export default function SadaqahJariyahPage() {
       </div>
 
       {/* Hero - matches projects page */}
-      <section className="relative h-[280px] overflow-hidden">
+      <section className="relative h-[246px] md:h-[280px] overflow-hidden">
         <Container className="relative z-10 flex h-full items-center justify-center">
           <PageHeader
             title="صدقة جارية"
