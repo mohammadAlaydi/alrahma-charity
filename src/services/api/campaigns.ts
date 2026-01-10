@@ -1,6 +1,6 @@
 import { get } from "../http";
 import { PaginatedResponse } from "@/types/api";
-import { getMockCampaignsResponse } from "./mockData";
+import { getMockCampaignsResponse, MOCK_CAMPAIGNS } from "./mockData";
 
 /**
  * Campaign types matching backend schema
@@ -77,13 +77,13 @@ export async function getCampaigns(
 
     const queryString = queryParams.toString();
     const url = `/campaigns${queryString ? `?${queryString}` : ""}`;
-    
+
     // Response can be wrapped { success: true, data: {...} } or direct paginated response
-    type ApiResponse = 
+    type ApiResponse =
       | { success: true; data: PaginatedResponse<Campaign> }
       | PaginatedResponse<Campaign>
       | { data: Campaign[]; total: number; page: number; limit: number; totalPages: number };
-    
+
     const response = await get<ApiResponse>(url);
 
     // Debug logging in development
@@ -125,5 +125,17 @@ export async function getCampaigns(
  * GET /api/v1/campaigns/:id
  */
 export async function getCampaignById(id: string): Promise<Campaign> {
-  return get<Campaign>(`/campaigns/${id}`);
+  try {
+    return await get<Campaign>(`/campaigns/${id}`);
+  } catch (error) {
+    // Fallback to mock data in development if API fails or for mock IDs
+    if (process.env.NODE_ENV === "development") {
+      const mockCampaign = MOCK_CAMPAIGNS.find((c) => c._id === id);
+      if (mockCampaign) {
+        console.warn(`⚠️ API unavailable, using mock data for ID: ${id}`);
+        return mockCampaign;
+      }
+    }
+    throw error;
+  }
 }

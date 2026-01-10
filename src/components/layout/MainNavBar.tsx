@@ -19,7 +19,7 @@ const navItems: NavItem[] = [
   { label: "من نحن", href: "/about" },
   { label: "المشاريع", href: "/projects" },
   { label: "زكاه", href: "/zakat" },
-  { label: "الكفالات", href: "#" },
+  { label: "الكفالات", href: "/kafalah" },
   { label: "الصدقات", href: "/sadaqah" },
   { label: "معرض الاعمال", href: "#" },
   { label: "المدونة", href: "#" },
@@ -101,8 +101,8 @@ export function MainNavBar() {
             {navItems.map((item) => {
               const isActive =
                 item.href !== "#" &&
-                (item.href === "/sadaqah"
-                  ? pathname?.startsWith("/sadaqah")
+                (item.href === "/sadaqah" || item.href === "/kafalah"
+                  ? pathname?.startsWith(item.href)
                   : pathname === item.href);
               return (
                 <Link

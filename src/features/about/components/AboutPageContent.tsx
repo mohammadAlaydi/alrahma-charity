@@ -61,7 +61,7 @@ export function AboutPageContent() {
                         fill
                         className="object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#2E7C5E]/80 via-[#2E7C5E]/60 to-[#2E7C5E]/10" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#2E7C5E]/80 via-[#2E7C5E]/60 to-[#2E7C5E]/33 to-[#2E7C5E]/31.8 to-[#2E7C5E]/10" />
                       {/* Play button overlay */}
                       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                         <button
@@ -103,7 +103,7 @@ export function AboutPageContent() {
                     <div className="absolute h-[476.858px] w-full rounded-[15px] bg-[#B4BB5F]" />
                     <div className="absolute bottom-[8.88px] h-[459px] w-full rounded-[15px] bg-[#007F5E]" />
                     <div className="absolute flex h-[337px] items-center justify-center -rotate-90">
-                      <p className="font-alexandria text-[24px] font-semibold leading-[1.5] text-center text-white whitespace-nowrap">
+                      <p className="font-['Playpen_Sans_Arabic'] text-[24px] font-semibold leading-[1.5] text-center text-white whitespace-nowrap">
                         نمنح <span className="text-[#DFD383]">الأمل</span> للأسر المتضررة في غزة.
                       </p>
                     </div>
@@ -111,7 +111,7 @@ export function AboutPageContent() {
 
                   {/* Decorative line - HIDDEN ON MOBILE */}
                   <div className="hidden md:block absolute top-[5px] right-[264px] h-[37px] w-[262px]">
-                    <svg width="262" height="37" viewBox="0 0 262 37" fill="none">
+                    <svg width="262" height="37" viewBox="0 0 262 37" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M0 18.5L262 18.5"
                         stroke="#007F5E"
@@ -167,16 +167,16 @@ export function AboutPageContent() {
                 {/* Card 1 */}
                 <div className="flex flex-row gap-4 items-start justify-end w-full md:w-[276px]">
                   <div className="flex-1 space-y-2 flex flex-col items-end">
-                    <h4 className="font-alexandria text-[20px] font-bold leading-normal text-right text-[#122F2A] w-full">
+                    <h4 className="font-alexandria text-[20px] font-semibold leading-normal text-right text-[#122F2A] w-full">
                       ابدأ بمساعدتهم
                     </h4>
                     <p className="font-alexandria text-[16px] font-normal leading-[1.5] text-right text-[rgba(13,13,13,0.7)] text-justify w-full">
                       ساعدهم على تجاوز الأزمات… دعمك يمنحهم فرصة لحياة أكثر كرامة واستقرارًا
                     </p>
                   </div>
-                  <div className="relative h-[39px] w-[39px] shrink-0">
+                  <div className="relative h-[39px] md:h-[57px] w-[39px] md:w-[57px] shrink-0">
                     <Image
-                      src="/heart.svg"
+                      src="/emojis/give hart 1.png"
                       alt=""
                       fill
                       className="object-contain"
@@ -185,18 +185,18 @@ export function AboutPageContent() {
                 </div>
 
                 {/* Card 2 */}
-                <div className="flex flex-row gap-4 items-start justify-end w-full md:w-[276px]">
+                <div className="flex flex-row gap-4 md:gap-[16px] items-start justify-end w-full md:w-[276px]">
                   <div className="flex-1 space-y-2 flex flex-col items-end">
-                    <h4 className="font-alexandria text-[20px] font-bold leading-normal text-right text-[#122F2A] w-full">
+                    <h4 className="font-alexandria text-[20px] font-semibold leading-normal text-right text-[#122F2A] w-full">
                       قم بالتبرع
                     </h4>
                     <p className="font-alexandria text-[16px] font-normal leading-[1.5] text-right text-[rgba(13,13,13,0.7)] text-justify w-full">
                       بمساهمة بسيطة، تمنح أسرة أملًا جديدًا… اجعل عطاؤك يصل لمن يحتاجه الآن.
                     </p>
                   </div>
-                  <div className="relative h-[39px] w-[39px] shrink-0">
+                  <div className="relative h-[39px] md:h-[57px] w-[39px] md:w-[57px] shrink-0">
                     <Image
-                      src="/double hearts.svg"
+                      src="/emojis/give hart 1.png"
                       alt=""
                       fill
                       className="object-contain"
@@ -211,13 +211,17 @@ export function AboutPageContent() {
                   type="button"
                   className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full md:w-auto"
                 >
-                  <Image
-                    src="/emojis/line-md_arrow-up.svg"
-                    alt=""
-                    width={20}
-                    height={20}
-                    className="h-5 w-5 rotate-90"
-                  />
+                  <div className="flex items-center justify-center relative shrink-0 size-[20px]">
+                    <div className="flex-none rotate-[90deg] scale-y-[-100%]">
+                      <Image
+                        src="/emojis/line-md_arrow-up.svg"
+                        alt=""
+                        width={20}
+                        height={20}
+                        className="h-5 w-5"
+                      />
+                    </div>
+                  </div>
                   <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.6] text-white">
                     تبرع الان
                   </p>
@@ -229,11 +233,11 @@ export function AboutPageContent() {
       </section>
 
       {/* Statistics Section */}
-      <section className="w-full bg-white py-10 md:py-[100px]">
+      <section className="w-full bg-white py-5 md:py-[100px]">
         <Container>
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 px-4">
             {/* Stat Card 1 */}
-            <div className="bg-white flex flex-col gap-4 items-center justify-center p-6 rounded-[16px] border border-gray-100 shadow-[0px_5px_12px_0px_rgba(0,127,94,0.07)] min-h-[180px] md:min-h-[219px] w-full max-w-[300px]">
+            <div className="bg-white flex flex-col gap-4 items-center justify-center p-4 md:p-4 rounded-[16px] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.15)] min-h-[180px] md:min-h-[219px] w-full max-w-[300px]">
               <div className="h-12 w-10 md:h-[67px] md:w-[50px] flex items-center justify-center relative">
                 <Image
                   src="/heart.svg"
@@ -243,7 +247,7 @@ export function AboutPageContent() {
                 />
               </div>
               <div className="flex flex-col gap-1 md:gap-[5px] items-center text-[#122F2A]">
-                <p className="font-alexandria text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
+                <p className="font-['Playpen_Sans_Arabic'] text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
                   2,8 M
                 </p>
                 <p className="font-alexandria text-sm md:text-[16px] font-medium leading-[1.5] text-center">
@@ -253,8 +257,8 @@ export function AboutPageContent() {
             </div>
 
             {/* Stat Card 2 */}
-            <div className="bg-white flex flex-col gap-4 items-center justify-center p-6 rounded-[16px] border border-gray-100 shadow-[0px_5px_12px_0px_rgba(0,127,94,0.07)] min-h-[180px] md:min-h-[219px] w-full max-w-[300px]">
-              <div className="h-12 w-10 md:h-[67px] md:w-[50px] flex items-center justify-center relative">
+            <div className="bg-white flex flex-col gap-4 items-center justify-center p-4 md:p-4 rounded-[16px] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.15)] min-h-[180px] md:min-h-[219px] w-full max-w-[300px]">
+              <div className="h-12 w-10 md:h-[67px] md:w-[67px] flex items-center justify-center relative">
                 <Image
                   src="/double hearts.svg"
                   alt=""
@@ -263,7 +267,7 @@ export function AboutPageContent() {
                 />
               </div>
               <div className="flex flex-col gap-1 md:gap-[5px] items-center text-[#122F2A]">
-                <p className="font-alexandria text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
+                <p className="font-['Playpen_Sans_Arabic'] text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
                   303,950
                 </p>
                 <p className="font-alexandria text-sm md:text-[16px] font-medium leading-[1.5] text-center">
@@ -273,8 +277,8 @@ export function AboutPageContent() {
             </div>
 
             {/* Stat Card 3 */}
-            <div className="bg-white flex flex-col gap-4 items-center justify-center p-6 rounded-[16px] border border-gray-100 shadow-[0px_5px_12px_0px_rgba(0,127,94,0.07)] min-h-[180px] md:min-h-[219px] w-full max-w-[300px]">
-              <div className="h-12 w-10 md:h-[67px] md:w-[50px] flex items-center justify-center relative">
+            <div className="bg-white flex flex-col gap-4 items-center justify-center p-4 md:p-4 rounded-[16px] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.15)] min-h-[180px] md:min-h-[219px] w-full max-w-[300px]">
+              <div className="h-12 w-10 md:h-[67px] md:w-[67px] flex items-center justify-center relative">
                 <Image
                   src="/water.png"
                   alt=""
@@ -283,7 +287,7 @@ export function AboutPageContent() {
                 />
               </div>
               <div className="flex flex-col gap-1 md:gap-[5px] items-center text-[#122F2A]">
-                <p className="font-alexandria text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
+                <p className="font-['Playpen_Sans_Arabic'] text-2xl md:text-[32px] font-semibold leading-[1.5] text-center">
                   76,500
                 </p>
                 <p className="font-alexandria text-sm md:text-[16px] font-medium leading-[1.5] text-center">
@@ -310,7 +314,7 @@ export function AboutPageContent() {
         <div className="absolute inset-0 flex flex-col gap-6 items-center justify-center px-4 md:px-0">
           <div className="flex flex-col gap-2 items-center text-center">
             <div className="flex gap-[5px] items-center">
-              <p className="font-alexandria text-[16px] md:text-[20px] leading-[1.5] text-[#DFD383]">
+              <p className="font-['Playpen_Sans_Arabic'] text-[16px] md:text-[20px] leading-[1.5] text-[#DFD383]">
                 تبرعك اليوم يصنع أثرًا لا يُنسى
               </p>
               <Image
@@ -330,13 +334,17 @@ export function AboutPageContent() {
               type="button"
               className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full md:w-auto"
             >
-              <Image
-                src="/emojis/line-md_arrow-up.svg"
-                alt=""
-                width={20}
-                height={20}
-                className="h-5 w-5 rotate-90"
-              />
+              <div className="flex items-center justify-center relative shrink-0 size-[20px]">
+                <div className="flex-none rotate-[90deg] scale-y-[-100%]">
+                  <Image
+                    src="/emojis/line-md_arrow-up.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="h-5 w-5"
+                  />
+                </div>
+              </div>
               <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.5] text-white">
                 اهم المشاريع
               </p>
@@ -345,13 +353,17 @@ export function AboutPageContent() {
               type="button"
               className="border border-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] bg-transparent w-full md:w-auto"
             >
-              <Image
-                src="/emojis/line-md_arrow-up.svg"
-                alt=""
-                width={20}
-                height={20}
-                className="h-5 w-5 rotate-90"
-              />
+              <div className="flex items-center justify-center relative shrink-0 size-[20px]">
+                <div className="flex-none rotate-[90deg] scale-y-[-100%]">
+                  <Image
+                    src="/emojis/line-md_arrow-up.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="h-5 w-5"
+                  />
+                </div>
+              </div>
               <p className="font-alexandria text-base md:text-[16px] font-semibold leading-[1.5] text-white">
                 تبرع الان
               </p>
@@ -433,7 +445,7 @@ export function AboutPageContent() {
 
               {/* Tabs */}
               <div className="flex flex-col gap-6 md:gap-8">
-                <div className="border-b border-[rgba(0,0,0,0.2)] flex gap-4 md:gap-6 items-center pb-4 overflow-x-auto no-scrollbar">
+                <div className="border-b border-[rgba(0,0,0,0.2)] flex gap-4 md:gap-6 items-center justify-end pb-4 overflow-x-auto no-scrollbar">
                   <button
                     type="button"
                     onClick={() => setActiveTab("values")}
@@ -479,7 +491,9 @@ export function AboutPageContent() {
                 <div className="flex flex-col gap-4">
                   {getTabItems().map((item, index) => (
                     <div key={index} className="flex gap-4 items-center justify-end">
-                      <p className="font-alexandria text-sm md:text-[16px] font-medium leading-[1.5] text-right text-[rgba(13,13,13,0.7)]">
+                      <p className={`font-alexandria text-sm md:text-[16px] leading-[1.5] text-right text-[rgba(13,13,13,0.7)] ${
+                        index === 1 || index === 2 ? "font-medium" : "font-normal"
+                      }`}>
                         {item}
                       </p>
                       <Image
@@ -495,13 +509,17 @@ export function AboutPageContent() {
                     type="button"
                     className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] self-end mt-4 w-full md:w-auto"
                   >
-                    <Image
-                      src="/emojis/line-md_arrow-up.svg"
-                      alt=""
-                      width={20}
-                      height={20}
-                      className="h-5 w-5 rotate-90"
-                    />
+                    <div className="flex items-center justify-center relative shrink-0 size-[20px]">
+                      <div className="flex-none rotate-[90deg] scale-y-[-100%]">
+                        <Image
+                          src="/emojis/line-md_arrow-up.svg"
+                          alt=""
+                          width={20}
+                          height={20}
+                          className="h-5 w-5"
+                        />
+                      </div>
+                    </div>
                     <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.5] text-white">
                       إقراء المزيد
                     </p>
@@ -559,7 +577,7 @@ export function AboutPageContent() {
                   <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full">
                     حدد المبلغ
                   </p>
-                  <div className="flex flex-wrap items-center justify-center gap-4 w-full" dir="rtl">
+                  <div className="flex flex-wrap items-center justify-center gap-4 md:gap-4 w-full" dir="rtl">
                     {[...PRESET_AMOUNTS].reverse().map((amount) => {
                       const isActive = selectedAmount === amount && !customAmount;
                       return (
@@ -577,9 +595,17 @@ export function AboutPageContent() {
                               : "h-[60px] border border-[rgba(13,13,13,0.2)] px-4 hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
                           ].join(" ")}
                         >
-                          <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)]">
-                            $ {amount}
-                          </p>
+                          {isActive ? (
+                            <div className="bg-[rgba(0,127,94,0.1)] border border-[#007F5E] rounded-[20px] h-[57px] w-[110px] flex items-center justify-center">
+                              <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)]">
+                                $ {amount}
+                              </p>
+                            </div>
+                          ) : (
+                            <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)]">
+                              $ {amount}
+                            </p>
+                          )}
                         </button>
                       );
                     })}
@@ -608,7 +634,7 @@ export function AboutPageContent() {
                   className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full"
                 >
                   <Image
-                    src="/figma/mingcute-love-fill.svg"
+                    src="/figma/mingcute_love-fill.svg"
                     alt=""
                     width={24}
                     height={24}
@@ -652,11 +678,11 @@ export function AboutPageContent() {
               </p>
             </div>
             <div className="flex flex-wrap gap-4 md:gap-10 items-center justify-center w-full px-4">
-              {/* Partner logos placeholders with distinct styling */}
+              {/* Partner logos - using placeholder images for now */}
               {Array.from({ length: 13 }).map((_, i) => (
-                <div key={i} className="h-14 md:h-[86px] w-[120px] md:w-[189px] bg-white border border-gray-100 shadow-[0px_5px_12px_0px_rgba(0,127,94,0.05)] rounded-lg flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer">
-                  <div className="w-[80%] h-[60%] bg-gray-50 rounded flex items-center justify-center border border-dashed border-gray-200">
-                    <p className="text-gray-300 text-[8px] md:text-[10px] font-medium">PARTNER LOGO</p>
+                <div key={i} className="h-14 md:h-[86px] w-[120px] md:w-[189px] bg-white flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer">
+                  <div className="w-full h-full bg-gray-50 rounded flex items-center justify-center border border-gray-200">
+                    <p className="text-gray-300 text-[8px] md:text-[10px] font-medium">PARTNER {i + 1}</p>
                   </div>
                 </div>
               ))}
