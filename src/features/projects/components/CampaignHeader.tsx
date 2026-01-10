@@ -26,23 +26,16 @@ export const CAMPAIGN_CATEGORIES: Array<{
 interface CampaignHeaderProps {
   activeCategory?: CampaignCategoryId;
   onCategoryChange?: (category: CampaignCategoryId) => void;
+  onFilterClick?: () => void;
 }
 
-export function CampaignHeader({ activeCategory = "all", onCategoryChange }: CampaignHeaderProps) {
+export function CampaignHeader({ activeCategory = "all", onCategoryChange, onFilterClick }: CampaignHeaderProps) {
   return (
     <section
       dir="rtl"
       className="w-full bg-white py-4"
       aria-label="رأس حملات التبرع"
     >
-      <Container className="flex flex-col items-center gap-0">
-        {/* Frame 1000009415 - Top small headline */}
-        <CampaignHeadline />
-
-        {/* النص الرئيسي */}
-        <h1 className="section-title-large h-10">كن سببا في ابتسامة شخص ما</h1>
-      </Container>
-
       {/* Frame 1000009434 - Categories bar */}
       <div className="mt-4">
         <Container className="flex items-center justify-center gap-2 py-1.5">
@@ -226,7 +219,12 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
           </nav>
 
           {/* أيقونة الفلتر في نهاية الشريط */}
-          <div aria-hidden="true" className="flex h-8 w-8 items-center justify-center">
+          <button
+            type="button"
+            onClick={onFilterClick}
+            className="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-[#007F5E]/10"
+            aria-label="فتح خيارات الفلترة"
+          >
             <Image
               src="/mage_filter-fill.svg"
               alt="فلترة"
@@ -234,7 +232,7 @@ export function CampaignHeader({ activeCategory = "all", onCategoryChange }: Cam
               height={34}
               className="h-[28px] w-[28px]"
             />
-          </div>
+          </button>
         </Container>
       </div>
     </section>
