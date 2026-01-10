@@ -51,13 +51,13 @@ export function SadaqahJariyahPageContent() {
   };
 
   return (
-    <section className="w-full px-4 md:px-8 lg:px-16 xl:px-[50px] 2xl:px-[320px] pt-8 pb-10 md:pb-[100px]" dir="rtl">
+    <section className="w-full px-4 md:px-8 lg:px-16 xl:px-[320px] 2xl:px-[400px] pt-8 pb-10 md:pt-[100px] md:pb-[100px]" dir="rtl">
       <div className="flex flex-col xl:flex-row w-full items-start justify-between gap-8">
         {/* Right content column - appears on the RIGHT in RTL layout (first child) */}
-        <div className="flex w-full xl:max-w-[736px] flex-col items-end gap-6">
-          <div className="flex w-full xl:w-[575px] flex-col items-end gap-2">
+        <div className="flex w-full xl:max-w-[736px] flex-col items-start gap-[24px]">
+          <div className="flex w-full xl:w-[575px] max-w-[583px] flex-col items-start gap-[8px]">
             {/* Subtitle + icon - RTL: right-aligned, icon first so it appears on the right */}
-          <div className="flex w-full items-center justify-start gap-[5px] self-end">
+          <div className="flex w-full items-center justify-start gap-[5px] self-start">
             <span aria-hidden="true" className="relative h-6 w-6 shrink-0 flex items-center justify-center">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6">
                 <path d="M4.66663 16.3334H7.46079C7.80379 16.3334 8.14213 16.4104 8.44896 16.5597L10.8313 17.7124C11.1381 17.8605 11.4765 17.9375 11.8206 17.9375H13.0363C14.2123 17.9375 15.1666 18.8604 15.1666 19.999C15.1666 20.0457 15.1351 20.0854 15.0896 20.0982L12.1251 20.9184C11.5932 21.0653 11.026 21.0139 10.5291 20.7737L7.98229 19.5417M9.79529 2.97736C11.515 1.91102 13.0176 2.34036 13.9195 3.02519C14.2893 3.30519 14.4748 3.44519 14.5833 3.44519C14.6918 3.44519 14.8773 3.30519 15.2471 3.02519C16.149 2.34036 17.6505 1.91102 19.3713 2.97736C21.63 4.37736 22.141 8.99269 16.933 12.887C15.9401 13.629 15.4443 14 14.5833 14C13.7223 14 13.2265 13.629 12.2348 12.887C7.02563 8.99269 7.53663 4.37619 9.79529 2.97736Z" stroke="#007F5E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -88,12 +88,12 @@ export function SadaqahJariyahPageContent() {
         </div>
 
         {/* Hadith image */}
-        <div className="relative w-full overflow-hidden" style={{ height: "auto", aspectRatio: "583.49/338.32" }}>
+        <div className="relative w-full max-w-[583px] overflow-hidden" style={{ height: "auto", aspectRatio: "583.49/338.32" }}>
           <Image src="/hadeeth.png" alt="" fill className="object-contain" priority />
         </div>
 
         {/* Quote section */}
-        <div className="flex w-full xl:w-[575px] flex-col items-end gap-2 leading-normal">
+        <div className="flex w-full xl:w-[575px] max-w-[583px] flex-col items-start gap-[8px] leading-normal">
           {/* RTL: right-aligned */}
           <p className="w-full text-right text-[20px] font-medium leading-normal text-[#0D0D0D] text-nowrap font-alexandria">
             ازرع خيرًا اليوم… يحصد أجره غدًا
@@ -110,12 +110,13 @@ export function SadaqahJariyahPageContent() {
         </div>
 
         {/* RTL: right-aligned */}
-        <p className="w-full text-right text-[20px] font-medium leading-normal text-[#0D0D0D] text-nowrap font-alexandria">
-          كم تريد التبرع اليوم
-        </p>
+        <div className="w-full max-w-[583px] flex flex-col items-start gap-[24px]">
+          <p className="w-full text-right text-[20px] font-medium leading-normal text-[#0D0D0D] text-nowrap font-alexandria">
+            كم تريد التبرع اليوم
+          </p>
 
-        {/* Chips grid - RTL: fill from right to left */}
-        <div className="inline-grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 auto-rows-auto" style={{ rowGap: "8px", columnGap: "8px", direction: "rtl" }}>
+          {/* Chips grid - RTL: fill from right to left */}
+          <div className="inline-grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[8px] auto-rows-auto" style={{ direction: "rtl" }}>
             {CHIPS.map((chip) => {
               const isActive = selectedChip === chip.id;
               return (
@@ -141,19 +142,20 @@ export function SadaqahJariyahPageContent() {
               );
             })}
           </div>
+        </div>
 
           {/* Amount + custom amount + CTA */}
-          <div className="flex w-full flex-col items-end gap-6">
-            <div className="flex w-full flex-col items-start gap-4">
+          <div className="flex w-full max-w-[583px] flex-col items-start gap-[24px]">
+            <div className="flex w-full flex-col items-start gap-[16px]">
               {/* Amount label */}
-              <div className="flex w-full flex-col items-end">
+              <div className="flex w-full flex-col items-start">
                 <p className="w-full text-right text-[18px] font-normal tracking-[-0.18px] text-[rgba(13,13,13,0.7)] font-alexandria">
                   حدد المبلغ
                 </p>
               </div>
 
               {/* Presets row - RTL: 10, 50, 100, 200 from right to left (normal flex in RTL) */}
-              <div className="flex flex-wrap gap-3 w-full" dir="rtl">
+              <div className="flex items-center justify-between w-full" dir="rtl">
                 {PRESET_AMOUNTS.map((amount) => {
                   const isActive = selectedAmount === amount && !customAmount;
                   return (
@@ -165,11 +167,10 @@ export function SadaqahJariyahPageContent() {
                         setCustomAmount("");
                       }}
                       className={[
-                        "flex items-center justify-center rounded-[20px] transition-all cursor-pointer px-6 whitespace-nowrap",
+                        "flex items-center justify-center rounded-[20px] transition-all cursor-pointer px-[16px] py-[20px] w-[115px]",
                         isActive
                           ? "h-[57px] border border-[#007F5E] bg-[rgba(0,127,94,0.10)]"
                           : "h-[60px] border border-[rgba(13,13,13,0.2)] hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
-                        "flex-[1_1_calc(50%-6px)] sm:flex-[1_1_calc(33.333%-8px)] md:flex-[0_1_auto] md:min-w-[110px]",
                       ].join(" ")}
                     >
                       <p className="text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-nowrap font-alexandria">
@@ -181,7 +182,7 @@ export function SadaqahJariyahPageContent() {
               </div>
 
               {/* Custom amount label */}
-              <div className="flex w-full flex-col items-end">
+              <div className="flex w-full flex-col items-start">
                 <p className="w-full text-right text-[18px] font-normal tracking-[-0.18px] text-[rgba(13,13,13,0.7)] font-alexandria">
                   مبلغ مخصص
                 </p>
@@ -195,6 +196,7 @@ export function SadaqahJariyahPageContent() {
                   setCustomAmount(e.target.value);
                   if (e.target.value) setSelectedAmount(0);
                 }}
+                className="h-[60px]"
               />
             </div>
 
@@ -208,21 +210,26 @@ export function SadaqahJariyahPageContent() {
               <span className="text-[16px] font-bold leading-normal text-white text-nowrap font-alexandria">
                 تبرع الأن
               </span>
-              <span aria-hidden="true" className="relative h-6 w-6 overflow-hidden">
-                <Image src="/figma/mingcute-love-fill.svg" alt="" width={24} height={24} />
-              </span>
+              <Image
+                src="/double hearts.svg"
+                alt="تبرع"
+                width={22}
+                height={23}
+                className="h-6 w-6"
+              />
             </button>
           </div>
         </div>
 
-        {/* Left image - appears on the LEFT in RTL layout (second child) */}
-        <div className="relative h-auto w-full xl:w-[696.51px] shrink-0 bg-transparent">
-          <div className="absolute inset-0" style={{ mixBlendMode: "hard-light" }}>
-            <img
+        {/* Left image - appears on the LEFT in RTL layout (second child) - Hidden on smaller screens */}
+        <div className="hidden xl:block relative h-[1070.72px] w-full xl:w-[696.51px] shrink-0 bg-transparent rounded-[352.749px] overflow-hidden">
+          <div className="absolute inset-0 rounded-[352.749px] overflow-hidden" style={{ mixBlendMode: "hard-light" }}>
+            <Image
               src="/sadaqah-jarya1.png"
               alt=""
-              className="absolute max-w-none object-cover w-full h-full"
-              style={{}}
+              fill
+              className="object-contain"
+              sizes="696.51px"
             />
           </div>
         </div>
