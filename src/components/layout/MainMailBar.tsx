@@ -18,7 +18,7 @@ function TopPillButton({ children, className }: { children: React.ReactNode; cla
 
 export function MainMailBar() {
   return (
-    <div className="w-full bg-[#007F5E]">
+    <div className="w-full bg-[#007F5E] border-0 border-b-0 border-t-0 shadow-none">
       <Container className="flex h-auto min-h-[36px] md:h-[42px] items-center justify-between py-1.5 md:py-0">
         {/* Right: support links - hidden on mobile */}
         <div className="hidden md:flex items-center gap-8">

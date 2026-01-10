@@ -1,8 +1,23 @@
+/**
+ * FilterPanel Component
+ * 
+ * A sidebar panel for filtering campaigns by multiple criteria.
+ * Features:
+ * - Country selection
+ * - Financial goal range
+ * - Completion rate percentage
+ * - Active filter counter
+ * 
+ * @component
+ */
 "use client";
 
 import Image from "next/image";
 import { useState, useMemo } from "react";
 
+/**
+ * Filter state interface for campaign filtering
+ */
 export interface FilterState {
   country: string;
   minGoal: number;
@@ -10,13 +25,23 @@ export interface FilterState {
   completionRate: string;
 }
 
+/**
+ * Props for FilterPanel component
+ */
 interface FilterPanelProps {
+  /** Controls panel visibility */
   isOpen: boolean;
+  /** Callback when panel is closed */
   onClose: () => void;
+  /** Callback when filters are applied */
   onApplyFilters: (filters: FilterState) => void;
+  /** Current active filters */
   currentFilters: FilterState;
 }
 
+/**
+ * Available countries for filtering
+ */
 const COUNTRIES = [
   "مصر",
   "السعودية",
@@ -25,29 +50,53 @@ const COUNTRIES = [
   "تونس",
   "المغرب",
   "الجزائر",
-];
+] as const;
 
+/**
+ * Completion rate filter options
+ */
 const COMPLETION_RATES = [
   { value: "all", label: "الكل" },
   { value: "0-25", label: "أقل من 25%" },
   { value: "25-50", label: "من 25% إلى 50%" },
   { value: "50-75", label: "من 50% إلى 75%" },
   { value: "75-100", label: "أكثر من 75%" },
-];
+] as const;
 
+/**
+ * Financial goal range options
+ * Max value of 1000000 represents "no upper limit"
+ */
 const GOAL_RANGES = [
   { value: "all", label: "الكل", min: 0, max: 1000000 },
   { value: "0-5000", label: "أقل من 5,000", min: 0, max: 5000 },
   { value: "5000-50000", label: "من 5,000 إلى 50,000", min: 5000, max: 50000 },
   { value: "50000-100000", label: "من 50,000 إلى 100,000", min: 50000, max: 100000 },
   { value: "100000-plus", label: "أكثر من 100,000", min: 100000, max: 1000000 },
-];
+] as const;
 
 export function FilterPanel({ isOpen, onClose, onApplyFilters, currentFilters }: FilterPanelProps) {
   const [localFilters, setLocalFilters] = useState<FilterState>(currentFilters);
   const [isCountryOpen, setIsCountryOpen] = useState(false);
   const [isGoalOpen, setIsGoalOpen] = useState(false);
   const [isCompletionOpen, setIsCompletionOpen] = useState(false);
+
+  // Calculate active filter count
+  const activeFilterCount = useMemo(() => {
+    let count = 0;
+    
+    // Check if country filter is active
+    if (localFilters.country) count++;
+    
+    // Check if goal range filter is active (not default "all")
+    const isDefaultGoal = localFilters.minGoal === 0 && localFilters.maxGoal === 1000000;
+    if (!isDefaultGoal) count++;
+    
+    // Check if completion rate filter is active (not "all")
+    if (localFilters.completionRate !== "all") count++;
+    
+    return count;
+  }, [localFilters]);
 
   const selectedGoalLabel = useMemo(() => {
     const range = GOAL_RANGES.find(
@@ -70,10 +119,11 @@ export function FilterPanel({ isOpen, onClose, onApplyFilters, currentFilters }:
         border: "1px solid rgba(255, 255, 255, 0.10)",
         position: "absolute",
         top: "-0.373px",
+        minHeight: "600px",
       }}
       aria-label="خيارات الفلترة والعرض"
     >
-      {/* Background pattern - Layered for better visibility and solid base */}
+      {/* Background pattern */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-[0.03] z-0"
         style={{
@@ -85,16 +135,16 @@ export function FilterPanel({ isOpen, onClose, onApplyFilters, currentFilters }:
       />
 
       <div className="relative z-10 flex h-full flex-col p-6">
-        {/* Header */}
+        {/* Header with counter after text */}
         <div className="flex items-center justify-between py-2 mb-4">
           <h2
             id="filter-panel-title"
             className="flex items-center gap-3 font-['Alexandria',sans-serif] text-[24px] font-bold leading-8 tracking-[0.48px] text-[#0D0D0D]"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#0D0D0D] text-[14px] font-medium">
-              0
-            </div>
             <span>خيارات الفلترة والعرض</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#0D0D0D] text-[14px] font-medium">
+              {activeFilterCount}
+            </div>
           </h2>
 
           {/* Close button */}

@@ -5,6 +5,7 @@ import "../../styles/globals.css";
 import { Providers } from "./providers";
 import { ConditionalSiteHeader } from "@/components/layout/ConditionalSiteHeader";
 import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
+import { MobileBottomBar } from "@/components/layout/MobileNavigation";
 
 const cairo = Cairo({
   variable: "--font-cairo",
@@ -52,6 +53,7 @@ export default function RootLayout({
           <ConditionalSiteHeader />
           {children}
           <ConditionalFooter />
+          <MobileBottomBar />
         </Providers>
       </body>
     </html>

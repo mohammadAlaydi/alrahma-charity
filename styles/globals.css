@@ -45,18 +45,28 @@
   --border: 39 39 42;
 }
 
-html,
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   height: 100%;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 @layer base {
   html {
     font-family: var(--font-alexandria), ui-sans-serif, system-ui, sans-serif;
+    overflow-x: hidden;
+    max-width: 100%;
   }
 
   body {
     font-family: inherit;
+    overflow-x: hidden;
+    max-width: 100%;
   }
 }
 
@@ -96,7 +106,7 @@ body {
   .navbar-item {
     font-family: var(--font-alexandria), sans-serif !important;
     font-weight: 500 !important;
-    font-size: 14px !important;
+    font-size: 16px !important;
     line-height: 24px !important;
     color: var(--color-dark) !important;
   }
@@ -104,7 +114,7 @@ body {
   .navbar-item-active {
     font-family: var(--font-alexandria), sans-serif !important;
     font-weight: 500 !important;
-    font-size: 14px !important;
+    font-size: 16px !important;
     line-height: 24px !important;
     color: var(--color-primary) !important;
   }
@@ -161,8 +171,8 @@ body {
   /* Section title - large */
   .section-title-large {
     font-family: var(--font-alexandria), sans-serif !important;
-    font-size: 28px !important;
-    font-weight: 600 !important;
+    font-size: 30px !important;
+    font-weight: 700 !important;
     line-height: 42px !important;
     color: var(--color-dark-alt) !important;
     text-align: center !important;
@@ -237,8 +247,8 @@ body {
   /* Category tab text */
   .category-tab-text {
     font-family: var(--font-alexandria), sans-serif !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
     line-height: 22px !important;
   }
 
@@ -254,7 +264,7 @@ body {
   .card-description {
     font-family: var(--font-alexandria), sans-serif !important;
     font-size: 14px !important;
-    font-weight: 100 !important;
+    font-weight: 400 !important;
     line-height: 22px !important;
     color: rgba(18, 47, 42, 0.8) !important;
   }
@@ -280,6 +290,14 @@ body {
     font-size: 14px !important;
     font-weight: 600 !important;
     line-height: 22px !important;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   /* Category title - for category headers like "صدقات" */

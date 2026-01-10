@@ -45,8 +45,8 @@ export default function ProjectsPage() {
         </div>
       </div>
 
-      {/* Hero - matches Figma (height 502) */}
-      <section className="relative h-[502px] overflow-hidden">
+      {/* Hero - matches Figma (reduced height) */}
+      <section className="relative h-[420px] overflow-hidden">
         <Container className="relative z-10 flex h-full items-center justify-center">
           <PageHeader
             title="آخر مشاريعنا"

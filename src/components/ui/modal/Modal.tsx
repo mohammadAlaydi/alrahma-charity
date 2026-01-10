@@ -22,7 +22,7 @@ export function Modal({
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel
           className={cn(
-            "w-full max-w-[600px] bg-transparent border-none shadow-none p-0",
+            "w-full max-w-[720px] bg-transparent border-none shadow-none p-0",
           )}
         >
           {title ? (
