@@ -210,7 +210,7 @@ export function FilterPanel({ isOpen, onClose, onApplyFilters, currentFilters }:
                       setLocalFilters({ ...localFilters, country: "" });
                       setIsCountryOpen(false);
                     }}
-                    className="px-4 py-3 text-right font-['Alexandria',sans-serif] text-[14px] font-medium text-[#0D0D0D] transition-colors hover:bg-[rgba(13,13,13,0.05)]"
+                    className="px-4 py-3 text-start font-['Alexandria',sans-serif] text-[14px] font-medium text-[#0D0D0D] transition-colors hover:bg-[rgba(13,13,13,0.05)]"
                   >
                     الكل
                   </button>
@@ -222,7 +222,7 @@ export function FilterPanel({ isOpen, onClose, onApplyFilters, currentFilters }:
                         setLocalFilters({ ...localFilters, country });
                         setIsCountryOpen(false);
                       }}
-                      className={`px-4 py-3 text-right font-['Alexandria',sans-serif] text-[14px] font-medium transition-colors hover:bg-[rgba(13,13,13,0.05)] ${
+                      className={`px-4 py-3 text-start font-['Alexandria',sans-serif] text-[14px] font-medium transition-colors hover:bg-[rgba(13,13,13,0.05)] ${
                         localFilters.country === country
                           ? "bg-[rgba(0,127,94,0.1)] text-[#007F5E]"
                           : "text-[#0D0D0D]"
@@ -273,7 +273,7 @@ export function FilterPanel({ isOpen, onClose, onApplyFilters, currentFilters }:
                         setLocalFilters({ ...localFilters, minGoal: range.min, maxGoal: range.max });
                         setIsGoalOpen(false);
                       }}
-                      className={`px-4 py-3 text-right font-['Alexandria',sans-serif] text-[14px] font-medium transition-colors hover:bg-[rgba(13,13,13,0.05)] ${
+                      className={`px-4 py-3 text-start font-['Alexandria',sans-serif] text-[14px] font-medium transition-colors hover:bg-[rgba(13,13,13,0.05)] ${
                         localFilters.minGoal === range.min && localFilters.maxGoal === range.max
                           ? "bg-[rgba(0,127,94,0.1)] text-[#007F5E]"
                           : "text-[#0D0D0D]"
@@ -325,7 +325,7 @@ export function FilterPanel({ isOpen, onClose, onApplyFilters, currentFilters }:
                         setLocalFilters({ ...localFilters, completionRate: rate.value });
                         setIsCompletionOpen(false);
                       }}
-                      className={`px-4 py-3 text-right font-['Alexandria',sans-serif] text-[14px] font-medium transition-colors hover:bg-[rgba(13,13,13,0.05)] ${
+                      className={`px-4 py-3 text-start font-['Alexandria',sans-serif] text-[14px] font-medium transition-colors hover:bg-[rgba(13,13,13,0.05)] ${
                         localFilters.completionRate === rate.value
                           ? "bg-[rgba(0,127,94,0.1)] text-[#007F5E]"
                           : "text-[#0D0D0D]"

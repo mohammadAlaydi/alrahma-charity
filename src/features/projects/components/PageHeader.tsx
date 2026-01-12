@@ -22,7 +22,7 @@ export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageH
           <div className="flex h-7 w-7 shrink-0 items-center justify-center">
             <Image src={subtitleIcon || ""} alt="" width={28} height={28} className="h-7 w-7" />
           </div>
-          <h2 className="hero-subtitle text-right whitespace-nowrap">{subtitle}</h2>
+          <h2 className="hero-subtitle text-start whitespace-nowrap">{subtitle}</h2>
         </div>
       )}
 
@@ -46,7 +46,7 @@ export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageH
             </div>
             {breadcrumbs.map((crumb, index) => (
               <div key={index} className="flex items-center gap-[5px]">
-                <Link href={crumb.href} className="breadcrumb-text text-right hover:underline">
+                <Link href={crumb.href} className="breadcrumb-text text-start hover:underline">
                   {crumb.label}
                 </Link>
                 {index === 0 && breadcrumbs.length > 1 && (

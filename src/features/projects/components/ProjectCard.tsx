@@ -55,9 +55,12 @@ export function ProjectCard({
 
 
                 <div className="absolute inset-x-4 top-3 z-10 flex items-center justify-between">
-                    <div className="inline-flex items-center gap-1.5 rounded-full border border-white bg-[#007F5E] px-3.5 py-1.5">
+                    <Link 
+                        href={`/projects/${project.id}`}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-white bg-[#007F5E] px-3.5 py-1.5 hover:bg-[#056A4F] transition-colors"
+                    >
                         <span className="card-badge">تصنيف المشروع</span>
-                    </div>
+                    </Link>
 
                     <button
                         type="button"
@@ -135,7 +138,7 @@ export function ProjectCard({
                     </div>
                 </div>
 
-                <div className="mt-auto -mb-4 -ml-4 flex items-end justify-end relative z-10">
+                <div className="mt-auto -mb-4 -ml-4 flex items-start justify-end relative z-10">
                     <button
                         type="button"
                         onClick={(e) => {

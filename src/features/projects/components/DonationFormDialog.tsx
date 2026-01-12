@@ -63,11 +63,11 @@ export function DonationFormDialog({
           <X className="size-6" />
         </button>
 
-        <div className="relative z-10 flex flex-col gap-[20px] items-end">
+        <div className="relative z-10 flex flex-col gap-[20px] items-start">
           {/* Title */}
           {projectTitle && (
             <div className="flex gap-[10px] items-center justify-center w-full">
-              <p className="font-alexandria text-[24px] font-semibold leading-[1.5] text-[#122F2A] text-right">
+              <p className="font-alexandria text-[24px] font-semibold leading-[1.5] text-[#122F2A] text-start">
                 {projectTitle}
               </p>
             </div>
@@ -80,11 +80,11 @@ export function DonationFormDialog({
 
           {/* Inner Form Card - Responsive design matching Zakat page */}
           <div className="w-full bg-white rounded-[20px] border border-[rgba(0,0,0,0.1)] border-solid flex items-center justify-center pl-4 md:pl-[32px] pr-0 py-[16px] shadow-[0px_5px_12px_rgba(0,127,94,0.07)] font-alexandria relative z-10 max-w-[592px] mx-auto">
-            <div className="flex flex-col gap-[24px] grow items-end px-[16px] py-0 w-full">
+            <div className="flex flex-col gap-[24px] grow items-start px-[16px] py-0 w-full">
 
                  {/* Amount Selection */}
-                 <div className="flex flex-col gap-[16px] items-end w-full">
-                   <p className="font-alexandria text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right tracking-[-0.18px] w-full">
+                 <div className="flex flex-col gap-[16px] items-start w-full">
+                   <p className="font-alexandria text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-start tracking-[-0.18px] w-full">
                      حدد المبلغ
                    </p>
                    <div className="flex items-center justify-between w-full gap-0 flex-wrap md:flex-nowrap">
@@ -121,7 +121,7 @@ export function DonationFormDialog({
 
                 {/* Custom Amount */}
                 <div className="flex flex-col gap-[16px] items-start w-full">
-                  <p className="font-alexandria text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right tracking-[-0.18px] w-full">
+                  <p className="font-alexandria text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-start tracking-[-0.18px] w-full">
                     مبلغ مخصص
                   </p>
                   <AmountInput
@@ -134,13 +134,13 @@ export function DonationFormDialog({
 
                 {/* Name Input */}
                 <div className="flex flex-col gap-[16px] items-start w-full">
-                  <div className="flex flex-col items-end w-full">
-                    <p className="font-alexandria text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right tracking-[-0.18px] w-full">
+                  <div className="flex flex-col items-start w-full">
+                    <p className="font-alexandria text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-start tracking-[-0.18px] w-full">
                       الاسم
                     </p>
                   </div>
-                  <div className="flex h-[60px] items-center justify-end w-full rounded-[20px]">
-                    <div className="basis-0 flex gap-[10px] grow h-full items-center justify-end min-h-px min-w-px rounded-[20px] border border-[rgba(13,13,13,0.2)] focus-within:border-[#007F5E] transition-colors">
+                  <div className="flex h-[60px] items-center justify-start w-full rounded-[20px]">
+                    <div className="basis-0 flex gap-[10px] grow h-full items-center justify-start min-h-px min-w-px rounded-[20px] border border-[rgba(13,13,13,0.2)] focus-within:border-[#007F5E] transition-colors">
                       <input
                         type="text"
                         placeholder="اسم المستخدم"
@@ -155,13 +155,13 @@ export function DonationFormDialog({
 
                 {/* Email Input */}
                 <div className="flex flex-col gap-[16px] items-start w-full">
-                  <div className="flex flex-col items-end w-full">
-                    <p className="font-alexandria font-light leading-normal text-[16px] text-[rgba(13,13,13,0.7)] text-right w-full">
+                  <div className="flex flex-col items-start w-full">
+                    <p className="font-alexandria font-light leading-normal text-[16px] text-[rgba(13,13,13,0.7)] text-start w-full">
                       البريد الإلكتروني
                     </p>
                   </div>
-                  <div className="flex h-[60px] items-center justify-end w-full rounded-[20px]">
-                    <div className="basis-0 flex gap-[10px] grow h-full items-center justify-end min-h-px min-w-px rounded-[20px] border border-[rgba(13,13,13,0.2)] focus-within:border-[#007F5E] transition-colors">
+                  <div className="flex h-[60px] items-center justify-start w-full rounded-[20px]">
+                    <div className="basis-0 flex gap-[10px] grow h-full items-center justify-start min-h-px min-w-px rounded-[20px] border border-[rgba(13,13,13,0.2)] focus-within:border-[#007F5E] transition-colors">
                       <input
                         type="email"
                         placeholder="ادخل البريد الإلكتروني"
