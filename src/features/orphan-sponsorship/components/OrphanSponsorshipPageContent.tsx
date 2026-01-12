@@ -16,10 +16,10 @@ type FilterCategory = {
 
 const FILTER_CATEGORIES: FilterCategory[] = [
   { id: "projects", title: "مشاريعنا للأيتام", iconSrc: "/all-campanes.svg" },
-  { id: "orphan", title: "كفالة يتيم", iconSrc: "/orphan.svg" },
-  { id: "educational", title: "كفالة تعليمية", iconSrc: "/education.svg" },
-  { id: "humanitarian", title: "الكفالات الانسانية", iconSrc: "/human 1.svg" },
-  { id: "medical", title: "الكفالات الطبية", iconSrc: "/medical.svg" },
+  { id: "orphan", title: "كفالة يتيم", iconSrc: "/figma/only-with-parents1 1.svg" },
+  { id: "educational", title: "كفالة تعليمية", iconSrc: "/figma/student-fill-svgrepo-com 1.svg" },
+  { id: "humanitarian", title: "الكفالات الانسانية", iconSrc: "/figma/Group 1000009423.svg" },
+  { id: "medical", title: "الكفالات الطبية", iconSrc: "/figma/medical-microscope-svgrepo-com 1.svg" },
 ];
 
 type OrphanCard = {
@@ -147,18 +147,6 @@ export function OrphanSponsorshipPageContent() {
         </div>
       </div>
 
-      {/* Background image with opacity for desktop */}
-      <div className="absolute inset-0 pointer-events-none hidden md:block">
-        <div className="absolute inset-0 opacity-[0.05]">
-          <Image
-            src="/images/7363d45c2da79e778f88045823a4c2479c8c599f.png"
-            alt=""
-            fill
-            className="object-cover"
-          />
-        </div>
-      </div>
-
       <Container className="relative pt-8 pb-10 md:pt-[100px] md:pb-[100px]">
         {/* Donation Card and Image Section */}
         <section className="mb-[60px] md:mb-[100px]">
@@ -182,12 +170,12 @@ export function OrphanSponsorshipPageContent() {
               {/* Mobile: Header section */}
               <div className="flex flex-col items-start gap-2 w-full md:max-w-[350px] self-start lg:self-center xl:self-start">
                 <div className="flex items-center justify-center gap-[5px]">
+                  <span aria-hidden="true" className="relative h-5 w-5 md:h-6 md:w-6 overflow-hidden">
+                    <Image src="/figma/hugeicons_healtcare.svg" alt="" width={24} height={24} />
+                  </span>
                   <p className="font-alexandria text-sm md:text-[16px] leading-normal text-[#007F5E] text-nowrap">
                     كفالة تُحيي الأمل
                   </p>
-                  <span aria-hidden="true" className="relative h-5 w-5 md:h-6 md:w-6 overflow-hidden">
-                    <Image src="/figma/hugeicons-healthcare.svg" alt="" width={24} height={24} />
-                  </span>
                 </div>
                 <p className="font-alexandria text-xl md:text-[30px] font-bold md:leading-[1.6] text-[#0D0D0D] text-left">
                   كن سببًا في سعادة يتيم
@@ -300,16 +288,16 @@ export function OrphanSponsorshipPageContent() {
                     onClick={handleDonate}
                     className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full"
                   >
+                    <p className="font-alexandria text-sm md:text-[16px] font-semibold leading-[1.5] text-white text-nowrap">
+                      تبرع الان
+                    </p>
                     <Image
-                      src="/figma/mingcute-love-fill.svg"
+                      src="/figma/mingcute_love-fill.svg"
                       alt=""
                       width={24}
                       height={24}
                       className="h-6 w-6"
                     />
-                    <p className="font-alexandria text-sm md:text-[16px] font-semibold leading-[1.5] text-white text-nowrap">
-                      تبرع الان
-                    </p>
                   </button>
 
                   {/* Security text */}
@@ -396,8 +384,8 @@ export function OrphanSponsorshipPageContent() {
                 className="bg-white border border-[rgba(13,13,13,0.3)] rounded-[20px] overflow-hidden hover:shadow-[0px_8px_24px_0px_rgba(0,127,94,0.15)] transition-shadow"
               >
                 <div className="flex flex-col sm:flex-row h-full">
-                  {/* Image */}
-                  <div className="relative w-full sm:w-[257.56px] h-[257.56px] sm:h-auto bg-[#d9d9d9] shrink-0 order-1 sm:order-1">
+                  {/* Image - Left side */}
+                  <div className="relative w-full sm:w-[257.56px] h-[257.56px] sm:h-auto bg-[#d9d9d9] shrink-0 order-2 sm:order-2">
                     <Image
                       src={orphan.imageUrl}
                       alt={orphan.name}
@@ -406,8 +394,8 @@ export function OrphanSponsorshipPageContent() {
                     />
                   </div>
 
-                  {/* Content */}
-                  <div className="flex flex-col justify-between p-4 md:p-6 flex-1 order-2 sm:order-2">
+                  {/* Content - Right side */}
+                  <div className="flex flex-col justify-between p-4 md:p-6 flex-1 order-1 sm:order-1">
                     <div className="w-full">
                       <h3 className="font-alexandria text-base md:text-[18px] font-medium leading-normal text-[#122F2A] mb-4">
                         {orphan.name}
@@ -432,11 +420,11 @@ export function OrphanSponsorshipPageContent() {
 
                         {/* Amount info */}
                         <div className="flex items-center justify-between">
-                          <p className="font-alexandria text-[16px] font-semibold text-[#0d0d0d]">
-                            $ {orphan.remainingAmount}
-                          </p>
                           <p className="font-alexandria text-[16px] font-normal text-[rgba(13,13,13,0.7)]">
                             المتبقي لتأمينها شهرياً
+                          </p>
+                          <p className="font-alexandria text-[16px] font-semibold text-[#0d0d0d]">
+                            $ {orphan.remainingAmount}
                           </p>
                         </div>
                       </div>
@@ -447,16 +435,16 @@ export function OrphanSponsorshipPageContent() {
                       type="button"
                       className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[20px] w-full sm:w-[160px] self-start mt-4 sm:mt-auto"
                     >
+                      <p className="font-alexandria text-[16px] font-semibold leading-[1.5] text-white text-nowrap">
+                        تبرع الان
+                      </p>
                       <Image
-                        src="/figma/mingcute-love-fill.svg"
+                        src="/figma/mingcute_love-fill.svg"
                         alt=""
                         width={24}
                         height={24}
                         className="h-6 w-6"
                       />
-                      <p className="font-alexandria text-[16px] font-semibold leading-[1.5] text-white text-nowrap">
-                        تبرع الان
-                      </p>
                     </button>
                   </div>
                 </div>
@@ -534,12 +522,12 @@ export function OrphanSponsorshipPageContent() {
         <Container>
           <div className="flex flex-col items-center justify-center gap-2">
             <div className="flex items-center justify-center gap-[5px]">
+              <span aria-hidden="true" className="relative h-5 w-5 md:h-6 md:w-6 shrink-0 overflow-hidden">
+                <Image src="/figma/hugeicons_healtcare.svg" alt="" width={24} height={24} />
+              </span>
               <p className="font-alexandria text-xs sm:text-[16px] leading-[1.5] text-[#007F5E] text-nowrap">
                 أطفال غزة ينتظرون يد العون… كن أنت سبب الأمل
               </p>
-              <span aria-hidden="true" className="relative h-5 w-5 md:h-6 md:w-6 shrink-0 overflow-hidden">
-                <Image src="/figma/hugeicons-healthcare.svg" alt="" width={24} height={24} />
-              </span>
             </div>
             <p className="font-alexandria text-xl md:text-[32px] font-bold leading-[1.5] text-[#122F2A] text-center max-w-[496px]">
               كن سببا في ابتسامة شخص ما

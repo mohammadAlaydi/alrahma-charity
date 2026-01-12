@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Container } from "@/components/ui/Container";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { DonationFormDialog } from "./DonationFormDialog";
 import { DonationSuccessModal } from "./DonationSuccessModal";
 import { ProjectCard } from "./ProjectCard";
@@ -105,77 +106,19 @@ export function ProjectDetailsView({ project }: ProjectDetailsViewProps) {
 
     return (
         <div dir="rtl" className="bg-white">
-            {/* Hero Section with wave background */}
-            <section className="relative h-[502px] overflow-hidden bg-white">
-                {/* Wave Background */}
-                <div className="absolute inset-0">
-                    <svg
-                        className="absolute w-full h-auto top-0 left-0"
-                        viewBox="0 0 1920 639"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        preserveAspectRatio="none"
-                    >
-                        <path
-                            d="M-2290 167.108C-1534 -109.892 -778 -109.892 -22 167.108C734 444.108 1490 444.108 2246 167.108V638.108H-2290V167.108Z"
-                            fill="url(#paint0_linear)"
-                            fillOpacity="0.1"
-                        />
-                        <defs>
-                            <linearGradient id="paint0_linear" x1="0" y1="0" x2="0" y2="1">
-                                <stop stopColor="#007F5E" />
-                                <stop offset="1" stopColor="#007F5E" stopOpacity="0" />
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-
+            {/* Hero Section */}
+            <section className="relative h-[246px] md:h-[280px] overflow-hidden">
                 <Container className="relative z-10 flex h-full items-center justify-center">
-                    <div className="flex flex-col items-center gap-4 text-center pt-16">
-                        <div className="flex items-center gap-2">
-                            <p className="font-['Playpen_Sans_Arabic',sans-serif] text-[20px] leading-[1.5] text-[#B4BB5F]">
-                                تبرعك اليوم يصنع أثرًا لا يُنسى
-                            </p>
-                            <div className="relative h-7 w-7">
-                                <Image
-                                    src="/emojis/hand_healtcare.svg"
-                                    alt=""
-                                    fill
-                                    className="object-contain"
-                                />
-                            </div>
-                        </div>
-                        <h1 className="font-alexandria text-[58px] font-semibold leading-[1.6] text-[#0D0D0D]">
-                            تفاصيل المشروع
-                        </h1>
-                        <div className="flex items-center gap-2.5 text-[#B4BB5F] text-[20px]">
-                            <Link href="/" className="hover:underline font-['Playpen_Sans_Arabic',sans-serif] leading-[1.5]">
-                                الرئيسية
-                            </Link>
-                            <div className="relative h-6 w-6 rotate-[270deg]">
-                                <Image
-                                    src="/emojis/iconamoon_arrow-up-2-duotone.svg"
-                                    alt=""
-                                    width={24}
-                                    height={24}
-                                    className="object-contain"
-                                />
-                            </div>
-                            <Link href="/projects" className="hover:underline font-['Playpen_Sans_Arabic',sans-serif] leading-[1.5]">
-                                آخر مشاريعنا
-                            </Link>
-                            <div className="relative h-6 w-6 rotate-[270deg]">
-                                <Image
-                                    src="/emojis/iconamoon_arrow-up-2-duotone.svg"
-                                    alt=""
-                                    width={24}
-                                    height={24}
-                                    className="object-contain"
-                                />
-                            </div>
-                            <span className="font-['Playpen_Sans_Arabic',sans-serif] leading-[1.5]">{project.title}</span>
-                        </div>
-                    </div>
+                    <PageHeader
+                        title={project.title}
+                        subtitle="تبرعك اليوم يصنع أثرًا لا يُنسى"
+                        subtitleIcon="/figma/hugeicons-healthcare.svg"
+                        breadcrumbs={[
+                            { label: "الرئيسية", href: "/" },
+                            { label: "آخر مشاريعنا", href: "/projects" },
+                            { label: project.title, href: `/projects/${project.id}` },
+                        ]}
+                    />
                 </Container>
             </section>
 
@@ -200,11 +143,15 @@ export function ProjectDetailsView({ project }: ProjectDetailsViewProps) {
 
                         {/* Project Image with Stats Overlay */}
                         <div className="relative h-[700px] w-full overflow-hidden rounded-[20px] bg-zinc-200">
-                            {/* Placeholder Image */}
-                            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-transparent via-black/50 to-black/70">
-                                <span className="font-molle text-[36px] text-white">
-                                    Donate image
-                                </span>
+                            {/* Feature Image */}
+                            <div className="absolute inset-0">
+                                <Image
+                                    src="/figma/Feature Image.png"
+                                    alt={project.title}
+                                    fill
+                                    className="object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/70" />
                             </div>
 
                             {/* Category Badge */}
@@ -333,9 +280,6 @@ export function ProjectDetailsView({ project }: ProjectDetailsViewProps) {
                             {activeTab === "rationale" && (
                                 <div className="flex flex-col gap-4 items-start">
                                     <div className="flex items-center gap-2.5 w-full justify-start">
-                                        <h3 className="font-alexandria text-[24px] font-semibold text-[#232325]">
-                                            مبررات المشروع
-                                        </h3>
                                         <div className="relative h-8 w-8">
                                             <Image
                                                 src="/figma/game-icons_space-needle.svg"
@@ -345,6 +289,9 @@ export function ProjectDetailsView({ project }: ProjectDetailsViewProps) {
                                                 className="h-8 w-8 object-contain"
                                             />
                                         </div>
+                                        <h3 className="font-alexandria text-[24px] font-semibold text-[#232325]">
+                                            مبررات المشروع
+                                        </h3>
                                     </div>
                                     <div className="flex flex-col gap-5 text-start max-w-[912px]">
                                         <p className="font-alexandria text-[16px] leading-[1.5] text-[#4f4f52]">
@@ -359,11 +306,13 @@ export function ProjectDetailsView({ project }: ProjectDetailsViewProps) {
 
                             {/* Image with Quote Card */}
                             <div className="relative h-[410px] w-full overflow-hidden rounded-[20px]">
-                                <div className="absolute inset-0 bg-white opacity-90" />
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="font-molle text-center text-[32px] font-normal text-white">
-                                        Donate image
-                                    </span>
+                                <div className="absolute inset-0">
+                                    <Image
+                                        src="/figma/Image.png"
+                                        alt=""
+                                        fill
+                                        className="object-cover"
+                                    />
                                 </div>
                                 <div className="absolute inset-0 bg-gradient-to-r from-[#2e7c5a] to-transparent" />
                                 
@@ -635,24 +584,7 @@ export function ProjectDetailsView({ project }: ProjectDetailsViewProps) {
                     <Container>
                         <div className="flex flex-col gap-12">
                             <div className="flex items-center justify-between">
-                                <button
-                                    onClick={() => window.location.href = '/projects'}
-                                    className="bg-[#007F5E] flex gap-2.5 items-center justify-center px-8 py-4 rounded-[35px] text-white hover:bg-[#056A4F] transition-colors"
-                                >
-                                    <div className="relative h-5 w-5 rotate-90 scale-y-[-100%]">
-                                        <Image
-                                            src="/figma/line-md_arrow-up.svg"
-                                            alt=""
-                                            width={20}
-                                            height={20}
-                                            className="object-contain"
-                                        />
-                                    </div>
-                                    <span className="font-alexandria text-[16px] font-bold leading-[1.5]">
-                                        مشاهدة المزيد
-                                    </span>
-                                </button>
-                                <div className="flex flex-col gap-2.5 items-start">
+                                <div className="flex flex-col gap-2.5 items-end">
                                     <div className="flex items-center gap-2">
                                         <p className="font-['Playpen_Sans_Arabic',sans-serif] text-[16px] leading-[1.5] text-[#007F5E]">
                                             كن أنت سبب الأمل
@@ -670,6 +602,23 @@ export function ProjectDetailsView({ project }: ProjectDetailsViewProps) {
                                         مشاريع مشابهة
                                     </h2>
                                 </div>
+                                <button
+                                    onClick={() => window.location.href = '/projects'}
+                                    className="bg-[#007F5E] flex gap-2.5 items-center justify-center px-8 py-4 rounded-[35px] text-white hover:bg-[#056A4F] transition-colors"
+                                >
+                                    <span className="font-alexandria text-[16px] font-bold leading-[1.5]">
+                                        مشاهدة المزيد
+                                    </span>
+                                    <div className="relative h-5 w-5">
+                                        <Image
+                                            src="/emojis/line-md_arrow-up.svg"
+                                            alt=""
+                                            width={20}
+                                            height={20}
+                                            className="h-5 w-5 rotate-[90deg] scale-y-[-100%]"
+                                        />
+                                    </div>
+                                </button>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[35px]">
                                 {similarProjects.map((proj) => (
