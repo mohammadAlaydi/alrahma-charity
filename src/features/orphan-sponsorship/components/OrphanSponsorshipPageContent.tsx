@@ -15,11 +15,11 @@ type FilterCategory = {
 };
 
 const FILTER_CATEGORIES: FilterCategory[] = [
-  { id: "medical", title: "الكفالات الطبية", iconSrc: "/medical.svg" },
-  { id: "humanitarian", title: "الكفالات الانسانية", iconSrc: "/human 1.svg" },
-  { id: "educational", title: "كفالة تعليمية", iconSrc: "/education.svg" },
-  { id: "orphan", title: "كفالة يتيم", iconSrc: "/orphan.svg" },
   { id: "projects", title: "مشاريعنا للأيتام", iconSrc: "/all-campanes.svg" },
+  { id: "orphan", title: "كفالة يتيم", iconSrc: "/orphan.svg" },
+  { id: "educational", title: "كفالة تعليمية", iconSrc: "/education.svg" },
+  { id: "humanitarian", title: "الكفالات الانسانية", iconSrc: "/human 1.svg" },
+  { id: "medical", title: "الكفالات الطبية", iconSrc: "/medical.svg" },
 ];
 
 type OrphanCard = {
@@ -168,18 +168,12 @@ export function OrphanSponsorshipPageContent() {
             <div className="hidden xl:flex w-full xl:w-[630.22px] order-1">
               <div className="relative w-full h-[678px] rounded-[20px] overflow-hidden">
                 <Image
-                  src="/sadaqah-jarya.jpg"
-                  alt="غزة"
+                  src="/images/kafalah.png"
+                  alt="كفالة الايتام"
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   priority
                 />
-                {/* Gaza text overlay */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <p className="font-alexandria text-[154px] font-bold text-white/30">
-                    غـــــــــــــزة
-                  </p>
-                </div>
               </div>
             </div>
 
@@ -332,13 +326,13 @@ export function OrphanSponsorshipPageContent() {
             </div>
 
             {/* Mobile: Image below form */}
-            <div className="flex xl:hidden w-full order-1 opacity-[0.81]">
+            <div className="flex xl:hidden w-full order-1">
               <div className="relative w-full h-[455px] rounded-[20px] overflow-hidden">
                 <Image
-                  src="/sadaqah-jarya.jpg"
-                  alt="غزة"
+                  src="/images/kafalah.png"
+                  alt="كفالة الايتام"
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   priority
                 />
               </div>
@@ -350,7 +344,7 @@ export function OrphanSponsorshipPageContent() {
         <section className="mb-[48px] md:mb-[73px]">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 w-full">
             {/* Filter categories - Scrollable on Mobile */}
-            <div className="flex overflow-x-auto no-scrollbar items-center justify-start md:justify-center gap-4 md:gap-4 flex-1 w-full py-2 md:py-0 order-1 md:order-1">
+            <div className="flex overflow-x-auto no-scrollbar items-center justify-start gap-4 md:gap-4 flex-1 w-full py-2 md:py-0 order-1 md:order-1 pr-0" >
               {FILTER_CATEGORIES.map((category) => {
                 const isActive = selectedCategory === category.id;
                 return (
@@ -359,7 +353,7 @@ export function OrphanSponsorshipPageContent() {
                     type="button"
                     onClick={() => setSelectedCategory(category.id)}
                     className={[
-                      "flex flex-col items-center justify-center gap-[5px] px-[5px] py-[10px] md:py-0 transition-all min-h-[73px] min-w-[90px] md:min-w-[132px] shrink-0",
+                      "flex flex-col items-center justify-center gap-[5px] pl-[5px] pr-0 py-[10px] md:py-0 transition-all min-h-[73px] min-w-[90px] md:min-w-[132px] shrink-0",
                       isActive
                         ? "border-b-2 border-[#007F5E] text-[#007F5E]"
                         : "text-[#122F2A] hover:text-[#007F5E]",

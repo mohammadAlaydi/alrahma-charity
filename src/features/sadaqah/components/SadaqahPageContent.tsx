@@ -302,9 +302,9 @@ export function SadaqahPageContent() {
                     </span>
                   </button>
 
-                  <p className="font-alexandria text-center text-[16px] font-normal leading-[1.6] text-[#6155F5] w-full mt-0">
-                    <span>ت</span>
-                    <span className="underline decoration-solid [text-underline-position:from-font]">سجيل الدخول</span>
+                  <p className="font-alexandria text-center text-[16px] mt-2 font-normal leading-[1.6] text-[#6155F5] w-full mt-0">
+                    
+                    <span className="underline decoration-solid  [text-underline-position:from-font]">تسجيل الدخول</span>
                   </p>
                 </div>
               </div>
