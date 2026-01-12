@@ -570,8 +570,25 @@ export function AboutPageContent() {
       {/* Donation Card Section */}
       <section className="relative w-full bg-[#007F5E] py-8 md:py-[100px] overflow-hidden px-4 md:px-0">
         <div className="absolute inset-0">
-          <Image src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1920&h=1000&fit=crop" alt="" fill className="object-cover opacity-20" />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#007F5E] via-[#007F5E]/95 to-[#007F5E]/60" />
+          <Image 
+            src="/images/Rectangle 11.png" 
+            alt="" 
+            fill 
+            className="object-cover" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-l from-[#007F5E]/20 via-[#007F5E]/15 to-[#007F5E]/5" />
+        </div>
+        
+        {/* Heart Icon Overlay - positioned on background */}
+        <div className="absolute top-1/2 right-[10%] md:right-[15%] -translate-y-1/2 z-0 opacity-80 md:opacity-100">
+          <div className="relative h-[200px] w-[200px] md:h-[300px] md:w-[300px] lg:h-[400px] lg:w-[400px]">
+            <Image
+              src="/images/hart2 1.png"
+              alt=""
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
         <Container>
           <div className="relative flex flex-col gap-[19px] md:gap-10 lg:flex-row lg:gap-10 items-end justify-between">
