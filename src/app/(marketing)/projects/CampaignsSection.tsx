@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Container } from "@/components/ui/Container";
 import { CampaignCategoryId } from "@/features/projects/components/CampaignHeader";
 import { CampaignHeadline } from "@/features/projects/components/CampaignHeadline";
-import { DonationFormDialog } from "@/features/projects/components/DonationFormDialog";
+import { ProjectDonationDialog } from "@/features/projects/components/ProjectDonationDialog";
 import { DonationSuccessModal } from "@/features/projects/components/DonationSuccessModal";
 import { FilterPanel, FilterState } from "@/features/projects/components/FilterPanel";
 import { ProjectCard } from "@/features/projects/components/ProjectCard"; // Import this
@@ -529,7 +529,7 @@ export function CampaignsSection() {
         </div>
       </div>
 
-      <DonationFormDialog
+      <ProjectDonationDialog
         open={isDonationDialogOpen}
         onClose={() => setIsDonationDialogOpen(false)}
         onSuccess={() => setIsSuccessModalOpen(true)}

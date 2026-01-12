@@ -25,7 +25,7 @@ export function DonationFormDialog({
   projectTitle, 
   hideHeader = false 
 }: DonationFormDialogProps) {
-  const [selectedAmount, setSelectedAmount] = useState<number>(10);
+  const [selectedAmount, setSelectedAmount] = useState<number>(200);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -55,57 +55,39 @@ export function DonationFormDialog({
   return (
     <Modal open={open} onClose={onClose}>
       <div className="relative w-[95%] mx-auto sm:w-full sm:max-w-[600px] md:max-w-[692px] rounded-[20px] bg-white px-4 md:px-[50px] py-5 md:py-[20px] font-alexandria shadow-xl" dir="rtl">
-        {/* Background Texture - subtle */}
-        <div className="absolute inset-0 opacity-[0.02] pointer-events-none rounded-[20px]">
-          <Image src="/images/7363d45c2da79e778f88045823a4c2479c8c599f.png" alt="" fill className="object-cover" />
-        </div>
-
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute left-4 top-4 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-gray-100 transition-colors"
+          className="absolute left-4 md:left-[20px] top-[20px] z-20 flex size-[32px] items-center justify-center text-[#0D0D0D] hover:opacity-70 transition-opacity"
         >
-          <X className="h-5 w-5" />
+          <X className="size-6" />
         </button>
 
-        <div className="relative z-10 flex flex-col">
-          <div className="flex flex-col gap-6">
-             {/* Header */}
-             <div className="flex items-center justify-center gap-2.5 w-full">
-               <p className="font-alexandria text-lg md:text-[18px] font-bold text-[#232325]">
-                 كم تريد التبرع اليوم
-               </p>
-               <div className="relative h-8 w-8">
-                 <Image 
-                   src="/emojis/hand_healtcare.svg" 
-                   alt="" 
-                   fill 
-                   className="object-contain" 
-                   style={{ filter: 'brightness(0) saturate(100%) invert(13%) sepia(8%) saturate(1000%) hue-rotate(180deg) brightness(95%) contrast(90%)' }}
-                 />
-               </div>
-             </div>
+        <div className="relative z-10 flex flex-col gap-[20px] items-end">
+          {/* Title */}
+          {projectTitle && (
+            <div className="flex gap-[10px] items-center justify-center w-full">
+              <p className="font-alexandria text-[24px] font-semibold leading-[1.5] text-[#122F2A] text-right">
+                {projectTitle}
+              </p>
+            </div>
+          )}
 
-            <p className="font-alexandria text-sm text-[#4f4f52] text-center leading-[2] px-4">
-              جميع التبرعات تؤثر بشكل مباشر على منظمتنا وتساعدنا على مواصلة مهمتنا
-            </p>
+          {/* Subtitle */}
+          <p className="font-alexandria text-[16px] font-normal leading-[2] text-[#4F4F52] text-center w-full">
+            جميع التبرعات تؤثر بشكل مباشر على منظمتنا وتساعدنا على مواصلة مهمتنا
+          </p>
 
-            {/* Inner Form Card - Responsive design matching Zakat page */}
-            <div className="w-full bg-white rounded-[20px] border border-[rgba(0,0,0,0.1)] pl-[32px] pr-0 py-[16px] shadow-[0px_5px_12px_rgba(0,127,94,0.07)] font-alexandria relative z-10 md:max-w-[592px] md:mx-auto md:h-[618px] md:flex md:flex-col md:justify-between">
-              <div className="flex flex-col gap-[24px] px-[16px]">
-                {/* Project Title (if provided) */}
-                {projectTitle && (
-                  <p className="font-alexandria text-[24px] font-bold leading-[1.5] text-[#007F5E] text-center">
-                    {projectTitle}
-                  </p>
-                )}
+          {/* Inner Form Card - Responsive design matching Zakat page */}
+          <div className="w-full bg-white rounded-[20px] border border-[rgba(0,0,0,0.1)] border-solid flex items-center justify-center pl-4 md:pl-[32px] pr-0 py-[16px] shadow-[0px_5px_12px_rgba(0,127,94,0.07)] font-alexandria relative z-10 max-w-[592px] mx-auto">
+            <div className="flex flex-col gap-[24px] grow items-end px-[16px] py-0 w-full">
 
                  {/* Amount Selection */}
-                 <div className="flex flex-col gap-[16px]">
-                   <p className="font-alexandria text-right text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.70)] tracking-[-0.18px]">
+                 <div className="flex flex-col gap-[16px] items-end w-full">
+                   <p className="font-alexandria text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right tracking-[-0.18px] w-full">
                      حدد المبلغ
                    </p>
-                   <div className="grid grid-cols-2 md:flex md:items-center md:justify-between gap-3 md:gap-0 w-full">
+                   <div className="flex items-center justify-between w-full gap-0 flex-wrap md:flex-nowrap">
                      {PRESET_AMOUNTS.map((amount) => {
                        const isActive = selectedAmount === amount && !customAmount;
                        return (
@@ -114,15 +96,23 @@ export function DonationFormDialog({
                            type="button"
                            onClick={() => handleAmountSelect(amount)}
                            className={cn(
-                             "flex h-[60px] items-center justify-center px-[16px] rounded-[20px] w-full md:w-[100px] border transition-all",
+                             "flex h-[60px] items-center justify-center rounded-[20px] w-[calc(50%-4px)] md:w-[115px] border border-solid transition-all mb-2 md:mb-0",
                              isActive
-                               ? "border-[#007F5E] bg-[#007F5E]/10"
-                               : "border-[rgba(13,13,13,0.2)] hover:border-[#007F5E] hover:bg-[#007F5E]/5"
+                               ? "border-[rgba(13,13,13,0.2)]"
+                               : "border-[rgba(13,13,13,0.2)]"
                            )}
                          >
-                           <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-nowrap">
-                             {amount} $
-                           </p>
+                           {isActive ? (
+                             <div className="bg-[rgba(0,127,94,0.1)] border border-[#007F5E] border-solid flex h-[57px] items-center justify-center rounded-[20px] w-[calc(100%-4px)] md:w-[110px]">
+                               <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-nowrap">
+                                 $ {amount}
+                               </p>
+                             </div>
+                           ) : (
+                             <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-nowrap">
+                               $ {amount}
+                             </p>
+                           )}
                          </button>
                        );
                      })}
@@ -130,8 +120,8 @@ export function DonationFormDialog({
                  </div>
 
                 {/* Custom Amount */}
-                <div className="flex flex-col gap-[16px]">
-                  <p className="font-alexandria text-right text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.70)] tracking-[-0.18px]">
+                <div className="flex flex-col gap-[16px] items-start w-full">
+                  <p className="font-alexandria text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right tracking-[-0.18px] w-full">
                     مبلغ مخصص
                   </p>
                   <AmountInput
@@ -142,62 +132,73 @@ export function DonationFormDialog({
                   />
                 </div>
 
-                {/* Inputs Group */}
-                <div className="flex flex-col gap-[16px]">
-                  <div className="flex flex-col gap-[16px]">
-                    <p className="font-alexandria text-right text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.70)] tracking-[-0.18px]">
+                {/* Name Input */}
+                <div className="flex flex-col gap-[16px] items-start w-full">
+                  <div className="flex flex-col items-end w-full">
+                    <p className="font-alexandria text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right tracking-[-0.18px] w-full">
                       الاسم
                     </p>
-                    <div className="h-[60px] w-full rounded-[20px] border border-[#0D0D0D]/20 focus-within:border-[#007F5E] transition-colors overflow-hidden">
+                  </div>
+                  <div className="flex h-[60px] items-center justify-end w-full rounded-[20px]">
+                    <div className="basis-0 flex gap-[10px] grow h-full items-center justify-end min-h-px min-w-px rounded-[20px] border border-[rgba(13,13,13,0.2)] focus-within:border-[#007F5E] transition-colors">
                       <input
                         type="text"
                         placeholder="اسم المستخدم"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         dir="rtl"
-                        className="h-full w-full bg-transparent px-4 text-right font-alexandria text-sm font-light text-[#0D0D0D]/70 outline-none placeholder:opacity-[0.85] placeholder:font-normal"
+                        className="flex flex-col h-full items-center justify-center pl-[16px] pr-[32px] py-0 shrink-0 grow bg-transparent font-alexandria font-light leading-normal text-[16px] text-[rgba(13,13,13,0.7)] outline-none placeholder:opacity-[0.67] placeholder:text-nowrap"
                       />
                     </div>
                   </div>
+                </div>
 
-                  <div className="flex flex-col gap-[16px]">
-                    <p className="font-alexandria text-right text-[18px] font-normal leading-normal text-[rgba(13,13,13,0.70)] tracking-[-0.18px]">
+                {/* Email Input */}
+                <div className="flex flex-col gap-[16px] items-start w-full">
+                  <div className="flex flex-col items-end w-full">
+                    <p className="font-alexandria font-light leading-normal text-[16px] text-[rgba(13,13,13,0.7)] text-right w-full">
                       البريد الإلكتروني
                     </p>
-                    <div className="h-[60px] w-full rounded-[20px] border border-[#0D0D0D]/20 focus-within:border-[#007F5E] transition-colors overflow-hidden">
+                  </div>
+                  <div className="flex h-[60px] items-center justify-end w-full rounded-[20px]">
+                    <div className="basis-0 flex gap-[10px] grow h-full items-center justify-end min-h-px min-w-px rounded-[20px] border border-[rgba(13,13,13,0.2)] focus-within:border-[#007F5E] transition-colors">
                       <input
                         type="email"
                         placeholder="ادخل البريد الإلكتروني"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         dir="rtl"
-                        className="h-full w-full bg-transparent px-4 text-right font-alexandria text-sm font-light text-[#0D0D0D]/70 outline-none placeholder:opacity-[0.85] placeholder:font-normal"
+                        className="flex flex-col h-full items-center justify-center pl-[16px] pr-[32px] py-0 shrink-0 grow bg-transparent font-alexandria font-light leading-normal text-[16px] text-[rgba(13,13,13,0.7)] outline-none placeholder:opacity-[0.67] placeholder:text-nowrap"
                       />
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col gap-0 px-[16px]">
+                {/* Continue Button */}
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  className="flex gap-[10px] w-full items-center justify-center px-[32px] py-[16px] rounded-[35px] bg-[#007F5E] text-white transition-colors hover:bg-[#007F5E]/90"
+                  className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-[32px] py-[16px] rounded-[35px] w-full"
                 >
-                  <div className="relative h-6 w-6 shrink-0">
-                    <Image src="/figma/mingcute_love-fill.svg" alt="" fill className="object-contain" />
+                  <div className="relative shrink-0 size-[24px]">
+                    <Image
+                      src="/figma/mingcute_love-fill.svg"
+                      alt=""
+                      width={24}
+                      height={24}
+                      className="size-6"
+                    />
                   </div>
-                  <span className="font-alexandria text-[16px] font-semibold leading-[1.5] text-nowrap text-white">
+                  <p className="font-alexandria text-[16px] font-semibold leading-[1.5] text-white text-nowrap">
                     متابعة
-                  </span>
+                  </p>
                 </button>
 
-                <p className="font-alexandria text-center text-[16px] font-normal leading-[1.6] text-[#6155F5] w-full mt-4">
+                {/* Login Link */}
+                <p className="font-alexandria text-[16px] font-normal leading-[1.6] text-[#6155F5] text-[rgba(13,13,13,0.7)] text-center w-full">
                   <span>ت</span>
                   <span className="underline decoration-solid [text-underline-position:from-font]">سجيل الدخول</span>
                 </p>
-              </div>
             </div>
           </div>
         </div>
