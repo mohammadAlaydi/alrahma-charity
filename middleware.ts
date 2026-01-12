@@ -1,11 +1,12 @@
 import { withAuth } from "next-auth/middleware";
+import { ROUTES, PROTECTED_ROUTES } from "@/config/constants";
 
 export default withAuth({
   pages: {
-    signIn: "/login",
+    signIn: ROUTES.LOGIN,
   },
 });
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*", "/settings/:path*"],
+  matcher: PROTECTED_ROUTES.map((route) => `${route}/:path*`),
 };

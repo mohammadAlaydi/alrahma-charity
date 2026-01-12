@@ -1,4 +1,5 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
+import { TOAST_CONFIG } from "@/config/constants";
 
 export type ToastType = "success" | "info" | "warning" | "error";
 
@@ -30,7 +31,7 @@ const notificationsSlice = createSlice({
     addToast: {
       reducer(state, action: PayloadAction<Toast>) {
         state.toasts.unshift(action.payload);
-        state.toasts = state.toasts.slice(0, 5);
+        state.toasts = state.toasts.slice(0, TOAST_CONFIG.MAX_TOASTS);
       },
       prepare(payload: AddToastPayload) {
         return {
@@ -39,7 +40,7 @@ const notificationsSlice = createSlice({
             type: payload.type,
             title: payload.title,
             message: payload.message,
-            durationMs: payload.durationMs ?? 3500,
+            durationMs: payload.durationMs ?? TOAST_CONFIG.DEFAULT_DURATION,
             createdAt: Date.now(),
           } satisfies Toast,
         };

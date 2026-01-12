@@ -1,94 +1,18 @@
 import { post } from "../http";
-
-/**
- * Auth types matching backend schema
- */
-export type AuthTokens = {
-  access_token: string;
-  refresh_token: string;
-};
-
-export type AuthUser = {
-  user_id: string;
-  email: string;
-  full_name: string;
-  is_admin: boolean;
-};
-
-/**
- * Login request
- */
-export type LoginRequest = {
-  email: string;
-  password: string;
-};
-
-/**
- * Login response
- */
-export type LoginResponse = AuthTokens & {
-  user: AuthUser;
-  message?: string;
-};
-
-/**
- * Register request
- */
-export type RegisterRequest = {
-  email: string;
-  password: string;
-  full_name: string;
-  phone_number?: string;
-};
-
-/**
- * Register response
- */
-export type RegisterResponse = AuthTokens & {
-  user: AuthUser;
-  message?: string;
-};
-
-/**
- * Refresh token request
- */
-export type RefreshTokenRequest = {
-  refresh_token: string;
-};
-
-/**
- * Refresh token response
- */
-export type RefreshTokenResponse = AuthTokens;
-
-/**
- * Forgot password request
- */
-export type ForgotPasswordRequest = {
-  email: string;
-};
-
-/**
- * Forgot password response
- */
-export type ForgotPasswordResponse = {
-  message: string;
-};
-
-/**
- * Reset password request
- */
-export type ResetPasswordRequest = {
-  token: string;
-  new_password: string;
-};
-
-/**
- * Reset password response
- */
-export type ResetPasswordResponse = {
-  message: string;
-};
+import type {
+  AuthUser,
+  AuthTokens,
+  LoginRequest,
+  LoginResponse,
+  RegisterRequest,
+  RegisterResponse,
+  RefreshTokenRequest,
+  RefreshTokenResponse,
+  ForgotPasswordRequest,
+  ForgotPasswordResponse,
+  ResetPasswordRequest,
+  ResetPasswordResponse,
+} from "@/types/auth";
 
 /**
  * Register new user
@@ -112,7 +36,7 @@ export async function login(data: LoginRequest): Promise<LoginResponse> {
  */
 export async function refreshToken(refreshToken: string): Promise<RefreshTokenResponse> {
   return post<RefreshTokenResponse, RefreshTokenRequest>("/auth/refresh", {
-    refresh_token: refreshToken,
+    refreshToken,
   });
 }
 

@@ -8,6 +8,7 @@ import { ThemeProvider } from "next-themes";
 
 import { store } from "@/store/store";
 import { Toaster } from "@/components/ui/toast/Toaster";
+import { QUERY_CONFIG } from "@/config/constants";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -15,8 +16,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            retry: 1,
-            refetchOnWindowFocus: false,
+            retry: QUERY_CONFIG.RETRY_COUNT,
+            refetchOnWindowFocus: QUERY_CONFIG.REFETCH_ON_WINDOW_FOCUS,
+            staleTime: QUERY_CONFIG.STALE_TIME,
+            gcTime: QUERY_CONFIG.CACHE_TIME,
           },
         },
       }),

@@ -1,22 +1,26 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { ApiError, ApiException } from "@/types/api";
+import { API_CONFIG, HTTP_STATUS, ERROR_MESSAGES } from "@/config/constants";
+import { tokenStorage } from "@/lib/storage";
+import { errorLogger } from "@/lib/errorLogger";
+import { isDevelopment } from "@/lib/env";
 
 export const http = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:3000"}/api/v1`,
+  baseURL: `${API_CONFIG.BASE_URL}/api/${API_CONFIG.VERSION}`,
+  timeout: API_CONFIG.TIMEOUT,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
-  // Prevent aggressive caching in development via params instead of headers
-  params: process.env.NODE_ENV === "development" ? { _nocache: Date.now() } : undefined,
+  // Prevent aggressive caching in development
+  params: isDevelopment ? { _nocache: Date.now() } : undefined,
 });
 
 /**
- * Get access token from localStorage or Redux store
+ * Get access token from storage
  */
 function getAccessToken(): string | null {
-  if (typeof window === "undefined") return null;
-  return localStorage.getItem("access_token");
+  return tokenStorage.getAccessToken();
 }
 
 /**
@@ -41,7 +45,9 @@ http.interceptors.response.use(
   async (error: AxiosError<ApiError>) => {
     // Network errors
     if (!error.response) {
-      throw new ApiException(0, "Network error. Please check your connection.", "NETWORK_ERROR");
+      const exception = new ApiException(0, ERROR_MESSAGES.NETWORK_ERROR, "NETWORK_ERROR");
+      errorLogger.log(exception, "high");
+      throw exception;
     }
 
     const { status, data } = error.response;
@@ -56,31 +62,29 @@ http.interceptors.response.use(
     };
 
     // Handle 401 Unauthorized - clear tokens
-    if (status === 401) {
-      if (typeof window !== "undefined") {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
-        // Optionally redirect to login
-        // window.location.href = "/login";
-      }
+    if (status === HTTP_STATUS.UNAUTHORIZED) {
+      tokenStorage.clearTokens();
+      apiError.message = ERROR_MESSAGES.UNAUTHORIZED;
     }
 
     // Handle 403 Forbidden
-    if (status === 403) {
-      apiError.message = "You don't have permission to perform this action.";
+    if (status === HTTP_STATUS.FORBIDDEN) {
+      apiError.message = ERROR_MESSAGES.FORBIDDEN;
     }
 
     // Handle 404 Not Found
-    if (status === 404) {
-      apiError.message = data?.message || "Resource not found.";
+    if (status === HTTP_STATUS.NOT_FOUND) {
+      apiError.message = data?.message || ERROR_MESSAGES.NOT_FOUND;
     }
 
     // Handle 500+ Server errors
-    if (status >= 500) {
-      apiError.message = "Server error. Please try again later.";
+    if (status >= HTTP_STATUS.INTERNAL_SERVER_ERROR) {
+      apiError.message = ERROR_MESSAGES.SERVER_ERROR;
     }
 
-    throw new ApiException(apiError.statusCode, apiError.message, apiError.error, apiError.details);
+    const exception = new ApiException(apiError.statusCode, apiError.message, apiError.error, apiError.details);
+    errorLogger.log(exception, status >= 500 ? "critical" : "medium", { status, data });
+    throw exception;
   },
 );
 
