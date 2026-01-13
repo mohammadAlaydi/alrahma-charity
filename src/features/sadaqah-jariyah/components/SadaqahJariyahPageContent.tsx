@@ -8,30 +8,16 @@ type DonationChipId =
   | "water"
   | "aqiqah"
   | "nadhr"
-  | "purification"
-  | "sadaqah-jariyah"
-  | "relieve"
-  | "clothe"
-  | "pay-harm"
-  | "debtors"
-  | "expiation"
-  | "feed";
+  | "purification";
 
-type DonationChip = { id: DonationChipId; label: string; gridArea: string };
+type DonationChip = { id: DonationChipId; label: string };
 
-// Chips in RTL grid order: grid-area row/col (in RTL, col 1 = rightmost, col 4 = leftmost)
+// Chips array - 4 buttons matching Figma design
 const CHIPS: DonationChip[] = [
-  { id: "purification", label: " تطهير مال وأسهم", gridArea: "1/1" },
-  { id: "nadhr", label: "النذر", gridArea: "1/2" },
-  { id: "aqiqah", label: "عقائق", gridArea: "1/3" },
-  { id: "water", label: "سقيا الماء", gridArea: "1/4" },
-  { id: "clothe", label: "كسوة مسكين", gridArea: "2/1" },
-  { id: "sadaqah-jariyah", label: "صدقة جارية", gridArea: "2/2" },
-  { id: "relieve", label: "تفريج كربة", gridArea: "2/3" },
-  { id: "pay-harm", label: "دفع بلاء", gridArea: "2/4" },
-  { id: "debtors", label: "الغارمين", gridArea: "3/1" },
-  { id: "expiation", label: "كفارة يمين", gridArea: "3/2" },
-  { id: "feed", label: "إطعام مسكين", gridArea: "3/3" },
+  { id: "purification", label: "تطهير مال وأسهم" },
+  { id: "nadhr", label: "النذر" },
+  { id: "aqiqah", label: "عقائق" },
+  { id: "water", label: "سقيا الماء" },
 ];
 
 // Amounts: 10, 50, 100, 200 from right to left (first in array = rightmost in RTL)
@@ -115,8 +101,8 @@ export function SadaqahJariyahPageContent() {
             كم تريد التبرع اليوم
           </p>
 
-          {/* Chips grid - RTL: fill from right to left */}
-          <div className="inline-grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[8px] auto-rows-auto" style={{ direction: "rtl" }}>
+          {/* Chips grid - RTL: flex layout that auto-sizes based on text */}
+          <div className="flex items-center gap-[8px] flex-wrap w-full" style={{ direction: "rtl" }}>
             {CHIPS.map((chip) => {
               const isActive = selectedChip === chip.id;
               return (
@@ -130,10 +116,9 @@ export function SadaqahJariyahPageContent() {
                       ? "border-[#007F5E] bg-[#007F5E] hover:bg-[#056A4F] hover:border-[#056A4F]"
                       : "border-black bg-white text-[#122F2A] hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
                   ].join(" ")}
-                  style={{ gridArea: chip.gridArea }}
                 >
                   <p className={[
-                    "text-center text-[14px] sm:text-[16px] leading-normal font-alexandria break-words",
+                    "text-center text-[14px] sm:text-[16px] leading-normal font-alexandria wrap-break-word",
                     isActive ? "text-white font-medium" : "text-[#122F2A] font-medium"
                   ].join(" ")}>
                     {chip.label}
@@ -155,7 +140,7 @@ export function SadaqahJariyahPageContent() {
               </div>
 
               {/* Presets row - RTL: 10, 50, 100, 200 from right to left (normal flex in RTL) */}
-              <div className="flex items-center justify-between w-full" dir="rtl">
+              <div className="flex items-center gap-2 flex-wrap w-full" dir="rtl">
                 {PRESET_AMOUNTS.map((amount) => {
                   const isActive = selectedAmount === amount && !customAmount;
                   return (
@@ -167,15 +152,26 @@ export function SadaqahJariyahPageContent() {
                         setCustomAmount("");
                       }}
                       className={[
-                        "flex items-center justify-center rounded-[20px] transition-all cursor-pointer px-[16px] py-[20px] w-[115px]",
+                        "flex items-center justify-center rounded-[20px] transition-all cursor-pointer px-[16px] h-[60px] border border-solid relative",
                         isActive
-                          ? "h-[57px] border border-[#007F5E] bg-[rgba(0,127,94,0.10)]"
-                          : "h-[60px] border border-[rgba(13,13,13,0.2)] hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
+                          ? "border-[rgba(13,13,13,0.2)]"
+                          : "border-[rgba(13,13,13,0.2)] hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
                       ].join(" ")}
+                      style={{ minWidth: "115px" }}
                     >
-                      <p className="text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-nowrap font-alexandria">
-                        $ {amount}
-                      </p>
+                      {isActive ? (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="flex h-[57px] w-[calc(100%-4px)] items-center justify-center rounded-[20px] border border-[#007F5E] border-solid bg-[rgba(0,127,94,0.10)]">
+                            <p className="text-[16px] font-medium leading-normal text-[#122F2A] text-nowrap font-alexandria">
+                              $ {amount}
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="text-[16px] font-medium leading-normal text-[#122F2A] text-nowrap font-alexandria">
+                          $ {amount}
+                        </p>
+                      )}
                     </button>
                   );
                 })}

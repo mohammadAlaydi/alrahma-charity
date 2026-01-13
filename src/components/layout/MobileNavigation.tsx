@@ -16,7 +16,7 @@ const navItems = [
   { label: "الكفالات", href: "/kafalah", icon: "/figma/streamline-freehand-color_donation-charity-donate-heart-flower.svg" },
   { label: "الصدقات", href: "/sadaqah", icon: "/figma/bx_donate-blood.svg" },
   { label: "معرض الاعمال", href: "#", icon: "/figma/iconoir_cinema-old.svg" },
-  { label: "المدونة", href: "#", icon: "/figma/mdi_blog-outline.svg" },
+  { label: "المدونة", href: "/blog", icon: "/figma/mdi_blog-outline.svg" },
   { label: "التواصل معنا", href: "#", icon: "/figma/healthicons_contact-support-outline.svg" },
 ];
 

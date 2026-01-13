@@ -22,7 +22,7 @@ const navItems: NavItem[] = [
   { label: "الكفالات", href: "/kafalah" },
   { label: "الصدقات", href: "/sadaqah" },
   { label: "معرض الاعمال", href: "#" },
-  { label: "المدونة", href: "#" },
+  { label: "المدونة", href: "/blog" },
 ];
 
 function DonateButton({ className }: { className?: string }) {
@@ -101,7 +101,7 @@ export function MainNavBar() {
             {navItems.map((item) => {
               const isActive =
                 item.href !== "#" &&
-                (item.href === "/sadaqah" || item.href === "/kafalah"
+                (item.href === "/sadaqah" || item.href === "/kafalah" || item.href === "/blog"
                   ? pathname?.startsWith(item.href)
                   : pathname === item.href);
               return (
