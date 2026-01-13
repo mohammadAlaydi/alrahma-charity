@@ -132,7 +132,7 @@ export function AboutPageContent() {
                     </div>
                   </div>
 
-                  {/* Decorative line - aligned with top left elements */}
+                  {/* Decorative curly line - aligned with top left elements */}
                   <div className="hidden md:block absolute top-[5px] left-[264px] h-[37px] w-[262px] z-40">
                     <svg
                       width="262"
@@ -141,7 +141,13 @@ export function AboutPageContent() {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path d="M0 18.5L262 18.5" stroke="#007F5E" strokeWidth="5" strokeLinecap="round" />
+                      <path 
+                        d="M0 18.5 Q13 8.5 26 18.5 T52 18.5 T78 18.5 T104 18.5 T130 18.5 T156 18.5 T182 18.5 T208 18.5 T234 18.5 T262 18.5" 
+                        stroke="#007F5E" 
+                        strokeWidth="5" 
+                        strokeLinecap="round"
+                        fill="none"
+                      />
                     </svg>
                   </div>
                 </div>
@@ -194,21 +200,21 @@ export function AboutPageContent() {
                 {/* Card 1 - قم بالتبرع on the right (first) */}
                 <div className="flex flex-col gap-4 w-full md:w-[276px]">
                   <div className="flex flex-row gap-4 md:gap-[16px] items-start justify-end">
-                    <div className="flex-1 space-y-2 flex flex-col items-end">
+                    <div className="relative h-[39px] md:h-[57px] w-[39px] md:w-[57px] shrink-0">
+                      <Image
+                        src="/images/donate-now.png"
+                        alt=""
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <div className="flex-1 space-y-2 flex flex-col items-start">
                       <h4 className="font-alexandria text-[20px] font-semibold leading-normal text-right text-[#122F2A] w-full">
                         قم بالتبرع
                       </h4>
                       <p className="font-alexandria text-[16px] font-normal leading-[1.5] text-right text-[rgba(13,13,13,0.7)] text-justify w-full">
                         بمساهمة بسيطة، تمنح أسرة أملًا جديدًا… اجعل عطاؤك يصل لمن يحتاجه الآن.
                       </p>
-                    </div>
-                    <div className="relative h-[39px] md:h-[57px] w-[39px] md:w-[57px] shrink-0">
-                      <Image
-                        src="/emojis/give hart 1.png"
-                        alt=""
-                        fill
-                        className="object-contain"
-                      />
                     </div>
                   </div>
                   
@@ -218,8 +224,12 @@ export function AboutPageContent() {
                       type="button"
                       className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full md:w-auto hover:bg-[#005F4A] transition-colors"
                     >
-                      <div className="flex items-center justify-center relative shrink-0 size-[20px]">
-                        <div className="flex-none rotate-[90deg] scale-y-[-100%]">
+                       
+
+                      <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.6] text-white">
+                        تبرع الان
+                      </p>
+                      <div className="flex-none rotate-[90deg] scale-y-[-100%]">
                           <Image
                             src="/emojis/line-md_arrow-up.svg"
                             alt=""
@@ -228,16 +238,20 @@ export function AboutPageContent() {
                             className="h-5 w-5"
                           />
                         </div>
-                      </div>
-                      <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.6] text-white">
-                        تبرع الان
-                      </p>
                     </button>
                   </div>
                 </div>
 
                 {/* Card 2 - ابدأ بمساعدتهم on the left (second) */}
                 <div className="flex flex-row gap-4 items-start justify-end w-full md:w-[276px]">
+                  <div className="relative h-[39px] md:h-[57px] w-[39px] md:w-[57px] shrink-0">
+                    <Image
+                      src="/images/help-them.png"
+                      alt=""
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                   <div className="flex-1 space-y-2 flex flex-col items-end">
                     <h4 className="font-alexandria text-[20px] font-semibold leading-normal text-right text-[#122F2A] w-full">
                       ابدأ بمساعدتهم
@@ -245,14 +259,6 @@ export function AboutPageContent() {
                     <p className="font-alexandria text-[16px] font-normal leading-[1.5] text-right text-[rgba(13,13,13,0.7)] text-justify w-full">
                       ساعدهم على تجاوز الأزمات… دعمك يمنحهم فرصة لحياة أكثر كرامة واستقرارًا
                     </p>
-                  </div>
-                  <div className="relative h-[39px] md:h-[57px] w-[39px] md:w-[57px] shrink-0">
-                    <Image
-                      src="/emojis/give hart 1.png"
-                      alt=""
-                      fill
-                      className="object-contain"
-                    />
                   </div>
                 </div>
               </div>
@@ -460,7 +466,7 @@ export function AboutPageContent() {
               </div>
 
               {/* Paragraph */}
-              <p className="font-alexandria text-sm md:text-[16px] font-normal leading-[1.6] text-left text-[rgba(13,13,13,0.7)]">
+              <p className="font-alexandria text-sm md:text-[16px] font-normal leading-[1.6] text-right text-[rgba(13,13,13,0.7)]">
                 في جمعية الرحمة والإحسان، نعمل على تحسين جودة حياة الأسر المتضررة في غزة من خلال
                 تدخلات إنسانية عاجلة ومشاريع تنموية مستدامة. نؤمن بأن الكرامة الإنسانية تبدأ من دعم
                 الاحتياجات الأساسية، وتمتد بتمكين الشباب والأسَر لبناء مستقبل أفضل. برؤية واضحة وقيم
@@ -627,7 +633,7 @@ export function AboutPageContent() {
                   {/* Donation Card Container - 552x545 */}
                   <div className="w-full lg:w-[552px] lg:h-[545px] lg:flex-shrink-0 flex flex-col gap-8 lg:gap-[32px] lg:ml-[53px] lg:mt-[53.5px] lg:self-start">
                     {/* Heading - 45px height, 372px width, right-aligned */}
-                    <div className="flex justify-center lg:justify-end h-[45px] flex-shrink-0">
+                    <div className="flex justify-center lg:justify-start h-[45px] flex-shrink-0">
                       <p className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5] text-[#0D0D0D] text-center lg:text-right w-[372px]">
                         أحدث تأثيراً ملموساً اليوم
                       </p>
@@ -635,7 +641,7 @@ export function AboutPageContent() {
                     
                     {/* Donation Card - 552x468 */}
                     <div className="bg-white rounded-[20px] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.15)] w-full h-[468px] overflow-hidden flex flex-col flex-shrink-0">
-                      <div className="bg-[#F0F0F0] flex items-center justify-end px-4 py-4 h-[62px] rounded-t-[20px] flex-shrink-0">
+                      <div className="bg-[#F0F0F0] flex items-center justify-start px-4 py-4 h-[62px] rounded-t-[20px] flex-shrink-0">
                         <p className="font-alexandria text-[20px] font-bold leading-normal text-[#0D0D0D]">
                           تبرع سريع
                         </p>
@@ -755,7 +761,7 @@ export function AboutPageContent() {
                 </div>
               </div>
               <p className="font-alexandria text-2xl md:text-[40px] font-bold leading-[1.6]">
-                <span>شركاؤنا من جميع </span>
+                <span className="text-[#122F2A]">شركاؤنا من جميع </span>
                 <span className="text-[#007F5E]">أنحاء العالم</span>
               </p>
             </div>
