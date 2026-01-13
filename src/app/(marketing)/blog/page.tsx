@@ -182,7 +182,7 @@ export default function BlogPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative h-125.5 overflow-hidden">
+      <section className="relative h-[420px] overflow-hidden">
         <Container className="relative z-10 flex h-full items-center justify-center">
           <PageHeader
             title="المدونة"

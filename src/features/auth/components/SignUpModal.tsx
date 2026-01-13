@@ -2,23 +2,20 @@
 
 import { useState } from "react";
 import { Eye, EyeOff, X } from "lucide-react";
-import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import Image from "next/image";
 
 import { Modal } from "@/components/ui/modal/Modal";
 import { TextInput } from "@/components/ui/TextInput";
-import { Checkbox } from "@/components/ui/Checkbox";
 import { useAppDispatch } from "@/store/hooks";
 import { addToast } from "@/store/slices/notificationsSlice";
-import { loginSchema, type LoginValues } from "@/schemas/auth";
+import { signupSchema, type SignupValues } from "@/schemas/auth";
 
-interface LoginModalProps {
+interface SignUpModalProps {
   open: boolean;
   onClose: () => void;
-  onSwitchToSignUp?: () => void;
+  onSwitchToLogin?: () => void;
 }
 
 function PasswordToggle({ visible, onToggle }: { visible: boolean; onToggle: () => void }) {
@@ -36,30 +33,21 @@ function PasswordToggle({ visible, onToggle }: { visible: boolean; onToggle: () 
   );
 }
 
-export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps) {
+export function SignUpModal({ open, onClose, onSwitchToLogin }: SignUpModalProps) {
   const dispatch = useAppDispatch();
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginValues>({ resolver: zodResolver(loginSchema) });
+  } = useForm<SignupValues>({ resolver: zodResolver(signupSchema) });
 
   const onSubmit = handleSubmit(async (values) => {
-    const res = await signIn("credentials", {
-      redirect: false,
-      email: values.email,
-      password: values.password,
-    });
-
-    if (res?.error) {
-      dispatch(addToast({ type: "error", message: "بيانات الدخول غير صحيحة" }));
-    } else {
-      onClose();
-      // Optionally redirect or refresh
-      window.location.reload();
-    }
+    // Placeholder: call backend register endpoint then sign in.
+    dispatch(addToast({ type: "success", message: "تم إنشاء الحساب بنجاح" }));
+    onClose();
+    // Optionally redirect or refresh
+    window.location.reload();
   });
 
   return (
@@ -103,7 +91,7 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
             />
           </div>
           <div className="text-center">
-            <h2 className="text-xl font-semibold text-[#333333] font-alexandria">تسجيل الدخول</h2>
+            <h2 className="text-xl font-semibold text-[#333333] font-alexandria">إنشاء حساب</h2>
           </div>
         </div>
 
@@ -112,7 +100,6 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
             <label className="text-base font-medium text-[#666] font-alexandria">اسم المستخدم</label>
             <TextInput
               type="text"
-              
               error={!!errors.email}
               {...register("email")}
             />
@@ -131,7 +118,6 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
             </div>
             <TextInput
               type={passwordVisible ? "text" : "password"}
-              
               error={!!errors.password}
               {...register("password")}
             />
@@ -140,27 +126,17 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
             )}
           </div>
 
-          <div className="flex items-center justify-between">
-            <Checkbox
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-              label={<span className="text-base text-[18px] font-semibold leading-[18px] font-normal text-[#666666] font-alexandria">تذكرني</span>}
-            />
-            <Link href="/forgot-password" onClick={onClose} className="text-base text-[#6155f5] hover:underline font-alexandria">
-              نسيت كلمة المرور؟
-            </Link>
-          </div>
-
+         
           <button
             type="submit"
             disabled={isSubmitting}
             className="w-full h-[56px] rounded-[40px] bg-[rgba(17,17,17,0.25)] hover:bg-[rgba(17,17,17,0.35)] text-white text-lg font-semibold font-alexandria transition-colors disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           >
-            {isSubmitting ? "جاري الدخول..." : "تسجيل الدخول"}
+            {isSubmitting ? "جاري إنشاء الحساب..." : "إنشاء حساب"}
           </button>
 
           <div className="relative my-8 text-center before:absolute before:inset-0 before:top-1/2 before:h-px before:bg-gray-200">
-            <span className="relative bg-[#FAFAFA] px-4 text-sm text-gray-400 font-semibold font-alexandria">أو سجل الدخول باستخدام</span>
+            <span className="relative bg-[#FAFAFA] px-4 text-sm text-gray-400 font-semibold font-alexandria">أو سجل باستخدام</span>
           </div>
 
           <div className="flex items-center justify-center gap-6">
@@ -186,18 +162,18 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
 
           <div className="mt-8 text-center">
             <p className="text-sm text-[#666666] font-alexandria">
-              ليس لديك حساب؟{" "}
+              هل لديك حساب بالفعل؟{" "}
               <button
                 type="button"
                 onClick={() => {
                   onClose();
-                  if (onSwitchToSignUp) {
-                    onSwitchToSignUp();
+                  if (onSwitchToLogin) {
+                    onSwitchToLogin();
                   }
                 }}
                 className="text-[#6155f5] hover:underline font-semibold font-alexandria"
               >
-                سجل الآن
+                سجّل الدخول
               </button>
             </p>
           </div>
@@ -206,4 +182,3 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
     </Modal>
   );
 }
-

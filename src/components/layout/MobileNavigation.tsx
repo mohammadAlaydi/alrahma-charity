@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { useLoginModal } from "@/contexts/LoginContext";
 
 const navItems = [
   { label: "الرئيسية", href: "/", icon: "/figma/mynaui_home.svg" },
@@ -259,11 +260,12 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 export function MobileBottomBar() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { openLoginModal } = useLoginModal();
 
   const bottomItems = [
     { label: "الرئيسية", href: "/", icon: "/figma/mynaui_home.svg" },
     { label: "تبرع", href: "/donate", icon: "/figma/bx_donate-blood.svg" },
-    { label: "تسجيل الدخول", href: "/login", icon: "/figma/profile icon.svg" },
+    { label: "تسجيل الدخول", action: openLoginModal, icon: "/figma/profile icon.svg" },
     { label: "القائمة", action: () => setIsMenuOpen(true), icon: "/figma/jam_menu.svg" },
   ];
 

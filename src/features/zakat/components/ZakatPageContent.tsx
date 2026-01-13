@@ -9,6 +9,7 @@ import { Container } from "@/components/ui/Container";
 import { DonationFormDialog } from "@/features/projects/components/DonationFormDialog";
 import { AmountInput } from "@/components/ui/AmountInput";
 import { cn } from "@/lib/cn";
+import { useLoginModal } from "@/contexts/LoginContext";
 
 const PRESET_AMOUNTS = [10, 50, 100, 200];
 
@@ -28,6 +29,7 @@ export function ZakatPageContent() {
   const [countries, setCountries] = useState<Record<string, Country | null>>({});
   const [selectedZakatType, setSelectedZakatType] = useState<{ id: string; title: string; icon: string } | null>(ZAKAT_TYPES[0]);
   const [isDonationDialogOpen, setIsDonationDialogOpen] = useState(false);
+  const { openLoginModal } = useLoginModal();
   const [isTypeDropdownOpen, setIsTypeDropdownOpen] = useState(false);
 
   // States for mobile donation form
@@ -348,10 +350,14 @@ export function ZakatPageContent() {
                     </button>
 
                     {/* Login Link */}
-                    <p className="font-alexandria text-[16px] font-normal leading-[1.6] text-[#6155F5] text-[rgba(13,13,13,0.7)] text-center w-full">
+                    <button
+                      type="button"
+                      onClick={openLoginModal}
+                      className="font-alexandria text-[16px] font-normal leading-[1.6] text-[#6155F5] text-[rgba(13,13,13,0.7)] text-center w-full cursor-pointer hover:opacity-80 transition-opacity"
+                    >
                       <span>ت</span>
                       <span className="underline decoration-solid [text-underline-position:from-font]">سجيل الدخول</span>
-                    </p>
+                    </button>
                   </div>
                 </div>
               </div>

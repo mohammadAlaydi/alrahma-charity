@@ -9,6 +9,7 @@ import { ThemeProvider } from "next-themes";
 import { store } from "@/store/store";
 import { Toaster } from "@/components/ui/toast/Toaster";
 import { QUERY_CONFIG } from "@/config/constants";
+import { LoginProvider } from "@/contexts/LoginContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -30,8 +31,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <QueryClientProvider client={queryClient}>
           <ReduxProvider store={store}>
-            {children}
-            <Toaster />
+            <LoginProvider>
+              {children}
+              <Toaster />
+            </LoginProvider>
           </ReduxProvider>
         </QueryClientProvider>
       </ThemeProvider>

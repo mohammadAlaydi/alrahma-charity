@@ -9,7 +9,7 @@ import { useState } from "react";
 import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
 import { useAppSelector } from "@/store/hooks";
-import { LoginModal } from "@/features/auth/components/LoginModal";
+import { useLoginModal } from "@/contexts/LoginContext";
 import { MobileMenu } from "./MobileNavigation";
 
 type NavItem = { label: string; href: string };
@@ -42,7 +42,7 @@ function DonateButton({ className }: { className?: string }) {
 export function MainNavBar() {
   const pathname = usePathname();
   const router = useRouter();
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { openLoginModal } = useLoginModal();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const favorites = useAppSelector((state) => state.favorites.favorites);
   const favoritesCount = Object.keys(favorites).filter((id) => favorites[id]).length;
@@ -138,7 +138,7 @@ export function MainNavBar() {
             {/* Profile Button */}
             <button
               type="button"
-              onClick={() => setIsLoginModalOpen(true)}
+              onClick={openLoginModal}
               className="relative flex items-center justify-center transition-opacity hover:opacity-80"
               style={{ height: '44px', width: '44px' }}
             >
@@ -162,7 +162,6 @@ export function MainNavBar() {
         </div>
       </Container>
       
-      <LoginModal open={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
     </div>
   );

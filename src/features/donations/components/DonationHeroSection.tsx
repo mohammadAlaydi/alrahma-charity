@@ -5,10 +5,12 @@ import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { AmountInput } from "@/components/ui/AmountInput";
 import { cn } from "@/lib/cn";
+import { useLoginModal } from "@/contexts/LoginContext";
 
 const PRESET_AMOUNTS = [10, 50, 100, 200];
 
 export function DonationHeroSection() {
+  const { openLoginModal } = useLoginModal();
   const [selectedAmount, setSelectedAmount] = useState<number>(200);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [name, setName] = useState("");
@@ -217,9 +219,13 @@ export function DonationHeroSection() {
                       </span>
                     </button>
 
-                    <p className="font-alexandria text-center text-[16px] mt-2 font-normal leading-[1.6] text-[#6155F5] w-full">
+                    <button
+                      type="button"
+                      onClick={openLoginModal}
+                      className="font-alexandria text-center text-[16px] mt-2 font-normal leading-[1.6] text-[#6155F5] w-full cursor-pointer hover:opacity-80 transition-opacity"
+                    >
                       <span className="underline decoration-solid [text-underline-position:from-font]">تسجيل الدخول</span>
-                    </p>
+                    </button>
                   </div>
                 </div>
               </div>

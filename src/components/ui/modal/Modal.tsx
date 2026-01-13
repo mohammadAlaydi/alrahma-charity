@@ -19,10 +19,10 @@ export function Modal({
   return (
     <Dialog open={open} onClose={onClose} className="relative z-50">
       <div className="fixed inset-0 bg-black/20" />
-      <div className="fixed inset-0 flex items-center justify-center p-4">
+      <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto">
         <DialogPanel
           className={cn(
-            "w-full max-w-[720px] bg-transparent border-none shadow-none p-0",
+            "w-full max-w-[720px] max-h-[90vh] bg-transparent border-none shadow-none p-0 mx-auto my-auto",
           )}
         >
           {title ? (
