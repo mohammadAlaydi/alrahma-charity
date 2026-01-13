@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Container } from "@/components/ui/Container";
-import { ProjectDonationDialog } from "./ProjectDonationDialog";
+import { DonationFormDialog } from "./DonationFormDialog";
 import { DonationSuccessModal } from "./DonationSuccessModal";
 import { ProjectCard } from "./ProjectCard";
 import { Project } from "../types";
@@ -511,7 +511,7 @@ export function ProjectDetailsView({ project }: ProjectDetailsViewProps) {
                 </section>
             )}
 
-            <ProjectDonationDialog
+            <DonationFormDialog
                 open={isDonationDialogOpen}
                 onClose={() => setIsDonationDialogOpen(false)}
                 onSuccess={() => setIsSuccessModalOpen(true)}
