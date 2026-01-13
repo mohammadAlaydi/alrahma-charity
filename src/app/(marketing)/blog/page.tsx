@@ -160,23 +160,25 @@ export default function BlogPage() {
 
   return (
     <div className="relative min-h-screen bg-white">
-      {/* WhatsApp Icon - Fixed position on right side */}
-      <div className="fixed right-22 top-[calc(50%-439.69px)] z-50 hidden xl:block">
-        <a
-          href="https://wa.me/905357829980"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block transition-all hover:scale-110"
-          aria-label="تواصل معنا على واتساب"
-        >
-          <Image
-            src="/figma/whatsapp.svg"
-            alt="واتساب"
-            width={80}
-            height={80}
-            className="h-20 w-20"
-          />
-        </a>
+      {/* WhatsApp Icon - Positioned in the side gutter as per Projects page */}
+      <div className="absolute top-[975px] inset-x-0 z-10 hidden xl:flex justify-center pointer-events-none">
+        <div className="relative w-full max-w-[1920px] h-0">
+          <a
+            href="https://wa.me/905357829980"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute left-[1752px] pointer-events-auto transition-all hover:scale-110"
+            aria-label="تواصل معنا على واتساب"
+          >
+            <Image
+              src="/figma/whatsapp.svg"
+              alt="واتساب"
+              width={80}
+              height={80}
+              className="h-20 w-20"
+            />
+          </a>
+        </div>
       </div>
 
       {/* Hero Section */}
@@ -219,7 +221,7 @@ export default function BlogPage() {
                 className="flex gap-6 overflow-x-auto pb-4 no-scrollbar scroll-smooth"
               >
                 {featuredPosts.map((post) => (
-                  <div key={post.id} className="flex-none">
+                  <div key={post.id} className="flex-none w-[410px]">
                     <BlogCard post={post} />
                   </div>
                 ))}
