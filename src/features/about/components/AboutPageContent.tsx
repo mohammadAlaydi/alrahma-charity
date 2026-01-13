@@ -568,133 +568,167 @@ export function AboutPageContent() {
       </section>
 
       {/* Donation Card Section */}
-      <section className="relative w-full bg-[#007F5E] py-8 md:py-[100px] overflow-hidden px-4 md:px-0">
-        <div className="absolute inset-0">
+      <section className="relative w-full min-h-[846px] md:min-h-[1115px] overflow-visible px-4 md:px-0">
+        {/* Background Image with Gradient */}
+        <div className="absolute top-0 left-0 w-full h-[846px] z-0">
           <Image 
             src="/images/Rectangle 11.png" 
             alt="" 
             fill 
             className="object-cover" 
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#007F5E]/20 via-[#007F5E]/15 to-[#007F5E]/5" />
+          <div className="absolute inset-0 bg-gradient-to-l from-[#007F5E]/95 via-[#007F5E]/60 to-[#007F5E]/10" />
         </div>
         
-        {/* Heart Icon Overlay - positioned on background */}
-        <div className="absolute top-1/2 right-[10%] md:right-[15%] -translate-y-1/2 z-0 opacity-80 md:opacity-100">
-          <div className="relative h-[200px] w-[200px] md:h-[300px] md:w-[300px] lg:h-[400px] lg:w-[400px]">
-            <Image
-              src="/images/hart2 1.png"
-              alt=""
-              fill
-              className="object-contain"
-            />
-          </div>
-        </div>
         <Container>
-          <div className="relative flex flex-col gap-[19px] md:gap-10 lg:flex-row lg:gap-10 items-end justify-between">
-            {/* Text */}
-            <div className="flex flex-col gap-[8px] items-end text-white w-full lg:w-auto text-right">
-              <div className="flex gap-[5px] items-center">
-                <p className="font-['Playpen_Sans_Arabic'] text-[16px] leading-[1.5] text-white">
-                  مساعدة بعضنا البعض يمكن أن تجعل العالم أفضل
-                </p>
-                <div className="relative h-6 w-6">
-                  <Image
-                    src="/emojis/hand_healtcare.svg"
-                    alt=""
-                    fill
-                    className="object-contain"
-                    style={{ filter: 'brightness(0) invert(1)' }}
-                  />
-                </div>
-              </div>
-              <p className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5]">
-                <span className="text-[#DFD383]">جمعية </span>
-                <span className="text-white">الرحمة</span>{" "}
-                <span className="text-white">والإحسان</span>
-              </p>
-            </div>
-
-            {/* Donation Card */}
-            <div className="bg-white rounded-[20px] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.15)] w-full max-w-[380px] md:max-w-[552px] overflow-hidden">
-              <div className="bg-[#F0F0F0] flex items-center justify-end px-4 py-4 rounded-t-[20px]">
-                <p className="font-alexandria text-[20px] font-bold leading-normal text-[#0D0D0D]">
-                  تبرع سريع
-                </p>
-              </div>
-              <div className="flex flex-col gap-6 items-end px-4 py-0 pb-8">
-                {/* Amount selection */}
-                <div className="flex flex-col gap-4 items-start w-full">
-                  <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full">
-                    حدد المبلغ
+          <div className="relative z-10">
+            {/* Text and Heart - positioned above background */}
+            <div className="relative flex flex-col gap-[19px] md:gap-10 lg:flex-row lg:gap-10 items-end justify-between pt-[133px] md:pt-[252px] pb-8">
+              {/* Text */}
+              <div className="relative flex flex-col gap-[8px] items-end text-white w-full lg:w-auto text-right z-20">
+                <div className="flex gap-[5px] items-center">
+                  <div className="relative h-6 w-6">
+                    <Image
+                      src="/emojis/hand_healtcare.svg"
+                      alt=""
+                      fill
+                      className="object-contain"
+                      style={{ filter: 'brightness(0) invert(1)' }}
+                    />
+                  </div>
+                  <p className="font-['Playpen_Sans_Arabic'] text-[16px] leading-[1.5] text-white">
+                    مساعدة بعضنا البعض يمكن أن تجعل العالم أفضل
                   </p>
-                  <div
-                    className="flex flex-wrap items-center justify-center gap-4 md:gap-4 w-full"
-                    dir="rtl"
-                  >
-                    {[...PRESET_AMOUNTS].reverse().map((amount) => {
-                      const isActive = selectedAmount === amount && !customAmount;
-                      return (
-                        <button
-                          key={amount}
-                          type="button"
-                          onClick={() => {
-                            setSelectedAmount(amount);
-                            setCustomAmount("");
-                          }}
-                          className={[
-                            "flex items-center justify-center rounded-[20px] transition-all w-[115px] h-[60px]",
-                            isActive
-                              ? "border border-[#007F5E] bg-[rgba(0,127,94,0.1)]"
-                              : "border border-[rgba(13,13,13,0.2)] px-4 hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
-                          ].join(" ")}
-                        >
-                          <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)]">
-                            $ {amount}
-                          </p>
-                        </button>
-                      );
-                    })}
+                </div>
+                <p className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5]">
+                  <span className="text-[#DFD383]">جمعية </span>
+                  <span className="text-white">الرحمة</span>{" "}
+                  <span className="text-white">والإحسان</span>
+                </p>
+
+                {/* Heart Icon Overlay - positioned at top right of texts */}
+                <div className="absolute top-[-110] right-[-100] translate-x-[20%] -translate-y-[20%] z-20 opacity-80 md:opacity-100 hidden lg:block">
+                  <div className="relative h-[300px] w-[300px] lg:h-[352px] lg:w-[362px]">
+                    <Image
+                      src="/images/hart2 1.png"
+                      alt=""
+                      fill
+                      className="object-contain"
+                    />
                   </div>
                 </div>
+              </div>
+            </div>
 
-                {/* Custom amount */}
-                <div className="flex flex-col gap-4 items-start w-full">
-                  <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full tracking-[-0.16px]">
-                    مبلغ مخصص
-                  </p>
-                  <AmountInput
-                    placeholder="أدخل القيمة"
-                    value={customAmount}
-                    onChange={(e) => {
-                      setCustomAmount(e.target.value);
-                      if (e.target.value) setSelectedAmount(0);
-                    }}
-                    className="h-[60px] w-full"
-                  />
+            {/* White Container with Image and Donation Card - positioned below background */}
+            <div className="relative mt-[-100px] md:mt-[-150px] lg:mt-[60px] z-30">
+              <div className="bg-white rounded-[20px] w-full max-w-[1286px] h-[652px] mx-auto overflow-hidden">
+                <div className="relative flex flex-col lg:flex-row-reverse items-start gap-0 w-full h-full">
+                  {/* Donation Card Container - 552x545 */}
+                  <div className="w-full lg:w-[552px] lg:h-[545px] lg:flex-shrink-0 flex flex-col gap-8 lg:gap-[32px] lg:ml-[53px] lg:mt-[53.5px] lg:self-start">
+                    {/* Heading - 45px height, 372px width, right-aligned */}
+                    <div className="flex justify-center lg:justify-end h-[45px] flex-shrink-0">
+                      <p className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5] text-[#0D0D0D] text-center lg:text-right w-[372px]">
+                        أحدث تأثيراً ملموساً اليوم
+                      </p>
+                    </div>
+                    
+                    {/* Donation Card - 552x468 */}
+                    <div className="bg-white rounded-[20px] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.15)] w-full h-[468px] overflow-hidden flex flex-col flex-shrink-0">
+                      <div className="bg-[#F0F0F0] flex items-center justify-end px-4 py-4 h-[62px] rounded-t-[20px] flex-shrink-0">
+                        <p className="font-alexandria text-[20px] font-bold leading-normal text-[#0D0D0D]">
+                          تبرع سريع
+                        </p>
+                      </div>
+                      <div className="flex flex-col gap-6 items-end px-4 py-6 flex-1 min-h-0">
+                        {/* Amount selection */}
+                        <div className="flex flex-col gap-4 items-start w-full">
+                          <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full">
+                            حدد المبلغ
+                          </p>
+                          <div
+                            className="flex flex-wrap items-center justify-center gap-4 md:gap-4 w-full"
+                            dir="rtl"
+                          >
+                            {[...PRESET_AMOUNTS].reverse().map((amount) => {
+                              const isActive = selectedAmount === amount && !customAmount;
+                              return (
+                                <button
+                                  key={amount}
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedAmount(amount);
+                                    setCustomAmount("");
+                                  }}
+                                  className={[
+                                    "flex items-center justify-center rounded-[20px] transition-all w-[115px] h-[60px]",
+                                    isActive
+                                      ? "border border-[#007F5E] bg-[rgba(0,127,94,0.1)]"
+                                      : "border border-[rgba(13,13,13,0.2)] px-4 hover:border-[#007F5E] hover:bg-[rgba(0,127,94,0.05)]",
+                                  ].join(" ")}
+                                >
+                                  <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)]">
+                                    $ {amount}
+                                  </p>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* Custom amount */}
+                        <div className="flex flex-col gap-4 items-start w-full">
+                          <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full tracking-[-0.16px]">
+                            مبلغ مخصص
+                          </p>
+                          <AmountInput
+                            placeholder="أدخل القيمة"
+                            value={customAmount}
+                            onChange={(e) => {
+                              setCustomAmount(e.target.value);
+                              if (e.target.value) setSelectedAmount(0);
+                            }}
+                            className="h-[60px] w-full"
+                          />
+                        </div>
+
+                        {/* Donate button */}
+                        <button
+                          type="button"
+                          className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full hover:bg-[#005F4A] transition-colors"
+                        >
+                          <Image
+                            src="/figma/mingcute_love-fill.svg"
+                            alt=""
+                            width={24}
+                            height={24}
+                            className="h-6 w-6"
+                          />
+                          <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.5] text-white">
+                            تبرع الأن
+                          </p>
+                        </button>
+
+                        {/* Security text */}
+                        <p className="font-alexandria text-xs md:text-[16px] font-normal leading-[1.6] text-center text-[rgba(13,13,13,0.7)] w-full">
+                          معاملة مشفرة آمنة بتقنية SSL
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Image next to the card - fills remaining space */}
+                  <div className="relative w-full lg:w-auto flex-shrink-0 lg:flex-1 lg:h-[652px]">
+                    <div className="relative h-[300px] md:h-[400px] lg:h-full w-full overflow-hidden">
+                      <Image
+                        src="/images/unsplash_Xz5kTUYAu9A.png"
+                        alt="Donation"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
                 </div>
-
-                {/* Donate button */}
-                <button
-                  type="button"
-                  className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full hover:bg-[#005F4A] transition-colors"
-                >
-                  <Image
-                    src="/figma/mingcute_love-fill.svg"
-                    alt=""
-                    width={24}
-                    height={24}
-                    className="h-6 w-6"
-                  />
-                  <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.5] text-white">
-                    تبرع الأن
-                  </p>
-                </button>
-
-                {/* Security text */}
-                <p className="font-alexandria text-xs md:text-[16px] font-normal leading-[1.6] text-center text-[rgba(13,13,13,0.7)] w-full">
-                  معاملة مشفرة آمنة بتقنية SSL
-                </p>
               </div>
             </div>
           </div>
@@ -725,17 +759,37 @@ export function AboutPageContent() {
                 <span className="text-[#007F5E]">أنحاء العالم</span>
               </p>
             </div>
-            <div className="flex flex-wrap gap-4 md:gap-10 items-center justify-center w-full px-4">
-              {/* Partner logos - using placeholder images for now */}
-              {Array.from({ length: 13 }).map((_, i) => (
+            <div className="flex flex-wrap gap-6 md:gap-[40px] items-center justify-center w-full px-4 max-w-7xl mx-auto">
+              {/* Partner logos */}
+              {[
+                "8b47b003a7255ede6fad9d51057d59e80ec24121.jpg",
+                "34785ad56667d1906ba68088f3554f3eb8c35c0d.jpg",
+                
+                "66d135ecc5184406303531714c1e072de635e1c5.jpg",
+                
+                "c446f2cf2a25ca6b7010b4b368cbf5f47a1db603.jpg",
+                "413e3496de49f990716dea0fef383780797a00db.jpg",
+                "40b43e7a35f9b1f82e9b1e360ade6a09bc197615.jpg",
+                "9dc097b36ae4d82cb1aac080f673db266df3489d.jpg",
+                "a9e547767e29dcba3b386de1e4943b70857d72d9.jpg",
+                "3f3937f27754c20f5e58aab5bad45412b9b14da4.jpg",
+                "1007952220522051d5df92c9d714420127ff0e9b.jpg",
+                "ba71bf27fea188d0a57b1a0696e5e260e6a7c670.jpg",
+                "d0f279404cbc7bcf87b57345bef1c1b54c05945f.jpg",
+                "dc389620c673293402902b3d6a7c5d11ac6b59ca.jpg"
+                
+              ].map((imageName, i) => (
                 <div
                   key={i}
-                  className="h-14 md:h-[86px] w-[120px] md:w-[189px] bg-white flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer"
+                  className="h-16 md:h-[86px] w-[140px] md:w-[189px] flex items-center justify-center transition-opacity hover:opacity-80 cursor-pointer"
                 >
-                  <div className="w-full h-full bg-gray-50 rounded flex items-center justify-center border border-gray-200">
-                    <p className="text-gray-300 text-[8px] md:text-[10px] font-medium">
-                      PARTNER {i + 1}
-                    </p>
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={`/images/${imageName}`}
+                      alt={`Partner ${i + 1}`}
+                      fill
+                      className="object-contain"
+                    />
                   </div>
                 </div>
               ))}
