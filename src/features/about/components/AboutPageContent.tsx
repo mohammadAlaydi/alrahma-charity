@@ -46,7 +46,7 @@ export function AboutPageContent() {
   };
 
   return (
-    <div className="w-full" dir="rtl">
+    <div className="w-full" dir="rtl" style={{ background: 'linear-gradient(180deg, rgba(180, 187, 95, 0.12) 0%, rgba(255, 255, 255, 0.12) 78.5%, rgba(255, 255, 255, 1) 100%)' }}>
       {/* First About Section with Image Gallery */}
       <section className="w-full pt-12 pb-12 md:pt-[100px] md:pb-[100px] px-4 md:px-0">
         <Container>
@@ -70,17 +70,24 @@ export function AboutPageContent() {
                     </div>
                   </div>
 
+                  {/* Rectangle 5 - Decorative border behind Rectangle 4 */}
+                  <div className="hidden md:block absolute top-[52.9px] left-[175px] h-[642px] w-[337px] rounded-[20px] border-[2px] border-[#B4BB5F] z-0" />
+
                   {/* Large main image with gradient overlay - Rectangle 4.png - positioned at (122.98, 52.90) from Figma */}
-                  <div className="absolute top-[52.9px] left-[20px] md:left-[123px] h-[486.915px] md:h-[548px] w-full max-w-[396px] md:max-w-[446px] z-0">
-                    <div className="relative h-full w-full rounded-[20px] p-2 bg-[#FEFCFC]">
-                      <div className="relative h-full w-full rounded-[12px] overflow-hidden">
+                  <div className="absolute top-[52.9px] left-[20px] md:left-[123px] h-[486.915px] md:h-[548px] w-full max-w-[396px] md:max-w-[446px] z-10">
+                    <div className="relative h-full w-full rounded-[20px] border-[8px] border-[#FFECEC] overflow-hidden">
                         <Image
                           src="/images/Rectangle 4.png"
                           alt="Child in humanitarian aid"
                           fill
                           className="object-cover"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-l from-[#2E7C5E]/80 via-[#2E7C5E]/60 to-[#2E7C5E]/33 to-[#2E7C5E]/31.8 to-[#2E7C5E]/10" />
+                        <div 
+                          className="absolute inset-0" 
+                          style={{ 
+                            background: `linear-gradient(180deg, rgba(46, 124, 94, 0.5) 0%, rgba(46, 124, 94, 0.2) 30%, transparent 60%, transparent 100%)` 
+                          }} 
+                        />
                         {/* Play button overlay */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
                           <button
@@ -100,21 +107,18 @@ export function AboutPageContent() {
                             </div>
                           </button>
                         </div>
-                      </div>
                     </div>
                   </div>
 
                   {/* Smaller image on the right - Rectangle 6.png - positioned at (356.03, 481.31) from Figma */}
                   <div className="hidden md:block absolute top-[481px] left-[20px] md:left-[356px] h-[195px] w-[212px] z-20">
-                    <div className="relative h-full w-full rounded-[20px] p-2 bg-[#FEFCFC]">
-                      <div className="relative h-full w-full rounded-[12px] overflow-hidden">
+                    <div className="relative h-full w-full rounded-[20px] border-[8px] border-[#FEFDFD] overflow-hidden">
                         <Image
                           src="/images/Rectangle 6.png"
                           alt="Child portrait"
                           fill
                           className="object-cover"
                         />
-                      </div>
                     </div>
                   </div>
 
@@ -328,8 +332,18 @@ export function AboutPageContent() {
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#0E201D]/95 via-[#0E201D]/60 to-[#0E201D]/10" />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#2E7C5E]/95 via-[#2E7C5E]/60 to-[#2E7C5E]/10 opacity-60" />
+          <div 
+            className="absolute inset-0" 
+            style={{ 
+              background: `linear-gradient(270deg, transparent 0%, transparent 40%, rgba(14, 32, 29, 0.3) 50%, rgba(14, 32, 29, 0.8) 80%, rgba(14, 32, 29, 1) 100%)` 
+            }} 
+          />
+          <div 
+            className="absolute inset-0" 
+            style={{ 
+              background: `linear-gradient(270deg, transparent 0%, transparent 45%, rgba(46, 124, 94, 0.2) 55%, rgba(46, 124, 94, 0.7) 85%, rgba(46, 124, 94, 1) 100%)` 
+            }} 
+          />
         </div>
         <div className="absolute inset-0 flex flex-col gap-6 items-center justify-center px-4 md:px-0">
             <div className="flex flex-col gap-2 items-center text-center">
@@ -409,7 +423,12 @@ export function AboutPageContent() {
                       fill
                       className="object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-l from-[#2E7C5E]/80 via-[#2E7C5E]/60 to-[#2E7C5E]/10" />
+                    <div 
+                      className="absolute inset-0" 
+                      style={{ 
+                        background: `linear-gradient(180deg, rgba(46, 124, 94, 0.8) 0%, rgba(46, 124, 94, 0.6) 34.5%, rgba(46, 124, 94, 0.328) 61.5%, rgba(46, 124, 94, 0.318) 81.5%, rgba(46, 124, 94, 0.1) 100%)` 
+                      }} 
+                    />
                     {/* Play button overlay */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                       <button
@@ -576,14 +595,19 @@ export function AboutPageContent() {
       {/* Donation Card Section */}
       <section className="relative w-full min-h-[846px] md:min-h-[1115px] overflow-visible px-4 md:px-0">
         {/* Background Image with Gradient */}
-        <div className="absolute top-0 left-0 w-full h-[846px] z-0">
+        <div className="absolute top-0 left-0 w-full h-full z-0">
           <Image 
             src="/images/Rectangle 11.png" 
             alt="" 
             fill 
             className="object-cover" 
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#007F5E]/95 via-[#007F5E]/60 to-[#007F5E]/10" />
+          <div 
+            className="absolute inset-0" 
+            style={{ 
+              background: `linear-gradient(90deg, transparent 0%, transparent 40%, rgba(0, 127, 94, 0.3) 50%, rgba(0, 127, 94, 0.8) 80%, rgba(0, 127, 94, 1) 100%)` 
+            }} 
+          />
         </div>
         
         <Container>
@@ -742,7 +766,17 @@ export function AboutPageContent() {
       </section>
 
       {/* Partners Section */}
-      <section className="w-full bg-white py-10 md:py-[100px] relative overflow-hidden">
+      <section className="w-full py-10 md:py-[100px] relative overflow-hidden">
+        {/* Background World Map Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/companies-bg.jpeg"
+            alt=""
+            fill
+            className="object-cover opacity-10"
+            priority
+          />
+        </div>
         <Container>
           <div className="flex flex-col gap-8 md:gap-10 items-center relative z-10">
             <div className="flex flex-col gap-2 items-center text-center">
@@ -800,16 +834,6 @@ export function AboutPageContent() {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Decorative background element matching Figma imgVector */}
-          <div className="absolute top-[50px] left-1/2 -translate-x-1/2 w-full max-w-[1667px] h-[542px] pointer-events-none opacity-5">
-            <svg width="100%" height="100%" viewBox="0 0 1667 542" fill="none">
-              <path
-                d="M0 271C0 121.325 121.325 0 271 0H1396C1545.68 0 1667 121.325 1667 271V271C1667 420.675 1545.68 542 1396 542H271C121.325 542 0 420.675 0 271V271Z"
-                fill="#007F5E"
-              />
-            </svg>
           </div>
         </Container>
       </section>

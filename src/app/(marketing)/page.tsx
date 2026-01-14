@@ -108,8 +108,18 @@ export default function HomePage() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#0E201D]/95 via-[#0E201D]/60 to-[#0E201D]/10" />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#2E7C5E]/95 via-[#2E7C5E]/60 to-[#2E7C5E]/10 opacity-60" />
+          <div 
+            className="absolute inset-0" 
+            style={{ 
+              background: `linear-gradient(270deg, rgba(14, 32, 29, 0.1) 0%, rgba(14, 32, 29, 0.318) 16.5%, rgba(14, 32, 29, 0.328) 34.2%, rgba(14, 32, 29, 0.6) 50.5%, rgba(14, 32, 29, 0.95) 71%, rgba(14, 32, 29, 1) 84.5%)` 
+            }} 
+          />
+          <div 
+            className="absolute inset-0" 
+            style={{ 
+              background: `linear-gradient(270deg, rgba(46, 124, 94, 0.1) 0%, rgba(46, 124, 94, 0.318) 23.5%, rgba(46, 124, 94, 0.328) 50.4%, rgba(46, 124, 94, 0.6) 72.1%, rgba(46, 124, 94, 0.95) 87.9%, rgba(46, 124, 94, 1) 99.5%)` 
+            }} 
+          />
         </div>
         <Container className="relative z-10 flex h-full items-center justify-center">
           <div className="flex flex-col items-center gap-6 text-center">
@@ -176,17 +186,24 @@ export default function HomePage() {
                     </div>
                   </div>
 
+                  {/* Rectangle 5 - Decorative border behind Rectangle 4 */}
+                  <div className="hidden md:block absolute top-[52.9px] left-[175px] h-[642px] w-[337px] rounded-[20px] border-[2px] border-[#B4BB5F] z-0" />
+
                   {/* Large main image with gradient overlay */}
-                  <div className="absolute top-[52.9px] left-[123px] h-[548px] w-[446px] z-0">
-                    <div className="relative h-full w-full rounded-[20px] p-2 bg-[#FEFCFC]">
-                      <div className="relative h-full w-full rounded-[12px] overflow-hidden">
+                  <div className="absolute top-[52.9px] left-[123px] h-[548px] w-[446px] z-10">
+                    <div className="relative h-full w-full rounded-[20px] border-[8px] border-[#FFECEC] overflow-hidden">
                         <Image
                           src="/images/Rectangle 4.png"
                           alt="Child in humanitarian aid"
                           fill
                           className="object-cover"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-l from-[#2E7C5E]/80 via-[#2E7C5E]/60 to-[#2E7C5E]/10" />
+                        <div 
+                          className="absolute inset-0" 
+                          style={{ 
+                            background: `linear-gradient(180deg, rgba(46, 124, 94, 0.8) 0%, rgba(46, 124, 94, 0.6) 34.5%, rgba(46, 124, 94, 0.328) 61.5%, rgba(46, 124, 94, 0.318) 81.5%, rgba(46, 124, 94, 0.1) 100%)` 
+                          }} 
+                        />
                         {/* Play button overlay */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
                           <button
@@ -203,21 +220,18 @@ export default function HomePage() {
                             </svg>
                           </button>
                         </div>
-                      </div>
                     </div>
                   </div>
 
                   {/* Smaller image on the right */}
                   <div className="absolute top-[481px] left-[356px] h-[195px] w-[212px] z-20">
-                    <div className="relative h-full w-full rounded-[20px] p-2 bg-[#FEFCFC]">
-                      <div className="relative h-full w-full rounded-[12px] overflow-hidden">
+                    <div className="relative h-full w-full rounded-[20px] border-[8px] border-[#FEFDFD] overflow-hidden">
                         <Image
                           src="/images/Rectangle 6.png"
                           alt="Child portrait"
                           fill
                           className="object-cover"
                         />
-                      </div>
                     </div>
                   </div>
 
@@ -561,8 +575,18 @@ export default function HomePage() {
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#0E201D]/95 via-[#0E201D]/60 to-[#0E201D]/10" />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#2E7C5E]/95 via-[#2E7C5E]/60 to-[#2E7C5E]/10 opacity-60" />
+          <div 
+            className="absolute inset-0" 
+            style={{ 
+              background: `linear-gradient(270deg, rgba(14, 32, 29, 0.1) 0%, rgba(14, 32, 29, 0.318) 16.5%, rgba(14, 32, 29, 0.328) 34.2%, rgba(14, 32, 29, 0.6) 50.5%, rgba(14, 32, 29, 0.95) 71%, rgba(14, 32, 29, 1) 84.5%)` 
+            }} 
+          />
+          <div 
+            className="absolute inset-0" 
+            style={{ 
+              background: `linear-gradient(270deg, rgba(46, 124, 94, 0.1) 0%, rgba(46, 124, 94, 0.318) 23.5%, rgba(46, 124, 94, 0.328) 50.4%, rgba(46, 124, 94, 0.6) 72.1%, rgba(46, 124, 94, 0.95) 87.9%, rgba(46, 124, 94, 1) 99.5%)` 
+            }} 
+          />
         </div>
         <div className="absolute inset-0 flex flex-col gap-6 items-center justify-center">
           <div className="flex flex-col gap-2 items-center text-center">
@@ -713,7 +737,12 @@ export default function HomePage() {
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#007F5E]/95 via-[#007F5E]/60 to-[#007F5E]/10" />
+          <div 
+            className="absolute inset-0" 
+            style={{ 
+              background: `linear-gradient(90deg, rgba(0, 127, 94, 0.1) 0%, rgba(0, 127, 94, 0.318) 16.5%, rgba(0, 127, 94, 0.328) 34.2%, rgba(0, 127, 94, 0.6) 50.5%, rgba(0, 127, 94, 0.95) 71%, rgba(0, 127, 94, 1) 84.5%)` 
+            }} 
+          />
         </div>
 
         <Container>
