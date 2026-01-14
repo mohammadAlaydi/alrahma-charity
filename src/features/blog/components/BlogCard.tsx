@@ -28,6 +28,7 @@ export function BlogCard({ post }: BlogCardProps) {
         style={{
           borderRadius: '14px',
           background: `url(${imageUrl}) lightgray 0px -33px / 100% 125.191% no-repeat`,
+          filter: 'grayscale(100%)',
         }}
       >
         {/* Category Badge - positioned at top right */}
