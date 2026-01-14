@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { BlogCard, type BlogPost } from "@/features/blog/components/BlogCard";
-import { Pagination } from "@/components/ui/Pagination";
 
 // Mock data - في الإنتاج، سيتم جلبها من API
 const featuredPosts: BlogPost[] = [
@@ -197,7 +196,7 @@ export default function BlogPage() {
       </section>
 
       {/* Featured Articles Section */}
-      <section className="relative overflow-hidden py-25" dir="rtl">
+      <section className="relative overflow-hidden mt-4 pb-25" dir="rtl">
         {/* Background Blur Effects - Fading from left and right */}
         <div className="pointer-events-none absolute left-[-40.34px] top-25 z-10 h-[632.815px] w-[233.438px] bg-white blur-[22px]" />
         <div className="pointer-events-none absolute right-[-50.74px] top-25 z-10 h-[632.815px] w-[242.602px] -scale-y-100 bg-white blur-[22px]" />
@@ -269,11 +268,62 @@ export default function BlogPage() {
             </div>
 
             {/* Pagination */}
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={setCurrentPage}
-            />
+            <div className="mt-8 flex items-center justify-center gap-2" dir="rtl">
+              <button
+                type="button"
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-white transition ${
+                  currentPage === 1
+                    ? "border-[#B4BB5F]/40 bg-[#B4BB5F]/60 opacity-60"
+                    : "border-[#007F5E] bg-[#007F5E]"
+                }`}
+              >
+                <Image
+                  src="/iconamoon_arrow-up-2.svg"
+                  alt="السابق"
+                  width={18}
+                  height={18}
+                  className="h-[16px] w-[16px]"
+                />
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  type="button"
+                  onClick={() => setCurrentPage(page)}
+                  className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-xs font-medium transition ${
+                    page === currentPage
+                      ? "border-[#B4BB5F] bg-[#B4BB5F] text-white"
+                      : "border-[#D4D4D4] bg-white text-[#474747]"
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+
+              <button
+                type="button"
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage >= totalPages}
+                className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-white transition ${
+                  currentPage === totalPages
+                    ? "border-[#B4BB5F]/40 bg-[#B4BB5F]/60 opacity-60"
+                    : "border-[#007F5E] bg-[#007F5E]"
+                }`}
+              >
+                <span className="rotate-180">
+                  <Image
+                    src="/iconamoon_arrow-up-2.svg"
+                    alt="التالي"
+                    width={18}
+                    height={18}
+                    className="h-[16px] w-[16px]"
+                  />
+                </span>
+              </button>
+            </div>
           </div>
         </Container>
       </section>
@@ -284,14 +334,17 @@ export default function BlogPage() {
           <div className="flex flex-col items-center">
             <div className="flex flex-col items-center">
               <div className="flex items-center justify-center gap-1.25">
+                <div className="relative h-7 w-7 shrink-0">
+                  <Image
+                    src="/figma/hugeicons_healtcare.svg"
+                    alt=""
+                    fill
+                    className="object-contain"
+                  />
+                </div>
                 <p className="font-playpen text-base leading-normal text-[#007f5e]">
                   أطفال غزة ينتظرون يد العون… كن أنت سبب الأمل
                 </p>
-                <div className="h-6 w-6 overflow-clip">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6C14 4.9 13.1 4 12 4ZM12 18C10.9 18 10 18.9 10 20C10 21.1 10.9 22 12 22C13.1 22 14 21.1 14 20C14 18.9 13.1 18 12 18ZM12 11C10.9 11 10 11.9 10 13C10 14.1 10.9 15 12 15C13.1 15 14 14.1 14 13C14 11.9 13.1 11 12 11Z" fill="#007F5E"/>
-                  </svg>
-                </div>
               </div>
               <p className="w-[496.251px] text-center font-cairo text-[32px] font-bold leading-normal text-[#122f2a]">
                 كن سببا في ابتسامة شخص ما

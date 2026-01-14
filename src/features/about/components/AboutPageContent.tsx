@@ -46,7 +46,7 @@ export function AboutPageContent() {
   };
 
   return (
-    <div className="w-full" dir="rtl" style={{ background: 'linear-gradient(180deg, rgba(180, 187, 95, 0.12) 0%, rgba(255, 255, 255, 0.12) 78.5%, rgba(255, 255, 255, 1) 100%)' }}>
+    <div className="w-full" dir="rtl" >
       {/* First About Section with Image Gallery */}
       <section className="w-full pt-12 pb-12 md:pt-[100px] md:pb-[100px] px-4 md:px-0">
         <Container>
@@ -85,7 +85,7 @@ export function AboutPageContent() {
                         <div 
                           className="absolute inset-0" 
                           style={{ 
-                            background: `linear-gradient(180deg, rgba(46, 124, 94, 0.5) 0%, rgba(46, 124, 94, 0.2) 30%, transparent 60%, transparent 100%)` 
+                            background: `linear-gradient(90deg, rgba(46, 124, 94, 0.8) 0%, rgba(46, 124, 94, 0.4) 20%, transparent 35%)` 
                           }} 
                         />
                         {/* Play button overlay */}
@@ -335,13 +335,13 @@ export function AboutPageContent() {
           <div 
             className="absolute inset-0" 
             style={{ 
-              background: `linear-gradient(270deg, transparent 0%, transparent 40%, rgba(14, 32, 29, 0.3) 50%, rgba(14, 32, 29, 0.8) 80%, rgba(14, 32, 29, 1) 100%)` 
+              background: `linear-gradient(90deg, rgba(14, 32, 29, 1) 0%, rgba(14, 32, 29, 0.6) 20%, transparent 35%)` 
             }} 
           />
           <div 
             className="absolute inset-0" 
             style={{ 
-              background: `linear-gradient(270deg, transparent 0%, transparent 45%, rgba(46, 124, 94, 0.2) 55%, rgba(46, 124, 94, 0.7) 85%, rgba(46, 124, 94, 1) 100%)` 
+              background: `linear-gradient(90deg, rgba(46, 124, 94, 1) 0%, rgba(46, 124, 94, 0.6) 25%, transparent 40%)` 
             }} 
           />
         </div>
@@ -426,7 +426,7 @@ export function AboutPageContent() {
                     <div 
                       className="absolute inset-0" 
                       style={{ 
-                        background: `linear-gradient(180deg, rgba(46, 124, 94, 0.8) 0%, rgba(46, 124, 94, 0.6) 34.5%, rgba(46, 124, 94, 0.328) 61.5%, rgba(46, 124, 94, 0.318) 81.5%, rgba(46, 124, 94, 0.1) 100%)` 
+                        background: `linear-gradient(90deg, rgba(46, 124, 94, 0.8) 0%, rgba(46, 124, 94, 0.4) 20%, transparent 35%)` 
                       }} 
                     />
                     {/* Play button overlay */}
@@ -605,7 +605,7 @@ export function AboutPageContent() {
           <div 
             className="absolute inset-0" 
             style={{ 
-              background: `linear-gradient(90deg, transparent 0%, transparent 40%, rgba(0, 127, 94, 0.3) 50%, rgba(0, 127, 94, 0.8) 80%, rgba(0, 127, 94, 1) 100%)` 
+              background: `linear-gradient(90deg, rgba(0, 127, 94, 1) 0%, rgba(0, 127, 94, 0.6) 20%, transparent 35%)` 
             }} 
           />
         </div>

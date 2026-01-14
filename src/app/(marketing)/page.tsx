@@ -111,13 +111,13 @@ export default function HomePage() {
           <div 
             className="absolute inset-0" 
             style={{ 
-              background: `linear-gradient(270deg, rgba(14, 32, 29, 0.1) 0%, rgba(14, 32, 29, 0.318) 16.5%, rgba(14, 32, 29, 0.328) 34.2%, rgba(14, 32, 29, 0.6) 50.5%, rgba(14, 32, 29, 0.95) 71%, rgba(14, 32, 29, 1) 84.5%)` 
+              background: `linear-gradient(90deg, rgba(14, 32, 29, 1) 0%, rgba(14, 32, 29, 0.6) 20%, transparent 35%)` 
             }} 
           />
           <div 
             className="absolute inset-0" 
             style={{ 
-              background: `linear-gradient(270deg, rgba(46, 124, 94, 0.1) 0%, rgba(46, 124, 94, 0.318) 23.5%, rgba(46, 124, 94, 0.328) 50.4%, rgba(46, 124, 94, 0.6) 72.1%, rgba(46, 124, 94, 0.95) 87.9%, rgba(46, 124, 94, 1) 99.5%)` 
+              background: `linear-gradient(90deg, rgba(46, 124, 94, 1) 0%, rgba(46, 124, 94, 0.6) 25%, transparent 40%)` 
             }} 
           />
         </div>
@@ -201,7 +201,7 @@ export default function HomePage() {
                         <div 
                           className="absolute inset-0" 
                           style={{ 
-                            background: `linear-gradient(180deg, rgba(46, 124, 94, 0.8) 0%, rgba(46, 124, 94, 0.6) 34.5%, rgba(46, 124, 94, 0.328) 61.5%, rgba(46, 124, 94, 0.318) 81.5%, rgba(46, 124, 94, 0.1) 100%)` 
+                            background: `linear-gradient(90deg, rgba(46, 124, 94, 0.8) 0%, rgba(46, 124, 94, 0.4) 20%, transparent 35%)` 
                           }} 
                         />
                         {/* Play button overlay */}
@@ -578,13 +578,13 @@ export default function HomePage() {
           <div 
             className="absolute inset-0" 
             style={{ 
-              background: `linear-gradient(270deg, rgba(14, 32, 29, 0.1) 0%, rgba(14, 32, 29, 0.318) 16.5%, rgba(14, 32, 29, 0.328) 34.2%, rgba(14, 32, 29, 0.6) 50.5%, rgba(14, 32, 29, 0.95) 71%, rgba(14, 32, 29, 1) 84.5%)` 
+              background: `linear-gradient(90deg, rgba(14, 32, 29, 1) 0%, rgba(14, 32, 29, 0.6) 20%, transparent 35%)` 
             }} 
           />
           <div 
             className="absolute inset-0" 
             style={{ 
-              background: `linear-gradient(270deg, rgba(46, 124, 94, 0.1) 0%, rgba(46, 124, 94, 0.318) 23.5%, rgba(46, 124, 94, 0.328) 50.4%, rgba(46, 124, 94, 0.6) 72.1%, rgba(46, 124, 94, 0.95) 87.9%, rgba(46, 124, 94, 1) 99.5%)` 
+              background: `linear-gradient(90deg, rgba(46, 124, 94, 1) 0%, rgba(46, 124, 94, 0.6) 25%, transparent 40%)` 
             }} 
           />
         </div>
@@ -740,7 +740,7 @@ export default function HomePage() {
           <div 
             className="absolute inset-0" 
             style={{ 
-              background: `linear-gradient(90deg, rgba(0, 127, 94, 0.1) 0%, rgba(0, 127, 94, 0.318) 16.5%, rgba(0, 127, 94, 0.328) 34.2%, rgba(0, 127, 94, 0.6) 50.5%, rgba(0, 127, 94, 0.95) 71%, rgba(0, 127, 94, 1) 84.5%)` 
+              background: `linear-gradient(90deg, rgba(0, 127, 94, 1) 0%, rgba(0, 127, 94, 0.6) 20%, transparent 35%)` 
             }} 
           />
         </div>
