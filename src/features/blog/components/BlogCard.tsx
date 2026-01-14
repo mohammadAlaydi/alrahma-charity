@@ -52,18 +52,18 @@ export function BlogCard({ post }: BlogCardProps) {
       <div className="flex w-full flex-col gap-[24px] items-start pb-[32px] pt-0 px-[16px]">
         {/* User Details */}
         <div className="flex w-full items-center justify-between mt-[24px]">
-          <div className="flex flex-1 items-center justify-end gap-[8px] min-w-0">
-            <span className="font-alexandria text-sm font-normal leading-5 text-[#0d0d0d] text-right">
-              {post.date}
-            </span>
-             <div className="relative h-[6px] w-[6px] shrink-0">
-                <div className="h-full w-full rounded-full bg-[#0d0d0d]" />
-              </div>
+          <div className="flex flex-1 items-center justify-start gap-[8px] min-w-0">
             {post.author && (
               <span className="font-alexandria text-sm font-normal leading-5 text-[#0d0d0d] text-right">
                 {post.author}
               </span>
             )}
+             <div className="relative h-[6px] w-[6px] shrink-0">
+                <div className="h-full w-full rounded-full bg-[#0d0d0d]" />
+              </div>
+            <span className="font-alexandria text-sm font-normal leading-5 text-[#0d0d0d] text-right">
+              {post.date}
+            </span>
           </div>
         </div>
 
