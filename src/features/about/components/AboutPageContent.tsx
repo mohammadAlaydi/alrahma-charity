@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { AmountInput } from "@/components/ui/AmountInput";
+import { DonationModal } from "@/features/projects/components/DonationModal";
 
 const PRESET_AMOUNTS = [200, 100, 50, 10];
 
@@ -31,6 +32,7 @@ export function AboutPageContent() {
   const [selectedAmount, setSelectedAmount] = useState<number>(200);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [activeTab, setActiveTab] = useState<TabType>("vision");
+  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
   const getTabItems = () => {
     switch (activeTab) {
@@ -226,6 +228,7 @@ export function AboutPageContent() {
                   <div className="flex justify-start pt-4">
                     <button
                       type="button"
+                      onClick={() => setIsDonationModalOpen(true)}
                       className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full md:w-auto hover:bg-[#005F4A] transition-colors"
                     >
                        
@@ -324,7 +327,7 @@ export function AboutPageContent() {
       </section>
 
       {/* CTA Section with Background */}
-      <section className="relative w-full h-[564px] md:h-[808px] overflow-hidden">
+      <section className="relative w-full h-[564px] md:h-[600px] overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/images/Rectangle 5354.png"
@@ -368,6 +371,7 @@ export function AboutPageContent() {
 
             <button
               type="button"
+              onClick={() => setIsDonationModalOpen(true)}
               className="border border-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] bg-transparent w-full md:w-auto hover:bg-[#007F5E]/10 transition-colors"
             >
               <p className="font-alexandria text-base md:text-[16px] font-semibold leading-[1.5] text-white">
@@ -413,7 +417,7 @@ export function AboutPageContent() {
         <Container>
           <div className="flex flex-col gap-10 lg:gap-[91px] lg:flex-row-reverse lg:items-start">
             {/* Image Gallery */}
-            <div className="relative w-full lg:w-auto lg:flex-1">
+            <div className="hidden lg:block relative w-full lg:w-auto lg:flex-1">
               <div className="relative h-[300px] md:h-[529px] w-full max-w-[448px] mx-auto">
                 <div className="absolute top-0 left-0 h-full w-full overflow-hidden rounded-[20px] border-4 md:border-8 border-[#FFECEC]">
                   <div className="relative h-full w-full">
@@ -725,6 +729,7 @@ export function AboutPageContent() {
                         {/* Donate button */}
                         <button
                           type="button"
+                          onClick={() => setIsDonationModalOpen(true)}
                           className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full hover:bg-[#005F4A] transition-colors"
                         >
                           <Image
@@ -837,6 +842,14 @@ export function AboutPageContent() {
           </div>
         </Container>
       </section>
+
+      <DonationModal
+        open={isDonationModalOpen}
+        onClose={() => setIsDonationModalOpen(false)}
+        projectTitle="تبرع سريع"
+        titleIcon="/figma/donation-svgrepo-com (1) 1.svg"
+        initialAmount={customAmount ? Number(customAmount) : selectedAmount}
+      />
     </div>
   );
 }

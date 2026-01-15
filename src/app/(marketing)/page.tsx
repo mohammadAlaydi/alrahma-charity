@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { AmountInput } from "@/components/ui/AmountInput";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 const PRESET_AMOUNTS = [200, 100, 50, 10];
 
@@ -77,26 +78,6 @@ export default function HomePage() {
 
   return (
     <div className="relative min-h-screen bg-white" dir="rtl">
-      {/* WhatsApp Icon - Positioned in the side gutter as per Figma (x=1752, y=1475 on 1920px canvas) */}
-      <div className="absolute top-[1475px] inset-x-0 z-10 hidden xl:flex justify-center pointer-events-none">
-        <div className="relative w-full max-w-[1920px] h-0">
-          <a
-            href="https://wa.me/905357829980"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="absolute left-[1752px] pointer-events-auto transition-all hover:scale-110"
-            aria-label="تواصل معنا على واتساب"
-          >
-            <Image
-              src="/figma/whatsapp.svg"
-              alt="واتساب"
-              width={80}
-              height={80}
-              className="h-20 w-20"
-            />
-          </a>
-        </div>
-      </div>
 
       {/* Hero Section with Background */}
       <section className="relative h-[1023.726px] overflow-hidden">
@@ -108,20 +89,25 @@ export default function HomePage() {
             className="object-cover"
             priority
           />
-          <div 
-            className="absolute inset-0" 
-            style={{ 
-              background: `linear-gradient(90deg, rgba(14, 32, 29, 1) 0%, rgba(14, 32, 29, 0.6) 20%, transparent 35%)` 
-            }} 
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(90deg, rgba(14, 32, 29, 1) 0%, rgba(14, 32, 29, 0.6) 20%, transparent 35%)`
+            }}
           />
-          <div 
-            className="absolute inset-0" 
-            style={{ 
-              background: `linear-gradient(90deg, rgba(46, 124, 94, 1) 0%, rgba(46, 124, 94, 0.6) 25%, transparent 40%)` 
-            }} 
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(90deg, rgba(46, 124, 94, 1) 0%, rgba(46, 124, 94, 0.6) 25%, transparent 40%)`
+            }}
           />
         </div>
         <Container className="relative z-10 flex h-full items-center justify-center">
+          {/* WhatsApp Button for mobile/tablet on Home page */}
+          <div className="absolute right-4 top-24 md:top-32 lg:hidden">
+            <WhatsAppButton variant="header" />
+          </div>
+
           <div className="flex flex-col items-center gap-6 text-center">
             <div className="flex flex-col gap-2 items-center">
               <div className="flex gap-[5px] items-center">
@@ -192,46 +178,46 @@ export default function HomePage() {
                   {/* Large main image with gradient overlay */}
                   <div className="absolute top-[52.9px] left-[123px] h-[548px] w-[446px] z-10">
                     <div className="relative h-full w-full rounded-[20px] border-[8px] border-[#FFECEC] overflow-hidden">
-                        <Image
-                          src="/images/Rectangle 4.png"
-                          alt="Child in humanitarian aid"
-                          fill
-                          className="object-cover"
-                        />
-                        <div 
-                          className="absolute inset-0" 
-                          style={{ 
-                            background: `linear-gradient(90deg, rgba(46, 124, 94, 0.8) 0%, rgba(46, 124, 94, 0.4) 20%, transparent 35%)` 
-                          }} 
-                        />
-                        {/* Play button overlay */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                          <button
-                            type="button"
-                            className="flex h-[70px] w-[70px] items-center justify-center rounded-full bg-white shadow-lg transition-opacity hover:opacity-90"
+                      <Image
+                        src="/images/Rectangle 4.png"
+                        alt="Child in humanitarian aid"
+                        fill
+                        className="object-cover"
+                      />
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          background: `linear-gradient(90deg, rgba(46, 124, 94, 0.8) 0%, rgba(46, 124, 94, 0.4) 20%, transparent 35%)`
+                        }}
+                      />
+                      {/* Play button overlay */}
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                        <button
+                          type="button"
+                          className="flex h-[70px] w-[70px] items-center justify-center rounded-full bg-white shadow-lg transition-opacity hover:opacity-90"
+                        >
+                          <svg
+                            width="32"
+                            height="32"
+                            viewBox="0 0 24 24"
+                            fill="none"
                           >
-                            <svg
-                              width="32"
-                              height="32"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <path d="M8 5v14l11-7z" fill="#007F5E" />
-                            </svg>
-                          </button>
-                        </div>
+                            <path d="M8 5v14l11-7z" fill="#007F5E" />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
 
                   {/* Smaller image on the right */}
                   <div className="absolute top-[481px] left-[356px] h-[195px] w-[212px] z-20">
                     <div className="relative h-full w-full rounded-[20px] border-[8px] border-[#FEFDFD] overflow-hidden">
-                        <Image
-                          src="/images/Rectangle 6.png"
-                          alt="Child portrait"
-                          fill
-                          className="object-cover"
-                        />
+                      <Image
+                        src="/images/Rectangle 6.png"
+                        alt="Child portrait"
+                        fill
+                        className="object-cover"
+                      />
                     </div>
                   </div>
 
@@ -575,17 +561,17 @@ export default function HomePage() {
             fill
             className="object-cover"
           />
-          <div 
-            className="absolute inset-0" 
-            style={{ 
-              background: `linear-gradient(90deg, rgba(14, 32, 29, 1) 0%, rgba(14, 32, 29, 0.6) 20%, transparent 35%)` 
-            }} 
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(90deg, rgba(14, 32, 29, 1) 0%, rgba(14, 32, 29, 0.6) 20%, transparent 35%)`
+            }}
           />
-          <div 
-            className="absolute inset-0" 
-            style={{ 
-              background: `linear-gradient(90deg, rgba(46, 124, 94, 1) 0%, rgba(46, 124, 94, 0.6) 25%, transparent 40%)` 
-            }} 
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(90deg, rgba(46, 124, 94, 1) 0%, rgba(46, 124, 94, 0.6) 25%, transparent 40%)`
+            }}
           />
         </div>
         <div className="absolute inset-0 flex flex-col gap-6 items-center justify-center">
@@ -737,11 +723,11 @@ export default function HomePage() {
             fill
             className="object-cover"
           />
-          <div 
-            className="absolute inset-0" 
-            style={{ 
-              background: `linear-gradient(90deg, rgba(0, 127, 94, 1) 0%, rgba(0, 127, 94, 0.6) 20%, transparent 35%)` 
-            }} 
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(90deg, rgba(0, 127, 94, 1) 0%, rgba(0, 127, 94, 0.6) 20%, transparent 35%)`
+            }}
           />
         </div>
 

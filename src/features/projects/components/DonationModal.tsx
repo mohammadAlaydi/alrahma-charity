@@ -7,6 +7,7 @@ import { X } from "lucide-react";
 import { Modal } from "@/components/ui/modal/Modal";
 import { useLoginModal } from "@/contexts/LoginContext";
 import { AmountSelector } from "@/features/donations/components/AmountSelector";
+import { DONATION } from "@/config/design-tokens";
 
 interface DonationModalProps {
   open: boolean;
@@ -16,6 +17,7 @@ interface DonationModalProps {
   titleIcon?: string;
   hideHeader?: boolean;
   isProject?: boolean;
+  initialAmount?: number;
 }
 
 export function DonationModal({
@@ -25,11 +27,19 @@ export function DonationModal({
   projectTitle,
   titleIcon,
   hideHeader = false,
-  isProject = false
+  isProject = false,
+  initialAmount = 200
 }: DonationModalProps) {
   const { openLoginModal } = useLoginModal();
-  const [selectedAmount, setSelectedAmount] = useState<number>(200);
-  const [customAmount, setCustomAmount] = useState<string>("");
+  
+  const isPreset = (amount: number) => (DONATION.presetAmounts as unknown as number[]).includes(amount);
+
+  const [selectedAmount, setSelectedAmount] = useState<number>(
+    initialAmount && isPreset(initialAmount) ? initialAmount : (initialAmount ? 0 : 200)
+  );
+  const [customAmount, setCustomAmount] = useState<string>(
+    initialAmount && !isPreset(initialAmount) ? initialAmount.toString() : ""
+  );
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { WhatsAppButton } from "./WhatsAppButton";
 
 export interface BreadcrumbItem {
   label: string;
@@ -15,7 +16,12 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle, subtitleIcon, breadcrumbs }: PageHeaderProps) {
   return (
-    <div className="flex w-full md:w-[340px] flex-col items-center" dir="rtl">
+    <div className="relative flex w-full md:w-[760px] flex-col items-center" dir="rtl">
+      {/* WhatsApp Button for mobile/tablet - positioned to the right of the header */}
+      <div className="absolute -right-0 top-0 md:-right-8 lg:hidden">
+        <WhatsAppButton variant="header" />
+      </div>
+
       {/* Frame 15 - Subtitle with icon (271x30) - centered */}
       {subtitle && (
         <div className="mb-2 md:mb-3 flex h-[28px] items-center gap-[5px] whitespace-nowrap justify-center">

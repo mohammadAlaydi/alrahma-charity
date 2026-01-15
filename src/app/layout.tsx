@@ -4,6 +4,7 @@ import { Cairo, Alexandria, Molle, Playpen_Sans } from "next/font/google";
 import "../../styles/globals.css";
 import { Providers } from "./providers";
 import { ConditionalSiteHeader } from "@/components/layout/ConditionalSiteHeader";
+import { ConditionalPageDecorations } from "@/components/layout/ConditionalPageDecorations";
 import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
 import { MobileBottomBar } from "@/components/layout/MobileNavigation";
 
@@ -51,6 +52,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <Providers>
           <ConditionalSiteHeader />
+          <ConditionalPageDecorations />
           {children}
           <ConditionalFooter />
           <MobileBottomBar />

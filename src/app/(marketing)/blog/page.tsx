@@ -159,27 +159,6 @@ export default function BlogPage() {
 
   return (
     <div className="relative min-h-screen bg-white">
-      {/* WhatsApp Icon - Positioned in the side gutter as per Projects page */}
-      <div className="absolute top-[975px] inset-x-0 z-10 hidden xl:flex justify-center pointer-events-none">
-        <div className="relative w-full max-w-[1920px] h-0">
-          <a
-            href="https://wa.me/905357829980"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="absolute left-[1752px] pointer-events-auto transition-all hover:scale-110"
-            aria-label="تواصل معنا على واتساب"
-          >
-            <Image
-              src="/figma/whatsapp.svg"
-              alt="واتساب"
-              width={80}
-              height={80}
-              className="h-20 w-20"
-            />
-          </a>
-        </div>
-      </div>
-
       {/* Background Banners from Figma - Adjusted more towards center for visibility */}
       <div
         className="absolute left-[-60px] top-[210.01px] z-0 pointer-events-none"
@@ -218,6 +197,7 @@ export default function BlogPage() {
           </div>
         </div>
       </div>
+
 
       {/* Hero Section */}
       <section className="relative h-[420px] overflow-hidden">
@@ -312,8 +292,8 @@ export default function BlogPage() {
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
                 className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-white transition ${currentPage === 1
-                    ? "border-[#B4BB5F]/40 bg-[#B4BB5F]/60 opacity-60"
-                    : "border-[#007F5E] bg-[#007F5E]"
+                  ? "border-[#B4BB5F]/40 bg-[#B4BB5F]/60 opacity-60"
+                  : "border-[#007F5E] bg-[#007F5E]"
                   }`}
               >
                 <Image
@@ -331,8 +311,8 @@ export default function BlogPage() {
                   type="button"
                   onClick={() => setCurrentPage(page)}
                   className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-xs font-medium transition ${page === currentPage
-                      ? "border-[#B4BB5F] bg-[#B4BB5F] text-white"
-                      : "border-[#D4D4D4] bg-white text-[#474747]"
+                    ? "border-[#B4BB5F] bg-[#B4BB5F] text-white"
+                    : "border-[#D4D4D4] bg-white text-[#474747]"
                     }`}
                 >
                   {page}
@@ -344,8 +324,8 @@ export default function BlogPage() {
                 onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                 disabled={currentPage >= totalPages}
                 className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-white transition ${currentPage === totalPages
-                    ? "border-[#B4BB5F]/40 bg-[#B4BB5F]/60 opacity-60"
-                    : "border-[#007F5E] bg-[#007F5E]"
+                  ? "border-[#B4BB5F]/40 bg-[#B4BB5F]/60 opacity-60"
+                  : "border-[#007F5E] bg-[#007F5E]"
                   }`}
               >
                 <span className="rotate-180">

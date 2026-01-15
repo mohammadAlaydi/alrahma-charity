@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { AmountInput } from "@/components/ui/AmountInput";
 import { cn } from "@/lib/cn";
 import { useLoginModal } from "@/contexts/LoginContext";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 const PRESET_AMOUNTS = [10, 50, 100, 200];
 
@@ -67,6 +68,11 @@ export function DonationHeroSection() {
       </div>
 
       <Container className="relative z-10 py-12 md:py-20 lg:py-[100px] min-h-[600px] md:min-h-[700px] lg:min-h-[800px] flex items-center">
+        {/* WhatsApp Button for mobile/tablet */}
+        <div className="absolute right-4 top-12 md:top-20 lg:hidden">
+          <WhatsAppButton variant="header" />
+        </div>
+
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start justify-between w-full">
           {/* Left Content - Text and CTA */}
           <div className="flex flex-col gap-6 md:gap-8 w-full lg:w-[55%] lg:max-w-[600px] text-white">
