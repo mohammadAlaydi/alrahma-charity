@@ -150,7 +150,7 @@ export default function BlogPage() {
     const cardWidth = 410 + 24; // card width + gap
     const cardsPerView = 3;
     const scrollPosition = index * cardWidth * cardsPerView;
-    
+
     container.scrollTo({
       left: scrollPosition,
       behavior: 'smooth'
@@ -177,6 +177,45 @@ export default function BlogPage() {
               className="h-20 w-20"
             />
           </a>
+        </div>
+      </div>
+
+      {/* Background Banners from Figma - Adjusted more towards center for visibility */}
+      <div
+        className="absolute left-[-60px] top-[210.01px] z-0 pointer-events-none"
+        style={{ width: '346.12px', height: '346.12px' }}
+      >
+        <Image
+          src="/images/Group 1000009427.png"
+          alt=""
+          fill
+          className="object-contain"
+        />
+      </div>
+
+      <div
+        className="absolute right-[-80px] top-[224.67px] z-0 pointer-events-none"
+        style={{ width: '350.69px', height: '360.33px' }}
+      >
+        <div className="relative h-full w-full">
+          {/* 1 17 - Positioned correctly relative to each other */}
+          <div className="absolute right-[60px] top-0 h-[222.52px] w-[222.52px]">
+            <Image
+              src="/images/الدليل الإرشادي لهوية جمعية رحمة v.02-2025_pages-to-jpg-0023 1 17.png"
+              alt=""
+              fill
+              className="object-contain"
+            />
+          </div>
+          {/* 1 18 - Positioned 148.5px further right than 1 17 */}
+          <div className="absolute right-[-0.5px] top-[120.53px] h-[222.52px] w-[222.52px]">
+            <Image
+              src="/images/الدليل الإرشادي لهوية جمعية رحمة v.02-2025_pages-to-jpg-0023 1 18.png"
+              alt=""
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       </div>
 
@@ -211,11 +250,11 @@ export default function BlogPage() {
             <div className="relative w-full">
               {/* Left Fade Gradient */}
               <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-24 bg-linear-to-r from-white to-transparent" />
-              
+
               {/* Right Fade Gradient */}
               <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-24 bg-linear-to-l from-white to-transparent" />
-              
-              <div 
+
+              <div
                 ref={scrollContainerRef}
                 className="flex gap-6 overflow-x-auto pb-4 no-scrollbar scroll-smooth"
               >
@@ -237,10 +276,9 @@ export default function BlogPage() {
                   aria-label={`انتقل إلى المجموعة ${index + 1}`}
                 >
                   <div className="relative flex aspect-square items-center justify-center">
-                    <div 
-                      className={`h-3 w-3 rounded-full bg-[#007f5e] transition-opacity ${
-                        index === featuredScrollIndex ? 'opacity-100' : 'opacity-50'
-                      }`}
+                    <div
+                      className={`h-3 w-3 rounded-full bg-[#007f5e] transition-opacity ${index === featuredScrollIndex ? 'opacity-100' : 'opacity-50'
+                        }`}
                     />
                   </div>
                 </button>
@@ -273,11 +311,10 @@ export default function BlogPage() {
                 type="button"
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-white transition ${
-                  currentPage === 1
+                className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-white transition ${currentPage === 1
                     ? "border-[#B4BB5F]/40 bg-[#B4BB5F]/60 opacity-60"
                     : "border-[#007F5E] bg-[#007F5E]"
-                }`}
+                  }`}
               >
                 <Image
                   src="/iconamoon_arrow-up-2.svg"
@@ -293,11 +330,10 @@ export default function BlogPage() {
                   key={page}
                   type="button"
                   onClick={() => setCurrentPage(page)}
-                  className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-xs font-medium transition ${
-                    page === currentPage
+                  className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-xs font-medium transition ${page === currentPage
                       ? "border-[#B4BB5F] bg-[#B4BB5F] text-white"
                       : "border-[#D4D4D4] bg-white text-[#474747]"
-                  }`}
+                    }`}
                 >
                   {page}
                 </button>
@@ -307,11 +343,10 @@ export default function BlogPage() {
                 type="button"
                 onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                 disabled={currentPage >= totalPages}
-                className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-white transition ${
-                  currentPage === totalPages
+                className={`flex h-[32px] w-[32px] items-center justify-center rounded-full border text-white transition ${currentPage === totalPages
                     ? "border-[#B4BB5F]/40 bg-[#B4BB5F]/60 opacity-60"
                     : "border-[#007F5E] bg-[#007F5E]"
-                }`}
+                  }`}
               >
                 <span className="rotate-180">
                   <Image

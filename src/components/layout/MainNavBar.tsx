@@ -11,6 +11,7 @@ import { Container } from "@/components/ui/Container";
 import { useAppSelector } from "@/store/hooks";
 import { useLoginModal } from "@/contexts/LoginContext";
 import { MobileMenu } from "./MobileNavigation";
+import { DonationModal } from "@/features/projects/components/DonationModal";
 
 type NavItem = { label: string; href: string };
 
@@ -25,10 +26,11 @@ const navItems: NavItem[] = [
   { label: "المدونة", href: "/blog" },
 ];
 
-function DonateButton({ className }: { className?: string }) {
+function DonateButton({ className, onClick }: { className?: string; onClick?: () => void }) {
   return (
     <button
       type="button"
+      onClick={onClick}
       className={cn("flex h-[35px] md:h-[48px] w-[100px] md:w-[130px] items-center justify-center gap-[10px] rounded-[35px] bg-[#007F5E]", className)}
     >
       <span className="btn-donate-text text-xs md:text-sm flex items-center justify-center text-white">
@@ -44,6 +46,7 @@ export function MainNavBar() {
   const router = useRouter();
   const { openLoginModal } = useLoginModal();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
   const favorites = useAppSelector((state) => state.favorites.favorites);
   const favoritesCount = Object.keys(favorites).filter((id) => favorites[id]).length;
 
@@ -53,8 +56,8 @@ export function MainNavBar() {
         {/* Mobile Header: Menu (Right) / Logo (Center) / Share (Left) - In RTL this matches Figma */}
         <div className="flex md:hidden items-center justify-between w-full">
           {/* Menu Button */}
-          <button 
-            type="button" 
+          <button
+            type="button"
             onClick={() => setIsMobileMenuOpen(true)}
             className="p-2 transition-opacity active:opacity-50"
           >
@@ -69,8 +72,8 @@ export function MainNavBar() {
           </div>
 
           {/* Share Button (using back icon SVG) */}
-          <button 
-            type="button" 
+          <button
+            type="button"
             onClick={() => {
               // Share functionality
               if (navigator.share) {
@@ -78,7 +81,7 @@ export function MainNavBar() {
                   title: 'جمعية الرحمة والإحسان',
                   text: 'تبرعك اليوم يصنع أثرًا لا يُنسى',
                   url: window.location.href,
-                }).catch(() => {});
+                }).catch(() => { });
               }
             }}
             className="p-2 transition-opacity active:opacity-50"
@@ -142,7 +145,7 @@ export function MainNavBar() {
               className="relative flex items-center justify-center transition-opacity hover:opacity-80"
               style={{ height: '44px', width: '44px' }}
             >
-              <div 
+              <div
                 className="relative flex items-center justify-center"
                 style={{
                   width: '44px',
@@ -157,12 +160,18 @@ export function MainNavBar() {
                 </div>
               </div>
             </button>
-            <DonateButton />
+            <DonateButton onClick={() => setIsDonationModalOpen(true)} />
           </div>
         </div>
       </Container>
-      
+
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+      <DonationModal
+        open={isDonationModalOpen}
+        onClose={() => setIsDonationModalOpen(false)}
+        projectTitle="تبرع سريع"
+        titleIcon="/figma/donation-svgrepo-com (1) 1.svg"
+      />
     </div>
   );
 }

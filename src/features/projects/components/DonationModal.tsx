@@ -13,6 +13,7 @@ interface DonationModalProps {
   onClose: () => void;
   onSuccess?: () => void;
   projectTitle?: string;
+  titleIcon?: string;
   hideHeader?: boolean;
   isProject?: boolean;
 }
@@ -22,6 +23,7 @@ export function DonationModal({
   onClose,
   onSuccess,
   projectTitle,
+  titleIcon,
   hideHeader = false,
   isProject = false
 }: DonationModalProps) {
@@ -91,7 +93,17 @@ export function DonationModal({
                 {/* Title */}
                 {projectTitle && (
                   <div className="flex gap-[10px] items-center justify-center w-full">
-                    <p className="font-alexandria text-[22px] font-semibold leading-[1.5] text-[#122F2A] text-center w-full">
+                    {titleIcon && (
+                      <div className="relative h-[28px] w-[28px] shrink-0">
+                        <Image
+                          src={titleIcon}
+                          alt=""
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                    )}
+                    <p className="font-alexandria text-[22px] font-semibold leading-[1.5] text-[#122F2A]">
                       {projectTitle}
                     </p>
                   </div>
