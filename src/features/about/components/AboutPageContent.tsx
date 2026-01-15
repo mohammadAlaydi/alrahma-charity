@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
 import { AmountInput } from "@/components/ui/AmountInput";
 import { DonationModal } from "@/features/projects/components/DonationModal";
@@ -33,6 +34,7 @@ export function AboutPageContent() {
   const [customAmount, setCustomAmount] = useState<string>("");
   const [activeTab, setActiveTab] = useState<TabType>("vision");
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+  const [isAboutExpanded, setIsAboutExpanded] = useState(false);
 
   const getTabItems = () => {
     switch (activeTab) {
@@ -54,13 +56,13 @@ export function AboutPageContent() {
         <Container>
           <div className="flex flex-col gap-6 md:gap-10 lg:gap-[91px] lg:flex-row-reverse lg:items-start">
             {/* Image Gallery - appears on left visually in RTL */}
-            <div className="relative w-full lg:w-auto lg:flex-1">
+            <div className="hidden lg:block relative w-full lg:w-auto lg:flex-1">
               <div className="relative">
                 {/* Main image container - matches Group 8 dimensions from Figma */}
                 <div className="relative h-[486.915px] md:h-[695px] w-full max-w-[500px] md:max-w-[569px] mx-auto">
                   {/* Top left small image - Rectangle 9.png - positioned at top-left (0,0) from Figma */}
                   <div className="hidden md:block absolute top-0 left-0 h-[208px] w-[229px] z-10">
-                    <div className="relative h-full w-full rounded-[20px] p-2 bg-[#FEFCFC]">
+                    <div className="relative h-full w-full rounded-[20px] p-2 bg-transparent">
                       <div className="relative h-full w-full rounded-[12px] overflow-hidden">
                         <Image
                           src="/images/Rectangle 9.png"
@@ -77,7 +79,7 @@ export function AboutPageContent() {
 
                   {/* Large main image with gradient overlay - Rectangle 4.png - positioned at (122.98, 52.90) from Figma */}
                   <div className="absolute top-[52.9px] left-[20px] md:left-[123px] h-[486.915px] md:h-[548px] w-full max-w-[396px] md:max-w-[446px] z-10">
-                    <div className="relative h-full w-full rounded-[20px] border-[8px] border-[#FFECEC] overflow-hidden">
+                    <div className="relative h-full w-full rounded-[20px] border-[8px] border-transparent overflow-hidden">
                         <Image
                           src="/images/Rectangle 4.png"
                           alt="Child in humanitarian aid"
@@ -114,7 +116,7 @@ export function AboutPageContent() {
 
                   {/* Smaller image on the right - Rectangle 6.png - positioned at (356.03, 481.31) from Figma */}
                   <div className="hidden md:block absolute top-[481px] left-[20px] md:left-[356px] h-[195px] w-[212px] z-20">
-                    <div className="relative h-full w-full rounded-[20px] border-[8px] border-[#FEFDFD] overflow-hidden">
+                    <div className="relative h-full w-full rounded-[20px] border-[8px] border-transparent overflow-hidden">
                         <Image
                           src="/images/Rectangle 6.png"
                           alt="Child portrait"
@@ -186,25 +188,58 @@ export function AboutPageContent() {
               </div>
 
               {/* Paragraph */}
-              <p className="font-alexandria text-[16px] font-normal leading-[1.6] text-right text-[rgba(13,13,13,0.7)] text-justify">
-                جمعية الرحمة والإحسان، مؤسسة خيرية مرخصة في تركيا تحت الرقم 0733100144600001. تأسست
-                الجمعية في 07 أكتوبر 2021 استجابة لحالة الطوارئ الإنسانية التي يشهدها قطاع غزة نتيجة
-                الأزمات المتكررة والحصار المستمر. ومنذ انطلاقتها، أخذت الجمعية على عاتقها مهمة تقديم
-                الإغاثة العاجلة والدعم المستدام للأسر المتضررة، عبر برامج نوعية تلبي الاحتياجات
-                الأساسية في مجالات الغذاء، الصحة، التعليم، والإيواء. تسعى الجمعية إلى خدمة أهلنا
-                الكرام في قطاع غزة من خلال مشاريع إنسانية وتنموية متكاملة، تهدف إلى تعزيز التكافل
-                الاجتماعي، ونشر قيم العطاء، وبث الأمل في النفوس. كما تعمل على تمكين الأفراد وتحسين
-                جودة حياتهم، مع التركيز على الفئات الأكثر احتياجا، وذلك عبر مبادرات مبتكرة وشراكات
-                استراتيجية تضمن استدامة الأثر الإيجابي. وإيمانا منها بحق الإنسان في حياة كريمة، تركز
-                جمعية الرحمة والإحسان على تعزيز فرص التنمية المستدامة، وتوفير بيئة أكثر استقرارا للأسر
-                والأطفال، بما يسهم في بناء مستقبل أفضل للأجيال القادمة ويعزز من صمود المجتمع الفلسطيني
-                أمام التحديات المتواصلة.
-              </p>
+              <div className="relative">
+                <p 
+                  className={cn(
+                    "font-alexandria text-[16px] font-normal leading-[1.6] text-right text-[rgba(13,13,13,0.7)] text-justify",
+                    !isAboutExpanded && "line-clamp-3 md:line-clamp-none"
+                  )}
+                >
+                  جمعية الرحمة والإحسان، مؤسسة خيرية مرخصة في تركيا تحت الرقم 0733100144600001. تأسست
+                  الجمعية في 07 أكتوبر 2021 استجابة لحالة الطوارئ الإنسانية التي يشهدها قطاع غزة نتيجة
+                  الأزمات المتكررة والحصار المستمر. ومنذ انطلاقتها، أخذت الجمعية على عاتقها مهمة تقديم
+                  الإغاثة العاجلة والدعم المستدام للأسر المتضررة، عبر برامج نوعية تلبي الاحتياجات
+                  الأساسية في مجالات الغذاء، الصحة، التعليم، والإيواء. تسعى الجمعية إلى خدمة أهلنا
+                  الكرام في قطاع غزة من خلال مشاريع إنسانية وتنموية متكاملة، تهدف إلى تعزيز التكافل
+                  الاجتماعي، ونشر قيم العطاء، وبث الأمل في النفوس. كما تعمل على تمكين الأفراد وتحسين
+                  جودة حياتهم، مع التركيز على الفئات الأكثر احتياجا، وذلك عبر مبادرات مبتكرة وشراكات
+                  استراتيجية تضمن استدامة الأثر الإيجابي. وإيمانا منها بحق الإنسان في حياة كريمة، تركز
+                  جمعية الرحمة والإحسان على تعزيز فرص التنمية المستدامة، وتوفير بيئة أكثر استقرارا للأسر
+                  والأطفال، بما يسهم في بناء مستقبل أفضل للأجيال القادمة ويعزز من صمود المجتمع الفلسطيني
+                  أمام التحديات المتواصلة.
+                </p>
+                <button
+                  onClick={() => setIsAboutExpanded(!isAboutExpanded)}
+                  className="md:hidden mt-2 text-[#007F5E] font-alexandria text-[14px] font-semibold flex items-center gap-1 hover:opacity-80 transition-opacity"
+                >
+                  {isAboutExpanded ? "عرض أقل" : "إقرأ المزيد"}
+                </button>
+              </div>
 
               {/* CTA Cards */}
               <div className="flex flex-col gap-6 md:gap-6 lg:flex-row lg:gap-[71px]">
-                {/* Card 1 - قم بالتبرع on the right (first) */}
-                <div className="flex flex-col gap-4 w-full md:w-[276px]">
+                {/* Card 2 - ابدأ بمساعدتهم on the left (second on desktop, first on mobile) */}
+                <div className="flex flex-row gap-4 items-start justify-end w-full md:w-[276px] order-1 lg:order-2">
+                  <div className="relative h-[39px] md:h-[57px] w-[39px] md:w-[57px] shrink-0">
+                    <Image
+                      src="/images/help-them.png"
+                      alt=""
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <div className="flex-1 space-y-2 flex flex-col items-end">
+                    <h4 className="font-alexandria text-[20px] font-semibold leading-normal text-right text-[#122F2A] w-full">
+                      ابدأ بمساعدتهم
+                    </h4>
+                    <p className="font-alexandria text-[16px] font-normal leading-[1.5] text-right text-[rgba(13,13,13,0.7)] text-justify w-full">
+                      ساعدهم على تجاوز الأزمات… دعمك يمنحهم فرصة لحياة أكثر كرامة واستقرارًا
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card 1 - قم بالتبرع on the right (first on desktop, second on mobile) */}
+                <div className="flex flex-col gap-4 w-full md:w-[276px] order-2 lg:order-1">
                   <div className="flex flex-row gap-4 md:gap-[16px] items-start justify-end">
                     <div className="relative h-[39px] md:h-[57px] w-[39px] md:w-[57px] shrink-0">
                       <Image
@@ -229,7 +264,7 @@ export function AboutPageContent() {
                     <button
                       type="button"
                       onClick={() => setIsDonationModalOpen(true)}
-                      className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full md:w-auto hover:bg-[#005F4A] transition-colors"
+                      className="bg-[#007F5E] flex gap-[10px] items-center justify-center w-[159px] h-[58px] rounded-[35px] hover:bg-[#005F4A] transition-colors"
                     >
                        
 
@@ -246,26 +281,6 @@ export function AboutPageContent() {
                           />
                         </div>
                     </button>
-                  </div>
-                </div>
-
-                {/* Card 2 - ابدأ بمساعدتهم on the left (second) */}
-                <div className="flex flex-row gap-4 items-start justify-end w-full md:w-[276px]">
-                  <div className="relative h-[39px] md:h-[57px] w-[39px] md:w-[57px] shrink-0">
-                    <Image
-                      src="/images/help-them.png"
-                      alt=""
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                  <div className="flex-1 space-y-2 flex flex-col items-end">
-                    <h4 className="font-alexandria text-[20px] font-semibold leading-normal text-right text-[#122F2A] w-full">
-                      ابدأ بمساعدتهم
-                    </h4>
-                    <p className="font-alexandria text-[16px] font-normal leading-[1.5] text-right text-[rgba(13,13,13,0.7)] text-justify w-full">
-                      ساعدهم على تجاوز الأزمات… دعمك يمنحهم فرصة لحياة أكثر كرامة واستقرارًا
-                    </p>
                   </div>
                 </div>
               </div>
@@ -367,12 +382,12 @@ export function AboutPageContent() {
               بمساهمة بسيطة تصنع حماية وأمانًا لأطفال يواجهون الظروف الأصعب
             </p>
           </div>
-          <div className="flex flex-col md:flex-row gap-4 md:gap-[22px] items-center w-full md:w-auto px-4 md:px-0">
+          <div className="flex flex-row gap-4 md:gap-[22px] items-center justify-center w-full md:w-auto px-4 md:px-0">
 
             <button
               type="button"
               onClick={() => setIsDonationModalOpen(true)}
-              className="border border-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] bg-transparent w-full md:w-auto hover:bg-[#007F5E]/10 transition-colors"
+              className="bg-[#007F5E] flex gap-[10px] items-center justify-center w-[159px] h-[58px] rounded-[35px] hover:bg-[#005F4A] transition-colors"
             >
               <p className="font-alexandria text-base md:text-[16px] font-semibold leading-[1.5] text-white">
                 تبرع الان
@@ -391,10 +406,8 @@ export function AboutPageContent() {
             </button>
             <button
               type="button"
-              className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full md:w-auto hover:bg-[#005F4A] transition-colors"
+              className="bg-[#007F5E] flex gap-[10px] items-center justify-center w-[159px] h-[58px] rounded-[35px] hover:bg-[#005F4A] transition-colors"
             >
-              <div className="flex items-center justify-center relative shrink-0 size-[20px]">
-              </div>
               <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.5] text-white">
                 اهم المشاريع
               </p>
@@ -419,7 +432,7 @@ export function AboutPageContent() {
             {/* Image Gallery */}
             <div className="hidden lg:block relative w-full lg:w-auto lg:flex-1">
               <div className="relative h-[300px] md:h-[529px] w-full max-w-[448px] mx-auto">
-                <div className="absolute top-0 left-0 h-full w-full overflow-hidden rounded-[20px] border-4 md:border-8 border-[#FFECEC]">
+                <div className="absolute top-0 left-0 h-full w-full overflow-hidden rounded-[20px] border-4 md:border-8 border-transparent">
                   <div className="relative h-full w-full">
                     <Image
                       src="/images/Rectangle 10.png"
@@ -450,7 +463,7 @@ export function AboutPageContent() {
                 </div>
                 {/* Secondary image - HIDDEN ON MOBILE or positioned differently */}
                 <div className="hidden md:block absolute bottom-0 left-[236px] h-[290px] w-[291px] z-20">
-                  <div className="relative h-full w-full rounded-[20px] p-1 md:p-2 bg-[#FEFDFD]">
+                  <div className="relative h-full w-full rounded-[20px] p-1 md:p-2 bg-transparent">
                     <div className="relative h-full w-full rounded-[12px] overflow-hidden">
                       <Image
                         src="/images/Rectangle 7.png"
@@ -559,7 +572,7 @@ export function AboutPageContent() {
                         className="h-6 w-6 md:h-8 md:w-8 shrink-0"
                       />
                       <p
-                        className={`font-alexandria text-sm md:text-[16px] leading-[1.5] text-left text-[rgba(13,13,13,0.7)] ${
+                        className={`font-alexandria text-sm md:text-[16px] leading-[1.5] text-right text-[rgba(13,13,13,0.7)] ${
                           index === 1 || index === 2 ? "font-medium" : "font-normal"
                         }`}
                       >
@@ -597,9 +610,9 @@ export function AboutPageContent() {
       </section>
 
       {/* Donation Card Section */}
-      <section className="relative w-full min-h-[846px] md:min-h-[1115px] overflow-visible px-4 md:px-0">
+      <section className="relative w-full overflow-visible px-4 md:px-0 pb-20">
         {/* Background Image with Gradient */}
-        <div className="absolute top-0 left-0 w-full h-full z-0">
+        <div className="absolute top-0 left-0 w-full h-[500px] md:h-[700px] z-0">
           <Image 
             src="/images/Rectangle 11.png" 
             alt="" 
@@ -617,7 +630,7 @@ export function AboutPageContent() {
         <Container>
           <div className="relative z-10">
             {/* Text and Heart - positioned above background */}
-            <div className="relative flex flex-col gap-[19px] md:gap-10 lg:flex-row lg:gap-10 items-end justify-between pt-[133px] md:pt-[252px] pb-8">
+            <div className="relative flex flex-col gap-[19px] md:gap-10 lg:flex-row lg:gap-10 items-end justify-between pt-[80px] md:pt-[150px] pb-8">
               {/* Text */}
               <div className="relative flex flex-col gap-[8px] items-end text-white w-full lg:w-auto text-right z-20">
                 <div className="flex gap-[5px] items-center">
@@ -654,16 +667,17 @@ export function AboutPageContent() {
               </div>
             </div>
 
-            {/* White Container with Image and Donation Card - positioned below background */}
-            <div className="relative mt-[-100px] md:mt-[-150px] lg:mt-[60px] z-30">
-              <div className="bg-white rounded-[20px] w-full max-w-[1286px] h-[652px] mx-auto overflow-hidden">
-                <div className="relative flex flex-col lg:flex-row-reverse items-start gap-0 w-full h-full">
+            {/* White Container with Image and Donation Card - positioned to overlap background */}
+            <div className="relative z-30">
+              <div className="bg-white rounded-[20px] w-full max-w-[1286px] h-[652px] lg:h-[652px] mx-auto overflow-hidden shadow-[0px_10px_50px_rgba(0,0,0,0.1)] flex flex-col lg:block p-4 md:p-8 lg:p-0">
+                <div className="relative flex flex-col lg:flex-row-reverse items-start gap-[10px] lg:gap-0 w-full h-full p-[54px_16px] lg:p-0">
                   {/* Donation Card Container - 552x545 */}
                   <div className="w-full lg:w-[552px] lg:h-[545px] lg:flex-shrink-0 flex flex-col gap-8 lg:gap-[32px] lg:ml-[53px] lg:mt-[53.5px] lg:self-start">
                     {/* Heading - 45px height, 372px width, right-aligned */}
                     <div className="flex justify-center lg:justify-start h-[45px] flex-shrink-0">
-                      <p className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5] text-[#0D0D0D] text-center lg:text-right w-[372px]">
-                        أحدث تأثيراً ملموساً اليوم
+                      <p className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5] text-center lg:text-right w-[372px]">
+                        <span className="text-[#007F5E]">أحدث تأثيراً</span>{" "}
+                        <span className="text-[#0D0D0D]">ملموساً اليوم</span>
                       </p>
                     </div>
                     
@@ -730,7 +744,7 @@ export function AboutPageContent() {
                         <button
                           type="button"
                           onClick={() => setIsDonationModalOpen(true)}
-                          className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full hover:bg-[#005F4A] transition-colors"
+                          className="bg-[#007F5E] flex gap-[10px] items-center justify-center w-full lg:w-[159px] h-[58px] rounded-[35px] hover:bg-[#005F4A] transition-colors"
                         >
                           <Image
                             src="/figma/mingcute_love-fill.svg"
@@ -753,7 +767,7 @@ export function AboutPageContent() {
                   </div>
 
                   {/* Image next to the card - fills remaining space */}
-                  <div className="relative w-full lg:w-auto flex-shrink-0 lg:flex-1 lg:h-[652px]">
+                  <div className="hidden lg:block relative w-full lg:w-auto flex-shrink-0 lg:flex-1 lg:h-[652px]">
                     <div className="relative h-[300px] md:h-[400px] lg:h-full w-full overflow-hidden">
                       <Image
                         src="/images/unsplash_Xz5kTUYAu9A.png"
@@ -773,12 +787,21 @@ export function AboutPageContent() {
       {/* Partners Section */}
       <section className="w-full py-10 md:py-[100px] relative overflow-hidden">
         {/* Background World Map Image */}
-        <div className="absolute inset-0 z-0">
+        <div 
+          className="absolute z-0 pointer-events-none" 
+          style={{ 
+            width: '1667px', 
+            height: '542px', 
+            left: '126.5px', 
+            top: '50px',
+            opacity: 0.3,
+          }}
+        >
           <Image
             src="/images/companies-bg.jpeg"
             alt=""
             fill
-            className="object-cover opacity-10"
+            className="object-contain grayscale"
             priority
           />
         </div>
@@ -833,7 +856,7 @@ export function AboutPageContent() {
                       src={`/images/${imageName}`}
                       alt={`Partner ${i + 1}`}
                       fill
-                      className="object-contain"
+                      className="object-contain mix-blend-multiply"
                     />
                   </div>
                 </div>
