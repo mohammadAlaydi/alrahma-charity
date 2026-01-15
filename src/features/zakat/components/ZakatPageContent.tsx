@@ -6,7 +6,8 @@ import { X } from "lucide-react";
 import { ZakatCard } from "./ZakatCard";
 import { type Country } from "@/components/ui/country-dropdown";
 import { Container } from "@/components/ui/Container";
-import { DonationFormDialog } from "@/features/projects/components/DonationFormDialog";
+import { DonationModal } from "@/features/projects/components/DonationModal";
+import { DonationSuccessModal } from "@/features/projects/components/DonationSuccessModal";
 import { AmountInput } from "@/components/ui/AmountInput";
 import { cn } from "@/lib/cn";
 import { useLoginModal } from "@/contexts/LoginContext";
@@ -29,6 +30,7 @@ export function ZakatPageContent() {
   const [countries, setCountries] = useState<Record<string, Country | null>>({});
   const [selectedZakatType, setSelectedZakatType] = useState<{ id: string; title: string; icon: string } | null>(ZAKAT_TYPES[0]);
   const [isDonationDialogOpen, setIsDonationDialogOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const { openLoginModal } = useLoginModal();
   const [isTypeDropdownOpen, setIsTypeDropdownOpen] = useState(false);
 
@@ -77,10 +79,10 @@ export function ZakatPageContent() {
           <div className="relative flex flex-col gap-6 lg:flex-row-reverse lg:items-start lg:gap-0">
             {/* Image - Left side in RTL (603px wide in Figma) - Aligned to top right */}
             <div className="relative h-[432.47px] w-full lg:w-[603px] lg:shrink-0">
-              <Image 
-                src="/figma/zakah-pic.png" 
-                alt="Zakat" 
-                fill 
+              <Image
+                src="/figma/zakah-pic.png"
+                alt="Zakat"
+                fill
                 className="object-contain"
                 style={{ objectPosition: 'top right' }}
               />
@@ -160,7 +162,7 @@ export function ZakatPageContent() {
           <div className="xl:hidden flex flex-col items-center gap-6 w-full max-w-[555px] mx-auto">
             {/* Type Selector Dropdown */}
             <div className="relative w-full z-20">
-              <button 
+              <button
                 onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}
                 className="flex bg-white items-center justify-between w-full p-4 rounded-[20px] shadow-[0px_2px_29px_0px_rgba(0,127,94,0.14)] mb-2 group transition-all"
                 dir="rtl"
@@ -175,11 +177,11 @@ export function ZakatPageContent() {
                 </div>
                 <div className="p-2 flex items-center justify-center">
                   <div className={["transition-transform duration-300", isTypeDropdownOpen ? "rotate-180" : "rotate-0"].join(" ")}>
-                    <Image 
-                      src="/emojis/weui_arrow-outlined.svg" 
-                      alt="" 
-                      width={18} 
-                      height={9} 
+                    <Image
+                      src="/emojis/weui_arrow-outlined.svg"
+                      alt=""
+                      width={18}
+                      height={9}
                       style={{ filter: 'brightness(0)' }}
                     />
                   </div>
@@ -200,10 +202,10 @@ export function ZakatPageContent() {
                         ].join(" ")}
                         dir="rtl"
                       >
-                         <div className="flex items-center gap-4">
-                           <Image src={type.icon} alt="" width={50} height={50} />
-                           <p className="font-alexandria text-[18px] font-semibold leading-[1.5] text-[#122F2A] text-right">{type.title}</p>
-                         </div>
+                        <div className="flex items-center gap-4">
+                          <Image src={type.icon} alt="" width={50} height={50} />
+                          <p className="font-alexandria text-[18px] font-semibold leading-[1.5] text-[#122F2A] text-right">{type.title}</p>
+                        </div>
                       </button>
                     ))}
                   </div>
@@ -367,11 +369,15 @@ export function ZakatPageContent() {
       </section>
 
       {/* Donation Dialog */}
-      <DonationFormDialog
+      <DonationModal
         open={isDonationDialogOpen}
         onClose={() => setIsDonationDialogOpen(false)}
+        onSuccess={() => setIsSuccessModalOpen(true)}
         projectTitle={selectedZakatType?.title}
-        hideHeader={true}
+      />
+      <DonationSuccessModal
+        open={isSuccessModalOpen}
+        onClose={() => setIsSuccessModalOpen(false)}
       />
     </div>
   );

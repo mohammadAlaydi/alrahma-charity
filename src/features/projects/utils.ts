@@ -42,3 +42,12 @@ export function formatCurrency(value: number) {
         maximumFractionDigits: 2,
     });
 }
+
+export function calculateProgress(collected: number, goal: number): number {
+    if (goal <= 0) return 0;
+    return Math.min((collected / goal) * 100, 100);
+}
+
+export function calculateDonorsCount(collected: number): number {
+    return Math.floor(collected / 100);
+}

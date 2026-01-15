@@ -12,7 +12,7 @@ export const useFavorites = () => {
   const favorites = useAppSelector((state) => state.favorites.favorites);
 
   const isFavorite = useCallback(
-    (id: string) => favorites.includes(id),
+    (id: string) => !!favorites[id],
     [favorites],
   );
 

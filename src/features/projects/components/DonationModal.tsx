@@ -5,24 +5,27 @@ import Image from "next/image";
 import { X } from "lucide-react";
 
 import { Modal } from "@/components/ui/modal/Modal";
-import { AmountInput } from "@/components/ui/AmountInput";
-import { cn } from "@/lib/cn";
+import { useLoginModal } from "@/contexts/LoginContext";
+import { AmountSelector } from "@/features/donations/components/AmountSelector";
 
-const PRESET_AMOUNTS = [10, 50, 100, 200];
-
-interface ProjectDonationDialogProps {
+interface DonationModalProps {
   open: boolean;
   onClose: () => void;
   onSuccess?: () => void;
   projectTitle?: string;
+  hideHeader?: boolean;
+  isProject?: boolean;
 }
 
-export function ProjectDonationDialog({ 
-  open, 
-  onClose, 
+export function DonationModal({
+  open,
+  onClose,
   onSuccess,
-  projectTitle
-}: ProjectDonationDialogProps) {
+  projectTitle,
+  hideHeader = false,
+  isProject = false
+}: DonationModalProps) {
+  const { openLoginModal } = useLoginModal();
   const [selectedAmount, setSelectedAmount] = useState<number>(200);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [name, setName] = useState("");
@@ -33,9 +36,9 @@ export function ProjectDonationDialog({
     setCustomAmount("");
   };
 
-  const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCustomAmount(e.target.value);
-    if (e.target.value) {
+  const handleCustomAmountChange = (value: string) => {
+    setCustomAmount(value);
+    if (value) {
       setSelectedAmount(0);
     }
   };
@@ -66,20 +69,35 @@ export function ProjectDonationDialog({
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto px-4 md:px-[35px] pb-4 md:pb-[16px]">
           <div className="relative z-10 flex flex-col gap-[16px] items-start">
-            {/* Header with icon */}
-            <div className="flex items-center justify-center gap-[10px] w-full flex-wrap">
-              <div className="relative h-[28px] w-[28px] sm:h-[32px] sm:w-[32px] shrink-0">
-                <Image 
-                  src="/figma/donation-svgrepo-com (1) 1.svg" 
-                  alt="" 
-                  fill 
-                  className="object-contain" 
-                />
-              </div>
-              <p className="font-alexandria text-[18px] sm:text-[20px] font-normal leading-[1.5] text-[#232325] text-start">
-                كم تريد التبرع اليوم
-              </p>
-            </div>
+            {!hideHeader && (
+              <>
+                {/* Project Header with icon */}
+                {isProject && (
+                  <div className="flex items-center justify-center gap-[10px] w-full flex-wrap">
+                    <div className="relative h-[28px] w-[28px] sm:h-[32px] sm:w-[32px] shrink-0">
+                      <Image
+                        src="/figma/donation-svgrepo-com (1) 1.svg"
+                        alt=""
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <p className="font-alexandria text-[18px] sm:text-[20px] font-normal leading-[1.5] text-[#232325] text-start">
+                      كم تريد التبرع اليوم
+                    </p>
+                  </div>
+                )}
+
+                {/* Title */}
+                {projectTitle && (
+                  <div className="flex gap-[10px] items-center justify-center w-full">
+                    <p className="font-alexandria text-[22px] font-semibold leading-[1.5] text-[#122F2A] text-center w-full">
+                      {projectTitle}
+                    </p>
+                  </div>
+                )}
+              </>
+            )}
 
             {/* Subtitle */}
             <p className="font-alexandria text-[15px] font-normal leading-[1.8] text-[#4F4F52] text-center w-full">
@@ -89,61 +107,21 @@ export function ProjectDonationDialog({
             {/* Inner Form Card - Responsive design matching Zakat page */}
             <div className="w-full bg-white rounded-[18px] border border-[rgba(0,0,0,0.1)] border-solid flex items-center justify-center pl-4 md:pl-[28px] pr-0 py-[12px] shadow-[0px_5px_12px_rgba(0,127,94,0.07)] font-alexandria relative z-10 max-w-[592px] mx-auto">
               <div className="flex flex-col gap-[20px] grow items-start px-[14px] py-0 w-full">
-                {/* Amount Selection */}
-                <div className="flex flex-col gap-[14px] items-start w-full">
-                  <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-start tracking-[-0.18px] w-full">
-                    حدد المبلغ
-                  </p>
-                  <div className="flex items-center justify-between w-full gap-0 flex-wrap md:flex-nowrap">
-                    {PRESET_AMOUNTS.map((amount) => {
-                      const isActive = selectedAmount === amount && !customAmount;
-                      return (
-                        <button
-                          key={amount}
-                          type="button"
-                          onClick={() => handleAmountSelect(amount)}
-                          className={cn(
-                            "flex h-[54px] items-center justify-center rounded-[18px] w-[calc(50%-4px)] md:w-[105px] border border-solid transition-all mb-2 md:mb-0",
-                            isActive
-                              ? "border-[rgba(13,13,13,0.2)]"
-                              : "border-[rgba(13,13,13,0.2)]"
-                          )}
-                        >
-                          {isActive ? (
-                            <div className="bg-[rgba(0,127,94,0.1)] border border-[#007F5E] border-solid flex h-[51px] items-center justify-center rounded-[18px] w-[calc(100%-4px)] md:w-[100px]">
-                              <p className="font-alexandria text-[15px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-nowrap">
-                                $ {amount}
-                              </p>
-                            </div>
-                          ) : (
-                            <p className="font-alexandria text-[15px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-nowrap">
-                              $ {amount}
-                            </p>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
 
-                {/* Custom Amount */}
-                <div className="flex flex-col gap-[14px] items-start w-full">
-                  <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-start tracking-[-0.18px] w-full">
-                    مبلغ مخصص
-                  </p>
-                  <AmountInput
-                    placeholder="أدخل القيمة"
-                    value={customAmount}
-                    onChange={handleCustomAmountChange}
-                    className="h-[54px] w-full rounded-[18px]"
-                  />
-                </div>
+                <AmountSelector
+                  selectedAmount={selectedAmount}
+                  customAmount={customAmount}
+                  onAmountSelect={handleAmountSelect}
+                  onCustomAmountChange={handleCustomAmountChange}
+                />
 
                 {/* Name Input */}
                 <div className="flex flex-col gap-[14px] items-start w-full">
-                  <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-start tracking-[-0.18px] w-full">
-                    الاسم
-                  </p>
+                  <div className="flex flex-col items-start w-full">
+                    <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-start tracking-[-0.18px] w-full">
+                      الاسم
+                    </p>
+                  </div>
                   <div className="flex h-[54px] items-center justify-start w-full rounded-[18px]">
                     <div className="basis-0 flex gap-[10px] grow h-full items-center justify-start min-h-px min-w-px rounded-[18px] border border-[rgba(13,13,13,0.2)] focus-within:border-[#007F5E] transition-colors">
                       <input
@@ -160,9 +138,11 @@ export function ProjectDonationDialog({
 
                 {/* Email Input */}
                 <div className="flex flex-col gap-[14px] items-start w-full">
-                  <p className="font-alexandria font-light leading-normal text-[15px] text-[rgba(13,13,13,0.7)] text-start w-full">
-                    البريد الإلكتروني
-                  </p>
+                  <div className="flex flex-col items-start w-full">
+                    <p className="font-alexandria font-light leading-normal text-[15px] text-[rgba(13,13,13,0.7)] text-start w-full">
+                      البريد الإلكتروني
+                    </p>
+                  </div>
                   <div className="flex h-[54px] items-center justify-start w-full rounded-[18px]">
                     <div className="basis-0 flex gap-[10px] grow h-full items-center justify-start min-h-px min-w-px rounded-[18px] border border-[rgba(13,13,13,0.2)] focus-within:border-[#007F5E] transition-colors">
                       <input
@@ -198,10 +178,17 @@ export function ProjectDonationDialog({
                 </button>
 
                 {/* Login Link */}
-                <p className="font-alexandria text-[15px] font-normal leading-[1.6] text-[#6155F5] text-[rgba(13,13,13,0.7)] text-center w-full cursor-pointer hover:opacity-80 transition-opacity">
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    openLoginModal();
+                  }}
+                  className="font-alexandria text-[15px] font-normal leading-[1.6] text-[#6155F5] text-[rgba(13,13,13,0.7)] text-center w-full cursor-pointer hover:opacity-80 transition-opacity"
+                >
                   <span>ت</span>
                   <span className="underline decoration-solid [text-underline-position:from-font]">سجيل الدخول</span>
-                </p>
+                </button>
               </div>
             </div>
           </div>
@@ -210,4 +197,3 @@ export function ProjectDonationDialog({
     </Modal>
   );
 }
-

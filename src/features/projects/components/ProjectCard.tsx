@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { formatCurrency } from "@/features/projects/utils";
+import { formatCurrency, calculateProgress } from "@/features/projects/utils";
 import { Project } from "@/features/projects/types";
+import { HeartIcon } from "@/components/ui/icons/HeartIcon";
+import { DonateButton } from "@/components/ui/DonateButton";
 
 type ProjectCardProps = {
     project: Project;
@@ -12,25 +14,6 @@ type ProjectCardProps = {
     onToggleFavorite: (id: string) => void;
     onDonate: (project: Project) => void;
 };
-
-function HeartIcon({ isFav }: { isFav: boolean }) {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            width="20"
-            height="20"
-            fill={isFav ? "#DC2626" : "none"}
-            stroke={isFav ? "#DC2626" : "#9CA3AF"}
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-5 w-5 transition-colors"
-        >
-            <path d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.99.99 0 0 0 1.024 0C21.126 15.395 22 10.157 22 7.95C22 5.216 19.761 3 17 3s-5 3-5 3s-2.239-3-5-3" />
-        </svg>
-    );
-}
 
 
 
@@ -41,7 +24,7 @@ export function ProjectCard({
     onToggleFavorite,
     onDonate,
 }: ProjectCardProps) {
-    const progress = Math.min((project.collected / project.goal) * 100, 100);
+    const progress = calculateProgress(project.collected, project.goal);
 
     return (
         <div className="flex h-full w-full max-w-[395px] flex-col overflow-hidden rounded-[20px] border border-zinc-200 bg-white shadow-none transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.16)] md:min-h-[600px]">
@@ -55,7 +38,7 @@ export function ProjectCard({
 
 
                 <div className="absolute inset-x-4 top-3 z-10 flex items-center justify-between">
-                    <Link 
+                    <Link
                         href={`/projects/${project.id}`}
                         className="inline-flex items-center gap-1.5 rounded-full border border-white bg-[#007F5E] px-3.5 py-1.5 hover:bg-[#056A4F] transition-colors"
                     >
@@ -76,23 +59,23 @@ export function ProjectCard({
                             {isBursting && (
                                 <>
                                     <span className="animate-fav-burst pointer-events-none absolute -top-3 -right-2 h-3 w-3 opacity-40 will-change-transform">
-                                        <HeartIcon isFav />
+                                        <HeartIcon isFilled={isFav} />
                                     </span>
                                     <span
                                         className="animate-fav-burst pointer-events-none absolute -top-2 -left-2 h-3 w-3 opacity-40 will-change-transform"
                                         style={{ animationDelay: "80ms" }}
                                     >
-                                        <HeartIcon isFav />
+                                        <HeartIcon isFilled={isFav} />
                                     </span>
                                     <span
                                         className="animate-fav-burst pointer-events-none absolute -right-3 -bottom-1 h-3 w-3 opacity-40 will-change-transform"
                                         style={{ animationDelay: "140ms" }}
                                     >
-                                        <HeartIcon isFav />
+                                        <HeartIcon isFilled={isFav} />
                                     </span>
                                 </>
                             )}
-                            <HeartIcon isFav={isFav} />
+                            <HeartIcon isFilled={isFav} />
                         </span>
                     </button>
                 </div>
