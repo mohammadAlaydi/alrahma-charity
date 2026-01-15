@@ -192,7 +192,7 @@ export function AboutPageContent() {
                 <p 
                   className={cn(
                     "font-alexandria text-[16px] font-normal leading-[1.6] text-right text-[rgba(13,13,13,0.7)] text-justify",
-                    !isAboutExpanded && "line-clamp-3 md:line-clamp-none"
+                    !isAboutExpanded && "line-clamp-10 md:line-clamp-none"
                   )}
                 >
                   جمعية الرحمة والإحسان، مؤسسة خيرية مرخصة في تركيا تحت الرقم 0733100144600001. تأسست
