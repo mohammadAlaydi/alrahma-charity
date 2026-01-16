@@ -78,7 +78,7 @@ export function ZakatPageContent() {
         <div className="mx-auto max-w-[1280px] px-4 lg:px-0">
           <div className="relative flex flex-col gap-6 lg:flex-row-reverse lg:items-start lg:gap-0">
             {/* Image - Left side in RTL (603px wide in Figma) - Aligned to top right */}
-            <div className="relative h-[432.47px] w-full lg:w-[603px] lg:shrink-0">
+            <div className="hidden md:block relative h-[432.47px] w-full lg:w-[603px] lg:shrink-0">
               <Image
                 src="/figma/zakah-pic.png"
                 alt="Zakat"

@@ -6,6 +6,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "@/lib/cn";
 
 import { AuthCard } from "../_components/AuthCard";
 import { Button } from "@/components/ui/Button";
@@ -35,8 +36,13 @@ export default function LoginPage() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<LoginValues>({ resolver: zodResolver(loginSchema) });
+
+  const email = watch("email");
+  const password = watch("password");
+  const hasInputs = Boolean(email && password);
 
   const onSubmit = handleSubmit(async (values) => {
     const res = await signIn("credentials", {
@@ -115,7 +121,12 @@ export default function LoginPage() {
         <Button
           type="submit"
           variant={undefined}
-          className="h-16 w-full rounded-[40px] !bg-[rgba(0,0,0,0.25)] text-[22px] leading-[22px] !text-[#FFFFFF] hover:!bg-[rgba(0,0,0,0.35)] disabled:opacity-50"
+          className={cn(
+            "h-16 w-full rounded-[40px] text-[22px] leading-[22px] !text-[#FFFFFF] disabled:opacity-50 transition-colors",
+            hasInputs 
+              ? "!bg-[#007F5E] hover:!bg-[#005F4A]" 
+              : "!bg-[rgba(0,0,0,0.25)] hover:!bg-[rgba(0,0,0,0.35)]"
+          )}
           disabled={isSubmitting}
         >
           {isSubmitting ? "جارٍ تسجيل الدخول..." : "تسجيل الدخول"}

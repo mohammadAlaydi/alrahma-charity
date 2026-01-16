@@ -6,6 +6,9 @@ import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
 import { AmountInput } from "@/components/ui/AmountInput";
 import { DonationModal } from "@/features/projects/components/DonationModal";
+import { useAppDispatch } from "@/store/hooks";
+import { addToast } from "@/store/slices/notificationsSlice";
+import { createOneTimeDonation, PaymentGateway } from "@/services/api/donations";
 
 const PRESET_AMOUNTS = [200, 100, 50, 10];
 
@@ -30,11 +33,54 @@ const VALUES_ITEMS = [
 ];
 
 export function AboutPageContent() {
+  const dispatch = useAppDispatch();
   const [selectedAmount, setSelectedAmount] = useState<number>(200);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [activeTab, setActiveTab] = useState<TabType>("vision");
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
   const [isAboutExpanded, setIsAboutExpanded] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const amount = customAmount ? parseFloat(customAmount) : selectedAmount;
+    
+    if (!amount || amount <= 0) {
+      dispatch(addToast({ type: "error", message: "يرجى تحديد مبلغ التبرع" }));
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await createOneTimeDonation({
+        amount,
+        currency: "USD",
+        payment_gateway: PaymentGateway.STRIPE,
+        // Using optional fields as anonymous if not provided
+        email: "guest@alrahma.org",
+        full_name: "فاعل خير",
+      });
+
+      dispatch(addToast({ 
+        type: "success", 
+        message: "شكراً لك! تم إرسال تبرعك بنجاح" 
+      }));
+      
+      // Reset amount
+      setSelectedAmount(200);
+      setCustomAmount("");
+    } catch (error) {
+      console.error("Donation error:", error);
+      dispatch(addToast({ 
+        type: "error", 
+        message: "حدث خطأ أثناء إرسال التبرع. يرجى المحاولة مرة أخرى" 
+      }));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const getTabItems = () => {
     switch (activeTab) {
@@ -192,7 +238,7 @@ export function AboutPageContent() {
                 <p 
                   className={cn(
                     "font-alexandria text-[16px] font-normal leading-[1.6] text-right text-[rgba(13,13,13,0.7)] text-justify",
-                    !isAboutExpanded && "line-clamp-10 md:line-clamp-none"
+                    !isAboutExpanded && "line-clamp-6 md:line-clamp-none"
                   )}
                 >
                   جمعية الرحمة والإحسان، مؤسسة خيرية مرخصة في تركيا تحت الرقم 0733100144600001. تأسست
@@ -630,9 +676,9 @@ export function AboutPageContent() {
         <Container>
           <div className="relative z-10">
             {/* Text and Heart - positioned above background */}
-            <div className="relative flex flex-col gap-[19px] md:gap-10 lg:flex-row lg:gap-10 items-end justify-between pt-[80px] md:pt-[150px] pb-8">
+            <div className="relative flex flex-col gap-[19px] md:gap-10 lg:flex-row lg:gap-10 items-start justify-between pt-[80px] md:pt-[150px] pb-8">
               {/* Text */}
-              <div className="relative flex flex-col gap-[8px] items-end text-white w-full lg:w-auto text-right z-20">
+              <div className="relative flex flex-col gap-[8px] items-start text-white w-full lg:w-auto text-right z-20">
                 <div className="flex gap-[5px] items-center">
                   <div className="relative h-6 w-6">
                     <Image
@@ -669,26 +715,26 @@ export function AboutPageContent() {
 
             {/* White Container with Image and Donation Card - positioned to overlap background */}
             <div className="relative z-30">
-              <div className="bg-white rounded-[20px] w-full max-w-[1286px] h-[652px] lg:h-[652px] mx-auto overflow-hidden shadow-[0px_10px_50px_rgba(0,0,0,0.1)] flex flex-col lg:block p-4 md:p-8 lg:p-0">
-                <div className="relative flex flex-col lg:flex-row-reverse items-start gap-[10px] lg:gap-0 w-full h-full p-[54px_16px] lg:p-0">
+              <div className="bg-white rounded-[20px] w-full max-w-[1286px] h-auto lg:h-[652px] mx-auto overflow-visible lg:overflow-hidden shadow-[0px_10px_50px_rgba(0,0,0,0.1)] flex flex-col lg:block p-4 md:p-8 lg:p-0">
+                <div className="relative flex flex-col lg:flex-row-reverse items-start gap-[10px] lg:gap-0 w-full h-auto lg:h-full p-[54px_16px] lg:p-0">
                   {/* Donation Card Container - 552x545 */}
                   <div className="w-full lg:w-[552px] lg:h-[545px] lg:flex-shrink-0 flex flex-col gap-8 lg:gap-[32px] lg:ml-[53px] lg:mt-[53.5px] lg:self-start">
                     {/* Heading - 45px height, 372px width, right-aligned */}
-                    <div className="flex justify-center lg:justify-start h-[45px] flex-shrink-0">
-                      <p className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5] text-center lg:text-right w-[372px]">
+                    <div className="flex justify-center lg:justify-start h-auto lg:h-[45px] flex-shrink-0">
+                      <p className="font-alexandria text-[24px] md:text-[30px] font-bold leading-[1.5] text-center lg:text-right max-w-full lg:w-[372px]">
                         <span className="text-[#007F5E]">أحدث تأثيراً</span>{" "}
                         <span className="text-[#0D0D0D]">ملموساً اليوم</span>
                       </p>
                     </div>
                     
                     {/* Donation Card - 552x468 */}
-                    <div className="bg-white rounded-[20px] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.15)] w-full h-[468px] overflow-hidden flex flex-col flex-shrink-0">
+                    <div className="bg-white rounded-[20px] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.15)] w-full h-auto lg:h-[468px] overflow-hidden flex flex-col flex-shrink-0">
                       <div className="bg-[#F0F0F0] flex items-center justify-start px-4 py-4 h-[62px] rounded-t-[20px] flex-shrink-0">
                         <p className="font-alexandria text-[20px] font-bold leading-normal text-[#0D0D0D]">
                           تبرع سريع
                         </p>
                       </div>
-                      <div className="flex flex-col gap-6 items-end px-4 py-6 flex-1 min-h-0">
+                      <form onSubmit={handleSubmit} className="flex flex-col gap-6 items-end px-4 py-6 flex-1 min-h-0">
                         {/* Amount selection */}
                         <div className="flex flex-col gap-4 items-start w-full">
                           <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full">
@@ -742,10 +788,13 @@ export function AboutPageContent() {
 
                         {/* Donate button */}
                         <button
-                          type="button"
-                          onClick={() => setIsDonationModalOpen(true)}
-                          className="bg-[#007F5E] flex gap-[10px] items-center justify-center w-full lg:w-[159px] h-[58px] rounded-[35px] hover:bg-[#005F4A] transition-colors"
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full hover:bg-[#005F4A] transition-colors disabled:opacity-50"
                         >
+                          <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.5] text-white">
+                            {isSubmitting ? "جاري الإرسال..." : "تبرع الأن"}
+                          </p>
                           <Image
                             src="/figma/mingcute_love-fill.svg"
                             alt=""
@@ -753,16 +802,13 @@ export function AboutPageContent() {
                             height={24}
                             className="h-6 w-6"
                           />
-                          <p className="font-alexandria text-base md:text-[16px] font-bold leading-[1.5] text-white">
-                            تبرع الأن
-                          </p>
                         </button>
 
                         {/* Security text */}
                         <p className="font-alexandria text-xs md:text-[16px] font-normal leading-[1.6] text-center text-[rgba(13,13,13,0.7)] w-full">
                           معاملة مشفرة آمنة بتقنية SSL
                         </p>
-                      </div>
+                      </form>
                     </div>
                   </div>
 

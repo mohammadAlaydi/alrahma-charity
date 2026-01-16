@@ -8,6 +8,9 @@ import { Modal } from "@/components/ui/modal/Modal";
 import { useLoginModal } from "@/contexts/LoginContext";
 import { AmountSelector } from "@/features/donations/components/AmountSelector";
 import { DONATION } from "@/config/design-tokens";
+import { useAppDispatch } from "@/store/hooks";
+import { addToast } from "@/store/slices/notificationsSlice";
+import { createOneTimeDonation, PaymentGateway } from "@/services/api/donations";
 
 interface DonationModalProps {
   open: boolean;
@@ -31,6 +34,8 @@ export function DonationModal({
   initialAmount = 200
 }: DonationModalProps) {
   const { openLoginModal } = useLoginModal();
+  const dispatch = useAppDispatch();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const isPreset = (amount: number) => (DONATION.presetAmounts as unknown as number[]).includes(amount);
 
@@ -55,14 +60,59 @@ export function DonationModal({
     }
   };
 
-  const handleSubmit = () => {
-    // Simulate donation process
-    setTimeout(() => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const amount = customAmount ? parseFloat(customAmount) : selectedAmount;
+    
+    if (!amount || amount <= 0) {
+      dispatch(addToast({ type: "error", message: "يرجى تحديد مبلغ التبرع" }));
+      return;
+    }
+
+    if (!name.trim()) {
+      dispatch(addToast({ type: "error", message: "يرجى إدخال الاسم" }));
+      return;
+    }
+
+    if (!email.trim()) {
+      dispatch(addToast({ type: "error", message: "يرجى إدخال البريد الإلكتروني" }));
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await createOneTimeDonation({
+        amount,
+        currency: "USD",
+        payment_gateway: PaymentGateway.STRIPE,
+        email: email.trim(),
+        full_name: name.trim(),
+      });
+
+      dispatch(addToast({ 
+        type: "success", 
+        message: "شكراً لك! تم إرسال تبرعك بنجاح" 
+      }));
+      
+      // Reset form
+      setSelectedAmount(200);
+      setCustomAmount("");
+      setName("");
+      setEmail("");
+      
+      // Close modal
       onClose();
-      if (onSuccess) {
-        onSuccess();
-      }
-    }, 500);
+    } catch (error) {
+      console.error("Donation error:", error);
+      dispatch(addToast({ 
+        type: "error", 
+        message: "حدث خطأ أثناء إرسال التبرع. يرجى المحاولة مرة أخرى" 
+      }));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -128,7 +178,7 @@ export function DonationModal({
 
             {/* Inner Form Card - Responsive design matching Zakat page */}
             <div className="w-full bg-white rounded-[18px] border border-[rgba(0,0,0,0.1)] border-solid flex items-center justify-center pl-4 md:pl-[28px] pr-0 py-[12px] shadow-[0px_5px_12px_rgba(0,127,94,0.07)] font-alexandria relative z-10 max-w-[592px] mx-auto">
-              <div className="flex flex-col gap-[20px] grow items-start px-[14px] py-0 w-full">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-[20px] grow items-start px-[14px] py-0 w-full">
 
                 <AmountSelector
                   selectedAmount={selectedAmount}
@@ -179,11 +229,11 @@ export function DonationModal({
                   </div>
                 </div>
 
-                {/* Continue Button */}
+                {/* Submit Button */}
                 <button
-                  type="button"
-                  onClick={handleSubmit}
-                  className="bg-[#007F5E] flex gap-[8px] items-center justify-center px-[28px] py-[14px] rounded-[32px] w-full"
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-[#007F5E] flex gap-[8px] items-center justify-center px-[28px] py-[14px] rounded-[32px] w-full hover:bg-[#005F4A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="relative shrink-0 size-[22px]">
                     <Image
@@ -195,7 +245,7 @@ export function DonationModal({
                     />
                   </div>
                   <p className="font-alexandria text-[15px] font-semibold leading-[1.5] text-white text-nowrap">
-                    متابعة
+                    {isSubmitting ? "جاري الإرسال..." : "تبرع الآن"}
                   </p>
                 </button>
 
@@ -208,10 +258,11 @@ export function DonationModal({
                   }}
                   className="font-alexandria text-[15px] font-normal leading-[1.6] text-[#6155F5] text-[rgba(13,13,13,0.7)] text-center w-full cursor-pointer hover:opacity-80 transition-opacity"
                 >
-                  <span>ت</span>
-                  <span className="underline decoration-solid [text-underline-position:from-font]">سجيل الدخول</span>
+                  <span className="underline decoration-solid [text-underline-position:from-font]">
+                    تسجيل الدخول
+                  </span>
                 </button>
-              </div>
+              </form>
             </div>
           </div>
         </div>

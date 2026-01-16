@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "@/lib/cn";
 
 import { AuthCard } from "../_components/AuthCard";
 import { Button } from "@/components/ui/Button";
@@ -34,8 +35,13 @@ export default function SignupPage() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<SignupValues>({ resolver: zodResolver(signupSchema) });
+
+  const email = watch("email");
+  const password = watch("password");
+  const hasInputs = Boolean(email && password);
 
   const onSubmit = handleSubmit(async () => {
     // Placeholder: call backend register endpoint then sign in.
@@ -107,7 +113,12 @@ export default function SignupPage() {
         <Button
           type="submit"
           variant={undefined}
-          className="h-16 w-full rounded-[40px] !bg-[rgba(0,0,0,0.25)] text-[22px] leading-[22px] !text-[#FFFFFF] hover:!bg-[rgba(0,0,0,0.35)] disabled:opacity-50"
+          className={cn(
+            "h-16 w-full rounded-[40px] text-[22px] leading-[22px] !text-[#FFFFFF] disabled:opacity-50 transition-colors",
+            hasInputs 
+              ? "!bg-[#007F5E] hover:!bg-[#005F4A]" 
+              : "!bg-[rgba(0,0,0,0.25)] hover:!bg-[rgba(0,0,0,0.35)]"
+          )}
           disabled={isSubmitting}
         >
           {isSubmitting ? "جارٍ إنشاء الحساب..." : "إنشاء حساب"}

@@ -5,6 +5,7 @@ import { Eye, EyeOff, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import { cn } from "@/lib/cn";
 
 import { Modal } from "@/components/ui/modal/Modal";
 import { TextInput } from "@/components/ui/TextInput";
@@ -39,8 +40,13 @@ export function SignUpModal({ open, onClose, onSwitchToLogin }: SignUpModalProps
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<SignupValues>({ resolver: zodResolver(signupSchema) });
+
+  const email = watch("email");
+  const password = watch("password");
+  const hasInputs = Boolean(email && password);
 
   const onSubmit = handleSubmit(async (values) => {
     // Placeholder: call backend register endpoint then sign in.
@@ -130,7 +136,12 @@ export function SignUpModal({ open, onClose, onSwitchToLogin }: SignUpModalProps
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full h-[56px] rounded-[40px] bg-[rgba(17,17,17,0.25)] hover:bg-[rgba(17,17,17,0.35)] text-white text-lg font-semibold font-alexandria transition-colors disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className={cn(
+              "w-full h-[56px] rounded-[40px] text-white text-lg font-semibold font-alexandria transition-colors disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40",
+              hasInputs 
+                ? "bg-[#007F5E] hover:bg-[#005F4A]" 
+                : "bg-[rgba(17,17,17,0.25)] hover:bg-[rgba(17,17,17,0.35)]"
+            )}
           >
             {isSubmitting ? "جاري إنشاء الحساب..." : "إنشاء حساب"}
           </button>
