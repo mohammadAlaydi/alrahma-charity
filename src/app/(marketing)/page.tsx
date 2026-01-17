@@ -78,7 +78,9 @@ export default function HomePage() {
 
   return (
     <div className="relative min-h-screen bg-white" dir="rtl">
-
+      {/* Main page content (الرئيسية) - hidden, not ready for production */}
+      {false && (
+      <>
       {/* Hero Section with Background */}
       <section className="relative h-[1023.726px] overflow-hidden">
         <div className="absolute inset-0">
@@ -770,20 +772,20 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* White Container with Image and Donation Card */}
+            
             <div className="relative mt-[60px] z-30">
               <div className="bg-white rounded-[20px] w-full max-w-[1286px] h-[652px] mx-auto overflow-hidden">
                 <div className="relative flex flex-row-reverse items-start gap-0 w-full h-full">
-                  {/* Donation Card Container */}
+               
                   <div className="w-[552px] h-[545px] flex-shrink-0 flex flex-col gap-[32px] ml-[53px] mt-[53.5px]">
-                    {/* Heading */}
+                
                     <div className="flex justify-end h-[45px] flex-shrink-0">
                       <p className="font-alexandria text-[30px] font-bold leading-[1.5] text-[#0D0D0D] text-right w-[372px]">
                         أحدث تأثيراً ملموساً اليوم
                       </p>
                     </div>
 
-                    {/* Donation Card */}
+                   
                     <div className="bg-white rounded-[20px] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.15)] w-full h-[468px] overflow-hidden flex flex-col flex-shrink-0">
                       <div className="bg-[#F0F0F0] flex items-center justify-end px-4 py-4 h-[62px] rounded-t-[20px] flex-shrink-0">
                         <p className="font-alexandria text-[20px] font-bold leading-normal text-[#0D0D0D]">
@@ -791,7 +793,7 @@ export default function HomePage() {
                         </p>
                       </div>
                       <div className="flex flex-col gap-6 items-end px-4 py-6 flex-1">
-                        {/* Amount selection */}
+                        
                         <div className="flex flex-col gap-4 items-start w-full">
                           <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full">
                             حدد المبلغ
@@ -829,7 +831,7 @@ export default function HomePage() {
                           </div>
                         </div>
 
-                        {/* Custom amount */}
+                    
                         <div className="flex flex-col gap-4 items-start w-full">
                           <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full tracking-[-0.16px]">
                             مبلغ مخصص
@@ -845,7 +847,7 @@ export default function HomePage() {
                           />
                         </div>
 
-                        {/* Donate button */}
+                       
                         <button
                           type="button"
                           className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full hover:bg-[#005F4A] transition-colors"
@@ -870,7 +872,7 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  {/* Image next to the card */}
+                 
                   <div className="relative flex-1 h-[652px]">
                     <div className="relative h-full w-full overflow-hidden">
                       <Image
@@ -889,7 +891,7 @@ export default function HomePage() {
       </section>
 
       {/* Partners Section */}
-      <section className="w-full bg-white py-[100px] relative overflow-hidden">
+      {/* <section className="w-full bg-white py-[100px] relative overflow-hidden">
         <Container>
           <div className="flex flex-col gap-10 items-center relative z-10">
             <div className="flex flex-col gap-2 items-center text-center">
@@ -944,7 +946,9 @@ export default function HomePage() {
             </div>
           </div>
         </Container>
-      </section>
+      </section> */}
+      </>
+      )}
     </div>
   );
 }
