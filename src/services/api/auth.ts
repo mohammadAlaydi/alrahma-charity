@@ -55,3 +55,19 @@ export async function forgotPassword(email: string): Promise<ForgotPasswordRespo
 export async function resetPassword(data: ResetPasswordRequest): Promise<ResetPasswordResponse> {
   return post<ResetPasswordResponse, ResetPasswordRequest>("/auth/reset-password", data);
 }
+
+/**
+ * Verify email with OTP
+ * POST /api/v1/auth/verify-email
+ */
+export async function verifyEmail(email: string, otp: string): Promise<{ message: string }> {
+  return post<{ message: string }>("/auth/verify-email", { email, otp });
+}
+
+/**
+ * Resend email verification OTP
+ * POST /api/v1/auth/resend-email-otp
+ */
+export async function resendEmailOtp(email: string): Promise<{ message: string }> {
+  return post<{ message: string }>("/auth/resend-email-otp", { email });
+}

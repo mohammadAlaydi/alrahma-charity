@@ -1,4 +1,4 @@
-import { get } from "../http";
+import { get, del } from "../http";
 import { PaginatedResponse } from "@/types/api";
 import { getMockCampaignsResponse, MOCK_CAMPAIGNS } from "./mockData";
 
@@ -21,7 +21,9 @@ export type Campaign = {
   description_en?: string;
   description_tr?: string;
   category?: string;
-  project_id?: string | { _id: string; name_ar: string; name_en: string; name_tr: string };
+  project_id?:
+    | string
+    | { _id: string; name_ar: string; name_en: string; name_tr: string };
   status: CampaignStatus;
   financial_goal?: number;
   current_amount: number;
@@ -40,7 +42,7 @@ export type CampaignDisplay = {
   id: string;
   title: string;
   description: string;
-  category: string; // Mapped from project target_category or campaign type
+  category: string;
   goal: number;
   collected: number;
   imageUrl?: string;
@@ -57,10 +59,8 @@ export type CampaignsQueryParams = {
 };
 
 /**
- * Get all campaigns
+ * Get all campaigns (public)
  * GET /api/v1/campaigns
- *
- * Falls back to mock data if API is unavailable (development only)
  */
 export async function getCampaigns(
   params?: CampaignsQueryParams,
@@ -71,7 +71,6 @@ export async function getCampaigns(
     if (params?.limit) queryParams.append("limit", params.limit.toString());
     if (params?.status) queryParams.append("status", params.status);
 
-    // Add timestamp to prevent aggressive caching in development
     if (process.env.NODE_ENV === "development") {
       queryParams.append("_t", Date.now().toString());
     }
@@ -79,46 +78,68 @@ export async function getCampaigns(
     const queryString = queryParams.toString();
     const url = `/campaigns${queryString ? `?${queryString}` : ""}`;
 
-    // Response can be wrapped { success: true, data: {...} } or direct paginated response
     type ApiResponse =
       | { success: true; data: PaginatedResponse<Campaign> }
-      | PaginatedResponse<Campaign>
-      | { data: Campaign[]; total: number; page: number; limit: number; totalPages: number };
+      | PaginatedResponse<Campaign>;
 
     const response = await get<ApiResponse>(url);
 
-    // Debug logging in development
-    if (process.env.NODE_ENV === "development") {
-      console.log("📡 Campaigns API Response:", response);
-    }
-
-    // Handle backend response wrapper: { success: true, data: { data: [...], total: ... } }
-    // or direct paginated response: { data: [...], total: ... }
     if (response && typeof response === "object") {
       if ("success" in response && response.success && response.data) {
-        // Backend wrapped response: { success: true, data: { data: [...], total: ... } }
         const paginatedData = response.data;
-        if (paginatedData && "data" in paginatedData && Array.isArray(paginatedData.data)) {
+        if (
+          paginatedData &&
+          "data" in paginatedData &&
+          Array.isArray(paginatedData.data)
+        ) {
           return paginatedData as PaginatedResponse<Campaign>;
         }
       } else if ("data" in response && Array.isArray(response.data)) {
-        // Direct paginated response: { data: [...], total: ... }
         return response as PaginatedResponse<Campaign>;
       }
     }
 
-    // Fallback if structure is unexpected
-    console.error("❌ Unexpected response structure:", response);
     throw new Error("Unexpected response structure");
   } catch (error) {
-    // Fallback to mock data in development if API fails
+    // Only use mock data in development as last resort
     if (process.env.NODE_ENV === "development") {
-      console.warn("⚠️ API unavailable, using mock data:", error);
+      console.warn("⚠️ Using mock data (development only):", error);
       return getMockCampaignsResponse(params?.page || 1, params?.limit || 20);
     }
-    // In production, re-throw the error
     throw error;
   }
+}
+
+/**
+ * Get all campaigns including hidden (admin)
+ * GET /api/v1/campaigns/admin
+ */
+export async function getCampaignsAdmin(
+  params?: CampaignsQueryParams,
+): Promise<PaginatedResponse<Campaign>> {
+  const queryParams = new URLSearchParams();
+  if (params?.page) queryParams.append("page", params.page.toString());
+  if (params?.limit) queryParams.append("limit", params.limit.toString());
+  if (params?.status) queryParams.append("status", params.status);
+
+  const queryString = queryParams.toString();
+  const url = `/campaigns/admin${queryString ? `?${queryString}` : ""}`;
+
+  type ApiResponse =
+    | { success: true; data: PaginatedResponse<Campaign> }
+    | PaginatedResponse<Campaign>;
+
+  const response = await get<ApiResponse>(url);
+
+  if (response && typeof response === "object") {
+    if ("success" in response && response.success && response.data) {
+      return response.data as PaginatedResponse<Campaign>;
+    } else if ("data" in response && Array.isArray(response.data)) {
+      return response as PaginatedResponse<Campaign>;
+    }
+  }
+
+  throw new Error("Unexpected response structure");
 }
 
 /**
@@ -127,16 +148,36 @@ export async function getCampaigns(
  */
 export async function getCampaignById(id: string): Promise<Campaign> {
   try {
-    return await get<Campaign>(`/campaigns/${id}`);
+    type ApiResponse = { success: true; data: Campaign } | Campaign;
+    const response = await get<ApiResponse>(`/campaigns/${id}`);
+
+    if (response && typeof response === "object") {
+      if ("success" in response && response.success && response.data) {
+        return response.data as Campaign;
+      }
+      if ("_id" in response) {
+        return response as Campaign;
+      }
+    }
+
+    throw new Error("Unexpected response structure");
   } catch (error) {
-    // Fallback to mock data in development if API fails or for mock IDs
+    // Fallback to mock data in development if API fails
     if (process.env.NODE_ENV === "development") {
       const mockCampaign = MOCK_CAMPAIGNS.find((c) => c._id === id);
       if (mockCampaign) {
-        console.warn(`⚠️ API unavailable, using mock data for ID: ${id}`);
+        console.warn(`⚠️ Using mock data for ID: ${id}`);
         return mockCampaign;
       }
     }
     throw error;
   }
+}
+
+/**
+ * Delete campaign (admin)
+ * DELETE /api/v1/campaigns/:id
+ */
+export async function deleteCampaign(id: string): Promise<void> {
+  await del(`/campaigns/${id}`);
 }

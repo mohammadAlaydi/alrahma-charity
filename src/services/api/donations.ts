@@ -135,3 +135,51 @@ export async function getDonationHistory(
 export async function getDonationById(id: string): Promise<Donation> {
   return get<Donation>(`/donations/${id}`);
 }
+
+/**
+ * Admin query parameters for donations list
+ */
+export type AdminDonationsQueryParams = {
+  page?: number;
+  limit?: number;
+  status?: DonationStatus;
+  donation_type?: DonationType;
+  start_date?: string;
+  end_date?: string;
+};
+
+/**
+ * Get all donations (admin)
+ * GET /api/v1/donations/admin
+ */
+export async function getDonationsAdmin(
+  params?: AdminDonationsQueryParams,
+): Promise<PaginatedResponse<Donation>> {
+  const queryParams = new URLSearchParams();
+  if (params?.page) queryParams.append("page", params.page.toString());
+  if (params?.limit) queryParams.append("limit", params.limit.toString());
+  if (params?.status) queryParams.append("status", params.status);
+  if (params?.donation_type)
+    queryParams.append("donation_type", params.donation_type);
+  if (params?.start_date) queryParams.append("start_date", params.start_date);
+  if (params?.end_date) queryParams.append("end_date", params.end_date);
+
+  const queryString = queryParams.toString();
+  const url = `/donations${queryString ? `?${queryString}` : ""}`;
+
+  type ApiResponse =
+    | { success: true; data: PaginatedResponse<Donation> }
+    | PaginatedResponse<Donation>;
+
+  const response = await get<ApiResponse>(url);
+
+  if (response && typeof response === "object") {
+    if ("success" in response && response.success && response.data) {
+      return response.data as PaginatedResponse<Donation>;
+    } else if ("data" in response && Array.isArray(response.data)) {
+      return response as PaginatedResponse<Donation>;
+    }
+  }
+
+  throw new Error("Unexpected response structure");
+}

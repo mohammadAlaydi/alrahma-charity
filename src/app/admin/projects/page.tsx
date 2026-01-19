@@ -15,46 +15,92 @@ import { Modal } from "@/components/ui/modal/Modal";
 import { ConfirmationModal } from "@/components/ui/modal/ConfirmationModal";
 import Image from "next/image";
 
-import { get, post, put as httpPut, del } from "@/services/http";
+import { get, post, patch, del } from "@/services/http";
 
-// CRUD Operations
+// Status mapping
+const STATUS_MAP: Record<string, string> = {
+    'ACTIVE': 'نشيط',
+    'COMPLETED': 'مكتمل',
+    'SUSPENDED': 'معلق',
+    'HIDDEN': 'مخفي',
+};
+
+const REVERSE_STATUS_MAP: Record<string, string> = {
+    'نشيط': 'ACTIVE',
+    'مكتمل': 'COMPLETED',
+    'معلق': 'SUSPENDED',
+    'مخفي': 'HIDDEN',
+    'إعداد': 'HIDDEN',
+    'تنتهي قريبا': 'SUSPENDED',
+};
+
+// Normalize API response to UI format
+const normalizeProject = (p: any) => ({
+    ...p,
+    name: p.title_ar || p.name,
+    target: p.financial_goal ?? p.target ?? 0,
+    collected: p.current_amount ?? p.collected ?? 0,
+    image: p.image_url || p.image,
+    description: p.description_ar || p.description,
+    progress: p.financial_goal > 0
+        ? Math.min(Math.round(((p.current_amount ?? 0) / p.financial_goal) * 100), 100)
+        : 0,
+    status: STATUS_MAP[p.status] || p.status,
+});
+
+// CRUD Operations - Using admin endpoint for full access
 async function fetchProjects() {
-    // Backend returns { data: [...], ... } or just [...]
-    // API endpoint is /campaigns based on backend/index.ts
-    const response = await get<any>('/campaigns');
-    console.log("DEBUG: API Response in ProjectsPage:", JSON.stringify(response, null, 2));
+    try {
+        const response = await get<any>('/campaigns/admin');
 
-    // Normalize response: backend might return wrapped structure
-    // Normalize new API fields to Admin App expectations
-    const normalizeProject = (p: any) => ({
-        ...p,
-        name: p.title_ar || p.name, // Fallback to old name if present
-        target: p.financial_goal ?? p.target,
-        collected: p.current_amount ?? p.collected ?? 0,
-        image: p.image_url || p.image,
-        description: p.description_ar || p.description,
-        progress: p.progress ?? 0,
-        // Map status back to Arabic if needed, or keep as is if Admin handles it
-        // Admin expects: 'نشيط', 'مكتمل', 'إعداد', 'تنتهي قريبا'
-        status: p.status === 'ACTIVE' ? 'نشيط' :
-            p.status === 'COMPLETED' ? 'مكتمل' :
-                p.status === 'SUSPENDED' ? 'تنتهي قريبا' : p.status,
-    });
-
-    if (response && response.data && Array.isArray(response.data)) {
-        return { data: response.data.map(normalizeProject) };
-    } else if (Array.isArray(response)) {
-        return { data: response.map(normalizeProject) };
+        if (response && response.data && Array.isArray(response.data)) {
+            return { data: response.data.map(normalizeProject) };
+        } else if (Array.isArray(response)) {
+            return { data: response.map(normalizeProject) };
+        }
+        return { data: [] };
+    } catch (error) {
+        console.error("Error fetching campaigns:", error);
+        return { data: [] };
     }
-    return { data: response };
 }
 
 async function createProject(project: any) {
-    return await post('/campaigns', project);
+    // Transform UI data to API format
+    const apiData = {
+        title_ar: project.name,
+        title_en: project.name, // Use same for now
+        title_tr: project.name,
+        description_ar: project.description,
+        description_en: project.description,
+        description_tr: project.description,
+        financial_goal: Number(project.target) || 0,
+        image_url: project.image,
+        status: REVERSE_STATUS_MAP[project.status] || 'ACTIVE',
+        category: project.category,
+        start_date: project.startDate || undefined,
+        end_date: project.endDate || undefined,
+    };
+    return await post('/campaigns', apiData);
 }
 
 async function updateProject({ id, data }: { id: string; data: any }) {
-    return await httpPut(`/campaigns/${id}`, data);
+    // Transform UI data to API format
+    const apiData = {
+        title_ar: data.name,
+        title_en: data.name,
+        title_tr: data.name,
+        description_ar: data.description,
+        description_en: data.description,
+        description_tr: data.description,
+        financial_goal: Number(data.target) || 0,
+        image_url: data.image,
+        status: REVERSE_STATUS_MAP[data.status] || 'ACTIVE',
+        category: data.category,
+        start_date: data.startDate || undefined,
+        end_date: data.endDate || undefined,
+    };
+    return await patch(`/campaigns/${id}`, apiData);
 }
 
 async function deleteProject(id: string) {
