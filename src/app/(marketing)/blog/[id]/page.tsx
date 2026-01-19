@@ -7,10 +7,11 @@ import { useState } from "react";
 import { ProjectCard } from "@/features/projects/components/ProjectCard";
 import { Project } from "@/features/projects/types";
 import { ProjectDonationSection } from "@/features/projects/components/project-details/ProjectDonationSection";
+import { PageHeader } from "@/components/ui/PageHeader";
 
 // Blog article data
 const articleData = {
-  title: "أفضل الجمعيات الموثوقة لمساعدة أهل غزة",
+  title: "تفاصيل المقال",
   titleHighlight: "لمساعدة أهل غزة",
   category: "التصنيف",
   date: "20 نوفمبر 2025",
@@ -219,36 +220,96 @@ export default function BlogDetailPage() {
     // TODO: Handle donation submission
   };
 
+  const [activeTab, setActiveTab] = useState("criteria");
+
   return (
-    <div className="w-full bg-[#fafafa]" dir="rtl">
-      {/* Hero Section */}
-      <section className="bg-[#007f5e] py-20 md:py-20 pb-15 text-center relative">
-        <Container>
-          <div className="flex flex-col items-center gap-2">
-            <div className="flex items-center gap-1.25">
-              <span className="font-alexandria font-medium text-base text-white/90 leading-normal">تبرعك اليوم يصنع أثرًا لا يُنسى</span>
-              <svg className="w-7 h-7" viewBox="0 0 28 28" fill="none">
-                <path d="M14 2.33C7.56 2.33 2.33 7.56 2.33 14s5.23 11.67 11.67 11.67S25.67 20.44 25.67 14 20.44 2.33 14 2.33z" stroke="white" strokeWidth="1.5"/>
-                <path d="M14 18.67V9.33M9.33 14h9.34" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-            </div>
-            <h1 className="font-alexandria font-bold text-4xl md:text-[64px] text-white m-0 leading-[1.45]">تفاصيل المقال</h1>
-            <nav className="flex items-center gap-2 font-alexandria text-base mt-2">
-              <div className="flex items-center gap-1.25">
-                <span className="text-white font-medium">حفر 5 آبار مياه في شمال غزة</span>
-                <svg className="w-6 h-6 rotate-180" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
-                <Link href="/blog" className="text-white/80 no-underline transition-colors hover:text-white">المدونة</Link>
-                <svg className="w-6 h-6 rotate-180" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
-                <Link href="/" className="text-white/80 no-underline transition-colors hover:text-white">الرئيسية</Link>
-              </div>
-              <svg className="w-6 h-6" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
-            </nav>
+    <div className="relative min-h-screen bg-white overflow-hidden" dir="rtl">
+      {/* Background Banners for Desktop */}
+      <div
+        className="hidden md:block absolute left-[-60px] top-[210.01px] z-0 pointer-events-none opacity-40"
+        style={{ width: '346.12px', height: '346.12px' }}
+      >
+        <Image
+          src="/images/Group 1000009427.png"
+          alt=""
+          fill
+          className="object-contain"
+        />
+      </div>
+
+      <div
+        className="hidden md:block absolute right-[-80px] top-[224.67px] z-0 pointer-events-none opacity-40"
+        style={{ width: '350.69px', height: '360.33px' }}
+      >
+        <div className="relative h-full w-full">
+          <div className="absolute right-[60px] top-0 h-[222.52px] w-[222.52px]">
+            <Image
+              src="/images/الدليل الإرشادي لهوية جمعية رحمة v.02-2025_pages-to-jpg-0023 1 17.png"
+              alt=""
+              fill
+              className="object-contain"
+            />
           </div>
+          <div className="absolute right-[-0.5px] top-[120.53px] h-[222.52px] w-[222.52px]">
+            <Image
+              src="/images/الدليل الإرشادي لهوية جمعية رحمة v.02-2025_pages-to-jpg-0023 1 18.png"
+              alt=""
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Background Banners for Small Screens */}
+      <div
+        className="md:hidden absolute left-[-145px] top-[70.01px] z-0 pointer-events-none opacity-40"
+        style={{ width: '300.12px', height: '300.12px', transform: 'rotate(-10.769deg)' }}
+      >
+        <Image
+          src="/images/Group 1000009427.png"
+          alt=""
+          fill
+          className="object-contain"
+        />
+      </div>
+      <div
+        className="md:hidden absolute right-[-100px] top-[70px] z-50 pointer-events-none"
+        style={{ 
+          width: '176px', 
+          height: '175.852px', 
+          transform: 'rotate(-28.769deg)', 
+          aspectRatio: '76.00/75.85',
+          borderRadius: '32px 3px',
+          opacity: 0.5,
+        }}
+      >
+        <Image
+          src="/images/الدليل الإرشادي لهوية جمعية رحمة v.02-2025_pages-to-jpg-0023 1 17.png"
+          alt=""
+          fill
+          className="object-contain"
+        />
+      </div>
+
+      {/* Hero Section */}
+      <section className="relative h-[420px] overflow-hidden">
+        <Container className="relative z-10 flex h-full items-center justify-center">
+          <PageHeader
+            title={articleData.title}
+            subtitle="تبرعك اليوم يصنع أثرًا لا يُنسى"
+            subtitleIcon="/emojis/hand_healtcare.svg"
+            breadcrumbs={[
+              { label: "الرئيسية", href: "/" },
+              { label: "المدونة", href: "/blog" },
+              { label: articleData.title, href: "#" },
+            ]}
+          />
         </Container>
       </section>
 
       {/* Content Section */}
-      <section className="py-25 bg-[#fafafa]">
+      <section className="py-25">
         <Container>
           {/* Article Header */}
           <div className="flex flex-col gap-5 mb-10">
@@ -275,45 +336,305 @@ export default function BlogDetailPage() {
             </div>
           </div>
 
-          {/* Table of Contents */}
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-evenly bg-white/10 border border-[#007f5e]/10 rounded-[20px] p-4 md:px-8 mb-6 shadow-[0_0_17.3px_rgba(0,127,94,0.07),inset_0_0_5.8px_rgba(0,0,0,0.25)] gap-4">
-            <span className="font-alexandria font-medium text-xl text-[#323234] leading-normal">محتويات</span>
-            <div className="flex flex-wrap items-center gap-6 justify-start">
+          {/* Tabs Section */}
+          <div className="flex flex-col gap-6 mb-15">
+            {/* Tabs Navigation */}
+            <div className="flex flex-wrap items-center gap-4 justify-center bg-white/10 border border-[#007f5e]/10 rounded-[20px] p-4 md:px-8 shadow-[0_0_17.3px_rgba(0,127,94,0.07),inset_0_0_5.8px_rgba(0,0,0,0.25)]">
+              <span className="font-alexandria font-medium text-xl text-[#323234] leading-normal">محتويات</span>
               {tableOfContents.map((item) => (
-                <a key={item.id} href={`#${item.id}`} className={`font-alexandria font-medium text-base text-[#232325] no-underline py-2.5 px-3 border border-[#f0f1f2] rounded-xl transition-all duration-200 leading-normal hover:bg-[#007f5e]/5 hover:border-[#007f5e]/20 ${item.active ? 'bg-[#007f5e]/10 shadow-[0_0_4px_rgba(0,0,0,0.25)]' : ''}`}>{item.title}</a>
+                <button
+                  key={item.id}
+                  onClick={() => setActiveTab(item.id)}
+                  className={`font-alexandria font-medium text-base text-[#232325] no-underline py-2.5 px-3 border border-[#f0f1f2] rounded-xl transition-all duration-200 leading-normal hover:bg-[#007f5e]/5 hover:border-[#007f5e]/20 ${
+                    activeTab === item.id ? 'bg-[#007f5e]/10 shadow-[0_0_4px_rgba(0,0,0,0.25)] border-[#007f5e]' : ''
+                  }`}
+                >
+                  {item.title}
+                </button>
               ))}
             </div>
-          </div>
 
-          {/* Article Sections */}
-          <div className="flex flex-col gap-10 mb-15">
-            {articleSections.map((section) => (
-              <div key={section.id} id={section.id} className="flex flex-col gap-6">
-                <div className="flex items-center justify-start gap-2.5">
-                  <svg className="w-8 h-8 shrink-0" viewBox="0 0 32 32"><path d="M16 2l2 12 12 2-12 2-2 12-2-12-12-2 12-2 2-12z" fill="#007F5E"/></svg>
-                  <h3 className="font-alexandria font-semibold text-2xl text-[#232325] m-0 leading-normal text-right">{section.title}</h3>
-                </div>
-                <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 max-w-228 ml-auto text-justify">{section.intro}</p>
-                <div className="flex flex-col gap-4">
-                  {section.items.map((item, i) => (
-                    <div key={i} className="bg-white rounded-[20px] p-1 px-4 flex flex-col gap-2">
-                      <div className="flex items-center justify-start gap-2.5 leading-normal">
-                        <span className="font-alexandria font-semibold text-xl text-[#232325]">{item.number}</span>
-                        <span className="font-alexandria font-bold text-base text-[#232325]">{item.title}</span>
-                      </div>
-                      <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-justify">{item.content}</p>
-                      {item.list && (
-                        <ul className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 mr-6 list-disc space-y-1">
-                          {item.list.map((listItem: string, idx: number) => (
-                            <li key={idx}>{listItem}</li>
+            {/* Tab Content */}
+            <div className="flex flex-col gap-10">
+              {/* معايير اختيار الجمعيات */}
+              {activeTab === "criteria" && articleSections.find(s => s.id === "criteria") && (
+                <div className="flex flex-col gap-6">
+                  {(() => {
+                    const section = articleSections.find(s => s.id === "criteria")!;
+                    return (
+                      <>
+                        <div className="flex items-center justify-start gap-2.5">
+                          <svg className="w-8 h-8 shrink-0" viewBox="0 0 32 32"><path d="M16 2l2 12 12 2-12 2-2 12-2-12-12-2 12-2 2-12z" fill="#007F5E"/></svg>
+                          <h3 className="font-alexandria font-semibold text-2xl text-[#232325] m-0 leading-normal text-right">{section.title}</h3>
+                        </div>
+                        <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 max-w-228 ml-auto text-justify">{section.intro}</p>
+                        <div className="flex flex-col gap-4">
+                          {section.items.map((item, i) => (
+                            <div key={i} className="bg-white rounded-[20px] p-1 px-4 flex flex-col gap-2">
+                              <div className="flex items-center justify-start gap-2.5 leading-normal">
+                                <span className="font-alexandria font-semibold text-xl text-[#232325]">{item.number}</span>
+                                <span className="font-alexandria font-bold text-base text-[#232325]">{item.title}</span>
+                              </div>
+                              <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-justify">{item.content}</p>
+                              {item.list && (
+                                <ul className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 mr-6 list-disc space-y-1">
+                                  {item.list.map((listItem: string, idx: number) => (
+                                    <li key={idx}>{listItem}</li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
                           ))}
-                        </ul>
-                      )}
-                    </div>
-                  ))}
+                        </div>
+                      </>
+                    );
+                  })()}
                 </div>
-              </div>
-            ))}
+              )}
+
+              {/* مصداقية الجمعية */}
+              {activeTab === "credibility" && articleSections.find(s => s.id === "credibility") && (
+                <div className="flex flex-col gap-6">
+                  {(() => {
+                    const section = articleSections.find(s => s.id === "credibility")!;
+                    return (
+                      <>
+                        <div className="flex items-center justify-start gap-2.5">
+                          <svg className="w-8 h-8 shrink-0" viewBox="0 0 32 32"><path d="M16 2l2 12 12 2-12 2-2 12-2-12-12-2 12-2 2-12z" fill="#007F5E"/></svg>
+                          <h3 className="font-alexandria font-semibold text-2xl text-[#232325] m-0 leading-normal text-right">{section.title}</h3>
+                        </div>
+                        <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 max-w-228 ml-auto text-justify">{section.intro}</p>
+                        <div className="flex flex-col gap-4">
+                          {section.items.map((item, i) => (
+                            <div key={i} className="bg-white rounded-[20px] p-1 px-4 flex flex-col gap-2">
+                              <div className="flex items-center justify-start gap-2.5 leading-normal">
+                                <span className="font-alexandria font-semibold text-xl text-[#232325]">{item.number}</span>
+                                <span className="font-alexandria font-bold text-base text-[#232325]">{item.title}</span>
+                              </div>
+                              <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-justify">{item.content}</p>
+                              {item.list && (
+                                <ul className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 mr-6 list-disc space-y-1">
+                                  {item.list.map((listItem: string, idx: number) => (
+                                    <li key={idx}>{listItem}</li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    );
+                  })()}
+                </div>
+              )}
+
+              {/* جمعية الرحمة والإحسان */}
+              {activeTab === "association" && (
+                <div className="flex flex-col gap-6">
+                  <div className="flex items-center w-full gap-4">
+                    <div className="w-7 h-4 relative" aria-hidden>
+                      <svg className="w-full h-full" viewBox="0 0 30 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.13275 6.29425e-05C1.15631 4.68031 3.409 7.72506 6.14062 9.41006C4.07419 8.92194 2.07488 8.19238 0 7.10725C1.59375 11.9503 5.07281 13.0957 8.11912 12.7791C6.43581 13.6699 4.65712 14.3605 2.87306 14.828C7.21344 17.5244 10.3799 15.8566 12.1399 13.4957C12.0112 13.3802 11.8817 13.2657 11.7514 13.1521C11.4268 12.921 11.1184 12.6552 10.8277 12.3577C10.4547 12.0392 10.0749 11.7142 9.69194 11.3746C7.58894 9.50975 5.44331 7.27369 5.35256 4.32269L5.35244 4.31331C4.15575 2.93475 3.07294 1.48181 2.13281 0L2.13275 6.29425e-05ZM27.3165 6.29425e-05C26.3765 1.48163 25.2935 2.934 24.0968 4.31213L24.0971 4.317C24.1838 7.18994 22.0048 9.48325 19.8491 11.4036C18.9822 12.1758 18.1078 12.8926 17.3551 13.5561C19.1237 15.8849 22.2728 17.5014 26.5763 14.828C24.7924 14.3605 23.0151 13.6699 21.3319 12.7792C24.378 13.0952 27.8557 11.9493 29.4492 7.10738C27.3744 8.19256 25.375 8.92212 23.3086 9.41019C26.0401 7.72506 28.2929 4.6805 27.3164 0.000187874L27.3165 6.29425e-05ZM19.0402 0.248625C17.6561 0.25925 16.2031 0.98925 15.2262 2.64613L14.7397 3.47113L14.2562 2.64438C13.0392 0.564 10.8566 -0.0820622 9.12187 0.41H9.12125C7.59087 0.844188 6.40963 2.09481 6.47706 4.288C6.55125 6.70113 8.38969 8.71625 10.4383 10.5329C11.4627 11.4412 12.5233 12.2906 13.4016 13.1279C13.9239 13.6259 14.3876 14.118 14.7348 14.6367C15.0828 14.1544 15.5425 13.6903 16.0609 13.208C16.9597 12.3715 18.0519 11.4978 19.1009 10.5634C21.1988 8.69463 23.0412 6.61869 22.9727 4.351C22.9029 2.04013 21.5526 0.70225 19.9341 0.343063C19.6407 0.277895 19.3408 0.246172 19.0402 0.2485L19.0402 0.248625Z" fill="#007F5E"/></svg>
+                    </div>
+                    <h2 className="font-alexandria font-semibold text-2xl text-[#232325] m-0 text-right">لماذا تعتبر جمعية الرحمة والإحسان من أفضل الجمعيات الموثوقة في غزة؟</h2>
+                  </div>
+                  <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">تُعد جمعية الرحمة والإحسان نموذجًا رائدًا بين الجمعيات الخيرية الموثوقة في غزة، حيث جمعت بين الأصالة في العمل الإنساني، والاحترافية في الإدارة، والالتزام بالشفافية في كل ما تقوم به.</p>
+
+                  <div className="flex flex-col gap-6 items-start text-right">
+                    <div className="flex flex-col items-start gap-2 w-full">
+                      <div className="flex items-center justify-start gap-2.5 w-full">
+                        <p className="font-alexandria font-semibold text-xl m-0">أولاً</p>
+                        <p className="font-alexandria font-bold text-base text-[#232325] m-0">تاريخ حافل بالإنجازات</p>
+                      </div>
+                      <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0">منذ تأسيسها، وضعت الجمعية نصب عينيها هدفًا ساميًا: دعم الإنسان الغزي بكل الوسائل الممكنة، سواء عبر المساعدات الطارئة أو المشاريع التنموية المستدامة. وقد أثبتت وجودها على الأرض من خلال حضورها الميداني الفاعل في جميع محافظات غزة.</p>
+                    </div>
+
+                    <div className="flex flex-col items-start gap-2 w-full">
+                      <div className="flex items-center justify-start gap-2.5 w-full">
+                        <p className="font-alexandria font-semibold text-xl m-0">ثانيًا</p>
+                        <p className="font-alexandria font-bold text-base text-[#232325] m-0">التزام كامل بالشفافية</p>
+                      </div>
+                      <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0">تلتزم الجمعية بمعايير صارمة في الإدارة المالية ونشر التقارير. فهي تنشر بانتظام تفاصيل المشاريع المنفذة والتبرعات المستلمة، مما جعلها تحظى بثقة كبيرة من المتبرعين في العالم العربي، وتركيا ودول الخليج.</p>
+                    </div>
+
+                    <div className="flex flex-col items-start gap-2 w-full">
+                      <div className="flex items-center justify-start gap-2.5 w-full">
+                        <p className="font-alexandria font-semibold text-xl m-0">ثالثًا</p>
+                        <p className="font-alexandria font-bold text-base text-[#232325] m-0">كوادر مؤهلة وميدانية</p>                 
+                      </div>
+                      <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0">تمتلك الجمعية فريقًا متخصصًا من المهندسين والأطباء والإداريين الذين يعملون بتنسيق كامل داخل القطاع، مما يضمن سرعة الاستجابة للحالات الطارئة وتوزيع المساعدات بعدالة وفعالية.</p>
+                    </div>
+
+                    <div className="flex flex-col items-start gap-2 w-full">
+                      <div className="flex items-center justify-start gap-2.5 w-full">
+                        <p className="font-alexandria font-semibold text-xl m-0">رابعًا</p>                    
+                        <p className="font-alexandria font-bold text-base text-[#232325] m-0">علاقات تعاون دولية</p>
+                      </div>
+                      <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0">نجحت الجمعية في بناء شراكات وثيقة مع منظمات إنسانية تركية وعربية، مما مكّنها من توسيع نطاق مشاريعها وزيادة تأثيرها على الأرض.</p>
+                    </div>
+
+                    <div className="flex flex-col items-start gap-2 w-full">
+                      <div className="flex items-center justify-start gap-2.5 w-full">
+                        <p className="font-alexandria font-semibold text-xl m-0">خامسًا</p>
+                        <p className="font-alexandria font-bold text-base text-[#232325] m-0">سمعة إعلامية طيبة</p>
+                      </div>
+                      <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0">تحظى جمعية الرحمة والإحسان بتغطية إعلامية إيجابية في الصحف والقنوات والمنصات الرقمية، بفضل شفافيتها وأسلوبها الإنساني النبيل في إدارة العمل الخيري.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* أهم المشاريع الخيرية */}
+              {activeTab === "projects" && (
+                <div id="projects" className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-4 w-full">
+                    <div className="flex items-center justify-center gap-2.5 w-full">
+                      <div className="w-7 h-4 relative" aria-hidden>
+                        <svg className="w-full h-full" viewBox="0 0 30 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M2.13275 6.29425e-05C1.15631 4.68031 3.409 7.72506 6.14062 9.41006C4.07419 8.92194 2.07488 8.19238 0 7.10725C1.59375 11.9503 5.07281 13.0957 8.11912 12.7791C6.43581 13.6699 4.65712 14.3605 2.87306 14.828C7.21344 17.5244 10.3799 15.8566 12.1399 13.4957C12.0112 13.3802 11.8817 13.2657 11.7514 13.1521C11.4268 12.921 11.1184 12.6552 10.8277 12.3577C10.4547 12.0392 10.0749 11.7142 9.69194 11.3746C7.58894 9.50975 5.44331 7.27369 5.35256 4.32269L5.35244 4.31331C4.15575 2.93475 3.07294 1.48181 2.13281 0L2.13275 6.29425e-05ZM27.3165 6.29425e-05C26.3765 1.48163 25.2935 2.934 24.0968 4.31213L24.0971 4.317C24.1838 7.18994 22.0048 9.48325 19.8491 11.4036C18.9822 12.1758 18.1078 12.8926 17.3551 13.5561C19.1237 15.8849 22.2728 17.5014 26.5763 14.828C24.7924 14.3605 23.0151 13.6699 21.3319 12.7792C24.378 13.0952 27.8557 11.9493 29.4492 7.10738C27.3744 8.19256 25.375 8.92212 23.3086 9.41019C26.0401 7.72506 28.2929 4.6805 27.3164 0.000187874L27.3165 6.29425e-05ZM19.0402 0.248625C17.6561 0.25925 16.2031 0.98925 15.2262 2.64613L14.7397 3.47113L14.2562 2.64438C13.0392 0.564 10.8566 -0.0820622 9.12187 0.41H9.12125C7.59087 0.844188 6.40963 2.09481 6.47706 4.288C6.55125 6.70113 8.38969 8.71625 10.4383 10.5329C11.4627 11.4412 12.5233 12.2906 13.4016 13.1279C13.9239 13.6259 14.3876 14.118 14.7348 14.6367C15.0828 14.1544 15.5425 13.6903 16.0609 13.208C16.9597 12.3715 18.0519 11.4978 19.1009 10.5634C21.1988 8.69463 23.0412 6.61869 22.9727 4.351C22.9029 2.04013 21.5526 0.70225 19.9341 0.343063C19.6407 0.277895 19.3408 0.246172 19.0402 0.2485L19.0402 0.248625Z" fill="#007F5E" />
+                        </svg>
+                      </div>                
+                      <h2 className="flex-1 font-alexandria font-semibold text-2xl text-[#232325] m-0 leading-normal text-right">
+                        {charityProjectsSection.title}
+                      </h2>
+                    </div>
+                    <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
+                      {charityProjectsSection.intro}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col gap-4 w-full">
+                    {charityProjectsSection.items.map((item) => (
+                      <div key={`${item.ordinal}-${item.title}`} className="flex flex-col gap-2 w-full">
+                        <div className="flex items-center justify-start gap-2.5 w-full leading-normal text-right">
+                          <span className="font-alexandria font-semibold text-xl text-[#0d0d0d]">{item.ordinal}</span>
+                          <span className="font-alexandria font-bold text-base text-[#232325]">{item.title}</span>
+                        </div>
+
+                        {item.paragraphs.map((paragraph) => (
+                          <p key={paragraph.slice(0, 24)} className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
+                            {paragraph}
+                          </p>
+                        ))}
+
+                        {item.bullets && (
+                          <ul className="font-alexandria font-normal text-base text-[#4f4f52] leading-8 m-0 pr-6 list-disc space-y-1 text-right">
+                            {item.bullets.map((bullet) => (
+                              <li key={bullet}>{bullet}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* كيفية التبرع */}
+              {activeTab === "donate" && (
+                <div id="donate" className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-4 items-start w-full">
+                    <div className="flex items-center justify-center gap-2.5 w-full">
+                      <div className="w-7 h-4 relative shrink-0" aria-hidden>
+                        <svg className="w-full h-full" viewBox="0 0 30 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M2.13275 6.29425e-05C1.15631 4.68031 3.409 7.72506 6.14062 9.41006C4.07419 8.92194 2.07488 8.19238 0 7.10725C1.59375 11.9503 5.07281 13.0957 8.11912 12.7791C6.43581 13.6699 4.65712 14.3605 2.87306 14.828C7.21344 17.5244 10.3799 15.8566 12.1399 13.4957C12.0112 13.3802 11.8817 13.2657 11.7514 13.1521C11.4268 12.921 11.1184 12.6552 10.8277 12.3577C10.4547 12.0392 10.0749 11.7142 9.69194 11.3746C7.58894 9.50975 5.44331 7.27369 5.35256 4.32269L5.35244 4.31331C4.15575 2.93475 3.07294 1.48181 2.13281 0L2.13275 6.29425e-05ZM27.3165 6.29425e-05C26.3765 1.48163 25.2935 2.934 24.0968 4.31213L24.0971 4.317C24.1838 7.18994 22.0048 9.48325 19.8491 11.4036C18.9822 12.1758 18.1078 12.8926 17.3551 13.5561C19.1237 15.8849 22.2728 17.5014 26.5763 14.828C24.7924 14.3605 23.0151 13.6699 21.3319 12.7792C24.378 13.0952 27.8557 11.9493 29.4492 7.10738C27.3744 8.19256 25.375 8.92212 23.3086 9.41019C26.0401 7.72506 28.2929 4.6805 27.3164 0.000187874L27.3165 6.29425e-05ZM19.0402 0.248625C17.6561 0.25925 16.2031 0.98925 15.2262 2.64613L14.7397 3.47113L14.2562 2.64438C13.0392 0.564 10.8566 -0.0820622 9.12187 0.41H9.12125C7.59087 0.844188 6.40963 2.09481 6.47706 4.288C6.55125 6.70113 8.38969 8.71625 10.4383 10.5329C11.4627 11.4412 12.5233 12.2906 13.4016 13.1279C13.9239 13.6259 14.3876 14.118 14.7348 14.6367C15.0828 14.1544 15.5425 13.6903 16.0609 13.208C16.9597 12.3715 18.0519 11.4978 19.1009 10.5634C21.1988 8.69463 23.0412 6.61869 22.9727 4.351C22.9029 2.04013 21.5526 0.70225 19.9341 0.343063C19.6407 0.277895 19.3408 0.246172 19.0402 0.2485L19.0402 0.248625Z" fill="#007F5E" />
+                        </svg>
+                      </div>                
+                      <h2 className="flex-1 font-alexandria font-semibold text-2xl text-[#232325] m-0 leading-normal text-right">
+                        كيفية التبرع ومساعدة أهل غزة عبر جمعية الرحمة والإحسان
+                      </h2>
+                    </div>
+                    <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
+                      إدراكًا منها لأهمية تسهيل عملية التبرع، وفّرت الجمعية عدة طرق آمنة وسهلة للتبرع تناسب جميع المتبرعين إليك أهم الوسائل المعتمدة:
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col gap-3 w-full">
+                    <div className="flex flex-col gap-4 w-full">
+                      <div className="flex items-center justify-start gap-2.5 w-full leading-normal text-right">
+                        <span className="font-alexandria font-semibold text-xl text-[#232325]">أولاً</span>
+                        <span className="font-alexandria font-bold text-base text-[#232325]">التبرع عبر بطاقات الائتمان</span>
+                      </div>
+                      <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
+                        يمكنك التبرع بسهولة عبر الموقع الرسمي للجمعية باستخدام بطاقات الائتمان الدولية، في بيئة دفع آمنة وسريعة.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-4 w-full">
+                      <div className="flex items-center justify-start gap-2.5 w-full leading-normal text-right">
+                        <span className="font-alexandria font-semibold text-xl text-[#232325]">ثانيًا</span>
+                        <span className="font-alexandria font-bold text-base text-[#232325]">التبرع عبر البنوك الإلكترونية</span>
+                      </div>
+                      <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
+                        تتيح الجمعية إمكانية التبرع من خلال المنصات الإلكترونية الموثوقة مثل PayPal وغيرها من المحافظ الرقمية، مما يسهّل على المتبرعين في الخارج تقديم دعمهم فورًا.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-4 w-full">
+                      <div className="flex items-center justify-start gap-2.5 w-full leading-normal text-right">
+                        <span className="font-alexandria font-semibold text-xl text-[#0d0d0d]">ثالثًا</span>
+                        <span className="font-alexandria font-bold text-base text-[#232325]">التبرع عبر الحساب البنكي</span>
+                      </div>
+                      <div className="flex flex-col gap-2 text-right">
+                        <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-8 m-0">
+                          للمهتمين بالتحويل المباشر، يمكن إرسال التبرعات إلى حسابات الجمعية في تركيا كما يلي:
+                        </p>
+                        <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-8 m-0">
+                          بنك زراعات كاتلم
+                        </p>
+                        <ul className="font-alexandria font-normal text-base text-[#4f4f52] leading-8 m-0 pr-12 list-disc space-y-1">
+                          <li>
+                            حساب الليرة التركية:
+                            <br />
+                            IBAN: TR56 0020 9000 0223 7303 0000 01
+                          </li>
+                          <li>
+                            حساب الدولار الأمريكي:
+                            <br />
+                            IBAN: TR29 0020 9000 0223 7303 0000 02
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-4 w-full">
+                      <div className="flex items-center justify-start gap-2.5 w-full leading-normal text-right">
+                        <span className="font-alexandria font-semibold text-xl text-[#0d0d0d]">رابعًا</span>
+                        <span className="font-alexandria font-bold text-base text-[#232325]">التبرع بالعملات الرقمية</span>
+                      </div>
+                      <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
+                        تماشيًا مع التطور التكنولوجي، تقبل الجمعية التبرعات عبر العملات الرقمية مثل البيتكوين والإيثيريوم لتوسيع خيارات المانحين.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-4 w-full">
+                      <div className="flex items-center justify-start gap-2.5 w-full leading-normal text-right">
+                        <span className="font-alexandria font-semibold text-xl text-[#0d0d0d]">خامسًا</span>
+                        <span className="font-alexandria font-bold text-base text-[#232325]">التبرعات المباشرة</span>
+                      </div>
+                      <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
+                        يمكن للراغبين بزيارة مقر الجمعية في إسطنبول التبرع بشكل مباشر والتعرّف على نشاطات الجمعية عن قرب، حيث يتم استقبال المتبرعين وتزويدهم بتقارير مفصّلة عن المشاريع الجارية.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-4 w-full mt-5">
+                      <div className="flex items-center justify-start w-full">
+                        <h3 className="font-alexandria font-bold text-base text-[#232325] leading-normal m-0 text-right">
+                          خاتمة
+                        </h3>
+                      </div>
+                      <div className="flex flex-col gap-5 w-full">
+                        <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
+                          في عالمٍ يموج بالاحتياجات الإنسانية، يبقى فعل الخير أعظم استثمار في القيم والإنسانية. إن دعم أهل غزة ليس مجرّد عمل إحساني، بل هو رسالة ضمير حيّ تترجم التضامن والتكافل الإسلامي والإنساني بأجمل صوره. وبين عشرات الجمعيات، أثبتت جمعية الرحمة والإحسان أنها من أكثر الجمعيات الخيرية الموثوقة في غزة بفضل التزامها بالشفافية، واستمراريتها في العمل الميداني، وحرصها على بناء الثقة مع المتبرعين من مختلف أنحاء العالم.
+                        </p>
+                        <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
+                          بادر الآن بالمساهمة — فكل تبرع، مهما كان صغيرًا، يمكن أن يُعيد الأمل إلى قلب أسرة فلسطينية تنتظر المساعدة لتعيش بكرامة.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
 
@@ -341,7 +662,7 @@ export default function BlogDetailPage() {
               {sampleProjects.map((project) => (
                 <ProjectCard
                   key={project.id}
-                  project={project}
+                  project={{ ...project, category: "تصنيف المشروع" }}
                   isFav={favorites.has(project.id)}
                   isBursting={burstingFavs.has(project.id)}
                   onToggleFavorite={handleToggleFavorite}
@@ -351,59 +672,6 @@ export default function BlogDetailPage() {
             </div>
           </div>
 
-          
-          {/* Credibility Details (from Figma) */}
-          <div className="flex flex-col gap-6 mb-15">
-            <div className="flex items-center w-full gap-4">
-              <div className="w-7 h-4 relative" aria-hidden>
-                <svg className="w-full h-full" viewBox="0 0 30 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.13275 6.29425e-05C1.15631 4.68031 3.409 7.72506 6.14062 9.41006C4.07419 8.92194 2.07488 8.19238 0 7.10725C1.59375 11.9503 5.07281 13.0957 8.11912 12.7791C6.43581 13.6699 4.65712 14.3605 2.87306 14.828C7.21344 17.5244 10.3799 15.8566 12.1399 13.4957C12.0112 13.3802 11.8817 13.2657 11.7514 13.1521C11.4268 12.921 11.1184 12.6552 10.8277 12.3577C10.4547 12.0392 10.0749 11.7142 9.69194 11.3746C7.58894 9.50975 5.44331 7.27369 5.35256 4.32269L5.35244 4.31331C4.15575 2.93475 3.07294 1.48181 2.13281 0L2.13275 6.29425e-05ZM27.3165 6.29425e-05C26.3765 1.48163 25.2935 2.934 24.0968 4.31213L24.0971 4.317C24.1838 7.18994 22.0048 9.48325 19.8491 11.4036C18.9822 12.1758 18.1078 12.8926 17.3551 13.5561C19.1237 15.8849 22.2728 17.5014 26.5763 14.828C24.7924 14.3605 23.0151 13.6699 21.3319 12.7792C24.378 13.0952 27.8557 11.9493 29.4492 7.10738C27.3744 8.19256 25.375 8.92212 23.3086 9.41019C26.0401 7.72506 28.2929 4.6805 27.3164 0.000187874L27.3165 6.29425e-05ZM19.0402 0.248625C17.6561 0.25925 16.2031 0.98925 15.2262 2.64613L14.7397 3.47113L14.2562 2.64438C13.0392 0.564 10.8566 -0.0820622 9.12187 0.41H9.12125C7.59087 0.844188 6.40963 2.09481 6.47706 4.288C6.55125 6.70113 8.38969 8.71625 10.4383 10.5329C11.4627 11.4412 12.5233 12.2906 13.4016 13.1279C13.9239 13.6259 14.3876 14.118 14.7348 14.6367C15.0828 14.1544 15.5425 13.6903 16.0609 13.208C16.9597 12.3715 18.0519 11.4978 19.1009 10.5634C21.1988 8.69463 23.0412 6.61869 22.9727 4.351C22.9029 2.04013 21.5526 0.70225 19.9341 0.343063C19.6407 0.277895 19.3408 0.246172 19.0402 0.2485L19.0402 0.248625Z" fill="#007F5E"/></svg>
-              </div>
-              <h2 className="font-alexandria font-semibold text-2xl text-[#232325] m-0 text-right">لماذا تعتبر جمعية الرحمة والإحسان من أفضل الجمعيات الموثوقة في غزة؟</h2>
-            </div>
-            <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">تُعد جمعية الرحمة والإحسان نموذجًا رائدًا بين الجمعيات الخيرية الموثوقة في غزة، حيث جمعت بين الأصالة في العمل الإنساني، والاحترافية في الإدارة، والالتزام بالشفافية في كل ما تقوم به.</p>
-
-            <div className="flex flex-col gap-6 items-start text-right">
-              <div className="flex flex-col items-start gap-2 w-full">
-                <div className="flex items-center justify-start gap-2.5 w-full">
-                  <p className="font-alexandria font-semibold text-xl m-0">أولاً</p>
-                  <p className="font-alexandria font-bold text-base text-[#232325] m-0">تاريخ حافل بالإنجازات</p>
-                </div>
-                <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0">منذ تأسيسها، وضعت الجمعية نصب عينيها هدفًا ساميًا: دعم الإنسان الغزي بكل الوسائل الممكنة، سواء عبر المساعدات الطارئة أو المشاريع التنموية المستدامة. وقد أثبتت وجودها على الأرض من خلال حضورها الميداني الفاعل في جميع محافظات غزة.</p>
-              </div>
-
-              <div className="flex flex-col items-start gap-2 w-full">
-                <div className="flex items-center justify-start gap-2.5 w-full">
-                  <p className="font-alexandria font-semibold text-xl m-0">ثانيًا</p>
-                  <p className="font-alexandria font-bold text-base text-[#232325] m-0">التزام كامل بالشفافية</p>
-                </div>
-                <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0">تلتزم الجمعية بمعايير صارمة في الإدارة المالية ونشر التقارير. فهي تنشر بانتظام تفاصيل المشاريع المنفذة والتبرعات المستلمة، مما جعلها تحظى بثقة كبيرة من المتبرعين في العالم العربي، وتركيا ودول الخليج.</p>
-              </div>
-
-              <div className="flex flex-col items-start gap-2 w-full">
-                <div className="flex items-center justify-start gap-2.5 w-full">
-                  <p className="font-alexandria font-semibold text-xl m-0">ثالثًا</p>
-                  <p className="font-alexandria font-bold text-base text-[#232325] m-0">كوادر مؤهلة وميدانية</p>                 
-                </div>
-                <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0">تمتلك الجمعية فريقًا متخصصًا من المهندسين والأطباء والإداريين الذين يعملون بتنسيق كامل داخل القطاع، مما يضمن سرعة الاستجابة للحالات الطارئة وتوزيع المساعدات بعدالة وفعالية.</p>
-              </div>
-
-              <div className="flex flex-col items-start gap-2 w-full">
-                <div className="flex items-center justify-start gap-2.5 w-full">
-                  <p className="font-alexandria font-semibold text-xl m-0">رابعًا</p>                    
-                  <p className="font-alexandria font-bold text-base text-[#232325] m-0">علاقات تعاون دولية</p>
-                </div>
-                <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0">نجحت الجمعية في بناء شراكات وثيقة مع منظمات إنسانية تركية وعربية، مما مكّنها من توسيع نطاق مشاريعها وزيادة تأثيرها على الأرض.</p>
-              </div>
-
-              <div className="flex flex-col items-start gap-2 w-full">
-                <div className="flex items-center justify-start gap-2.5 w-full">
-                  <p className="font-alexandria font-semibold text-xl m-0">خامسًا</p>
-                  <p className="font-alexandria font-bold text-base text-[#232325] m-0">سمعة إعلامية طيبة</p>
-                </div>
-                <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0">تحظى جمعية الرحمة والإحسان بتغطية إعلامية إيجابية في الصحف والقنوات والمنصات الرقمية، بفضل شفافيتها وأسلوبها الإنساني النبيل في إدارة العمل الخيري.</p>
-              </div>
-            </div>
-          </div>
 
           {/* Image Gallery */}
           <div className="relative w-full max-w-182 h-45 md:h-22.5 rounded-[20px] overflow-hidden mb-15 bg-white border border-[#007f5e]/10 mx-auto">
@@ -448,49 +716,6 @@ export default function BlogDetailPage() {
             <div className="absolute inset-0 rounded-[inherit] shadow-[inset_0px_0px_5.8px_0px_rgba(0,127,94,0.3)] pointer-events-none" />
           </div>
 
-          {/* Charity Projects (from Figma) */}
-          <div id="projects" className="flex flex-col gap-6 mb-15">
-            <div className="flex flex-col gap-4 w-full">
-              <div className="flex items-center justify-center gap-2.5 w-full">
-                <div className="w-7 h-4 relative" aria-hidden>
-                  <svg className="w-full h-full" viewBox="0 0 30 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2.13275 6.29425e-05C1.15631 4.68031 3.409 7.72506 6.14062 9.41006C4.07419 8.92194 2.07488 8.19238 0 7.10725C1.59375 11.9503 5.07281 13.0957 8.11912 12.7791C6.43581 13.6699 4.65712 14.3605 2.87306 14.828C7.21344 17.5244 10.3799 15.8566 12.1399 13.4957C12.0112 13.3802 11.8817 13.2657 11.7514 13.1521C11.4268 12.921 11.1184 12.6552 10.8277 12.3577C10.4547 12.0392 10.0749 11.7142 9.69194 11.3746C7.58894 9.50975 5.44331 7.27369 5.35256 4.32269L5.35244 4.31331C4.15575 2.93475 3.07294 1.48181 2.13281 0L2.13275 6.29425e-05ZM27.3165 6.29425e-05C26.3765 1.48163 25.2935 2.934 24.0968 4.31213L24.0971 4.317C24.1838 7.18994 22.0048 9.48325 19.8491 11.4036C18.9822 12.1758 18.1078 12.8926 17.3551 13.5561C19.1237 15.8849 22.2728 17.5014 26.5763 14.828C24.7924 14.3605 23.0151 13.6699 21.3319 12.7792C24.378 13.0952 27.8557 11.9493 29.4492 7.10738C27.3744 8.19256 25.375 8.92212 23.3086 9.41019C26.0401 7.72506 28.2929 4.6805 27.3164 0.000187874L27.3165 6.29425e-05ZM19.0402 0.248625C17.6561 0.25925 16.2031 0.98925 15.2262 2.64613L14.7397 3.47113L14.2562 2.64438C13.0392 0.564 10.8566 -0.0820622 9.12187 0.41H9.12125C7.59087 0.844188 6.40963 2.09481 6.47706 4.288C6.55125 6.70113 8.38969 8.71625 10.4383 10.5329C11.4627 11.4412 12.5233 12.2906 13.4016 13.1279C13.9239 13.6259 14.3876 14.118 14.7348 14.6367C15.0828 14.1544 15.5425 13.6903 16.0609 13.208C16.9597 12.3715 18.0519 11.4978 19.1009 10.5634C21.1988 8.69463 23.0412 6.61869 22.9727 4.351C22.9029 2.04013 21.5526 0.70225 19.9341 0.343063C19.6407 0.277895 19.3408 0.246172 19.0402 0.2485L19.0402 0.248625Z" fill="#007F5E" />
-                  </svg>
-                </div>                
-                <h2 className="flex-1 font-alexandria font-semibold text-2xl text-[#232325] m-0 leading-normal text-right">
-                  {charityProjectsSection.title}
-                </h2>
-              </div>
-              <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
-                {charityProjectsSection.intro}
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-4 w-full">
-              {charityProjectsSection.items.map((item) => (
-                <div key={`${item.ordinal}-${item.title}`} className="flex flex-col gap-2 w-full">
-                  <div className="flex items-center justify-start gap-2.5 w-full leading-normal text-right">
-                    <span className="font-alexandria font-semibold text-xl text-[#0d0d0d]">{item.ordinal}</span>
-                    <span className="font-alexandria font-bold text-base text-[#232325]">{item.title}</span>
-                  </div>
-
-                  {item.paragraphs.map((paragraph) => (
-                    <p key={paragraph.slice(0, 24)} className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
-                      {paragraph}
-                    </p>
-                  ))}
-
-                  {item.bullets && (
-                    <ul className="font-alexandria font-normal text-base text-[#4f4f52] leading-8 m-0 pr-6 list-disc space-y-1 text-right">
-                      {item.bullets.map((bullet) => (
-                        <li key={bullet}>{bullet}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
 
           {/* Survey Section */}
           <div className="bg-white border border-black/10 rounded-[20px] px-8 py-12.5 shadow-[0_1px_22.5px_rgba(0,127,94,0.09)] mb-15 flex items-start justify-center overflow-hidden relative">
@@ -570,109 +795,6 @@ export default function BlogDetailPage() {
             </div>
           </div>
 
-          {/* Donation Methods Section (from Figma) */}
-          <div id="donate" className="flex flex-col gap-6 mb-15">
-            <div className="flex flex-col gap-4 items-start w-full">
-              <div className="flex items-center justify-center gap-2.5 w-full">
-                <div className="w-7 h-4 relative shrink-0" aria-hidden>
-                  <svg className="w-full h-full" viewBox="0 0 30 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2.13275 6.29425e-05C1.15631 4.68031 3.409 7.72506 6.14062 9.41006C4.07419 8.92194 2.07488 8.19238 0 7.10725C1.59375 11.9503 5.07281 13.0957 8.11912 12.7791C6.43581 13.6699 4.65712 14.3605 2.87306 14.828C7.21344 17.5244 10.3799 15.8566 12.1399 13.4957C12.0112 13.3802 11.8817 13.2657 11.7514 13.1521C11.4268 12.921 11.1184 12.6552 10.8277 12.3577C10.4547 12.0392 10.0749 11.7142 9.69194 11.3746C7.58894 9.50975 5.44331 7.27369 5.35256 4.32269L5.35244 4.31331C4.15575 2.93475 3.07294 1.48181 2.13281 0L2.13275 6.29425e-05ZM27.3165 6.29425e-05C26.3765 1.48163 25.2935 2.934 24.0968 4.31213L24.0971 4.317C24.1838 7.18994 22.0048 9.48325 19.8491 11.4036C18.9822 12.1758 18.1078 12.8926 17.3551 13.5561C19.1237 15.8849 22.2728 17.5014 26.5763 14.828C24.7924 14.3605 23.0151 13.6699 21.3319 12.7792C24.378 13.0952 27.8557 11.9493 29.4492 7.10738C27.3744 8.19256 25.375 8.92212 23.3086 9.41019C26.0401 7.72506 28.2929 4.6805 27.3164 0.000187874L27.3165 6.29425e-05ZM19.0402 0.248625C17.6561 0.25925 16.2031 0.98925 15.2262 2.64613L14.7397 3.47113L14.2562 2.64438C13.0392 0.564 10.8566 -0.0820622 9.12187 0.41H9.12125C7.59087 0.844188 6.40963 2.09481 6.47706 4.288C6.55125 6.70113 8.38969 8.71625 10.4383 10.5329C11.4627 11.4412 12.5233 12.2906 13.4016 13.1279C13.9239 13.6259 14.3876 14.118 14.7348 14.6367C15.0828 14.1544 15.5425 13.6903 16.0609 13.208C16.9597 12.3715 18.0519 11.4978 19.1009 10.5634C21.1988 8.69463 23.0412 6.61869 22.9727 4.351C22.9029 2.04013 21.5526 0.70225 19.9341 0.343063C19.6407 0.277895 19.3408 0.246172 19.0402 0.2485L19.0402 0.248625Z" fill="#007F5E" />
-                  </svg>
-                </div>                
-                <h2 className="flex-1 font-alexandria font-semibold text-2xl text-[#232325] m-0 leading-normal text-right">
-                  كيفية التبرع ومساعدة أهل غزة عبر جمعية الرحمة والإحسان
-                </h2>
-              </div>
-              <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
-                إدراكًا منها لأهمية تسهيل عملية التبرع، وفّرت الجمعية عدة طرق آمنة وسهلة للتبرع تناسب جميع المتبرعين إليك أهم الوسائل المعتمدة:
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-3 w-full">
-              <div className="flex flex-col gap-4 w-full">
-                <div className="flex items-center justify-start gap-2.5 w-full leading-normal text-right">
-                  <span className="font-alexandria font-semibold text-xl text-[#232325]">أولاً</span>
-                  <span className="font-alexandria font-bold text-base text-[#232325]">التبرع عبر بطاقات الائتمان</span>
-                </div>
-                <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
-                  يمكنك التبرع بسهولة عبر الموقع الرسمي للجمعية باستخدام بطاقات الائتمان الدولية، في بيئة دفع آمنة وسريعة.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-4 w-full">
-                <div className="flex items-center justify-start gap-2.5 w-full leading-normal text-right">
-                  <span className="font-alexandria font-semibold text-xl text-[#232325]">ثانيًا</span>
-                  <span className="font-alexandria font-bold text-base text-[#232325]">التبرع عبر البنوك الإلكترونية</span>
-                </div>
-                <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
-                  تتيح الجمعية إمكانية التبرع من خلال المنصات الإلكترونية الموثوقة مثل PayPal وغيرها من المحافظ الرقمية، مما يسهّل على المتبرعين في الخارج تقديم دعمهم فورًا.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-4 w-full">
-                <div className="flex items-center justify-start gap-2.5 w-full leading-normal text-right">
-                  <span className="font-alexandria font-semibold text-xl text-[#0d0d0d]">ثالثًا</span>
-                  <span className="font-alexandria font-bold text-base text-[#232325]">التبرع عبر الحساب البنكي</span>
-                </div>
-                <div className="flex flex-col gap-2 text-right">
-                  <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-8 m-0">
-                    للمهتمين بالتحويل المباشر، يمكن إرسال التبرعات إلى حسابات الجمعية في تركيا كما يلي:
-                  </p>
-                  <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-8 m-0">
-                    بنك زراعات كاتلم
-                  </p>
-                  <ul className="font-alexandria font-normal text-base text-[#4f4f52] leading-8 m-0 pr-12 list-disc space-y-1">
-                    <li>
-                      حساب الليرة التركية:
-                      <br />
-                      IBAN: TR56 0020 9000 0223 7303 0000 01
-                    </li>
-                    <li>
-                      حساب الدولار الأمريكي:
-                      <br />
-                      IBAN: TR29 0020 9000 0223 7303 0000 02
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-4 w-full">
-                <div className="flex items-center justify-start gap-2.5 w-full leading-normal text-right">
-                  <span className="font-alexandria font-semibold text-xl text-[#0d0d0d]">رابعًا</span>
-                  <span className="font-alexandria font-bold text-base text-[#232325]">التبرع بالعملات الرقمية</span>
-                </div>
-                <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
-                  تماشيًا مع التطور التكنولوجي، تقبل الجمعية التبرعات عبر العملات الرقمية مثل البيتكوين والإيثيريوم لتوسيع خيارات المانحين.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-4 w-full">
-                <div className="flex items-center justify-start gap-2.5 w-full leading-normal text-right">
-                  <span className="font-alexandria font-semibold text-xl text-[#0d0d0d]">خامسًا</span>
-                  <span className="font-alexandria font-bold text-base text-[#232325]">التبرعات المباشرة</span>
-                </div>
-                <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
-                  يمكن للراغبين بزيارة مقر الجمعية في إسطنبول التبرع بشكل مباشر والتعرّف على نشاطات الجمعية عن قرب، حيث يتم استقبال المتبرعين وتزويدهم بتقارير مفصّلة عن المشاريع الجارية.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-4 w-full mt-5">
-                <div className="flex items-center justify-start w-full">
-                  <h3 className="font-alexandria font-bold text-base text-[#232325] leading-normal m-0 text-right">
-                    خاتمة
-                  </h3>
-                </div>
-                <div className="flex flex-col gap-5 w-full">
-                  <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
-                    في عالمٍ يموج بالاحتياجات الإنسانية، يبقى فعل الخير أعظم استثمار في القيم والإنسانية. إن دعم أهل غزة ليس مجرّد عمل إحساني، بل هو رسالة ضمير حيّ تترجم التضامن والتكافل الإسلامي والإنساني بأجمل صوره. وبين عشرات الجمعيات، أثبتت جمعية الرحمة والإحسان أنها من أكثر الجمعيات الخيرية الموثوقة في غزة بفضل التزامها بالشفافية، واستمراريتها في العمل الميداني، وحرصها على بناء الثقة مع المتبرعين من مختلف أنحاء العالم.
-                  </p>
-                  <p className="font-alexandria font-normal text-base text-[#4f4f52] leading-normal m-0 text-right">
-                    بادر الآن بالمساهمة — فكل تبرع، مهما كان صغيرًا، يمكن أن يُعيد الأمل إلى قلب أسرة فلسطينية تنتظر المساعدة لتعيش بكرامة.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* Donation Section */}
           <ProjectDonationSection onDonate={handleDonateConnect} />

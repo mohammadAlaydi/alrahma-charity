@@ -8,7 +8,7 @@ import { HeartIcon } from "@/components/ui/icons/HeartIcon";
 import { DonateButton } from "@/components/ui/DonateButton";
 
 type ProjectCardProps = {
-    project: Project;
+    project: Project | (Omit<Project, 'category'> & { category: string });
     isFav: boolean;
     isBursting: boolean;
     onToggleFavorite: (id: string) => void;
@@ -30,7 +30,9 @@ const categoryLabels: Record<string, string> = {
     "الحملات الطبية": "طبي",
     "الحملات الانسانية": "إنساني",
     "حملات التعليم": "تعليم",
-    "حملات الاستجابة والطوارئ": "استجابة وطوارئ"
+    "حملات الاستجابة والطوارئ": "استجابة وطوارئ",
+    // Special case for blog page
+    "تصنيف المشروع": "تصنيف المشروع"
 };
 
 export function ProjectCard({
