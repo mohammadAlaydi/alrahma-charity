@@ -7,12 +7,11 @@ export function ConditionalSiteHeader() {
   const pathname = usePathname();
   // Hide header on auth pages and app pages (they use AppShell)
   const isAuthPage = pathname?.startsWith("/login") || pathname?.startsWith("/signup");
-  const isAppPage =
-    pathname?.startsWith("/dashboard") ||
-    pathname?.startsWith("/profile") ||
-    pathname?.startsWith("/settings");
 
-  if (isAuthPage || isAppPage) {
+
+  const isAdminPage = pathname?.startsWith("/admin");
+
+  if (isAuthPage || isAdminPage) {
     return null;
   }
 

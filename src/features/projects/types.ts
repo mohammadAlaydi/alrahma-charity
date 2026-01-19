@@ -7,4 +7,5 @@ export type Project = {
     category: CampaignCategoryId;
     goal: number;
     collected: number;
+    imageUrl?: string;
 };

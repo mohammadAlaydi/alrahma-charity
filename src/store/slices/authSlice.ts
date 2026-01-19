@@ -26,6 +26,16 @@ const authSlice = createSlice({
       state.tokens = action.payload;
       tokenStorage.setTokens(action.payload.accessToken, action.payload.refreshToken);
     },
+    updateUserImage(state, action: PayloadAction<string>) {
+      if (state.user) {
+        state.user.image = action.payload;
+      }
+    },
+    updateUserDetails(state, action: PayloadAction<Partial<AuthUser>>) {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload };
+      }
+    },
     logout(state) {
       state.status = "anonymous";
       state.user = null;
@@ -35,5 +45,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setAuthLoading, setAuthenticated, setTokens, logout } = authSlice.actions;
+export const { setAuthLoading, setAuthenticated, setTokens, logout, updateUserImage, updateUserDetails } = authSlice.actions;
 export default authSlice.reducer;

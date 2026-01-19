@@ -10,11 +10,13 @@ export function Modal({
   onClose,
   title,
   children,
+  className,
 }: {
   open: boolean;
   onClose: (value: boolean) => void;
   title?: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
     <Dialog open={open} onClose={onClose} className="relative z-50">
@@ -23,6 +25,7 @@ export function Modal({
         <DialogPanel
           className={cn(
             "w-full max-w-[720px] max-h-[90vh] bg-transparent border-none shadow-none p-0 mx-auto my-auto",
+            className
           )}
         >
           {title ? (

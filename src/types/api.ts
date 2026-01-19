@@ -37,5 +37,10 @@ export class ApiException extends Error {
   ) {
     super(message);
     this.name = "ApiException";
+    this.message = message;
+    // Ensure stack trace is captured correctly
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, ApiException);
+    }
   }
 }

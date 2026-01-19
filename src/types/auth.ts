@@ -11,6 +11,8 @@ export interface AuthUser {
   fullName?: string;
   phoneNumber?: string;
   isAdmin?: boolean;
+  role?: string;
+  image?: string;
 }
 
 // Token types

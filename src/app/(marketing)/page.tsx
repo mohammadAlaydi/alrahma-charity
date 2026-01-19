@@ -1,10 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { AmountInput } from "@/components/ui/AmountInput";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
+import { ProjectsSection } from "@/features/projects/components/ProjectsSection";
+import { get } from "@/services/http";
+import { BlogCard } from "@/features/blog/components/BlogCard";
 
 const PRESET_AMOUNTS = [200, 100, 50, 10];
 
@@ -30,38 +34,29 @@ const VALUES_ITEMS = [
   "الاستدامة في الأثر الإيجابي لمشاريعنا",
 ];
 
-// Mock project data - to be replaced with real data
-const FEATURED_PROJECTS = [
-  {
-    id: "1",
-    title: "توفير سلال غذائية للأسر المحتاجة",
-    description: "ساهم في توفير احتياجات غذائية أساسية لعائلات تعاني من انعدام الأمن الغذائي",
-    goal: 100000,
-    collected: 85000,
-    category: "إغاثة عاجلة",
-  },
-  {
-    id: "2",
-    title: "إعادة تأهيل المدارس والمرافق التعليمية",
-    description: "دعم التعليم عبر إصلاح المدارس وتوفير بيئة تعليمية آمنة للأطفال",
-    goal: 75000,
-    collected: 50000,
-    category: "تعليم",
-  },
-  {
-    id: "3",
-    title: "حفر آبار مياه نظيفة",
-    description: "وفر مياه نظيفة وآمنة للشرب لمئات الأسر المحتاجة",
-    goal: 120000,
-    collected: 35000,
-    category: "مياه",
-  },
-];
+interface BlogPost {
+  _id: string;
+  title: string;
+  slug: string;
+  description: string;
+  image: string;
+  category: string;
+  publishedAt: string;
+  author?: string;
+}
+
+
+// Mock project data removed - using real data via ProjectsSection component
+
+
+import { DonationModal } from "@/features/projects/components/DonationModal";
 
 export default function HomePage() {
   const [selectedAmount, setSelectedAmount] = useState<number>(200);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [activeTab, setActiveTab] = useState<TabType>("vision");
+  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
 
   const getTabItems = () => {
     switch (activeTab) {
@@ -76,11 +71,26 @@ export default function HomePage() {
     }
   };
 
+  // Fetch blog posts
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        const response = await get<{ success: boolean; data: BlogPost[] }>('/blog');
+        if (response.success && response.data) {
+          // Get only the first 3 posts for homepage
+          setBlogPosts(response.data.slice(0, 3));
+        }
+      } catch (error) {
+        console.error('Failed to fetch blog posts:', error);
+      }
+    };
+
+    fetchBlogPosts();
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-white" dir="rtl">
-      {/* Main page content (الرئيسية) - hidden, not ready for production */}
-      {false && (
-      <>
+
       {/* Hero Section with Background */}
       <section className="relative h-[1023.726px] overflow-hidden">
         <div className="absolute inset-0">
@@ -131,6 +141,7 @@ export default function HomePage() {
             </div>
             <button
               type="button"
+              onClick={() => setIsDonationModalOpen(true)}
               className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] hover:bg-[#005F4A] transition-colors"
             >
               <div className="flex items-center justify-center relative shrink-0 size-[20px]">
@@ -301,6 +312,7 @@ export default function HomePage() {
                   <div className="flex justify-start pt-4">
                     <button
                       type="button"
+                      onClick={() => setIsDonationModalOpen(true)}
                       className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full md:w-auto hover:bg-[#005F4A] transition-colors"
                     >
                       <div className="flex items-center justify-center relative shrink-0 size-[20px]">
@@ -348,7 +360,7 @@ export default function HomePage() {
       </section>
 
       {/* Statistics Section */}
-      <section className="w-full bg-white py-[100px]">
+      <section className="w-full bg-white py-[50px]">
         <Container>
           <div className="flex flex-row items-center justify-center gap-6">
             {/* Stat Card 1 - Water */}
@@ -415,144 +427,7 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section - مشاريعنا الإنسانية */}
-      <section className="w-full bg-white py-[100px]">
-        <Container>
-          <div className="flex flex-col gap-12 items-center">
-            {/* Section Header */}
-            <div className="flex flex-col gap-2 items-center text-center">
-              <div className="flex gap-[5px] items-center">
-                <p className="font-['Playpen_Sans_Arabic'] text-[16px] leading-[1.5] text-[#007F5E]">
-                  مشاريع تصنع الفارق في حياة الأسر المحتاجة
-                </p>
-                <div className="relative h-6 w-6">
-                  <Image
-                    src="/emojis/hand_healtcare.svg"
-                    alt=""
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              </div>
-              <h2 className="font-alexandria text-[40px] font-bold leading-[1.6]">
-                <span className="text-[#122F2A]">مشاريعنا </span>
-                <span className="text-[#007F5E]">الإنسانية</span>
-              </h2>
-            </div>
-
-            {/* Projects Grid - Display 3 cards */}
-            <div className="grid grid-cols-3 gap-6 w-full">
-              {FEATURED_PROJECTS.map((project) => {
-                const progress = Math.min(
-                  (project.collected / project.goal) * 100,
-                  100
-                );
-                return (
-                  <div
-                    key={project.id}
-                    className="flex h-full w-full max-w-[395px] flex-col overflow-hidden rounded-[20px] border border-zinc-200 bg-white shadow-none transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.16)]"
-                  >
-                    {/* Project Image placeholder */}
-                    <div className="relative h-[300px] w-full overflow-hidden rounded-t-[20px] bg-zinc-200">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="font-molle text-center text-[32px] font-normal text-white">
-                          Donate image
-                        </span>
-                      </div>
-                      <div className="absolute inset-x-4 top-3 z-10 flex items-center justify-between">
-                        <div className="inline-flex items-center gap-1.5 rounded-full border border-white bg-[#007F5E] px-3.5 py-1.5">
-                          <span className="font-alexandria text-[14px] font-medium leading-[1.5] text-white">
-                            {project.category}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-1 flex-col gap-3.5 bg-white p-4">
-                      <div className="space-y-2.5">
-                        <h3 className="font-alexandria text-[18px] font-bold leading-[1.5] text-[#122F2A]">
-                          {project.title}
-                        </h3>
-                        <div className="flex items-start gap-2">
-                          <span className="mt-[2px] inline-flex h-5 w-5 shrink-0 items-center justify-center">
-                            <Image
-                              src="/mage_goals-fill.svg"
-                              alt="وصف الحملة"
-                              width={20}
-                              height={20}
-                              className="h-5 w-5"
-                            />
-                          </span>
-                          <p className="font-alexandria text-[14px] font-normal leading-[1.5] text-[rgba(13,13,13,0.7)]">
-                            {project.description}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <div className="font-alexandria text-[14px] flex items-center justify-between font-bold text-[#122F2A]">
-                          <span>التبرعات</span>
-                          <span>{progress.toFixed(2)}%</span>
-                        </div>
-                        <div className="relative h-1.5 w-full overflow-hidden rounded-full bg-[#D9D9D9]/40">
-                          <div
-                            className="absolute top-0 right-0 h-full rounded-full bg-[#007F5E]"
-                            style={{ width: `${progress}%` }}
-                          />
-                        </div>
-                        <div className="font-alexandria text-[14px] mt-1 flex items-center justify-between text-[#122F2A]">
-                          <span className="font-medium whitespace-nowrap">
-                            المبلغ المُجمَّع: ${project.collected.toLocaleString()}
-                          </span>
-                          <span className="font-bold text-[#B4BB5F] whitespace-nowrap">
-                            الهدف: ${project.goal.toLocaleString()}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="mt-auto -mb-4 -ml-4 flex items-start justify-end relative z-10">
-                        <button
-                          type="button"
-                          className="font-alexandria text-[16px] font-bold leading-[1.5] inline-flex items-center gap-3 rounded-tr-2xl rounded-bl-none bg-[#007F5E] px-6 py-2.5 text-white transition-colors hover:bg-[#056A4F]"
-                        >
-                          <span>تبرع الآن</span>
-                          <Image
-                            src="/double hearts.svg"
-                            alt="تبرع"
-                            width={22}
-                            height={23}
-                            className="h-6 w-6"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* More Button */}
-            <button
-              type="button"
-              className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] hover:bg-[#005F4A] transition-colors"
-            >
-              <div className="flex items-center justify-center relative shrink-0 size-[20px]">
-                <div className="flex-none rotate-[90deg] scale-y-[-100%]">
-                  <Image
-                    src="/emojis/line-md_arrow-up.svg"
-                    alt=""
-                    width={20}
-                    height={20}
-                    className="h-5 w-5"
-                  />
-                </div>
-              </div>
-              <p className="font-alexandria text-[16px] font-bold leading-[1.5] text-white">
-                المزيد
-              </p>
-            </button>
-          </div>
-        </Container>
-      </section>
+      <ProjectsSection />
 
       {/* Campaign/Impact Section with Background Image */}
       <section className="relative w-full h-[808px] overflow-hidden">
@@ -598,6 +473,7 @@ export default function HomePage() {
           <div className="flex flex-row gap-[22px] items-center">
             <button
               type="button"
+              onClick={() => setIsDonationModalOpen(true)}
               className="border border-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] bg-transparent hover:bg-[#007F5E]/10 transition-colors"
             >
               <p className="font-alexandria text-[16px] font-semibold leading-[1.5] text-white">
@@ -615,8 +491,8 @@ export default function HomePage() {
                 </div>
               </div>
             </button>
-            <button
-              type="button"
+            <Link
+              href="/projects"
               className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] hover:bg-[#005F4A] transition-colors"
             >
               <p className="font-alexandria text-[16px] font-bold leading-[1.5] text-white">
@@ -631,7 +507,7 @@ export default function HomePage() {
                   className="h-5 w-5"
                 />
               </div>
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -661,40 +537,44 @@ export default function HomePage() {
               </h2>
             </div>
 
-            {/* Articles Grid - 3 placeholder cards */}
-            <div className="grid grid-cols-3 gap-6 w-full">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="flex flex-col overflow-hidden rounded-[20px] border border-zinc-200 bg-white shadow-none transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.16)]"
-                >
-                  <div className="relative h-[250px] w-full overflow-hidden bg-zinc-200">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="font-molle text-center text-[24px] font-normal text-white">
-                        Article image
-                      </span>
+            {/* Articles Grid - Real blog posts */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+              {blogPosts.length > 0 ? (
+                blogPosts.map((post) => (
+                  <BlogCard
+                    key={post._id}
+                    post={{
+                      id: post.slug,
+                      title: post.title,
+                      excerpt: post.description,
+                      category: post.category || 'التصنيفات',
+                      author: post.author,
+                      date: new Date(post.publishedAt).toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' }),
+                      imageUrl: post.image
+                    }}
+                  />
+                ))
+              ) : (
+                // Placeholder cards while loading
+                [1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="flex flex-col overflow-hidden rounded-[20px] border border-zinc-200 bg-white shadow-none"
+                  >
+                    <div className="relative h-[250px] w-full overflow-hidden bg-zinc-200 animate-pulse" />
+                    <div className="flex flex-col gap-3 p-4">
+                      <div className="h-6 bg-gray-200 rounded animate-pulse" />
+                      <div className="h-4 bg-gray-200 rounded animate-pulse" />
+                      <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse" />
                     </div>
                   </div>
-                  <div className="flex flex-col gap-3 p-4">
-                    <h3 className="font-alexandria text-[18px] font-bold leading-[1.5] text-[#122F2A]">
-                      أفضل الجمعيات الموثوقة لمساعدة أهل غزة
-                    </h3>
-                    <p className="font-alexandria text-[14px] font-normal leading-[1.5] text-[rgba(13,13,13,0.7)]">
-                      في خضم الأزمات المتتالية التي يعاني منها قطاع غزة، يتجدّد
-                      الأمل دائمًا بجهود الخيرين...
-                    </p>
-                    <div className="flex items-center justify-between text-[12px] text-[rgba(13,13,13,0.5)]">
-                      <span>20 نوفمبر 2025</span>
-                      <span>التصنيفات</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
 
             {/* More Button */}
-            <button
-              type="button"
+            <Link
+              href="/blog"
               className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] hover:bg-[#005F4A] transition-colors"
             >
               <div className="flex items-center justify-center relative shrink-0 size-[20px]">
@@ -711,7 +591,7 @@ export default function HomePage() {
               <p className="font-alexandria text-[16px] font-bold leading-[1.5] text-white">
                 المزيد
               </p>
-            </button>
+            </Link>
           </div>
         </Container>
       </section>
@@ -772,28 +652,28 @@ export default function HomePage() {
               </div>
             </div>
 
-            
+            {/* White Container with Image and Donation Card */}
             <div className="relative mt-[60px] z-30">
               <div className="bg-white rounded-[20px] w-full max-w-[1286px] h-[652px] mx-auto overflow-hidden">
                 <div className="relative flex flex-row-reverse items-start gap-0 w-full h-full">
-               
+                  {/* Donation Card Container */}
                   <div className="w-[552px] h-[545px] flex-shrink-0 flex flex-col gap-[32px] ml-[53px] mt-[53.5px]">
-                
+                    {/* Heading */}
                     <div className="flex justify-end h-[45px] flex-shrink-0">
-                      <p className="font-alexandria text-[30px] font-bold leading-[1.5] text-[#0D0D0D] text-right w-[372px]">
+                      <p className="font-alexandria text-[30px] font-bold leading-[1.5] text-[#0D0D0D] text-right w-full">
                         أحدث تأثيراً ملموساً اليوم
                       </p>
                     </div>
 
-                   
+                    {/* Donation Card */}
                     <div className="bg-white rounded-[20px] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.15)] w-full h-[468px] overflow-hidden flex flex-col flex-shrink-0">
                       <div className="bg-[#F0F0F0] flex items-center justify-end px-4 py-4 h-[62px] rounded-t-[20px] flex-shrink-0">
-                        <p className="font-alexandria text-[20px] font-bold leading-normal text-[#0D0D0D]">
+                        <p className="font-alexandria text-[20px] font-bold leading-normal text-[#0D0D0D] text-right w-full">
                           تبرع سريع
                         </p>
                       </div>
                       <div className="flex flex-col gap-6 items-end px-4 py-6 flex-1">
-                        
+                        {/* Amount selection */}
                         <div className="flex flex-col gap-4 items-start w-full">
                           <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full">
                             حدد المبلغ
@@ -831,7 +711,7 @@ export default function HomePage() {
                           </div>
                         </div>
 
-                    
+                        {/* Custom amount */}
                         <div className="flex flex-col gap-4 items-start w-full">
                           <p className="font-alexandria text-[16px] font-normal leading-normal text-[rgba(13,13,13,0.7)] text-right w-full tracking-[-0.16px]">
                             مبلغ مخصص
@@ -847,7 +727,7 @@ export default function HomePage() {
                           />
                         </div>
 
-                       
+                        {/* Donate button */}
                         <button
                           type="button"
                           className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[35px] w-full hover:bg-[#005F4A] transition-colors"
@@ -872,7 +752,7 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                 
+                  {/* Image next to the card */}
                   <div className="relative flex-1 h-[652px]">
                     <div className="relative h-full w-full overflow-hidden">
                       <Image
@@ -891,7 +771,7 @@ export default function HomePage() {
       </section>
 
       {/* Partners Section */}
-      {/* <section className="w-full bg-white py-[100px] relative overflow-hidden">
+      <section className="w-full bg-white py-[100px] relative overflow-hidden">
         <Container>
           <div className="flex flex-col gap-10 items-center relative z-10">
             <div className="flex flex-col gap-2 items-center text-center">
@@ -946,9 +826,15 @@ export default function HomePage() {
             </div>
           </div>
         </Container>
-      </section> */}
-      </>
-      )}
+      </section>
+
+      {/* Donation Modal */}
+      <DonationModal
+        open={isDonationModalOpen}
+        onClose={() => setIsDonationModalOpen(false)}
+        projectTitle="تبرع سريع"
+        titleIcon="/figma/donation-svgrepo-com (1) 1.svg"
+      />
     </div>
   );
 }

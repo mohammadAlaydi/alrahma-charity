@@ -46,7 +46,8 @@ http.interceptors.response.use(
     // Network errors
     if (!error.response) {
       const exception = new ApiException(0, ERROR_MESSAGES.NETWORK_ERROR, "NETWORK_ERROR");
-      errorLogger.log(exception, "high");
+      const severity = isDevelopment ? "low" : "high";
+      errorLogger.log(exception, severity);
       throw exception;
     }
 

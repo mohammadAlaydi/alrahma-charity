@@ -25,14 +25,14 @@ export type Country = {
 // List of major countries and Arab countries to include (around 100)
 const allowedCountries = new Set([
   // Arab countries
-  "Palestine", "Syria", "Yemen", "Lebanon", "Jordan", "Egypt", "Saudi Arabia", 
-  "Iraq", "United Arab Emirates", "Kuwait", "Qatar", "Bahrain", "Oman", 
+  "Palestine", "Syria", "Yemen", "Lebanon", "Jordan", "Egypt", "Saudi Arabia",
+  "Iraq", "United Arab Emirates", "Kuwait", "Qatar", "Bahrain", "Oman",
   "Libya", "Tunisia", "Algeria", "Morocco", "Sudan", "Mauritania", "Djibouti", "Somalia",
   // Major countries
   "United States", "United Kingdom", "Canada", "Australia", "New Zealand",
-  "Germany", "France", "Italy", "Spain", "Netherlands", "Belgium", "Switzerland", 
+  "Germany", "France", "Italy", "Spain", "Netherlands", "Belgium", "Switzerland",
   "Austria", "Sweden", "Norway", "Denmark", "Finland", "Poland", "Portugal", "Greece",
-  "Russia", "China", "Japan", "South Korea", "India", "Indonesia", "Malaysia", 
+  "Russia", "China", "Japan", "South Korea", "India", "Indonesia", "Malaysia",
   "Singapore", "Thailand", "Philippines", "Vietnam", "Bangladesh", "Pakistan",
   "Turkey", "Iran", "Brazil", "Argentina", "Mexico", "Chile", "Colombia",
   "South Africa", "Nigeria", "Kenya", "Ghana", "Ethiopia", "Tanzania", "Uganda",
@@ -55,10 +55,10 @@ const allowedCountries = new Set([
 
 // Filter and map countries, excluding Israel and Palestine (we'll add Palestine manually)
 const filteredCountries = countries.all
-  .filter((country) => 
-    country.alpha2 && 
-    country.alpha3 && 
-    country.name && 
+  .filter((country) =>
+    country.alpha2 &&
+    country.alpha3 &&
+    country.name &&
     country.status !== "deleted" &&
     country.name !== "Israel" && // Explicitly exclude Israel
     country.alpha2 !== "PS" && // Exclude Palestine from database (we'll add it manually)
@@ -96,11 +96,13 @@ export function CountryDropdown({
   defaultValue,
   placeholder = "فلسطين",
   dir = "rtl",
+  className,
 }: {
   onChange: (country: Country) => void;
   defaultValue?: string;
   placeholder?: string;
   dir?: "ltr" | "rtl";
+  className?: string;
 }) {
   const [selectedValue, setSelectedValue] = React.useState<string>(
     defaultValue || "",
@@ -141,10 +143,11 @@ export function CountryDropdown({
       <SelectTrigger
         className={cn(
           "h-[54px] w-full rounded-[10px] border-[0.5px] border-[rgba(0,0,0,0.2)] bg-white px-5 py-[10px] font-normal text-[rgba(13,13,13,0.7)] relative",
+          className,
           "hover:border-[#007F5E]/40 hover:bg-white focus:outline-none focus:ring-2 focus:ring-[#007F5E]/20",
           "data-placeholder:text-[rgba(13,13,13,0.5)]",
-          dir === "rtl" 
-            ? "justify-start [&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span]:min-w-0 [&>span]:flex-row-reverse [&>svg]:absolute [&>svg]:end-5" 
+          dir === "rtl"
+            ? "justify-start [&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span]:min-w-0 [&>span]:flex-row-reverse [&>svg]:absolute [&>svg]:end-5"
             : "justify-start [&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span]:min-w-0 [&>span]:flex-row [&>svg]:absolute [&>svg]:end-5",
           "[&>svg]:shrink-0",
         )}
@@ -187,8 +190,8 @@ export function CountryDropdown({
               className={cn(
                 "cursor-pointer hover:bg-[#007F5E]/10 hover:text-[#007F5E] transition-colors py-2 min-h-[44px] rounded-md",
                 "focus:bg-[#007F5E]/10 focus:text-[#007F5E] active:bg-[#007F5E]/20",
-                dir === "rtl" 
-                  ? "!pe-8 !ps-2 [&>span]:!start-auto [&>span]:!end-2" 
+                dir === "rtl"
+                  ? "!pe-8 !ps-2 [&>span]:!start-auto [&>span]:!end-2"
                   : "!pe-2 !ps-8 [&>span]:!start-2 [&>span]:!end-auto",
               )}
             >

@@ -49,7 +49,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${cairo.variable} ${alexandria.variable} ${molle.variable} ${playpenSans.variable}`}
     >
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <Providers>
           <ConditionalSiteHeader />
           <ConditionalPageDecorations />

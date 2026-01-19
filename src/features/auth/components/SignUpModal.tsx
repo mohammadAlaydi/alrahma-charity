@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Eye, EyeOff, X } from "lucide-react";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
@@ -48,12 +49,41 @@ export function SignUpModal({ open, onClose, onSwitchToLogin }: SignUpModalProps
   const password = watch("password");
   const hasInputs = Boolean(email && password);
 
+  console.log("Form Errors:", errors); // Debugging
+
   const onSubmit = handleSubmit(async (values) => {
-    // Placeholder: call backend register endpoint then sign in.
-    dispatch(addToast({ type: "success", message: "تم إنشاء الحساب بنجاح" }));
-    onClose();
-    // Optionally redirect or refresh
-    window.location.reload();
+    console.log("Submitting values:", values); // Debugging
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth/register`, {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Something went wrong");
+      }
+
+      dispatch(addToast({ type: "success", message: "تم إنشاء الحساب بنجاح" }));
+
+      // Auto login after signup
+      const loginRes = await signIn("credentials", {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+      });
+
+      if (loginRes?.error) {
+        dispatch(addToast({ type: "error", message: "فشل تسجيل الدخول التلقائي" }));
+      } else {
+        onClose();
+        window.location.reload();
+      }
+    } catch (error: any) {
+      dispatch(addToast({ type: "error", message: error.message }));
+    }
   });
 
   return (
@@ -61,18 +91,18 @@ export function SignUpModal({ open, onClose, onSwitchToLogin }: SignUpModalProps
       <div className="relative w-full max-w-[480px] mx-auto rounded-[24px] bg-[#FAFAFA] p-8 md:p-10 font-alexandria overflow-hidden" dir="rtl">
         {/* Decorative Background Image */}
         <div className="absolute top-0 right-[-30px] w-[110px] h-[110px] pointer-events-none opacity-[1] overflow-hidden rotate-[180deg]">
-          <Image 
-            src="/images/الدليل الإرشادي لهوية جمعية رحمة v.02-2025_pages-to-jpg-0023 1 9.png" 
-            alt="" 
-            fill 
+          <Image
+            src="/images/الدليل الإرشادي لهوية جمعية رحمة v.02-2025_pages-to-jpg-0023 1 9.png"
+            alt=""
+            fill
             className="object-contain"
           />
         </div>
         <div className="absolute bottom-0 left-0 w-[120px] h-[120px] pointer-events-none opacity-[1] overflow-hidden">
-          <Image 
-            src="/images/الدليل الإرشادي لهوية جمعية رحمة v.02-2025_pages-to-jpg-0023 1 9.png" 
-            alt="" 
-            fill 
+          <Image
+            src="/images/الدليل الإرشادي لهوية جمعية رحمة v.02-2025_pages-to-jpg-0023 1 9.png"
+            alt=""
+            fill
             className="object-contain"
           />
         </div>
@@ -88,11 +118,11 @@ export function SignUpModal({ open, onClose, onSwitchToLogin }: SignUpModalProps
         {/* Logo */}
         <div className="relative mb-8 flex flex-col items-center gap-4 z-10">
           <div className="relative h-20 w-20 flex items-center justify-center">
-            <Image 
-              src="/figma/Logo.png" 
-              alt="Alrahma" 
-              width={80} 
-              height={80} 
+            <Image
+              src="/figma/Logo.png"
+              alt="Alrahma"
+              width={80}
+              height={80}
               className="object-contain"
             />
           </div>
@@ -132,14 +162,14 @@ export function SignUpModal({ open, onClose, onSwitchToLogin }: SignUpModalProps
             )}
           </div>
 
-         
+
           <button
             type="submit"
             disabled={isSubmitting}
             className={cn(
               "w-full h-[56px] rounded-[40px] text-white text-lg font-semibold font-alexandria transition-colors disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40",
-              hasInputs 
-                ? "bg-[#007F5E] hover:bg-[#005F4A]" 
+              hasInputs
+                ? "bg-[#007F5E] hover:bg-[#005F4A]"
                 : "bg-[rgba(17,17,17,0.25)] hover:bg-[rgba(17,17,17,0.35)]"
             )}
           >

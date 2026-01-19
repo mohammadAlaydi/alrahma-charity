@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { AmountInput } from "@/components/ui/AmountInput";
 import { CountryDropdown, type Country } from "@/components/ui/country-dropdown";
+import { get } from "@/services/http";
+import { Loader2 } from "lucide-react";
 
 const PRESET_AMOUNTS = [200, 100, 50, 10];
 
@@ -30,65 +32,35 @@ type OrphanCard = {
   remainingAmount: number;
   monthlyAmount: number;
   progress: number;
+  category: string; // Add category field
 };
 
-// Mock data - replace with API call
-const MOCK_ORPHANS: OrphanCard[] = [
-  {
-    id: "1",
-    name: "يامن طفل يتيم من غزّة",
-    age: 4,
-    imageUrl: "/sadaqah-jarya.jpg",
-    remainingAmount: 100,
-    monthlyAmount: 100,
-    progress: 76,
-  },
-  {
-    id: "2",
-    name: "يامن طفل يتيم من غزّة",
-    age: 4,
-    imageUrl: "/sadaqah-jarya.jpg",
-    remainingAmount: 100,
-    monthlyAmount: 100,
-    progress: 76,
-  },
-  {
-    id: "3",
-    name: "يامن طفل يتيم من غزّة",
-    age: 4,
-    imageUrl: "/sadaqah-jarya.jpg",
-    remainingAmount: 100,
-    monthlyAmount: 100,
-    progress: 76,
-  },
-  {
-    id: "4",
-    name: "يامن طفل يتيم من غزّة",
-    age: 4,
-    imageUrl: "/sadaqah-jarya.jpg",
-    remainingAmount: 100,
-    monthlyAmount: 100,
-    progress: 76,
-  },
-  {
-    id: "5",
-    name: "يامن طفل يتيم من غزّة",
-    age: 4,
-    imageUrl: "/sadaqah-jarya.jpg",
-    remainingAmount: 100,
-    monthlyAmount: 100,
-    progress: 76,
-  },
-  {
-    id: "6",
-    name: "يامن طفل يتيم من غزّة",
-    age: 4,
-    imageUrl: "/sadaqah-jarya.jpg",
-    remainingAmount: 100,
-    monthlyAmount: 100,
-    progress: 76,
-  },
-];
+// Backend orphan interface
+interface BackendOrphan {
+  _id: string;
+  name: string;
+  refId: string;
+  dob?: string;
+  age?: number; // Age stored in backend
+  country: string;
+  status: string;
+  type: string;
+  avatar?: string;
+  gender: string;
+  story?: string;
+  monthlyAmount?: number;
+  raisedAmount?: number;
+  createdAt: string;
+}
+
+// Category mapping from backend type to frontend category id
+const CATEGORY_MAPPING: Record<string, string> = {
+  "الرعاية الكاملة": "orphan",
+  "كفالة يتيم": "orphan",
+  "كفالة تعليمية": "educational",
+  "الكفالات الانسانية": "humanitarian",
+  "الكفالات الطبية": "medical",
+};
 
 export function OrphanSponsorshipPageContent() {
   const [selectedCategory, setSelectedCategory] = useState<string>("orphan");
@@ -96,7 +68,100 @@ export function OrphanSponsorshipPageContent() {
   const [customAmount, setCustomAmount] = useState<string>("");
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [allOrphans, setAllOrphans] = useState<OrphanCard[]>([]);
+  const [loading, setLoading] = useState(true);
   const itemsPerPage = 6;
+
+  // Fetch orphans from backend
+  useEffect(() => {
+    const fetchOrphans = async () => {
+      try {
+        const response = await get<{ success: boolean; data: BackendOrphan[] }>('/orphans');
+        if (response.success && response.data) {
+          // Transform backend data to OrphanCard format
+          const transformedOrphans: OrphanCard[] = response.data.map(orphan => {
+
+            // Use age from backend, or calculate from dob, or default to 0
+            let age: number = 0;
+
+            // Try to use stored age from backend
+            if (orphan.age !== undefined && orphan.age !== null && !isNaN(Number(orphan.age))) {
+              age = Number(orphan.age);
+            }
+            // Try to calculate from dob
+            else if (orphan.dob && orphan.dob.trim() !== '') {
+              try {
+                const birthDate = new Date(orphan.dob);
+                // Check if date is valid
+                if (!isNaN(birthDate.getTime())) {
+                  const today = new Date();
+                  age = today.getFullYear() - birthDate.getFullYear();
+                  const monthDiff = today.getMonth() - birthDate.getMonth();
+                  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                  }
+                  // Ensure age is non-negative
+                  age = Math.max(0, age);
+                } else {
+                  // Invalid date, age remains 0
+                }
+              } catch (error) {
+                console.error('Error calculating age for', orphan.name, ':', error);
+              }
+            } else {
+              // No age or dob, age remains 0
+            }
+
+            // Final safety check to ensure age is a valid number
+            if (isNaN(age) || age === null || age === undefined) {
+              age = 0;
+            }
+
+            // Map backend type to frontend category
+            const category = CATEGORY_MAPPING[orphan.type] || "orphan";
+
+            // Calculate progress percentage
+            const monthlyAmount = orphan.monthlyAmount || 100;
+            const raisedAmount = orphan.raisedAmount || 0;
+            const progress = monthlyAmount > 0 ? Math.min(Math.round((raisedAmount / monthlyAmount) * 100), 100) : 0;
+            const remainingAmount = Math.max(monthlyAmount - raisedAmount, 0);
+
+            // Use avatar from backend, or use placeholder image
+            const imageUrl = orphan.avatar && orphan.avatar.trim() !== '' ? orphan.avatar : '/images/no-image-placeholder.png';
+
+            return {
+              id: orphan._id,
+              name: orphan.name,
+              age: age,
+              imageUrl: imageUrl,
+              remainingAmount: remainingAmount,
+              monthlyAmount: monthlyAmount,
+              progress: progress,
+              category: category,
+            };
+          });
+
+          setAllOrphans(transformedOrphans);
+        }
+      } catch (error) {
+        console.error('Failed to fetch orphans:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrphans();
+  }, []);
+
+  // Filter orphans based on selected category
+  const filteredOrphans = selectedCategory === "projects"
+    ? allOrphans // Show all orphans for "projects" category
+    : allOrphans.filter(orphan => orphan.category === selectedCategory);
+
+  // Reset to page 1 when category changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory]);
 
   const handleCountryChange = (country: Country) => {
     setSelectedCountry(country);
@@ -111,8 +176,8 @@ export function OrphanSponsorshipPageContent() {
     }
   };
 
-  const totalPages = Math.ceil(MOCK_ORPHANS.length / itemsPerPage);
-  const paginatedOrphans = MOCK_ORPHANS.slice(
+  const totalPages = Math.ceil(filteredOrphans.length / itemsPerPage);
+  const paginatedOrphans = filteredOrphans.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -151,7 +216,7 @@ export function OrphanSponsorshipPageContent() {
         {/* Donation Card and Image Section */}
         <section className="mb-[60px] md:mb-[100px]">
           <div className="flex flex-col xl:flex-row gap-8 xl:gap-[30px] items-start justify-center w-full">
-            
+
             {/* Right Side: Image - Desktop only */}
             <div className="hidden xl:flex w-full xl:w-[630.22px] order-1">
               <div className="relative w-full h-[678px] rounded-[20px] overflow-hidden">
@@ -377,80 +442,86 @@ export function OrphanSponsorshipPageContent() {
 
         {/* Orphan Cards Grid */}
         <section className="mb-[60px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
-            {paginatedOrphans.map((orphan) => (
-              <div
-                key={orphan.id}
-                className="bg-white border border-[rgba(13,13,13,0.3)] rounded-[20px] overflow-hidden hover:shadow-[0px_8px_24px_0px_rgba(0,127,94,0.15)] transition-shadow"
-              >
-                <div className="flex flex-col sm:flex-row h-full">
-                  {/* Image - Left side */}
-                  <div className="relative w-full sm:w-[257.56px] h-[257.56px] sm:h-auto bg-[#d9d9d9] shrink-0 order-2 sm:order-2">
-                    <Image
-                      src={orphan.imageUrl}
-                      alt={orphan.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-
-                  {/* Content - Right side */}
-                  <div className="flex flex-col justify-between p-4 md:p-6 flex-1 order-1 sm:order-1">
-                    <div className="w-full">
-                      <h3 className="font-alexandria text-base md:text-[18px] font-medium leading-normal text-[#122F2A] mb-4">
-                        {orphan.name}
-                      </h3>
-
-                      {/* Progress bar section */}
-                      <div className="mb-4">
-                        {/* Age - positioned at top left */}
-                        <div className="flex items-center justify-start mb-2">
-                          <p className="font-alexandria text-[16px] font-medium leading-[38px] text-[#122F2A]">
-                            العمر : {orphan.age} سنوات
-                          </p>
-                        </div>
-
-                        {/* Progress bar */}
-                        <div className="w-full h-2 bg-[rgba(217,217,217,0.4)] rounded-[10px] overflow-hidden mb-2">
-                          <div
-                            className="h-full bg-[#007F5E] rounded-[10px] transition-all"
-                            style={{ width: `${orphan.progress}%` }}
-                          />
-                        </div>
-
-                        {/* Amount info */}
-                        <div className="flex items-center justify-between">
-                          <p className="font-alexandria text-[16px] font-normal text-[rgba(13,13,13,0.7)]">
-                            المتبقي لتأمينها شهرياً
-                          </p>
-                          <p className="font-alexandria text-[16px] font-semibold text-[#0d0d0d]">
-                            $ {orphan.remainingAmount}
-                          </p>
-                        </div>
-                      </div>
+          {loading ? (
+            <div className="flex justify-center items-center min-h-[400px]">
+              <Loader2 className="h-8 w-8 animate-spin text-[#007F5E]" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
+              {paginatedOrphans.map((orphan) => (
+                <div
+                  key={orphan.id}
+                  className="bg-white border border-[rgba(13,13,13,0.3)] rounded-[20px] overflow-hidden hover:shadow-[0px_8px_24px_0px_rgba(0,127,94,0.15)] transition-shadow"
+                >
+                  <div className="flex flex-col sm:flex-row h-full">
+                    {/* Image - Left side */}
+                    <div className="relative w-full sm:w-[257.56px] h-[257.56px] sm:h-auto bg-[#d9d9d9] shrink-0 order-2 sm:order-2">
+                      <Image
+                        src={orphan.imageUrl}
+                        alt={orphan.name}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
 
-                    {/* Donate button */}
-                    <button
-                      type="button"
-                      className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[20px] w-full sm:w-[160px] self-start mt-4 sm:mt-auto"
-                    >
-                      <p className="font-alexandria text-[16px] font-semibold leading-[1.5] text-white text-nowrap">
-                        تبرع الان
-                      </p>
-                      <Image
-                        src="/figma/mingcute_love-fill.svg"
-                        alt=""
-                        width={24}
-                        height={24}
-                        className="h-6 w-6"
-                      />
-                    </button>
+                    {/* Content - Right side */}
+                    <div className="flex flex-col justify-between p-4 md:p-6 flex-1 order-1 sm:order-1">
+                      <div className="w-full">
+                        <h3 className="font-alexandria text-base md:text-[18px] font-medium leading-normal text-[#122F2A] mb-4">
+                          {orphan.name}
+                        </h3>
+
+                        {/* Progress bar section */}
+                        <div className="mb-4">
+                          {/* Age - positioned at top left */}
+                          <div className="flex items-center justify-start mb-2">
+                            <p className="font-alexandria text-[16px] font-medium leading-[38px] text-[#122F2A]">
+                              العمر : {orphan.age} سنوات
+                            </p>
+                          </div>
+
+                          {/* Progress bar */}
+                          <div className="w-full h-2 bg-[rgba(217,217,217,0.4)] rounded-[10px] overflow-hidden mb-2">
+                            <div
+                              className="h-full bg-[#007F5E] rounded-[10px] transition-all"
+                              style={{ width: `${orphan.progress}%` }}
+                            />
+                          </div>
+
+                          {/* Amount info */}
+                          <div className="flex items-center justify-between">
+                            <p className="font-alexandria text-[16px] font-normal text-[rgba(13,13,13,0.7)]">
+                              المتبقي لتأمينها شهرياً
+                            </p>
+                            <p className="font-alexandria text-[16px] font-semibold text-[#0d0d0d]">
+                              $ {orphan.remainingAmount}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Donate button */}
+                      <button
+                        type="button"
+                        className="bg-[#007F5E] flex gap-[10px] items-center justify-center px-8 py-4 rounded-[20px] w-full sm:w-[160px] self-start mt-4 sm:mt-auto"
+                      >
+                        <p className="font-alexandria text-[16px] font-semibold leading-[1.5] text-white text-nowrap">
+                          تبرع الان
+                        </p>
+                        <Image
+                          src="/figma/mingcute_love-fill.svg"
+                          alt=""
+                          width={24}
+                          height={24}
+                          className="h-6 w-6"
+                        />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* Pagination */}
@@ -462,11 +533,10 @@ export function OrphanSponsorshipPageContent() {
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
               aria-label="الصفحة السابقة"
-              className={`flex h-[35px] w-[35px] items-center justify-center rounded-full border transition ${
-                currentPage === 1
-                  ? "border-[#D4D4D4] bg-white text-[#474747] opacity-60 cursor-not-allowed"
-                  : "border-[#007F5E] bg-[#007F5E] text-white hover:bg-[#006B4E]"
-              }`}
+              className={`flex h-[35px] w-[35px] items-center justify-center rounded-full border transition ${currentPage === 1
+                ? "border-[#D4D4D4] bg-white text-[#474747] opacity-60 cursor-not-allowed"
+                : "border-[#007F5E] bg-[#007F5E] text-white hover:bg-[#006B4E]"
+                }`}
             >
               <Image
                 src="/iconamoon_arrow-up-2.svg"
@@ -483,11 +553,10 @@ export function OrphanSponsorshipPageContent() {
                 key={page}
                 type="button"
                 onClick={() => setCurrentPage(page)}
-                className={`flex h-[35px] w-[35px] items-center justify-center rounded-full border text-[15px] font-medium transition ${
-                  page === currentPage
-                    ? "border-[#007F5E] bg-[#007F5E] text-white"
-                    : "border-[#D4D4D4] bg-white text-[#474747] hover:border-[#007F5E] hover:text-[#007F5E]"
-                }`}
+                className={`flex h-[35px] w-[35px] items-center justify-center rounded-full border text-[15px] font-medium transition ${page === currentPage
+                  ? "border-[#007F5E] bg-[#007F5E] text-white"
+                  : "border-[#D4D4D4] bg-white text-[#474747] hover:border-[#007F5E] hover:text-[#007F5E]"
+                  }`}
               >
                 {page}
               </button>
@@ -499,11 +568,10 @@ export function OrphanSponsorshipPageContent() {
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
               aria-label="الصفحة التالية"
-              className={`flex h-[35px] w-[35px] items-center justify-center rounded-full border transition ${
-                currentPage === totalPages
-                  ? "border-[#D4D4D4] bg-white text-[#474747] opacity-60 cursor-not-allowed"
-                  : "border-[#007F5E] bg-[#007F5E] text-white hover:bg-[#006B4E]"
-              }`}
+              className={`flex h-[35px] w-[35px] items-center justify-center rounded-full border transition ${currentPage === totalPages
+                ? "border-[#D4D4D4] bg-white text-[#474747] opacity-60 cursor-not-allowed"
+                : "border-[#007F5E] bg-[#007F5E] text-white hover:bg-[#006B4E]"
+                }`}
             >
               <Image
                 src="/iconamoon_arrow-up-2.svg"

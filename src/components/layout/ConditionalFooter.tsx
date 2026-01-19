@@ -8,7 +8,9 @@ export function ConditionalFooter() {
   // Hide footer on auth pages (they use AuthCard full-screen layout)
   const isAuthPage = pathname?.startsWith("/login") || pathname?.startsWith("/signup");
 
-  if (isAuthPage) {
+  const isAdminPage = pathname?.startsWith("/admin");
+
+  if (isAuthPage || isAdminPage) {
     return null;
   }
 

@@ -20,6 +20,7 @@ export type Campaign = {
   description_ar?: string;
   description_en?: string;
   description_tr?: string;
+  category?: string;
   project_id?: string | { _id: string; name_ar: string; name_en: string; name_tr: string };
   status: CampaignStatus;
   financial_goal?: number;

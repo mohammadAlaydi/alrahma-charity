@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
@@ -48,7 +48,22 @@ export function MainNavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
   const favorites = useAppSelector((state) => state.favorites.favorites);
+  const user = useAppSelector((state) => state.auth.user);
   const favoritesCount = Object.keys(favorites).filter((id) => favorites[id]).length;
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Use effective user only after mount to ensure SSR matches initial client render
+  const effectiveUser = mounted ? user : null;
+
+  // Determine dashboard link
+  const dashboardLink = (effectiveUser as any)?.role === "admin" || (effectiveUser as any)?.role === "ADMIN" || effectiveUser?.isAdmin
+    ? "/admin"
+    : "/dashboard";
 
   return (
     <div className="w-full bg-white border-0 !border-b-0 shadow-none border-t-0">
@@ -139,27 +154,57 @@ export function MainNavBar() {
               )}
             </button>
             {/* Profile Button */}
-            <button
-              type="button"
-              onClick={openLoginModal}
-              className="relative flex items-center justify-center transition-opacity hover:opacity-80"
-              style={{ height: '44px', width: '44px' }}
-            >
-              <div
-                className="relative flex items-center justify-center"
-                style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '37px',
-                  border: '1px solid #E9E9F2',
-                  background: '#FFF'
-                }}
+            {effectiveUser ? (
+              <Link
+                href={dashboardLink}
+                className="flex items-center gap-[10px] transition-opacity hover:opacity-80"
               >
-                <div className="relative" style={{ width: '28px', height: '28px' }}>
-                  <Image src="/figma/profile icon.svg" alt="الملف الشخصي" fill className="object-contain" />
+                <div
+                  className="relative flex items-center justify-center overflow-hidden"
+                  style={{
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '37px',
+                    border: '1px solid #E9E9F2',
+                    background: '#FFF'
+                  }}
+                >
+                  {effectiveUser.image ? (
+                    <Image src={effectiveUser.image} alt={effectiveUser.name} fill className="object-cover" />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-emerald-50 text-emerald-600 font-bold">
+                      {effectiveUser.name?.charAt(0) || "U"}
+                    </div>
+                  )}
                 </div>
-              </div>
-            </button>
+                <div className="hidden md:flex flex-col items-start">
+                  <span className="text-sm font-bold text-[#111111]">{effectiveUser.name}</span>
+                  <span className="text-[10px] text-[#666666]">لوحة التحكم</span>
+                </div>
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={openLoginModal}
+                className="relative flex items-center justify-center transition-opacity hover:opacity-80"
+                style={{ height: '44px', width: '44px' }}
+              >
+                <div
+                  className="relative flex items-center justify-center"
+                  style={{
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '37px',
+                    border: '1px solid #E9E9F2',
+                    background: '#FFF'
+                  }}
+                >
+                  <div className="relative" style={{ width: '28px', height: '28px' }}>
+                    <Image src="/figma/profile icon.svg" alt="تسجيل الدخول" fill className="object-contain" />
+                  </div>
+                </div>
+              </button>
+            )}
             <DonateButton onClick={() => setIsDonationModalOpen(true)} />
           </div>
         </div>

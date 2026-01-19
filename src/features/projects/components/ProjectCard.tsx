@@ -17,6 +17,22 @@ type ProjectCardProps = {
 
 
 
+const categoryLabels: Record<string, string> = {
+    // English keys (from frontend)
+    emergency: "استجابة وطوارئ",
+    education: "تعليم",
+    humanitarian: "إنساني",
+    orphans: "أيتام",
+    medical: "طبي",
+    all: "عام",
+    // Arabic keys (from backend)
+    "حملات دعم الأيتام": "أيتام",
+    "الحملات الطبية": "طبي",
+    "الحملات الانسانية": "إنساني",
+    "حملات التعليم": "تعليم",
+    "حملات الاستجابة والطوارئ": "استجابة وطوارئ"
+};
+
 export function ProjectCard({
     project,
     isFav,
@@ -30,10 +46,21 @@ export function ProjectCard({
         <div className="flex h-full w-full max-w-[395px] flex-col overflow-hidden rounded-[20px] border border-zinc-200 bg-white shadow-none transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.16)] md:min-h-[600px]">
             {/* صورة Placeholder أعلى الكرت */}
             <div className="relative h-[300px] w-full overflow-hidden rounded-t-[20px] bg-zinc-200">
-                <Link href={`/projects/${project.id}`} className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-molle text-center text-[32px] font-normal text-white">
-                        Donate image
-                    </span>
+                <Link href={`/projects/${project.id}`} className="absolute inset-0 flex items-center justify-center relative w-full h-full block">
+                    {project.imageUrl ? (
+                        <Image
+                            src={project.imageUrl}
+                            alt={project.title}
+                            fill
+                            className="object-cover"
+                        />
+                    ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-gray-200">
+                            <span className="font-molle text-center text-[32px] font-normal text-white">
+                                No Image
+                            </span>
+                        </div>
+                    )}
                 </Link>
 
 
@@ -42,7 +69,9 @@ export function ProjectCard({
                         href={`/projects/${project.id}`}
                         className="inline-flex items-center gap-1.5 rounded-full border border-white bg-[#007F5E] px-3.5 py-1.5 hover:bg-[#056A4F] transition-colors"
                     >
-                        <span className="card-badge">تصنيف المشروع</span>
+                        <span className="card-badge">
+                            {categoryLabels[project.category] || 'المشروع'}
+                        </span>
                     </Link>
 
                     <button

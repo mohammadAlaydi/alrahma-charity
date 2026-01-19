@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/cn";
@@ -44,14 +45,20 @@ export default function LoginPage() {
   const password = watch("password");
   const hasInputs = Boolean(email && password);
 
+  const router = useRouter();
+
   const onSubmit = handleSubmit(async (values) => {
+    const callbackUrl = "/dashboard";
+    
     const res = await signIn("credentials", {
       redirect: true,
-      callbackUrl: "/dashboard",
+      callbackUrl: callbackUrl,
       email: values.email,
       password: values.password,
     });
 
+    // If redirect is true, signIn will handle the redirect
+    // If there's an error, it won't redirect
     if (res?.error) {
       dispatch(addToast({ type: "error", message: "بيانات الدخول غير صحيحة" }));
     }
@@ -105,12 +112,7 @@ export default function LoginPage() {
               error={Boolean(errors.password)}
               {...register("password")}
             />
-            <Link
-              href="#"
-              className="block text-[20px] leading-[20px] text-[#111111] hover:underline"
-            >
-              نسيت كلمة المرور الخاصة بك
-            </Link>
+
             {errors.password?.message && (
               <p className="text-[17px] leading-[17px] text-[#EE1D52]">{errors.password.message}</p>
             )}
@@ -123,8 +125,8 @@ export default function LoginPage() {
           variant={undefined}
           className={cn(
             "h-16 w-full rounded-[40px] text-[22px] leading-[22px] !text-[#FFFFFF] disabled:opacity-50 transition-colors",
-            hasInputs 
-              ? "!bg-[#007F5E] hover:!bg-[#005F4A]" 
+            hasInputs
+              ? "!bg-[#007F5E] hover:!bg-[#005F4A]"
               : "!bg-[rgba(0,0,0,0.25)] hover:!bg-[rgba(0,0,0,0.35)]"
           )}
           disabled={isSubmitting}

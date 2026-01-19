@@ -16,14 +16,22 @@ export function transformCampaignToProject(campaign: Campaign): Project {
     // Map backend category to frontend category
     const categoryMap: Record<string, CampaignCategoryId> = {
         emergency: "emergency",
+        "حملات الاستجابة والطوارئ": "emergency",
         education: "education",
+        "حملات التعليم": "education",
         humanitarian: "humanitarian",
+        "الحملات الانسانية": "humanitarian",
+        "الحملات الإنسانية": "humanitarian",
         orphans: "orphans",
+        "حملات دعم الأيتام": "orphans",
         medical: "medical",
+        "الحملات الطبية": "medical",
+        general: "humanitarian", // Fallback
     };
 
-    const category: CampaignCategoryId =
-        (projectCategory && categoryMap[projectCategory]) || "humanitarian";
+    // Use campaign.category first, then try project_id mapping
+    const rawCategory = campaign.category || projectCategory || "humanitarian";
+    const category: CampaignCategoryId = categoryMap[rawCategory] || categoryMap[rawCategory.toLowerCase()] || "humanitarian";
 
     return {
         id: campaign._id,
@@ -33,6 +41,7 @@ export function transformCampaignToProject(campaign: Campaign): Project {
         category,
         goal: campaign.financial_goal || 0,
         collected: campaign.current_amount || 0,
+        imageUrl: campaign.image_url,
     };
 }
 

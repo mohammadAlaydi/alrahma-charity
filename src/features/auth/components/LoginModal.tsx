@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { Eye, EyeOff, X } from "lucide-react";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -20,6 +21,7 @@ interface LoginModalProps {
   open: boolean;
   onClose: () => void;
   onSwitchToSignUp?: () => void;
+  onSwitchToForgotPassword?: () => void;
 }
 
 function PasswordToggle({ visible, onToggle }: { visible: boolean; onToggle: () => void }) {
@@ -37,7 +39,7 @@ function PasswordToggle({ visible, onToggle }: { visible: boolean; onToggle: () 
   );
 }
 
-export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps) {
+export function LoginModal({ open, onClose, onSwitchToSignUp, onSwitchToForgotPassword }: LoginModalProps) {
   const dispatch = useAppDispatch();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -52,6 +54,8 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
   const password = watch("password");
   const hasInputs = Boolean(email && password);
 
+  const router = useRouter();
+
   const onSubmit = handleSubmit(async (values) => {
     const res = await signIn("credentials", {
       redirect: false,
@@ -61,10 +65,34 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
 
     if (res?.error) {
       dispatch(addToast({ type: "error", message: "بيانات الدخول غير صحيحة" }));
-    } else {
+    } else if (res?.ok) {
       onClose();
-      // Optionally redirect or refresh
-      window.location.reload();
+      
+      // Wait for session to be established and cookie to be set
+      // Poll for session with increasing delays to ensure cookie is set
+      let session = null;
+      let attempts = 0;
+      const maxAttempts = 15;
+      
+      while (!session && attempts < maxAttempts) {
+        await new Promise(resolve => setTimeout(resolve, 100 + (attempts * 50)));
+        session = await getSession();
+        attempts++;
+      }
+
+      // Even if session isn't ready, redirect - the middleware will check the cookie
+      const user = session?.user as any;
+      const redirectUrl = (user?.role === "admin" || user?.role === "ADMIN" || user?.isAdmin) 
+        ? "/admin" 
+        : "/dashboard";
+      
+      // Use window.location for full page reload to ensure middleware sees the session cookie
+      // This forces a complete page reload which allows the middleware to properly check cookies
+      if (typeof window !== "undefined") {
+        // Small delay to ensure cookie is written
+        await new Promise(resolve => setTimeout(resolve, 100));
+        window.location.href = redirectUrl;
+      }
     }
   });
 
@@ -73,18 +101,18 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
       <div className="relative w-full max-w-[480px] mx-auto rounded-[24px] bg-[#FAFAFA] p-8 md:p-10 font-alexandria overflow-hidden" dir="rtl">
         {/* Decorative Background Image */}
         <div className="absolute top-0 right-[-30px] w-[110px] h-[110px] pointer-events-none opacity-[1] overflow-hidden rotate-[180deg]">
-          <Image 
-            src="/images/الدليل الإرشادي لهوية جمعية رحمة v.02-2025_pages-to-jpg-0023 1 9.png" 
-            alt="" 
-            fill 
+          <Image
+            src="/images/الدليل الإرشادي لهوية جمعية رحمة v.02-2025_pages-to-jpg-0023 1 9.png"
+            alt=""
+            fill
             className="object-contain"
           />
         </div>
         <div className="absolute bottom-0 left-0 w-[120px] h-[120px] pointer-events-none opacity-[1] overflow-hidden">
-          <Image 
-            src="/images/الدليل الإرشادي لهوية جمعية رحمة v.02-2025_pages-to-jpg-0023 1 9.png" 
-            alt="" 
-            fill 
+          <Image
+            src="/images/الدليل الإرشادي لهوية جمعية رحمة v.02-2025_pages-to-jpg-0023 1 9.png"
+            alt=""
+            fill
             className="object-contain"
           />
         </div>
@@ -100,11 +128,11 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
         {/* Logo */}
         <div className="relative mb-8 flex flex-col items-center gap-4 z-10">
           <div className="relative h-20 w-20 flex items-center justify-center">
-            <Image 
-              src="/figma/Logo.png" 
-              alt="Alrahma" 
-              width={80} 
-              height={80} 
+            <Image
+              src="/figma/Logo.png"
+              alt="Alrahma"
+              width={80}
+              height={80}
               className="object-contain"
             />
           </div>
@@ -118,7 +146,7 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
             <label className="text-base font-medium text-[#666] font-alexandria">اسم المستخدم</label>
             <TextInput
               type="text"
-              
+
               error={!!errors.email}
               {...register("email")}
             />
@@ -137,7 +165,7 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
             </div>
             <TextInput
               type={passwordVisible ? "text" : "password"}
-              
+
               error={!!errors.password}
               {...register("password")}
             />
@@ -152,9 +180,18 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
               onChange={(e) => setRememberMe(e.target.checked)}
               label={<span className="text-base text-[18px] font-semibold leading-[18px] font-normal text-[#666666] font-alexandria">تذكرني</span>}
             />
-            <Link href="/forgot-password" onClick={onClose} className="text-base text-[#6155f5] hover:underline font-alexandria">
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                if (onSwitchToForgotPassword) {
+                  onSwitchToForgotPassword();
+                }
+              }}
+              className="text-base text-[#6155f5] hover:underline font-alexandria"
+            >
               نسيت كلمة المرور؟
-            </Link>
+            </button>
           </div>
 
           <button
@@ -162,8 +199,8 @@ export function LoginModal({ open, onClose, onSwitchToSignUp }: LoginModalProps)
             disabled={isSubmitting}
             className={cn(
               "w-full h-[56px] rounded-[40px] text-white text-lg font-semibold font-alexandria transition-colors disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40",
-              hasInputs 
-                ? "bg-[#007F5E] hover:bg-[#005F4A]" 
+              hasInputs
+                ? "bg-[#007F5E] hover:bg-[#005F4A]"
                 : "bg-[rgba(17,17,17,0.25)] hover:bg-[rgba(17,17,17,0.35)]"
             )}
           >

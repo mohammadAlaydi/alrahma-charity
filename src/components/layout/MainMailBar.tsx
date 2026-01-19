@@ -22,11 +22,11 @@ export function MainMailBar() {
       <Container className="flex h-auto min-h-[36px] md:h-[42px] items-center justify-between py-1.5 md:py-0">
         {/* Right: support links - hidden on mobile */}
         <div className="hidden md:flex items-center gap-8">
-          <Link href="#" className="topbar-text flex items-center gap-[5px]">
+          <Link href="/donation-methods" className="topbar-text flex items-center gap-[5px]">
             <span>كيف تتبرع؟</span>
             <HandHeart className="h-5 w-5 text-white" strokeWidth={1.5} />
           </Link>
-          <Link href="#" className="topbar-text">
+          <Link href="/privacy-policy" className="topbar-text">
             السياسة والخصوصية
           </Link>
         </div>

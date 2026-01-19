@@ -30,12 +30,15 @@ class ErrorLogger {
 
     this.logs.push(errorLog);
 
-    // In production, send to external logging service
     if (process.env.NODE_ENV === "production") {
       this.sendToExternalService(errorLog);
     } else {
-      // In development, log to console
-      console.error(`[${severity.toUpperCase()}]`, errorLog);
+      const prefix = `[${severity.toUpperCase()}] ${errorLog.message}`;
+      if (severity === "low") {
+        console.warn(prefix, { ...errorLog });
+      } else {
+        console.error(prefix, { ...errorLog });
+      }
     }
   }
 

@@ -19,16 +19,15 @@ type BlogCardProps = {
 
 export function BlogCard({ post }: BlogCardProps) {
   const imageUrl = post.imageUrl || "/images/ac049d4dd7a08ce44ca76439fe3d3d1a5058f9f8.jpg";
-  
+
   return (
-    <article className="flex h-full w-full flex-col overflow-hidden rounded-[20px] border-[0.5px] border-[rgba(0,0,0,0.3)] border-solid bg-white pt-[8px] px-[8px] pb-0">
+    <article className="flex h-full w-full flex-col overflow-hidden rounded-[20px] border-[0.5px] border-[rgba(0,0,0,0.3)] border-solid bg-white pt-[8px] px-[8px] pb-0 group">
       {/* Feature Image */}
-      <div 
-        className="relative h-[262px] w-full items-start overflow-clip"
+      <div
+        className="relative h-[262px] w-full items-start overflow-clip transition-all duration-300 grayscale group-hover:grayscale-0"
         style={{
           borderRadius: '14px',
           background: `url(${imageUrl}) lightgray 0px -33px / 100% 125.191% no-repeat`,
-          filter: 'grayscale(100%)',
         }}
       >
         {/* Category Badge - positioned at top right */}
@@ -53,19 +52,16 @@ export function BlogCard({ post }: BlogCardProps) {
       <div className="flex w-full flex-col gap-[24px] items-start pb-[32px] pt-0 px-[16px]">
         {/* User Details */}
         <div className="flex w-full items-center justify-between mt-[24px]">
-          <div className="flex flex-1 items-center justify-start gap-[8px] min-w-0">
-            {post.author && (
-              <span className="font-alexandria text-sm font-normal leading-5 text-[#0d0d0d] text-right">
-                {post.author}
-              </span>
-            )}
-             <div className="relative h-[6px] w-[6px] shrink-0">
-                <div className="h-full w-full rounded-full bg-[#0d0d0d]" />
-              </div>
-            <span className="font-alexandria text-sm font-normal leading-5 text-[#0d0d0d] text-right">
-              {post.date}
+          {/* Author on the left */}
+          {post.author && (
+            <span className="font-alexandria text-sm font-normal leading-5 text-[#0d0d0d]">
+              {post.author}
             </span>
-          </div>
+          )}
+          {/* Date on the right */}
+          <span className="font-alexandria text-sm font-normal leading-5 text-[#0d0d0d] text-right">
+            {post.date}
+          </span>
         </div>
 
         {/* Card Content */}

@@ -6,10 +6,11 @@ import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 
 export function SiteFooter() {
+  // Social media icons with hover effects
   return (
     <footer className="relative w-full bg-[#007F5E] text-white overflow-hidden" dir="rtl">
       {/* Background Image Layer */}
-      <div 
+      <div
         className="absolute inset-0 z-0 pointer-events-none opacity-80"
         style={{
           backgroundImage: 'url("/images/footer-Bg.png")',
@@ -82,56 +83,56 @@ export function SiteFooter() {
                   {/* Facebook */}
                   <a
                     href="#"
-                    className="flex h-[35px] w-[35px] items-center justify-center transition-opacity hover:opacity-80"
+                    className="group flex h-[35px] w-[35px] items-center justify-center transition-all hover:scale-110 rounded-full border-2 border-transparent hover:border-[#a8b561] hover:bg-[#008b67]"
                   >
                     <Image
                       src="/emojis/facebook.svg"
                       alt="Facebook"
                       width={35}
                       height={35}
-                      className="h-[35px] w-[35px]"
+                      className="h-[35px] w-[35px] transition-all group-hover:brightness-0 group-hover:invert"
                     />
                   </a>
 
                   {/* Instagram */}
                   <a
                     href="#"
-                    className="flex h-[35px] w-[35px] items-center justify-center transition-opacity hover:opacity-80"
+                    className="group flex h-[35px] w-[35px] items-center justify-center transition-all hover:scale-110 rounded-full border-2 border-transparent hover:border-[#a8b561] hover:bg-[#008b67]"
                   >
                     <Image
                       src="/emojis/instagram.svg"
                       alt="Instagram"
                       width={35}
                       height={35}
-                      className="h-[35px] w-[35px]"
+                      className="h-[35px] w-[35px] transition-all group-hover:brightness-0 group-hover:invert"
                     />
                   </a>
 
                   {/* YouTube */}
                   <a
                     href="#"
-                    className="flex h-[35px] w-[35px] items-center justify-center transition-opacity hover:opacity-80"
+                    className="group flex h-[35px] w-[35px] items-center justify-center transition-all hover:scale-110 rounded-full border-2 border-transparent hover:border-[#a8b561] hover:bg-[#008b67]"
                   >
                     <Image
                       src="/emojis/youtube.svg"
                       alt="YouTube"
                       width={35}
                       height={35}
-                      className="h-[35px] w-[35px]"
+                      className="h-[35px] w-[35px] transition-all group-hover:brightness-0 group-hover:invert"
                     />
                   </a>
 
                   {/* Google */}
                   <a
                     href="#"
-                    className="flex h-[35px] w-[35px] items-center justify-center transition-opacity hover:opacity-80"
+                    className="group flex h-[35px] w-[35px] items-center justify-center transition-all hover:scale-110 rounded-full border-2 border-transparent hover:border-[#a8b561] hover:bg-[#008b67]"
                   >
                     <Image
                       src="/emojis/google icon.svg"
                       alt="Google"
                       width={35}
                       height={35}
-                      className="h-[35px] w-[35px]"
+                      className="h-[35px] w-[35px] transition-all group-hover:brightness-0 group-hover:invert"
                     />
                   </a>
                 </div>
@@ -142,7 +143,7 @@ export function SiteFooter() {
             <div className="w-full space-y-4 lg:space-y-5 lg:w-auto lg:max-w-[171px] lg:flex-shrink-0">
               <h3 className="footer-section-title text-right">روابط سريعة</h3>
               <div className="space-y-3 lg:space-y-3.5" dir="rtl">
-                <Link href="#" className="footer-link flex items-center gap-[15px] hover:underline">
+                <Link href="/blog" className="footer-link flex items-center gap-[15px] hover:underline">
                   <Image
                     src="/emojis/check.svg"
                     alt=""
@@ -152,7 +153,7 @@ export function SiteFooter() {
                   />
                   <span className="flex-1">مدونة الجمعية</span>
                 </Link>
-                <Link href="#" className="footer-link flex items-center gap-[15px] hover:underline">
+                <Link href="/contact" className="footer-link flex items-center gap-[15px] hover:underline">
                   <Image
                     src="/emojis/check.svg"
                     alt=""
@@ -162,7 +163,7 @@ export function SiteFooter() {
                   />
                   <span className="flex-1">تواصل معنا</span>
                 </Link>
-                <Link href="#" className="footer-link flex items-center gap-[15px] hover:underline">
+                <Link href="/partners" className="footer-link flex items-center gap-[15px] hover:underline">
                   <Image
                     src="/emojis/check.svg"
                     alt=""
@@ -172,7 +173,7 @@ export function SiteFooter() {
                   />
                   <span className="flex-1">شركاؤنا</span>
                 </Link>
-                <Link href="#" className="footer-link flex items-center gap-[15px] hover:underline">
+                <Link href="/donation-methods" className="footer-link flex items-center gap-[15px] hover:underline">
                   <Image
                     src="/emojis/check.svg"
                     alt=""
@@ -189,7 +190,7 @@ export function SiteFooter() {
             <div className="w-full space-y-4 lg:space-y-5 lg:w-auto lg:max-w-[171px] lg:flex-shrink-0">
               <h3 className="footer-section-title text-right">روابط مهمة</h3>
               <div className="space-y-3 lg:space-y-3.5" dir="rtl">
-                <Link href="#" className="footer-link flex items-center gap-[15px] hover:underline">
+                <Link href="/privacy-policy" className="footer-link flex items-center gap-[15px] hover:underline">
                   <Image
                     src="/emojis/check.svg"
                     alt=""
@@ -199,7 +200,7 @@ export function SiteFooter() {
                   />
                   <span className="flex-1">سياسة الخصوصية</span>
                 </Link>
-                <Link href="#" className="footer-link flex items-center gap-[15px] hover:underline">
+                <Link href="/licenses" className="footer-link flex items-center gap-[15px] hover:underline">
                   <Image
                     src="/emojis/check.svg"
                     alt=""
@@ -209,7 +210,7 @@ export function SiteFooter() {
                   />
                   <span className="flex-1">تراخيص الجمعية</span>
                 </Link>
-                <Link href="#" className="footer-link flex items-center gap-[15px] hover:underline">
+                <Link href="/terms" className="footer-link flex items-center gap-[15px] hover:underline">
                   <Image
                     src="/emojis/check.svg"
                     alt=""
@@ -219,7 +220,7 @@ export function SiteFooter() {
                   />
                   <span className="flex-1">شروط الاستخدام</span>
                 </Link>
-                <Link href="#" className="footer-link flex items-center gap-[15px] hover:underline">
+                <Link href="/donation-policy" className="footer-link flex items-center gap-[15px] hover:underline">
                   <Image
                     src="/emojis/check.svg"
                     alt=""

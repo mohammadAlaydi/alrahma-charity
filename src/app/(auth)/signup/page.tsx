@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/cn";
@@ -29,7 +30,10 @@ function PasswordToggle({ visible, onToggle }: { visible: boolean; onToggle: () 
   );
 }
 
+import { useRouter } from "next/navigation";
+
 export default function SignupPage() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const {
@@ -43,9 +47,41 @@ export default function SignupPage() {
   const password = watch("password");
   const hasInputs = Boolean(email && password);
 
-  const onSubmit = handleSubmit(async () => {
-    // Placeholder: call backend register endpoint then sign in.
-    dispatch(addToast({ type: "success", message: "تم إنشاء الحساب (تجريبي)" }));
+  const onSubmit = handleSubmit(async (values) => {
+    try {
+      // 1. Register User
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth/register`, {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Something went wrong");
+      }
+
+      dispatch(addToast({ type: "success", message: "تم إنشاء الحساب بنجاح" }));
+
+      // 2. Auto Login
+      const loginRes = await signIn("credentials", {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+      });
+
+      if (loginRes?.error) {
+        dispatch(addToast({ type: "error", message: "فشل تسجيل الدخول التلقائي" }));
+      } else {
+        // Redirect logic handled by session or manual push
+        router.push("/dashboard");
+        router.refresh();
+      }
+
+    } catch (error: any) {
+      dispatch(addToast({ type: "error", message: error.message }));
+    }
   });
 
   return (
@@ -101,12 +137,6 @@ export default function SignupPage() {
               <p className="text-[17px] leading-[17px] text-[#EE1D52]">{errors.password.message}</p>
             )}
           </div>
-          <Link
-            href="#"
-            className="block text-[20px] leading-[20px] text-[#111111] hover:underline"
-          >
-            نسيت كلمة المرور الخاصة بك
-          </Link>
         </div>
 
         {/* Submit button */}
@@ -115,8 +145,8 @@ export default function SignupPage() {
           variant={undefined}
           className={cn(
             "h-16 w-full rounded-[40px] text-[22px] leading-[22px] !text-[#FFFFFF] disabled:opacity-50 transition-colors",
-            hasInputs 
-              ? "!bg-[#007F5E] hover:!bg-[#005F4A]" 
+            hasInputs
+              ? "!bg-[#007F5E] hover:!bg-[#005F4A]"
               : "!bg-[rgba(0,0,0,0.25)] hover:!bg-[rgba(0,0,0,0.35)]"
           )}
           disabled={isSubmitting}
