@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ProjectCard } from "@/features/projects/components/ProjectCard";
 import { Project } from "@/features/projects/types";
+import { ProjectDonationSection } from "@/features/projects/components/project-details/ProjectDonationSection";
 
 // Blog article data
 const articleData = {
@@ -77,9 +78,9 @@ const surveyQuestions = [
 ];
 
 const relatedArticles = [
-  { id: "1", title: "أفضل الجمعيات الموثوقة لمساعدة أهل غزة", excerpt: "في خضم الأزمات المتتالية التي يعاني منها قطاع غزة، يتجدّد الأمل دائمًا بجهود الخيرين...", date: "20 نوفمبر 2025", category: "التصنيفات", image: "/figma/blog-article.jpg" },
-  { id: "2", title: "أفضل الجمعيات الموثوقة لمساعدة أهل غزة", excerpt: "في خضم الأزمات المتتالية التي يعاني منها قطاع غزة، يتجدّد الأمل دائمًا بجهود الخيرين...", date: "20 نوفمبر 2025", category: "التصنيفات", image: "/figma/blog-article.jpg" },
-  { id: "3", title: "أفضل الجمعيات الموثوقة لمساعدة أهل غزة", excerpt: "في خضم الأزمات المتتالية التي يعاني منها قطاع غزة، يتجدّد الأمل دائمًا بجهود الخيرين...", date: "20 نوفمبر 2025", category: "التصنيفات", image: "/figma/blog-article.jpg" },
+  { id: "1", title: "أفضل الجمعيات الموثوقة لمساعدة أهل غزة", excerpt: "في خضم الأزمات المتتالية التي يعاني منها قطاع غزة، يتجدّد الأمل دائمًا بجهود الخيرين...", date: "20 نوفمبر 2025", category: "التصنيفات", image: "/images/modawana.png" },
+  { id: "2", title: "أفضل الجمعيات الموثوقة لمساعدة أهل غزة", excerpt: "في خضم الأزمات المتتالية التي يعاني منها قطاع غزة، يتجدّد الأمل دائمًا بجهود الخيرين...", date: "20 نوفمبر 2025", category: "التصنيفات", image: "/images/modawana.png" },
+  { id: "3", title: "أفضل الجمعيات الموثوقة لمساعدة أهل غزة", excerpt: "في خضم الأزمات المتتالية التي يعاني منها قطاع غزة، يتجدّد الأمل دائمًا بجهود الخيرين...", date: "20 نوفمبر 2025", category: "التصنيفات", image: "/images/modawana.png" },
 ];
 
 const sampleProjects: Project[] = [
@@ -178,8 +179,6 @@ const charityProjectsSection = {
 };
 
 export default function BlogDetailPage() {
-  const [selectedAmount, setSelectedAmount] = useState<number | null>(150);
-  const [customAmount, setCustomAmount] = useState("");
   const [surveyAnswers, setSurveyAnswers] = useState<Record<string, string>>({
     q1: "نعم",
     q2: "نعم، ولن أنسى",
@@ -213,6 +212,11 @@ export default function BlogDetailPage() {
 
   const handleDonate = (project: Project) => {
     console.log("Donate to project:", project);
+  };
+
+  const handleDonateConnect = (data: { amount: number; isCustom: boolean; country: string | null }) => {
+    console.log("Donation data:", data);
+    // TODO: Handle donation submission
   };
 
   return (
@@ -670,48 +674,8 @@ export default function BlogDetailPage() {
             </div>
           </div>
 
-          {/* Donation Form */}
-            <div className="flex flex-col items-center gap-4 p-4 rounded-[20px] mb-15 relative overflow-hidden before:content-[''] before:absolute before:inset-0 before:bg-[#007f5e]/3 before:pointer-events-none">
-              <div className="flex items-center justify-center gap-2.5 relative z-10">
-              <h2 className="font-alexandria font-semibold text-2xl text-[#232325] m-0 leading-normal">كم تريد التبرع اليوم</h2>
-              <svg className="w-8 h-8" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" stroke="#007F5E" strokeWidth="2" fill="none"/><path d="M16 12v8M12 16h8" stroke="#007F5E" strokeWidth="2" strokeLinecap="round"/></svg>
-            </div>
-            <p className="font-alexandria font-normal text-base text-[#4f4f52] text-center leading-loose m-0 relative z-10">جميع التبرعات تؤثر بشكل مباشر على منظمتنا وتساعدنا على مواصلة مهمتنا</p>
-            <div className="bg-white border border-black/10 rounded-[20px] py-4 px-8 shadow-[0_5px_12px_rgba(0,127,94,0.07)] w-full max-w-148 relative z-10">
-              <div className="flex flex-col gap-6 px-4">
-                <div className="flex flex-col gap-4">
-                  <label className="font-alexandria font-normal text-lg text-[#0d0d0d]/70 tracking-[-0.18px]">حدد المبلغ</label>
-                  <div className="flex flex-col md:flex-row gap-4 justify-start">
-                    {[50, 100, 150].map((amount) => (
-                      <button key={amount} className={`w-full md:w-41.25 h-15 border rounded-[20px] bg-transparent font-alexandria font-normal text-base cursor-pointer transition-all duration-200 hover:border-[#007f5e] ${selectedAmount === amount ? 'bg-[#007f5e]/10 border-[#007f5e] text-[#0d0d0d]/70' : 'border-[#0d0d0d]/20 text-[#0d0d0d]/70'}`} onClick={() => setSelectedAmount(amount)}>$ {amount}</button>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-4">
-                  <label className="font-alexandria font-normal text-lg text-[#0d0d0d]/70 tracking-[-0.18px]">مبلغ مخصص</label>
-                  <div className="flex items-center h-15 border border-[#0d0d0d]/20 rounded-[20px] overflow-hidden">
-                    <input type="text" placeholder="أدخل القيمة" value={customAmount} onChange={(e) => { setCustomAmount(e.target.value); setSelectedAmount(null); }} className="flex-1 h-full border-none px-4 font-alexandria font-light text-base text-[#0d0d0d]/70 bg-transparent focus:outline-none placeholder:text-[#0d0d0d]/50" />
-                    <span className="px-4 font-alexandria font-light text-2xl text-[#0d0d0d]/70">$</span>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-4">
-                  <label className="font-alexandria font-normal text-lg text-[#0d0d0d]/70 tracking-[-0.18px]">الدولة</label>
-                  <div className="flex items-center justify-between h-13.5 border-[0.5px] border-black/20 rounded-[10px] py-2.5 px-5 cursor-pointer">
-                    <div className="flex items-center gap-2">
-                      <Image src="/images/flags/palestine.svg" alt="Palestine" width={34} height={24} className="rounded-xs" />
-                      <span className="font-alexandria font-normal text-base text-[#0d0d0d]/70 leading-normal">فلسطين</span>
-                    </div>
-                    <svg className="w-6 h-6" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="#0D0D0D" strokeWidth="2" strokeLinecap="round"/></svg>
-                  </div>
-                </div>
-                <button className="flex items-center justify-center gap-2.5 w-full bg-[#007f5e] text-white font-alexandria font-semibold text-base py-4 px-8 rounded-[35px] border-none cursor-pointer transition-all duration-300 hover:bg-[#006b4f] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,127,94,0.3)]">
-                  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-                  تبرع الان
-                </button>
-                <p className="font-alexandria font-normal text-base text-[#0d0d0d]/70 text-center leading-[1.6] m-0">معاملة مشفرة آمنة بتقنية SSL</p>
-              </div>
-            </div>
-          </div>
+          {/* Donation Section */}
+          <ProjectDonationSection onDonate={handleDonateConnect} />
 
           {/* Related Articles */}
           <div className="flex flex-col gap-8 pt-12.5">
@@ -724,8 +688,11 @@ export default function BlogDetailPage() {
                 <h2 className="font-alexandria font-semibold text-[30px] text-[#232325] m-0">مقالات</h2>
               </div>
               <button className="flex items-center justify-center gap-2.5 bg-[#007f5e] text-white font-alexandria font-bold text-base py-4 px-8 rounded-[35px] border-none cursor-pointer transition-all duration-300">
-                <svg className="w-5 h-5 rotate-90" viewBox="0 0 20 20"><path d="M10 4v12M16 10H4" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
                 مشاهدة المزيد
+                <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none">
+                  <path d="M15.3032 15.3033L4.99121 4.99133" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M4.6965 12.9463V4.69669H12.9461" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6.25">
@@ -737,15 +704,18 @@ export default function BlogDetailPage() {
                   </div>
                   <div className="flex flex-col gap-6 px-4 pb-8">
                     <div className="flex items-center justify-between font-alexandria font-normal text-sm text-[#0d0d0d] leading-5">
-                      <span>{article.date}</span>
-                      <span className="w-1.5 h-1.5 bg-[#0d0d0d] rounded-full"></span>
                       <span>في خضم الأزمات المتتالية التي</span>
+                      <span className="w-1.5 h-1.5 bg-[#0d0d0d] rounded-full"></span>
+                      <span>{article.date}</span>
                     </div>
                     <h3 className="font-alexandria font-normal text-lg text-[#0d0d0d] m-0 leading-[1.2] capitalize">{article.title}</h3>
                     <p className="font-alexandria font-normal text-sm text-[#0d0d0d]/70 m-0 leading-normal overflow-hidden line-clamp-3">{article.excerpt}</p>
-                    <div className="flex items-center gap-2.5 py-2 px-4 font-alexandria font-normal text-sm text-[#0d0d0d]/70 leading-normal">
+                    <div className="flex justify-end items-center gap-2.5 py-2 px-4 font-alexandria font-normal text-sm text-[#0d0d0d]/70 leading-normal">
                       <span>إقراء المزيد</span>
-                      <svg className="w-4 h-4 rotate-180" viewBox="0 0 16 16"><path d="M6 12l4-4-4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+                      <svg className="w-4 h-4 " viewBox="0 0 20 20" fill="none">
+                        <path d="M15.3032 15.3033L4.99121 4.99133" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M4.6965 12.9463V4.69669H12.9461" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                     </div>
                   </div>
                 </Link>
