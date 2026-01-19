@@ -1,27 +1,41 @@
+import { getServerSession } from "next-auth/next";
+import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "@/lib/auth.config";
+import { getToken } from "next-auth/jwt";
 
-import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
-import { authOptions } from "../../../../auth";
-// Actually, earlier I couldn't find authOptions. 
-// I should check where it is imported in [...nextauth]/route.ts
-// It was `import { authOptions } from "../../../../../auth";` which is `src/auth`.
-// But I failed to find `src/auth.ts`.
-// I will assume it exists or try to find it again. OR use `import { authOptions } from "@/auth"` if tsconfig paths work.
-
-// Let's defer exact import path for a second.
-// I will use a generic handler first.
-
-export async function GET() {
+export async function GET(req: NextRequest) {
     try {
+        // Try to get session using getServerSession
         const session = await getServerSession(authOptions);
+        
+        // Fallback: try to get token from JWT
+        const token = session ? null : await getToken({ 
+            req, 
+            secret: process.env.NEXTAUTH_SECRET 
+        });
 
-        if (!session || !session.user?.email) {
+        // Use session if available, otherwise construct from token
+        const userEmail = session?.user?.email || token?.email;
+        const accessToken = (session as any)?.access_token || token?.access_token;
+
+        if (!userEmail) {
+            console.error("Unauthorized: No session or email", { 
+                hasSession: !!session, 
+                hasToken: !!token,
+                hasEmail: !!userEmail 
+            });
             return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
         }
+        const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+        
+        const headers: HeadersInit = { 'Content-Type': 'application/json' };
+        if (accessToken) {
+            headers['Authorization'] = `Bearer ${accessToken}`;
+        }
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/users/profile?email=${session.user.email}`, {
+        const res = await fetch(`${baseUrl}/api/v1/users/profile`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers
         });
 
         const data = await res.json();
@@ -32,27 +46,47 @@ export async function GET() {
 
         return NextResponse.json(data);
     } catch (error) {
-        console.error("Error in /api/user:", error);
+        console.error("Error in /api/user GET:", error);
         return NextResponse.json({ success: false, message: "Internal Server Error" }, { status: 500 });
     }
 }
 
-export async function PATCH(req: Request) {
+export async function PATCH(req: NextRequest) {
     try {
+        // Try to get session using getServerSession
         const session = await getServerSession(authOptions);
-        if (!session || !session.user?.email) {
-            return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
-        }
+        
+        // Fallback: try to get token from JWT
+        const token = session ? null : await getToken({ 
+            req, 
+            secret: process.env.NEXTAUTH_SECRET 
+        });
 
         const body = await req.json();
 
-        // Ensure we update the correct user
-        const payload = { ...body, email: session.user.email };
+        // Use session if available, otherwise construct from token
+        const userEmail = session?.user?.email || token?.email;
+        const accessToken = (session as any)?.access_token || token?.access_token;
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/users/profile`, {
+        if (!userEmail) {
+            console.error("Unauthorized PATCH: No session or email", { 
+                hasSession: !!session, 
+                hasToken: !!token,
+                hasEmail: !!userEmail 
+            });
+            return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
+        }
+        const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+        
+        const headers: HeadersInit = { 'Content-Type': 'application/json' };
+        if (accessToken) {
+            headers['Authorization'] = `Bearer ${accessToken}`;
+        }
+
+        const res = await fetch(`${baseUrl}/api/v1/users/profile`, {
             method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+            headers,
+            body: JSON.stringify(body)
         });
 
         const data = await res.json();

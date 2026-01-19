@@ -1,13 +1,13 @@
+import { getServerSession } from "next-auth/next";
+import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "@/lib/auth.config";
 
-import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
-import { authOptions } from "../../../../../auth"; // Adjust path as needed
-
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     try {
         const session = await getServerSession(authOptions);
 
         if (!session || !session.user?.email) {
+            console.error("Unauthorized POST /api/user/image: No session or email");
             return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
         }
 
@@ -18,9 +18,17 @@ export async function POST(req: Request) {
             return NextResponse.json({ success: false, message: "Image required" }, { status: 400 });
         }
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/users/image`, {
+        const accessToken = (session as any).access_token;
+        const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+        
+        const headers: HeadersInit = { 'Content-Type': 'application/json' };
+        if (accessToken) {
+            headers['Authorization'] = `Bearer ${accessToken}`;
+        }
+
+        const res = await fetch(`${baseUrl}/api/v1/users/image`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers,
             body: JSON.stringify({ email: session.user.email, image })
         });
 

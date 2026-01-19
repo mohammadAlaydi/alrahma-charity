@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { updateUserDetails } from "@/store/slices/authSlice";
@@ -64,10 +64,16 @@ const getPhoneLengths = (phoneCode: string) => {
 };
 
 const Dashboard = () => {
-  const { data: session, status } = useSession({
-    required: true, // NextAuth will handle redirect
-  });
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const dispatch = useDispatch(); // Changed from useAppDispatch to useDispatch to match existing code
+  
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push('/?auth=login&callbackUrl=/dashboard');
+    }
+  }, [status, router]);
   
   // Get user from Redux to seed initial state and avoid layout shift
   const user = useSelector((state: RootState) => state.auth.user as any); // Type assertion for profile fields
@@ -127,7 +133,7 @@ const Dashboard = () => {
   }, [fetchUserData]);
 
   // Conditional returns after all hooks
-  if (status === "loading" || isLoadingRedux) { // Combined session loading with Redux loading
+  if (status === "loading" || isLoadingRedux || status === "unauthenticated") { // Combined session loading with Redux loading
     return (
       <div className="flex h-[50vh] items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />

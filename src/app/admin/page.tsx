@@ -12,18 +12,37 @@ import { motion } from "framer-motion";
 // ...
 
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Loader2 } from "lucide-react";
 
 // ...
 
 export default function AdminDashboardPage() {
-    const { data: session, status } = useSession({
-        required: true,
-        onUnauthenticated() {
-            redirect('/login');
-        },
-    });
+    const { data: session, status } = useSession();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            console.log('Admin page: User not authenticated, redirecting to login');
+            router.push('/?auth=login&callbackUrl=/admin');
+            return;
+        }
+
+        if (status === "authenticated" && session?.user) {
+            const user = session.user as any;
+            const isAdmin = user?.role === "admin" || user?.role === "ADMIN" || user?.isAdmin;
+            
+            console.log('Admin page: User authenticated. Role:', user?.role, 'isAdmin:', user?.isAdmin, 'Full user:', user);
+            
+            if (!isAdmin) {
+                console.log('Admin page: User is not admin, redirecting to dashboard');
+                router.push('/dashboard');
+            } else {
+                console.log('Admin page: User is admin, allowing access');
+            }
+        }
+    }, [status, session, router]);
 
     if (status === "loading") {
         return (
@@ -33,10 +52,24 @@ export default function AdminDashboardPage() {
         );
     }
 
+    if (status === "unauthenticated") {
+        return (
+            <div className="flex h-screen w-full items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin text-[#122F2A]" />
+            </div>
+        );
+    }
+
     // Role check
     const user = session?.user as any;
-    if (user?.role !== "ADMIN" && user?.role !== "admin" && !user?.isAdmin) {
-        redirect('/dashboard');
+    const isAdmin = user?.role === "admin" || user?.role === "ADMIN" || user?.isAdmin;
+    
+    if (!isAdmin) {
+        return (
+            <div className="flex h-screen w-full items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin text-[#122F2A]" />
+            </div>
+        );
     }
 
     return (

@@ -6,9 +6,11 @@ import { signOut, useSession } from "next-auth/react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { useLoginModal } from "@/contexts/LoginContext";
 
 export function TopNav() {
   const { status } = useSession();
+  const { openLoginModal } = useLoginModal();
 
   return (
     <header className="border-b border-zinc-200/70 bg-white/70 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/60">
@@ -48,13 +50,13 @@ export function TopNav() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           {status === "authenticated" ? (
-            <Button variant="ghost" size="sm" onClick={() => signOut({ callbackUrl: "/login" })}>
+            <Button variant="ghost" size="sm" onClick={() => signOut({ callbackUrl: "/" })}>
               تسجيل الخروج
             </Button>
           ) : (
-            <Link href="/login">
-              <Button size="sm">تسجيل الدخول</Button>
-            </Link>
+            <Button size="sm" onClick={openLoginModal}>
+              تسجيل الدخول
+            </Button>
           )}
         </div>
       </Container>

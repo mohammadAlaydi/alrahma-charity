@@ -7,7 +7,7 @@ export function ConditionalPageDecorations() {
     const pathname = usePathname();
 
     // Hide decorations on auth pages and dashboard pages
-    const isAuthPage = pathname?.startsWith("/login") || pathname?.startsWith("/signup");
+    const isAuthPage = pathname?.startsWith("/signup");
     const isAppPage =
         pathname?.startsWith("/dashboard") ||
         pathname?.startsWith("/profile") ||

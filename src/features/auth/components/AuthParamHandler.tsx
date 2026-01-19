@@ -26,9 +26,10 @@ export function AuthParamHandler() {
                 openForgotPasswordModal();
             }
 
-            // Clean up URL
+            // Clean up URL - but keep callbackUrl for redirect after login
             const newParams = new URLSearchParams(searchParams);
             newParams.delete("auth");
+            // Keep callbackUrl parameter - it will be used after successful login
             const newUrl = `${pathname}${newParams.toString() ? `?${newParams.toString()}` : ""}`;
 
             // Use replace to avoid adding to history stack

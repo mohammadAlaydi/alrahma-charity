@@ -31,9 +31,11 @@ function PasswordToggle({ visible, onToggle }: { visible: boolean; onToggle: () 
 }
 
 import { useRouter } from "next/navigation";
+import { useLoginModal } from "@/contexts/LoginContext";
 
 export default function SignupPage() {
   const router = useRouter();
+  const { openLoginModal } = useLoginModal();
   const dispatch = useAppDispatch();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const {
@@ -91,12 +93,16 @@ export default function SignupPage() {
       subtitle={
         <span className="font-regular text-[18px] leading-[20px] text-[#333333]">
           هل لديك حساب بالفعل؟{" "}
-          <Link
-            href="/login"
+          <button
+            type="button"
+            onClick={() => {
+              router.push('/');
+              setTimeout(() => openLoginModal(), 100);
+            }}
             className="font-regular text-[18px] leading-[20px] text-[#6155f5] hover:underline"
           >
             سجّل الدخول
-          </Link>
+          </button>
         </span>
       }
     >

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Eye, EyeOff, X } from "lucide-react";
 import { signIn, getSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -55,44 +55,132 @@ export function LoginModal({ open, onClose, onSwitchToSignUp, onSwitchToForgotPa
   const hasInputs = Boolean(email && password);
 
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const onSubmit = handleSubmit(async (values) => {
-    const res = await signIn("credentials", {
-      redirect: false,
-      email: values.email,
-      password: values.password,
-    });
+    try {
+      // Get callbackUrl before closing modal (in case URL changes)
+      const callbackUrl = typeof window !== 'undefined' 
+        ? new URLSearchParams(window.location.search).get('callbackUrl')
+        : searchParams?.get('callbackUrl') || null;
 
-    if (res?.error) {
-      dispatch(addToast({ type: "error", message: "بيانات الدخول غير صحيحة" }));
-    } else if (res?.ok) {
-      onClose();
+      console.log('LoginModal: Starting login process for:', values.email);
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: values.email.trim().toLowerCase(),
+        password: values.password,
+      });
+
+      console.log('LoginModal: signIn response:', { ok: res?.ok, error: res?.error, url: res?.url });
+
+      if (res?.error) {
+        console.error('LoginModal: Login error:', res.error);
+        dispatch(addToast({ type: "error", message: "بيانات الدخول غير صحيحة" }));
+        return;
+      } 
       
-      // Wait for session to be established and cookie to be set
-      // Poll for session with increasing delays to ensure cookie is set
-      let session = null;
-      let attempts = 0;
-      const maxAttempts = 15;
+      if (res?.ok) {
+        console.log('LoginModal: Login successful, waiting for session...');
+        onClose();
+        
+        // Wait for session to be established and cookie to be set
+        // Poll for session with increasing delays to ensure cookie is set
+        let session = null;
+        let attempts = 0;
+        const maxAttempts = 20;
+        
+        while (!session && attempts < maxAttempts) {
+          await new Promise(resolve => setTimeout(resolve, 150 + (attempts * 50)));
+          session = await getSession();
+          attempts++;
+          console.log(`LoginModal: Session check attempt ${attempts}/${maxAttempts}:`, session ? 'Found' : 'Not found');
+          if (session) {
+            console.log('LoginModal: Session established:', {
+              user: session.user,
+              hasAccessToken: !!(session as any).access_token
+            });
+            break;
+          }
+        }
+        
+        if (!session) {
+          console.error('LoginModal: Session not established after login after', maxAttempts, 'attempts');
+          dispatch(addToast({ type: "error", message: "فشل في إنشاء الجلسة. يرجى المحاولة مرة أخرى" }));
+          return;
+        }
+
+      // Use the saved callbackUrl or get it from current URL
+      const finalCallbackUrl = callbackUrl || 
+        (typeof window !== 'undefined' 
+          ? new URLSearchParams(window.location.search).get('callbackUrl')
+          : null);
       
-      while (!session && attempts < maxAttempts) {
-        await new Promise(resolve => setTimeout(resolve, 100 + (attempts * 50)));
-        session = await getSession();
-        attempts++;
+      // Determine redirect URL based on callbackUrl or user role
+      let redirectUrl = finalCallbackUrl || "/dashboard";
+      
+      // If no callbackUrl, determine based on user role
+      if (!finalCallbackUrl) {
+        const user = session?.user as any;
+        redirectUrl = (user?.role === "admin" || user?.role === "ADMIN" || user?.isAdmin) 
+          ? "/admin" 
+          : "/dashboard";
       }
-
-      // Even if session isn't ready, redirect - the middleware will check the cookie
-      const user = session?.user as any;
-      const redirectUrl = (user?.role === "admin" || user?.role === "ADMIN" || user?.isAdmin) 
-        ? "/admin" 
-        : "/dashboard";
+      
+      // Validate redirectUrl - ensure it's a safe internal URL
+      // Only allow paths that start with / and don't contain protocol
+      if (!redirectUrl || !redirectUrl.startsWith('/') || redirectUrl.includes('://')) {
+        const user = session?.user as any;
+        redirectUrl = (user?.role === "admin" || user?.role === "ADMIN" || user?.isAdmin) 
+          ? "/admin" 
+          : "/dashboard";
+      }
+      
+      // Additional check: if callbackUrl is /admin, verify user is actually admin
+      if (finalCallbackUrl === '/admin' || redirectUrl === '/admin') {
+        const user = session?.user as any;
+        const isAdmin = user?.role === "admin" || user?.role === "ADMIN" || user?.isAdmin;
+        if (!isAdmin) {
+          console.log('User tried to access admin but is not admin. Redirecting to dashboard.');
+          redirectUrl = "/dashboard";
+        } else {
+          console.log('User is admin, allowing access to admin page.');
+        }
+      }
+      
+      console.log('Redirecting to:', redirectUrl, 'from callbackUrl:', finalCallbackUrl, 'User role:', session?.user);
       
       // Use window.location for full page reload to ensure middleware sees the session cookie
       // This forces a complete page reload which allows the middleware to properly check cookies
       if (typeof window !== "undefined") {
-        // Small delay to ensure cookie is written
-        await new Promise(resolve => setTimeout(resolve, 100));
+        // Longer delay to ensure cookie is written and session is fully established
+        // NextAuth needs time to write the cookie to the browser
+        console.log('Waiting for cookie to be written...');
+        await new Promise(resolve => setTimeout(resolve, 800));
+        
+        // Verify session one more time before redirect
+        const finalSession = await getSession();
+        console.log('Final session check before redirect:', {
+          hasSession: !!finalSession,
+          user: finalSession?.user,
+          hasAccessToken: !!(finalSession as any)?.access_token
+        });
+        
+        // Additional check: verify cookie exists
+        if (typeof document !== 'undefined') {
+          const allCookies = document.cookie.split(';').map(c => c.trim());
+          const sessionCookie = allCookies.find(c => c.includes('session-token') || c.includes('next-auth'));
+          console.log('Cookies in browser:', allCookies.length, 'Session cookie found:', !!sessionCookie);
+        }
+        
+        console.log('Navigating to:', redirectUrl);
+        // Force a full page reload to ensure middleware can read the cookie
+        // Use href (not replace) to ensure proper navigation
         window.location.href = redirectUrl;
       }
+      }
+    } catch (error) {
+      console.error('Login submission error:', error);
+      dispatch(addToast({ type: "error", message: "حدث خطأ أثناء تسجيل الدخول" }));
     }
   });
 
